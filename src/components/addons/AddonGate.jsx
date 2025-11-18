@@ -43,9 +43,9 @@ const AddonGate = ({
     return <Navigate to="/login" replace state={{ from: location }} />;
   }
 
-  // if (!hasAccess) {
-  //   return <Navigate to={fallbackPath} replace />;
-  // }
+  if (!hasAccess) {
+    return <Navigate to={fallbackPath} replace />;
+  }
 
   return <>{children}</>;
 };
