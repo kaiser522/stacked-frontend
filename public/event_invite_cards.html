@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Invite Card Designer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            border: 2px solid #f093fb;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .invite-icon {
+            width: 60px;
+            height: 60px;
+            background: #f093fb;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 30px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .controls-panel {
+            background: rgba(58, 74, 92, 0.9);
+            border: 2px solid #f093fb;
+            border-radius: 20px;
+            padding: 25px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .panel-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #f093fb;
+            text-align: center;
+        }
+
+        .control-section {
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f093fb;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f093fb;
+            margin-bottom: 15px;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #a0b4c3;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .control-group input, 
+        .control-group textarea, 
+        .control-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #5a6a7c;
+            border-radius: 5px;
+            background: #2c3e50;
+            color: white;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .control-group input:focus, 
+        .control-group textarea:focus, 
+        .control-group select:focus {
+            outline: none;
+            border-color: #f093fb;
+        }
+
+        .control-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .color-option.active {
+            border-color: #f093fb;
+        }
+
+        .download-btn {
+            width: 100%;
+            padding: 12px;
+            background: #f093fb;
+            color: #2c3e50;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .download-btn:hover {
+            background: #e085d8;
+            transform: translateY(-2px);
+        }
+
+        .preview-container {
+            background: white;
+            border-radius: 15px;
+            color: #333;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            min-height: 600px;
+        }
+
+        .invite-card {
+            width: 500px;
+            height: 650px;
+            background: white;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            font-family: 'Georgia', serif;
+            transform: scale(0.85);
+        }
+
+        .card-header {
+            padding: 40px 30px 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .event-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .event-subtitle {
+            font-size: 16px;
+            opacity: 0.95;
+            font-style: italic;
+        }
+
+        .decorative-element {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 36px;
+            opacity: 0.7;
+        }
+
+        .card-body {
+            padding: 40px 30px;
+            background: white;
+            flex: 1;
+        }
+
+        .event-details {
+            margin-bottom: 30px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .detail-icon {
+            width: 24px;
+            font-size: 18px;
+            margin-right: 15px;
+            color: #f093fb;
+            text-align: center;
+        }
+
+        .detail-text {
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .event-description {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #f093fb;
+            margin: 25px 0;
+            line-height: 1.6;
+            color: #555;
+            font-size: 15px;
+        }
+
+        .rsvp-section {
+            background: linear-gradient(135deg, #f093fb, #667eea);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .rsvp-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .rsvp-details {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .card-footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .agent-info {
+            margin-bottom: 5px;
+        }
+
+        .agent-name {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .agent-contact {
+            opacity: 0.9;
+        }
+
+        .tag {
+            background: rgba(240, 147, 251, 0.2);
+            color: #f093fb;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(240, 147, 251, 0.3);
+            display: inline-block;
+            margin: 2px;
+        }
+
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .controls-panel {
+                position: static;
+            }
+            
+            .invite-card {
+                transform: scale(0.75);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .invite-card {
+                transform: scale(0.6);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>
+            <div class="invite-icon">🎉</div>
+            Event Invite Card Designer
+        </h1>
+        <p>Create professional event invitations for open houses, client events, and community gatherings.</p>
+        <div style="margin-top: 20px;">
+            <span class="tag">client events</span>
+            <span class="tag">open houses</span>
+            <span class="tag">professional invites</span>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="controls-panel">
+            <h3 class="panel-title">Customize Event Invite</h3>
+            
+            <!-- Event Information -->
+            <div class="control-section">
+                <div class="section-title">Event Details</div>
+                
+                <div class="control-group">
+                    <label>Event Title</label>
+                    <input type="text" id="eventTitle" value="Exclusive Open House" oninput="updateCard()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Event Subtitle</label>
+                    <input type="text" id="eventSubtitle" value="Join us for a private showing" oninput="updateCard()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Event Type</label>
+                    <select id="eventType" onchange="updateEventType()">
+                        <option value="open-house">Open House</option>
+                        <option value="client-appreciation">Client Appreciation Event</option>
+                        <option value="market-update">Market Update Seminar</option>
+                        <option value="homebuyer-workshop">First-Time Buyer Workshop</option>
+                        <option value="community-event">Community Event</option>
+                        <option value="listing-launch">New Listing Launch</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label>Date</label>
+                    <input type="text" id="eventDate" value="Saturday, December 14th" oninput="updateCard()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Time</label>
+                    <input type="text" id="eventTime" value="2:00 PM - 4:00 PM" oninput="updateCard()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Location</label>
+                    <textarea id="eventLocation" oninput="updateCard()">123 Oak Street
+Beverly Hills, CA 90210</textarea>
+                </div>
+                
+                <div class="control-group">
+                    <label>Event Description</label>
+                    <textarea id="eventDescription" oninput="updateCard()">Don't miss this opportunity to tour this stunning 4-bedroom home in a prime location. Light refreshments will be served.</textarea>
+                </div>
+            </div>
+
+            <!-- RSVP Information -->
+            <div class="control-section">
+                <div class="section-title">RSVP Details</div>
+                
+                <div class="control-group">
+                    <label>RSVP Text</label>
+                    <input type="text" id="rsvpText" value="RSVP Required" oninput="updateCard()">
+                </div>
+                
+                <div class="control-group">
+                    <label>RSVP Instructions</label>
+                    <input type="text" id="rsvpInstructions" value="Call or text to reserve your spot" oninput="updateCard()">
+                </div>
+            </div>
+
+            <!-- Agent Information -->
+            <div class="control-section">
+                <div class="section-title">Your Information</div>
+                
+                <div class="control-group">
+                    <label>Agent Name</label>
+                    <input type="text" id="agentName" value="Sarah Johnson" oninput="updateCard()">
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <div class="control-group" style="flex: 1;">
+                        <label>Phone</label>
+                        <input type="text" id="agentPhone" value="(555) 123-4567" oninput="updateCard()">
+                    </div>
+                    <div class="control-group" style="flex: 1;">
+                        <label>Email</label>
+                        <input type="text" id="agentEmail" value="sarah@realty.com" oninput="updateCard()">
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Brokerage</label>
+                    <input type="text" id="brokerage" value="Premium Real Estate" oninput="updateCard()">
+                </div>
+            </div>
+
+            <!-- Design Options -->
+            <div class="control-section">
+                <div class="section-title">Design Options</div>
+                
+                <div class="control-group">
+                    <label>Header Color Theme</label>
+                    <div class="color-picker">
+                        <div class="color-option active" style="background: linear-gradient(135deg, #667eea, #764ba2)" data-gradient="linear-gradient(135deg, #667eea, #764ba2)" onclick="changeHeaderColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #f093fb, #f5576c)" data-gradient="linear-gradient(135deg, #f093fb, #f5576c)" onclick="changeHeaderColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #4facfe, #00f2fe)" data-gradient="linear-gradient(135deg, #4facfe, #00f2fe)" onclick="changeHeaderColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #43e97b, #38f9d7)" data-gradient="linear-gradient(135deg, #43e97b, #38f9d7)" onclick="changeHeaderColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #fa709a, #fee140)" data-gradient="linear-gradient(135deg, #fa709a, #fee140)" onclick="changeHeaderColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #a8edea, #fed6e3)" data-gradient="linear-gradient(135deg, #a8edea, #fed6e3)" onclick="changeHeaderColor(this)"></div>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Event Icon</label>
+                    <select id="eventIcon" onchange="updateCard()">
+                        <option value="🏠">🏠 House</option>
+                        <option value="🎉">🎉 Party</option>
+                        <option value="📈">📈 Market/Business</option>
+                        <option value="🎓">🎓 Education/Workshop</option>
+                        <option value="🌟">🌟 Special Event</option>
+                        <option value="🍾">🍾 Celebration</option>
+                        <option value="🔑">🔑 New Listing</option>
+                        <option value="☕">☕ Coffee/Casual</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="download-btn" onclick="downloadCard()">Download Event Invite</button>
+            <button class="download-btn" onclick="printCard()">Print Invite</button>
+        </div>
+
+        <div class="preview-container">
+            <div class="invite-card" id="inviteCard">
+                <div class="card-header" id="cardHeader">
+                    <div class="decorative-element" id="eventIcon">🏠</div>
+                    <div class="event-title" id="displayEventTitle">Exclusive Open House</div>
+                    <div class="event-subtitle" id="displayEventSubtitle">Join us for a private showing</div>
+                </div>
+
+                <div class="card-body">
+                    <div class="event-details">
+                        <div class="detail-item">
+                            <div class="detail-icon">📅</div>
+                            <div class="detail-text" id="displayEventDate">Saturday, December 14th</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-icon">⏰</div>
+                            <div class="detail-text" id="displayEventTime">2:00 PM - 4:00 PM</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-icon">📍</div>
+                            <div class="detail-text" id="displayEventLocation">123 Oak Street<br>Beverly Hills, CA 90210</div>
+                        </div>
+                    </div>
+
+                    <div class="event-description" id="displayEventDescription">
+                        Don't miss this opportunity to tour this stunning 4-bedroom home in a prime location. Light refreshments will be served.
+                    </div>
+
+                    <div class="rsvp-section">
+                        <div class="rsvp-text" id="displayRsvpText">RSVP Required</div>
+                        <div class="rsvp-details" id="displayRsvpInstructions">Call or text to reserve your spot</div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="agent-info">
+                        <div class="agent-name" id="displayAgentName">Sarah Johnson</div>
+                        <div class="agent-contact">Licensed Real Estate Professional</div>
+                        <div class="agent-contact">📞 <span id="displayAgentPhone">(555) 123-4567</span> | ✉️ <span id="displayAgentEmail">sarah@realty.com</span></div>
+                        <div class="agent-contact" id="displayBrokerage">Premium Real Estate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateCard() {
+            document.getElementById('displayEventTitle').textContent = document.getElementById('eventTitle').value;
+            document.getElementById('displayEventSubtitle').textContent = document.getElementById('eventSubtitle').value;
+            document.getElementById('displayEventDate').textContent = document.getElementById('eventDate').value;
+            document.getElementById('displayEventTime').textContent = document.getElementById('eventTime').value;
+            document.getElementById('displayEventLocation').innerHTML = document.getElementById('eventLocation').value.replace(/\n/g, '<br>');
+            document.getElementById('displayEventDescription').textContent = document.getElementById('eventDescription').value;
+            document.getElementById('displayRsvpText').textContent = document.getElementById('rsvpText').value;
+            document.getElementById('displayRsvpInstructions').textContent = document.getElementById('rsvpInstructions').value;
+            document.getElementById('displayAgentName').textContent = document.getElementById('agentName').value;
+            document.getElementById('displayAgentPhone').textContent = document.getElementById('agentPhone').value;
+            document.getElementById('displayAgentEmail').textContent = document.getElementById('agentEmail').value;
+            document.getElementById('displayBrokerage').textContent = document.getElementById('brokerage').value;
+            document.getElementById('eventIcon').textContent = document.getElementById('eventIcon').value;
+        }
+
+        function updateEventType() {
+            const eventType = document.getElementById('eventType').value;
+            
+            const presets = {
+                'open-house': {
+                    title: 'Exclusive Open House',
+                    subtitle: 'Join us for a private showing',
+                    description: 'Don\'t miss this opportunity to tour this stunning 4-bedroom home in a prime location. Light refreshments will be served.',
+                    rsvp: 'RSVP Recommended',
+                    instructions: 'Call or text for more information',
+                    icon: '🏠'
+                },
+                'client-appreciation': {
+                    title: 'Client Appreciation Event',
+                    subtitle: 'Thank you for your trust and referrals',
+                    description: 'Join us for an evening of appreciation with food, drinks, and networking. Bring your friends and family!',
+                    rsvp: 'RSVP Required',
+                    instructions: 'Please respond by the date above',
+                    icon: '🎉'
+                },
+                'market-update': {
+                    title: 'Market Update Seminar',
+                    subtitle: 'Current trends and opportunities',
+                    description: 'Get the latest insights on local real estate trends, market conditions, and investment opportunities. Q&A session included.',
+                    rsvp: 'RSVP Required',
+                    instructions: 'Limited seating - reserve your spot',
+                    icon: '📈'
+                },
+                'homebuyer-workshop': {
+                    title: 'First-Time Buyer Workshop',
+                    subtitle: 'Your guide to homeownership',
+                    description: 'Learn about the home buying process, financing options, and tips for first-time buyers. Free workshop with refreshments.',
+                    rsvp: 'RSVP Required',
+                    instructions: 'Free event - please register',
+                    icon: '🎓'
+                },
+                'community-event': {
+                    title: 'Community Gathering',
+                    subtitle: 'Neighbors helping neighbors',
+                    description: 'Join your local real estate expert and neighbors for an informal community event. Great food and conversation!',
+                    rsvp: 'RSVP Appreciated',
+                    instructions: 'Let us know you\'re coming',
+                    icon: '🌟'
+                },
+                'listing-launch': {
+                    title: 'New Listing Launch',
+                    subtitle: 'Be the first to see this incredible home',
+                    description: 'Exclusive preview of our newest listing before it hits the market. Professional photography and virtual tour available.',
+                    rsvp: 'RSVP Required',
+                    instructions: 'Exclusive invitation - limited spots',
+                    icon: '🔑'
+                }
+            };
+
+            const preset = presets[eventType];
+            if (preset) {
+                document.getElementById('eventTitle').value = preset.title;
+                document.getElementById('eventSubtitle').value = preset.subtitle;
+                document.getElementById('eventDescription').value = preset.description;
+                document.getElementById('rsvpText').value = preset.rsvp;
+                document.getElementById('rsvpInstructions').value = preset.instructions;
+                document.getElementById('eventIcon').value = preset.icon;
+                updateCard();
+            }
+        }
+
+        function changeHeaderColor(element) {
+            element.parentNode.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            element.classList.add('active');
+            
+            const gradient = element.getAttribute('data-gradient');
+            document.getElementById('cardHeader').style.background = gradient;
+        }
+
+        function downloadCard() {
+            const cardContent = document.getElementById('inviteCard').outerHTML;
+            
+            const printHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Invitation</title>
+    <style>
+        @page {
+            size: 5in 7in;
+            margin: 0.25in;
+        }
+        
+        body { 
+            font-family: 'Georgia', serif; 
+            margin: 0; 
+            padding: 0; 
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .invite-card {
+            width: 4.5in;
+            height: 6.5in;
+            background: white;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            overflow: hidden;
+            font-family: 'Georgia', serif;
+            border: 1px solid #ddd;
+        }
+
+        .card-header {
+            padding: 40px 30px 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .event-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .event-subtitle {
+            font-size: 16px;
+            opacity: 0.95;
+            font-style: italic;
+        }
+
+        .decorative-element {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 36px;
+            opacity: 0.7;
+        }
+
+        .card-body {
+            padding: 40px 30px;
+            background: white;
+            flex: 1;
+        }
+
+        .event-details {
+            margin-bottom: 30px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .detail-icon {
+            width: 24px;
+            font-size: 18px;
+            margin-right: 15px;
+            color: #f093fb;
+            text-align: center;
+        }
+
+        .detail-text {
+            color: #2c3e50;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .event-description {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #f093fb;
+            margin: 25px 0;
+            line-height: 1.6;
+            color: #555;
+            font-size: 15px;
+        }
+
+        .rsvp-section {
+            background: linear-gradient(135deg, #f093fb, #667eea);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .rsvp-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .rsvp-details {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .card-footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .agent-info {
+            margin-bottom: 5px;
+        }
+
+        .agent-name {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .agent-contact {
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        @media print {
+            body { 
+                background: white; 
+                margin: 0;
+            }
+            .invite-card { 
+                box-shadow: none; 
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    ${cardContent}
+</body>
+</html>`;
+
+            const blob = new Blob([printHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'event-invitation.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function printCard() {
+            const printWindow = window.open('', '_blank');
+            const cardContent = document.getElementById('inviteCard').outerHTML;
+            
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Print Event Invitation</title>
+                    <style>
+                        body { font-family: 'Georgia', serif; margin: 20px; }
+                        .invite-card {
+                            width: 5in; height: 7in; background: white; border-radius: 20px;
+                            box-shadow: 0 4px 15px rgba(0,0,0,0.2); overflow: hidden; border: 1px solid #ddd;
+                            margin: 0 auto; font-family: 'Georgia', serif;
+                        }
+                        .card-header { padding: 40px 30px 30px; text-align: center; color: white; position: relative;
+                            background: linear-gradient(135deg, #667eea, #764ba2); height: 200px;
+                            display: flex; flex-direction: column; justify-content: center;
+                        }
+                        .event-title { font-size: 24px; margin-bottom: 10px; font-weight: 700; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+                        .event-subtitle { font-size: 16px; opacity: 0.95; font-style: italic; }
+                        .decorative-element { position: absolute; top: 20px; right: 20px; font-size: 36px; opacity: 0.7; }
+                        .card-body { padding: 40px 30px; background: white; flex: 1; }
+                        .event-details { margin-bottom: 30px; }
+                        .detail-item { display: flex; align-items: flex-start; margin-bottom: 15px; font-size: 16px; }
+                        .detail-icon { width: 24px; font-size: 18px; margin-right: 15px; color: #f093fb; text-align: center; }
+                        .detail-text { color: #2c3e50; font-weight: 500; line-height: 1.4; }
+                        .event-description { background: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 4px solid #f093fb;
+                            margin: 25px 0; line-height: 1.6; color: #555; font-size: 15px;
+                        }
+                        .rsvp-section { background: linear-gradient(135deg, #f093fb, #667eea); color: white; padding: 20px;
+                            border-radius: 10px; text-align: center; margin: 20px 0;
+                        }
+                        .rsvp-text { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+                        .rsvp-details { font-size: 14px; opacity: 0.9; }
+                        .card-footer { background: #2c3e50; color: white; padding: 20px 30px; text-align: center; font-size: 14px; }
+                        .agent-info { margin-bottom: 5px; }
+                        .agent-name { font-weight: bold; font-size: 16px; margin-bottom: 5px; }
+                        .agent-contact { opacity: 0.9; line-height: 1.4; }
+                    </style>
+                </head>
+                <body>
+                    ${cardContent}
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        // Initialize card on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCard();
+        });
+    </script>
+</body>
+</html>

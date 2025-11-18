@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 2: Database Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #FF6B35;
+            border-radius: 8px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        h1 {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .module-badge {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #B0C4DE;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .progress-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 5px;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #00D4AA, #00B894);
+            height: 25px;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #00D4AA;
+        }
+        
+        h3 {
+            font-size: 1.8em;
+            margin: 40px 0 20px 0;
+            color: #FFD700;
+        }
+        
+        h4 {
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+            color: #FFD700;
+        }
+        
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #E6F3FF;
+        }
+        
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .highlight-box h3 {
+            color: #FFD700;
+            margin-top: 0;
+        }
+        
+        .example-box {
+            background: rgba(0, 212, 170, 0.2);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .example-box h4 {
+            color: #00D4AA;
+            margin-top: 0;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #FF6B35, #E55533);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 40px 0;
+        }
+        
+        .quiz-section {
+            background: linear-gradient(135deg, #4A5568, #2D3748);
+            border: 3px solid #00D4AA;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 50px 0;
+        }
+        
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .quiz-header h3 {
+            color: #00D4AA;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .question {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .question h4 {
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .options li {
+            background: rgba(255, 255, 255, 0.05);
+            margin: 10px 0;
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .options li:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #00D4AA;
+        }
+        
+        .options li.selected {
+            background: rgba(0, 212, 170, 0.3);
+            border-color: #00D4AA;
+        }
+        
+        .options li.correct {
+            background: rgba(0, 212, 170, 0.5);
+            border-color: #00D4AA;
+        }
+        
+        .options li.incorrect {
+            background: rgba(255, 107, 53, 0.5);
+            border-color: #FF6B35;
+        }
+        
+        .quiz-button {
+            background: linear-gradient(135deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .quiz-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .quiz-results {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .comparison-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #00D4AA;
+        }
+        
+        .crm-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .crm-table th,
+        .crm-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .crm-table th {
+            background: rgba(0, 212, 170, 0.3);
+            color: #00D4AA;
+            font-weight: bold;
+        }
+        
+        .automation-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #00D4AA;
+        }
+        
+        .automation-card h4 {
+            color: #00D4AA;
+            margin-top: 0;
+        }
+        
+        ul {
+            margin: 15px 0 15px 20px;
+            color: #E6F3FF;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .case-study {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid #FFD700;
+        }
+        
+        .case-study h4 {
+            color: #FFD700;
+            margin-top: 0;
+        }
+        
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            color: #00D4AA;
+            font-size: 1.1em;
+            z-index: 1000;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 50px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+        
+        .nav-button {
+            background: linear-gradient(135deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .nav-button.back {
+            background: linear-gradient(135deg, #6B7280, #4B5563);
+        }
+        
+        .brain-teaser {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .brain-teaser h3 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .teaser-question {
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            color: #f3e8ff;
+        }
+        
+        .teaser-input {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            color: white;
+            width: 300px;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .teaser-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .teaser-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .teaser-btn:hover {
+            background: white;
+            color: #8b5cf6;
+        }
+        
+        .teaser-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .teaser-result.show {
+            display: block;
+        }
+        
+        .teaser-result.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border: 2px solid #22c55e;
+            color: #22c55e;
+        }
+        
+        .teaser-result.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #ef4444;
+            color: #ef4444;
+        }
+        
+        .tag-system {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .tag-example {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid #FFD700;
+        }
+        
+        .tag-name {
+            background: #FFD700;
+            color: #1e3a5f;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 900px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .timer {
+                position: static;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="timer" id="timer">Estimated Time: 40 minutes</div>
+    
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo">📊</div>
+            <h1>Database Management</h1>
+            <div class="module-badge">Module 2 of 6</div>
+            <p class="subtitle">Organize contacts in your CRM effectively, create smart segmentation strategies, and build automated workflow systems for consistent SOI nurturing.</p>
+        </div>
+
+        <!-- Progress Tracker -->
+        <div class="section">
+            <h2>Your Progress</h2>
+            <div class="progress-container">
+                <div class="progress-fill" id="progressBar">0% Complete</div>
+            </div>
+            <p style="text-align: center; margin-top: 10px;">Complete each section and quiz to progress</p>
+        </div>
+
+        <!-- Section 1: CRM Setup Strategy -->
+        <div class="section" data-section="1">
+            <h2>Section 1: CRM Setup Strategy for SOI Success</h2>
+            <p><strong>Estimated Reading Time: 10 minutes</strong></p>
+            
+            <p>Your CRM is the engine that powers your SOI success. Most agents treat their CRM as a simple contact list, missing the opportunity to create a sophisticated relationship management system that generates consistent referrals.</p>
+            
+            <div class="highlight-box">
+                <h3>The SOI-Focused CRM Philosophy</h3>
+                <p>Your CRM should be organized around relationship strength and business potential, not just chronological contact entry. Every contact should have a clear path for nurturing and a system for tracking relationship quality over time.</p>
+            </div>
+            
+            <h3>Essential CRM Features for SOI Management</h3>
+            <p>Not all CRMs are created equal for relationship management. Look for these crucial features:</p>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card" style="border-color: #00D4AA;">
+                    <h4 style="color: #00D4AA;">Must-Have Features</h4>
+                    <ul>
+                        <li>Custom fields for SOI data</li>
+                        <li>Tagging and segmentation tools</li>
+                        <li>Automated drip campaigns</li>
+                        <li>Activity and interaction tracking</li>
+                        <li>Birthday and anniversary reminders</li>
+                        <li>Notes and conversation history</li>
+                        <li>Integration with email and social media</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-card" style="border-color: #FFD700;">
+                    <h4 style="color: #FFD700;">Nice-to-Have Features</h4>
+                    <ul>
+                        <li>Social media monitoring</li>
+                        <li>Task automation workflows</li>
+                        <li>Referral tracking and attribution</li>
+                        <li>Pipeline management</li>
+                        <li>Mobile app synchronization</li>
+                        <li>Reporting and analytics</li>
+                        <li>Integration with other tools</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>STACKED CRM SOI Configuration</h3>
+            <p>Here's how to optimize STACKED CRM specifically for SOI management:</p>
+            
+            <table class="crm-table">
+                <thead>
+                    <tr>
+                        <th>Configuration Area</th>
+                        <th>Setup Required</th>
+                        <th>SOI Benefit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Custom Fields</td>
+                        <td>SOI Tier, Relationship Type, Referral Potential</td>
+                        <td>Quick categorization and prioritization</td>
+                    </tr>
+                    <tr>
+                        <td>Tags System</td>
+                        <td>Create 15-20 relationship and interest tags</td>
+                        <td>Smart segmentation for targeted outreach</td>
+                    </tr>
+                    <tr>
+                        <td>Pipeline Stages</td>
+                        <td>SOI nurturing stages vs transaction stages</td>
+                        <td>Track relationship development progress</td>
+                    </tr>
+                    <tr>
+                        <td>Email Templates</td>
+                        <td>SOI-specific message templates</td>
+                        <td>Consistent, personalized communication</td>
+                    </tr>
+                    <tr>
+                        <td>Automation Rules</td>
+                        <td>Birthday alerts, follow-up reminders</td>
+                        <td>Never miss important touchpoints</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="warning-box">
+                Common Mistake: Agents import contacts without any organization strategy, creating a chaotic database that becomes harder to manage over time.
+            </div>
+        </div>
+
+        <!-- Quiz 1 -->
+        <div class="quiz-section" data-quiz="1">
+            <div class="quiz-header">
+                <h3>Section 1 Quiz</h3>
+                <p>Test your understanding of CRM setup strategy</p>
+            </div>
+            
+            <div class="question" data-question="1">
+                <h4>1. What should be the primary organizing principle for an SOI-focused CRM?</h4>
+                <ul class="options">
+                    <li data-answer="a">Chronological order of contact entry</li>
+                    <li data-answer="b">Alphabetical sorting by last name</li>
+                    <li data-answer="c">Relationship strength and business potential</li>
+                    <li data-answer="d">Geographic location</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="2">
+                <h4>2. Which CRM feature is most essential for SOI management?</h4>
+                <ul class="options">
+                    <li data-answer="a">Advanced reporting capabilities</li>
+                    <li data-answer="b">Tagging and segmentation tools</li>
+                    <li data-answer="c">Integration with accounting software</li>
+                    <li data-answer="d">Video calling features</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="3">
+                <h4>3. What is the biggest mistake agents make when setting up their CRM?</h4>
+                <ul class="options">
+                    <li data-answer="a">Choosing expensive software</li>
+                    <li data-answer="b">Importing contacts without organization strategy</li>
+                    <li data-answer="c">Using too many custom fields</li>
+                    <li data-answer="d">Setting up too many email templates</li>
+                </ul>
+            </div>
+            
+            <button class="quiz-button" onclick="checkQuiz(1)">Check Answers</button>
+            <div class="quiz-results" id="quiz1-results"></div>
+        </div>
+
+        <!-- Section 2: Data Import and Organization -->
+        <div class="section" data-section="2">
+            <h2>Section 2: Data Import and Organization Systems</h2>
+            <p><strong>Estimated Reading Time: 12 minutes</strong></p>
+            
+            <p>Importing your SOI audit results into your CRM requires a systematic approach. The goal is to create a clean, organized database that becomes more valuable over time, not more cluttered.</p>
+            
+            <h3>The Four-Phase Import Strategy</h3>
+            
+            <h4>Phase 1: Data Cleaning and Preparation</h4>
+            <p>Before importing anything, clean your data:</p>
+            <ul>
+                <li><strong>Remove Duplicates:</strong> Use tools like Excel's duplicate removal or Google Sheets to identify duplicates</li>
+                <li><strong>Standardize Formats:</strong> Consistent phone number formats, proper capitalization</li>
+                <li><strong>Validate Information:</strong> Check email addresses, verify phone numbers</li>
+                <li><strong>Complete Missing Data:</strong> Fill in gaps using social media research</li>
+            </ul>
+            
+            <h4>Phase 2: Strategic Batching</h4>
+            <p>Import contacts in strategic batches to maintain quality:</p>
+            
+            <div class="example-box">
+                <h4>Recommended Import Order</h4>
+                <ul>
+                    <li><strong>Batch 1:</strong> Tier 1 VIP Champions (highest priority setup)</li>
+                    <li><strong>Batch 2:</strong> Past clients and professional contacts</li>
+                    <li><strong>Batch 3:</strong> Tier 2 Active Network</li>
+                    <li><strong>Batch 4:</strong> Tier 3 and 4 contacts</li>
+                </ul>
+                <p><strong>Why this works:</strong> You perfect your system on your most important contacts first</p>
+            </div>
+            
+            <h4>Phase 3: Immediate Tagging and Categorization</h4>
+            <p>As contacts are imported, immediately apply:</p>
+            
+            <div class="tag-system">
+                <div class="tag-example">
+                    <div class="tag-name">SOI-Tier-1</div>
+                    <p>VIP Champions requiring monthly contact</p>
+                </div>
+                <div class="tag-example">
+                    <div class="tag-name">Past-Client</div>
+                    <p>Previous transaction history</p>
+                </div>
+                <div class="tag-example">
+                    <div class="tag-name">Professional</div>
+                    <p>Business relationship contacts</p>
+                </div>
+                <div class="tag-example">
+                    <div class="tag-name">Family-Friend</div>
+                    <p>Personal relationship contacts</p>
+                </div>
+                <div class="tag-example">
+                    <div class="tag-name">High-Influence</div>
+                    <p>Strong network connectors</p>
+                </div>
+                <div class="tag-example">
+                    <div class="tag-name">Local-Market</div>
+                    <p>Lives in your primary market</p>
+                </div>
+            </div>
+            
+            <h4>Phase 4: Quality Verification</h4>
+            <p>After each batch import:</p>
+            <ul>
+                <li>Test a sample of imported contacts</li>
+                <li>Verify tag accuracy and completeness</li>
+                <li>Check that custom fields populated correctly</li>
+                <li>Ensure no data corruption occurred</li>
+            </ul>
+            
+            <h3>Custom Field Strategy</h3>
+            <p>Design custom fields that support your SOI strategy:</p>
+            
+            <table class="crm-table">
+                <thead>
+                    <tr>
+                        <th>Custom Field</th>
+                        <th>Purpose</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SOI Tier</td>
+                        <td>Prioritization level</td>
+                        <td>Tier 1, Tier 2, Tier 3, Tier 4</td>
+                    </tr>
+                    <tr>
+                        <td>Relationship Type</td>
+                        <td>Connection category</td>
+                        <td>Past Client, Family, Professional, Friend</td>
+                    </tr>
+                    <tr>
+                        <td>Referral Potential</td>
+                        <td>Business opportunity rating</td>
+                        <td>High, Medium, Low</td>
+                    </tr>
+                    <tr>
+                        <td>Influence Score</td>
+                        <td>Network connection strength</td>
+                        <td>1-10 scale</td>
+                    </tr>
+                    <tr>
+                        <td>Last Personal Contact</td>
+                        <td>Relationship maintenance tracking</td>
+                        <td>Date field</td>
+                    </tr>
+                    <tr>
+                        <td>Communication Preference</td>
+                        <td>Preferred contact method</td>
+                        <td>Email, Phone, Text, Social Media</td>
+                    </tr>
+                    <tr>
+                        <td>Life Events</td>
+                        <td>Important personal information</td>
+                        <td>New Baby, Job Change, Moving, etc.</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="case-study">
+                <h4>Data Organization Success Story</h4>
+                <p><strong>Agent:</strong> Lisa Rodriguez, 4 years experience</p>
+                <p><strong>Challenge:</strong> 1,200 contacts in chaos - no organization system</p>
+                <p><strong>Solution:</strong> Implemented 4-phase import strategy over 3 weeks</p>
+                <p><strong>Results:</strong></p>
+                <ul>
+                    <li>Identified 67 Tier 1 contacts previously overlooked</li>
+                    <li>Created targeted campaigns for each relationship type</li>
+                    <li>Increased referral contacts by 340% in first 6 months</li>
+                    <li>Reduced time spent on database management by 60%</li>
+                </ul>
+                <p><strong>Key Success Factor:</strong> Took time to organize properly instead of rushing the import</p>
+            </div>
+        </div>
+
+        <!-- Quiz 2 -->
+        <div class="quiz-section" data-quiz="2">
+            <div class="quiz-header">
+                <h3>Section 2 Quiz</h3>
+                <p>Test your understanding of data import and organization</p>
+            </div>
+            
+            <div class="question" data-question="1">
+                <h4>1. Which contacts should be imported first in the strategic batching approach?</h4>
+                <ul class="options">
+                    <li data-answer="a">All contacts at once for efficiency</li>
+                    <li data-answer="b">Tier 1 VIP Champions first</li>
+                    <li data-answer="c">Alphabetical order starting with A</li>
+                    <li data-answer="d">Most recent contacts first</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="2">
+                <h4>2. What should you do before importing any contacts into your CRM?</h4>
+                <ul class="options">
+                    <li data-answer="a">Import everything and organize later</li>
+                    <li data-answer="b">Clean data and remove duplicates</li>
+                    <li data-answer="c">Wait until you have more contacts</li>
+                    <li data-answer="d">Set up all automation first</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="3">
+                <h4>3. What is the purpose of the "Influence Score" custom field?</h4>
+                <ul class="options">
+                    <li data-answer="a">Track their income level</li>
+                    <li data-answer="b">Rate their personality</li>
+                    <li data-answer="c">Measure network connection strength</li>
+                    <li data-answer="d">Score their real estate knowledge</li>
+                </ul>
+            </div>
+            
+            <button class="quiz-button" onclick="checkQuiz(2)">Check Answers</button>
+            <div class="quiz-results" id="quiz2-results"></div>
+        </div>
+
+        

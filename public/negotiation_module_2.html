@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 2: Pre-Negotiation Preparation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .timer-bar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .timer-content {
+            background: #00D4AA;
+            color: #1a1a1a;
+            border-radius: 25px;
+            padding: 8px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .timer-display {
+            color: #1a1a1a;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .module-header {
+            text-align: center;
+            margin: 80px 0 40px 0;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .module-number {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #00D4AA;
+        }
+        
+        .duration {
+            background: #FFD700;
+            color: #1e3a5f;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .module-description {
+            font-size: 1.2em;
+            color: #B0C4DE;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            color: #00D4AA;
+        }
+        
+        h3 {
+            font-size: 1.6em;
+            margin: 30px 0 15px 0;
+            color: #FFD700;
+        }
+        
+        h4 {
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+            color: #B0C4DE;
+        }
+        
+        p, li {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #E6F3FF;
+        }
+        
+        ul, ol {
+            margin: 20px 0 20px 30px;
+        }
+        
+        .highlight-box {
+            background: rgba(0, 212, 170, 0.2);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .highlight-box h3 {
+            color: #00D4AA;
+            margin-top: 0;
+        }
+        
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid #ef4444;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .warning-box h3 {
+            color: #ef4444;
+            margin-top: 0;
+        }
+        
+        .case-study {
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid #8b5cf6;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .case-study h3 {
+            color: #8b5cf6;
+            margin-top: 0;
+        }
+        
+        .quiz-section {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .quiz-question {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .quiz-question h4 {
+            color: #FFD700;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+        
+        .quiz-options {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #00D4AA;
+        }
+        
+        .quiz-option.selected {
+            background: rgba(0, 212, 170, 0.2);
+            border-color: #00D4AA;
+            color: #00D4AA;
+        }
+        
+        .quiz-option.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: #22c55e;
+            color: #22c55e;
+        }
+        
+        .quiz-option.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+        
+        .option-letter {
+            background: #00D4AA;
+            color: #1e3a5f;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .quiz-feedback {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .quiz-feedback.show {
+            display: block;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(45deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #00B894, #009B7D);
+            transform: translateY(-2px);
+        }
+        
+        .brain-teaser {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .brain-teaser h3 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .teaser-question {
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            color: #f3e8ff;
+        }
+        
+        .teaser-input {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            color: white;
+            width: 300px;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .teaser-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .teaser-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .teaser-btn:hover {
+            background: white;
+            color: #8b5cf6;
+        }
+        
+        .teaser-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .teaser-result.show {
+            display: block;
+        }
+        
+        .teaser-result.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border: 2px solid #22c55e;
+            color: #22c55e;
+        }
+        
+        .teaser-result.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #ef4444;
+            color: #ef4444;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(45deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-btn:hover {
+            background: linear-gradient(45deg, #00B894, #009B7D);
+            transform: translateY(-2px);
+        }
+        
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .strategy-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .strategy-card:hover {
+            transform: translateY(-5px);
+            border-color: #FFD700;
+        }
+        
+        .strategy-card h4 {
+            color: #00D4AA;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .data-table {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        th {
+            background: rgba(0, 212, 170, 0.2);
+            color: #00D4AA;
+            font-weight: bold;
+        }
+        
+        .checklist-container {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            margin-right: 15px;
+            transform: scale(1.3);
+        }
+        
+        .prep-phase {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #00D4AA;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .prep-phase h4 {
+            color: #00D4AA;
+            margin-top: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .strategy-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 25px 20px;
+            }
+            
+            .timer-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Timer Bar -->
+    <div class="timer-bar">
+        <div class="timer-content">
+            <div class="timer-display" id="timer">Time Spent: 0:00</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Module Header -->
+        <div class="module-header">
+            <div class="module-number">Module 2</div>
+            <h1>Pre-Negotiation Preparation</h1>
+            <div class="duration">50 minutes</div>
+            <p class="module-description">Learn advanced research techniques, strategic planning methods, and how to identify leverage points that give you a competitive advantage in any negotiation.</p>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="section">
+            <h2>Learning Objectives</h2>
+            <p>By the end of this module, you will be able to:</p>
+            <ul>
+                <li>Conduct comprehensive property and market research efficiently</li>
+                <li>Identify and analyze the other party's motivations and constraints</li>
+                <li>Set clear negotiation objectives and define your BATNA</li>
+                <li>Develop multiple negotiation strategies based on different scenarios</li>
+                <li>Recognize and leverage various sources of negotiating power</li>
+                <li>Create detailed preparation checklists for different deal types</li>
+                <li>Use technology and tools to streamline your research process</li>
+            </ul>
+        </div>
+
+        <!-- Introduction -->
+        <div class="section">
+            <h2>The 80/20 Rule of Negotiation Success</h2>
+            <p>The most successful negotiators understand that 80% of negotiation success is determined before you ever sit down at the table. Preparation is not just helpful - it's the foundation of every successful deal.</p>
+            
+            <h3>Why Preparation Matters More in Real Estate</h3>
+            <p>Real estate negotiations are complex because they involve:</p>
+            <ul>
+                <li><strong>Multiple data points:</strong> Property value, market conditions, comparable sales, repair costs</li>
+                <li><strong>Emotional factors:</strong> Personal history, future plans, financial stress</li>
+                <li><strong>Time constraints:</strong> Market timing, financing deadlines, personal situations</li>
+                <li><strong>Legal complexities:</strong> Contracts, contingencies, disclosures, local regulations</li>
+                <li><strong>Financial variables:</strong> Financing options, tax implications, cash flow considerations</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <h3>The Preparation Advantage</h3>
+                <p>Well-prepared negotiators consistently outperform unprepared ones by 15-30% on deal terms. They also close deals 40% faster and build stronger relationships with counterparts who respect their professionalism.</p>
+            </div>
+        </div>
+
+        <!-- Quiz 1 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Preparation Importance</h2>
+            
+            <div class="quiz-question" id="question1">
+                <h4>1. What percentage of negotiation success is typically determined before the actual negotiation begins?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(1, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>50%</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(1, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>60%</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(1, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>70%</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(1, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>80%</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback1">
+                    The 80/20 rule applies to negotiation - 80% of your success is determined by the preparation you do before the negotiation begins.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(1)">Check Answer</button>
+        </div>
+
+        <!-- Property Research -->
+        <div class="section">
+            <h2>Comprehensive Property Research Framework</h2>
+            <p>Thorough property research gives you the data foundation needed to negotiate from a position of strength. Here's the systematic approach top investors use:</p>
+            
+            <h3>Phase 1: Basic Property Intelligence</h3>
+            <div class="prep-phase">
+                <h4>Property Details & History</h4>
+                <ul>
+                    <li>Property type, square footage, lot size, year built</li>
+                    <li>Ownership history - how long current owner has owned it</li>
+                    <li>Purchase price and date of current owner's acquisition</li>
+                    <li>Property tax history and current assessments</li>
+                    <li>Any liens, judgments, or encumbrances</li>
+                    <li>Zoning information and permitted uses</li>
+                </ul>
+            </div>
+            
+            <h3>Phase 2: Market Analysis</h3>
+            <div class="prep-phase">
+                <h4>Comparable Sales Research</h4>
+                <ul>
+                    <li>3-6 recent sales within 0.5 miles and 6 months</li>
+                    <li>Price per square foot trends in the area</li>
+                    <li>Average days on market for similar properties</li>
+                    <li>Seasonal market patterns and current conditions</li>
+                    <li>Inventory levels and absorption rates</li>
+                    <li>Future development or infrastructure changes</li>
+                </ul>
+            </div>
+            
+            <h3>Phase 3: Condition Assessment</h3>
+            <div class="prep-phase">
+                <h4>Property Condition Intelligence</h4>
+                <ul>
+                    <li>External visual inspection (drive-by or street view)</li>
+                    <li>Age and condition of major systems (roof, HVAC, electrical)</li>
+                    <li>Obvious repair needs or deferred maintenance</li>
+                    <li>Code violations or inspection issues</li>
+                    <li>Environmental concerns or flood zones</li>
+                    <li>Estimated repair and renovation costs</li>
+                </ul>
+            </div>
+            
+            <div class="data-table">
+                <h3>Research Tools and Resources</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Information Type</th>
+                            <th>Primary Sources</th>
+                            <th>Time Required</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Property Records</td>
+                            <td>County assessor, MLS, PropertyRadar</td>
+                            <td>15-30 minutes</td>
+                            <td>Free - $50/month</td>
+                        </tr>
+                        <tr>
+                            <td>Comparable Sales</td>
+                            <td>MLS, Redfin, Zillow, local agents</td>
+                            <td>30-45 minutes</td>
+                            <td>Free - $100/month</td>
+                        </tr>
+                        <tr>
+                            <td>Market Data</td>
+                            <td>Local MLS reports, RealtyTrac</td>
+                            <td>20-30 minutes</td>
+                            <td>$25-75/month</td>
+                        </tr>
+                        <tr>
+                            <td>Property Condition</td>
+                            <td>Google Street View, drive-by</td>
+                            <td>15-30 minutes</td>
+                            <td>Gas money</td>
+                        </tr>
+                        <tr>
+                            <td>Owner Background</td>
+                            <td>Social media, property history</td>
+                            <td>10-20 minutes</td>
+                            <td>Free</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Quiz 2 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Property Research</h2>
+            
+            <div class="quiz-question" id="question2">
+                <h4>2. What is the most important factor when selecting comparable sales for your analysis?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(2, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>Finding the highest sale prices</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(2, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>Recent sales within similar location and timeframe</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(2, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>Properties sold by the same agent</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(2, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>The exact same square footage</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback2">
+                    The most reliable comparables are recent sales (within 6 months) of similar properties within a close geographic area (typically 0.5 miles), as they best reflect current market conditions.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(2)">Check Answer</button>
+        </div>
+
+        <!-- Understanding the Other Party -->
+        <div class="section">
+            <h2>Understanding the Other Party's Position</h2>
+            <p>The most powerful preparation involves understanding the motivations, constraints, and decision-making process of the person across the table. This intelligence shapes your entire strategy.</p>
+            
+            <h3>Seller Motivation Analysis</h3>
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <h4>Financial Motivations</h4>
+                    <p>Debt obligations, cash flow needs, tax considerations, inheritance situations, divorce proceedings, business liquidity needs</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Lifestyle Motivations</h4>
+                    <p>Job relocation, family changes, health issues, retirement, downsizing, upgrading to larger home</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Property-Related Motivations</h4>
+                    <p>Maintenance burden, tenant problems, neighborhood changes, property condition, investment performance</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Timeline Motivations</h4>
+                    <p>Foreclosure timelines, tax deadlines, moving dates, school schedules, market timing concerns</p>
+                </div>
+            </div>
+            
+            <h3>Intelligence Gathering Techniques</h3>
+            <p>Ethical ways to understand the other party's situation:</p>
+            
+            <div class="checklist-container">
+                <h4>Research Methods Checklist</h4>
+                <div class="checklist-item">
+                    <input type="checkbox" id="research1">
+                    <label for="research1">Property ownership timeline and purchase price research</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="research2">
+                    <label for="research2">Public social media profile review for life changes</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="research3">
+                    <label for="research3">Property condition and maintenance indicators</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="research4">
+                    <label for="research4">Neighborhood interviews with respectful questions</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="research5">
+                    <label for="research5">Property tax payment history and lien searches</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="research6">
+                    <label for="research6">Market listing history and price changes</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="research7">
+                    <label for="research7">Professional network insights (agents, contractors)</label>
+                </div>
+            </div>
+            
+            <div class="case-study">
+                <h3>Case Study: Motivation Discovery</h3>
+                <p><strong>Property:</strong> Single family home, listed 6 months ago, price reduced twice</p>
+                <p><strong>Research Findings:</strong></p>
+                <ul>
+                    <li>Owner purchased 15 years ago for $85K, current asking $180K</li>
+                    <li>Property tax records show missed payments, now current</li>
+                    <li>LinkedIn shows owner relocated for job 8 months ago</li>
+                    <li>Neighbors mention property has been empty since owner moved</li>
+                    <li>Recent roof repair permits filed but work appears incomplete</li>
+                </ul>
+                <p><strong>Inferred Motivations:</strong> Carrying costs for empty home, job relocation pressure, incomplete repairs creating stress, price reductions showing flexibility</p>
+                <p><strong>Strategy Implications:</strong> Focus on quick closing, minimal contingencies, offer to handle remaining repairs, emphasize relief from carrying costs</p>
+            </div>
+        </div>
+
+        <!-- Quiz 3 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Motivation Analysis</h2>
+            
+            <div class="quiz-question" id="question3">
+                <h4>3. Which information source typically provides the most reliable insights into a seller's timeline motivation?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(3, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>Property listing description</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(3, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>Social media posts and professional changes</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(3, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>Property tax records</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(3, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>Neighborhood gossip</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback3">
+                    Social media posts and professional changes (job relocations, family updates) often reveal timeline pressures and motivations that drive selling decisions.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(3)">Check Answer</button>
+        </div>
+
+        <!-- Setting Objectives -->
+        <div class="section">
+            <h2>Setting Clear Negotiation Objectives</h2>
+            <p>Without clear objectives, you're negotiating blind. Successful negotiators define multiple levels of acceptable outcomes before any conversation begins.</p>
+            
+            <h3>The Three-Tier Objective System</h3>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <h4>Tier 1: Dream Outcome</h4>
+                    <p>Your ideal scenario if everything goes perfectly. This is your opening anchor point but not necessarily realistic.</p>
+                    <p><strong>Example:</strong> $150K purchase price, seller financing, 30-day close, no inspections</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Tier 2: Target Outcome</h4>
+                    <p>Realistic goal based on market data and research. This is what you expect to achieve with good negotiation.</p>
+                    <p><strong>Example:</strong> $165K purchase price, conventional financing, 45-day close, standard inspections</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Tier 3: Walk-Away Point</h4>
+                    <p>Minimum acceptable terms. Below this point, the deal doesn't make sense for your investment criteria.</p>
+                    <p><strong>Example:</strong> $175K maximum, any reasonable financing, 60-day close, full inspection rights</p>
+                </div>
+            </div>
+            
+            <h3>BATNA Development</h3>
+            <p>Your BATNA (Best Alternative to a Negotiated Agreement) is your source of negotiating power. The stronger your alternatives, the more confidently you can negotiate.</p>
+            
+            <div class="prep-phase">
+                <h4>Strong BATNA Elements</h4>
+                <ul>
+                    <li>2-3 other properties under consideration</li>
+                    <li>Multiple financing options pre-approved</li>
+                    <li>Clear investment criteria and market standards</li>
+                    <li>Time flexibility (not desperate for immediate deal)</li>
+                    <li>Financial capacity to wait for better opportunities</li>
+                    <li>Alternative investment strategies if real estate unavailable</li>
+                </ul>
+            </div>
+            
+            <div class="warning-box">
+                <h3>Weak BATNA Warning Signs</h3>
+                <p>If you have no alternatives, tight deadlines, limited financing, or emotional attachment to one specific property, you're negotiating from weakness. Strengthen your position before entering important negotiations.</p>
+            </div>
+        </div>
+
+        <!-- Quiz 4 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Objectives and BATNA</h2>
+            
+            <div class="quiz-question" id="question4">
+                <h4>4. What does BATNA stand for in negotiation theory?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(4, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>Best Alternative to a Negotiated Agreement</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(4, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>Basic Agreement Terms and Negotiation Approach</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(4, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>Business Analysis for Total Net Assets</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(4, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>Balanced Approach to Negotiation Agreement</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback4">
+                    BATNA stands for "Best Alternative to a Negotiated Agreement" - it represents your alternatives if the current negotiation fails, and gives you power to walk away.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(4)">Check Answer</button>
+        </div>
+
+        <!-- Leverage Analysis -->
+        <div class="section">
+            <h2>Identifying and Building Leverage</h2>
+            <p>Leverage is your ability to influence the outcome of a negotiation. Understanding the different types of leverage and how to build them gives you significant advantages.</p>
+            
+            <h3>Types of Negotiating Leverage</h3>
+            
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Leverage Type</th>
+                            <th>Description</th>
+                            <th>Real Estate Examples</th>
+                            <th>How to Build It</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Information Leverage</td>
+                            <td>Knowing more than the other party</td>
+                            <td>Market data, property issues, comparable sales</td>
+                            <td>Thorough research and preparation</td>
+                        </tr>
+                        <tr>
+                            <td>Time Leverage</td>
+                            <td>Having more time flexibility</td>
+                            <td>No urgent deadlines, patient capital</td>
+                            <td>Start negotiations early, have alternatives</td>
+                        </tr>
+                        <tr>
+                            <td>Financial Leverage</td>
+                            <td>Superior financial position</td>
+                            <td>Cash offers, pre-approval, large down payment</td>
+                            <td>Strong financing, proof of funds</td>
+                        </tr>
+                        <tr>
+                            <td>Alternative Leverage</td>
+                            <td>Having other options</td>
+                            <td>Multiple properties, different markets</td>
+                            <td>Develop strong BATNA</td>
+                        </tr>
+                        <tr>
+                            <td>Expertise Leverage</td>
+                            <td>Superior knowledge and skills</td>
+                            <td>Market expertise, problem-solving ability</td>
+                            <td>Build reputation and track record</td>
+                        </tr>
+                        <tr>
+                            <td>Relationship Leverage</td>
+                            <td>Trust and rapport</td>
+                            <td>Past successful deals, referrals</td>
+                            <td>Focus on long-term relationships</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Leverage-Building Strategies</h3>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <h4>Information Advantage</h4>
+                    <p>Become the most knowledgeable person in the room about the property, market, and situation. Information asymmetry creates negotiating power.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Financial Strength</h4>
+                    <p>Cash offers, proof of funds, and pre-approval letters demonstrate your ability to close deals quickly and reliably.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Speed and Certainty</h4>
+                    <p>Offer quick closings with minimal contingencies when you can verify the property condition and value.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Problem-Solving Value</h4>
+                    <p>Position yourself as someone who solves problems, not just someone who wants a good deal.</p>
+                </div>
+            </div>
+            
+            <div class="case-study">
+                <h3>Case Study: Building Multiple Types of Leverage</h3>
+                <p><strong>Situation:</strong> Distressed property in competitive market</p>
+                <p><strong>Leverage Strategy:</strong></p>
+                <ul>
+                    <li><strong>Information:</strong> Discovered property had foundation issues other buyers missed</li>
+                    <li><strong>Financial:</strong> Offered all-cash with 10-day close</li>
+                    <li><strong>Problem-solving:</strong> Provided detailed repair plan and contractor references</li>
+                    <li><strong>Relationship:</strong> Built trust by being transparent about issues and solutions</li>
+                </ul>
+                <p><strong>Result:</strong> Won the deal at $15K below asking price despite multiple offers, because seller valued certainty and expertise over highest price</p>
+            </div>
+        </div>
+
+        <!-- Quiz 5 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Leverage Types</h2>
+            
+            <div class="quiz-question" id="question5">
+                <h4>5. Which type of leverage is typically most powerful in real estate negotiations?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(5, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>Financial leverage (cash offers)</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(5, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>Information leverage (market knowledge)</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(5, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>Time leverage (patience)</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(5, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>All types working together</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback5">
+                    While each type of leverage can be powerful, the most effective approach combines multiple types of leverage working together to create a strong negotiating position.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(5)">Check Answer</button>
+        </div>
+
+        <!-- Scenario Planning -->
+        <div class="section">
+            <h2>Scenario Planning and Strategy Development</h2>
+            <p>Great negotiators prepare for multiple scenarios, not just their preferred outcome. This preparation allows you to adapt quickly and maintain control during the negotiation.</p>
+            
+            <h3>The Three-Scenario Framework</h3>
+            
+            <div class="prep-phase">
+                <h4>Scenario 1: Cooperative Negotiation</h4>
+                <p><strong>Characteristics:</strong> Other party is reasonable, motivated, and willing to work together</p>
+                <p><strong>Strategy:</strong> Focus on win-win solutions, creative deal structuring, relationship building</p>
+                <p><strong>Tactics:</strong> Open communication, information sharing, collaborative problem-solving</p>
+            </div>
+            
+            <div class="prep-phase">
+                <h4>Scenario 2: Competitive Negotiation</h4>
+                <p><strong>Characteristics:</strong> Other party is aggressive, positional, or trying to "win"</p>
+                <p><strong>Strategy:</strong> Stay calm, focus on facts, use anchoring and framing techniques</p>
+                <p><strong>Tactics:</strong> Structured concessions, objective criteria, professional persistence</p>
+            </div>
+            
+            <div class="prep-phase">
+                <h4>Scenario 3: Difficult/Emotional Negotiation</h4>
+                <p><strong>Characteristics:</strong> High emotions, personal issues, irrational behavior</p>
+                <p><strong>Strategy:</strong> De-escalate emotions, focus on interests, build trust slowly</p>
+                <p><strong>Tactics:</strong> Active listening, empathy, breaking down into smaller issues</p>
+            </div>
+            
+            <h3>Preparation Checklist for Each Scenario</h3>
+            
+            <div class="checklist-container">
+                <h4>Pre-Negotiation Strategy Checklist</h4>
+                <div class="checklist-item">
+                    <input type="checkbox" id="strategy1">
+                    <label for="strategy1">Opening position prepared for each scenario</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="strategy2">
+                    <label for="strategy2">Concession strategy mapped out (what to give, when, how much)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="strategy3">
+                    <label for="strategy3">Question bank prepared to understand their position</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="strategy4">
+                    <label for="strategy4">Value-creation options identified beyond price</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="strategy5">
+                    <label for="strategy5">Objection responses prepared for common concerns</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="strategy6">
+                    <label for="strategy6">Walk-away triggers clearly defined</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="strategy7">
+                    <label for="strategy7">Documentation and next steps planned</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Brain Teaser Challenge -->
+        <div class="brain-teaser">
+            <h3>Preparation Master Challenge</h3>
+            <div class="teaser-question">
+                You're preparing to negotiate for a $200K duplex. Research shows: owner bought it 5 years ago for $140K, moved out of state 1 year ago, property has been vacant 8 months, recent price reduction from $220K to $200K, and comparable sales suggest $190K-210K range. Based on this preparation, what should be your opening offer strategy?
+            </div>
+            <input type="text" class="teaser-input" id="teaserAnswer" placeholder="Enter your opening offer amount">
+            <button class="teaser-btn" onclick="checkTeaserAnswer()">Submit Answer</button>
+            <div class="teaser-result" id="teaserResult"></div>
+        </div>
+
+        <!-- Module Summary -->
+        <div class="section">
+            <h2>Module Summary</h2>
+            <p>You've now mastered the critical preparation phase that determines negotiation success:</p>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <h4>Research Mastery</h4>
+                    <p>Systematic property research, market analysis, and condition assessment techniques.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Motivation Analysis</h4>
+                    <p>Understanding the other party's true drivers, constraints, and decision-making factors.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Strategic Planning</h4>
+                    <p>Setting clear objectives, developing BATNA, and creating multiple scenario strategies.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Leverage Building</h4>
+                    <p>Identifying and developing multiple sources of negotiating power and influence.</p>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>Key Takeaway</h3>
+                <p>Preparation is not just about gathering information - it's about developing strategic options and building confidence that allows you to negotiate from a position of strength. The more prepared you are, the more flexible and creative you can be during the actual negotiation.</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="module1-negotiation-fundamentals.html" class="nav-btn">← Module 1</a>
+            <div style="text-align: center;">
+                <p style="margin: 0; color: #B0C4DE;">Module 2 of 6 Complete</p>
+            </div>
+            <a href="module3-communication-tactics.html" class="nav-btn">Module 3 →</a>
+        </div>
+    </div>
+
+    <script>
+        // Timer functionality
+        let startTime = Date.now();
+        
+        function updateTimer() {
+            const elapsed = Date.now() - startTime;
+            const minutes = Math.floor(elapsed / 60000);
+            const seconds = Math.floor((elapsed % 60000) / 1000);
+            
+            const timerDisplay = document.getElementById('timer');
+            timerDisplay.textContent = `Time Spent: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // Update timer every second
+        setInterval(updateTimer, 1000);
+        
+        // Quiz functionality
+        let quizAnswers = {
+            1: null,
+            2: null,
+            3: null,
+            4: null,
+            5: null
+        };
+        
+        let correctAnswers = {
+            1: 'D',
+            2: 'B',
+            3: 'B',
+            4: 'A',
+            5: 'D'
+        };
+        
+        function selectAnswer(questionNum, answer) {
+            // Remove previous selections
+            const options = document.querySelectorAll(`#question${questionNum} .quiz-option`);
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selection to clicked option
+            event.currentTarget.classList.add('selected');
+            
+            // Store answer
+            quizAnswers[questionNum] = answer;
+        }
+        
+        function showQuestionResult(questionNum) {
+            const options = document.querySelectorAll(`#question${questionNum} .quiz-option`);
+            const feedback = document.getElementById(`feedback${questionNum}`);
+            const userAnswer = quizAnswers[questionNum];
+            const correctAnswer = correctAnswers[questionNum];
+            
+            if (!userAnswer) {
+                alert('Please select an answer first!');
+                return;
+            }
+            
+            options.forEach(option => {
+                const letter = option.querySelector('.option-letter').textContent;
+                if (letter === correctAnswer) {
+                    option.classList.add('correct');
+                } else if (letter === userAnswer && letter !== correctAnswer) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            feedback.classList.add('show');
+            
+            // Update feedback text based on correctness
+            if (userAnswer === correctAnswer) {
+                feedback.innerHTML = `<strong>Correct!</strong> ${getFeedbackText(questionNum)}`;
+            } else {
+                feedback.innerHTML = `<strong>Incorrect.</strong> The correct answer is ${correctAnswer}. ${getFeedbackText(questionNum)}`;
+            }
+        }
+        
+        function getFeedbackText(questionNum) {
+            const feedbacks = {
+                1: "The 80/20 rule applies to negotiation - 80% of your success is determined by the preparation you do before the negotiation begins.",
+                2: "The most reliable comparables are recent sales (within 6 months) of similar properties within a close geographic area (typically 0.5 miles), as they best reflect current market conditions.",
+                3: "Social media posts and professional changes (job relocations, family updates) often reveal timeline pressures and motivations that drive selling decisions.",
+                4: "BATNA stands for 'Best Alternative to a Negotiated Agreement' - it represents your alternatives if the current negotiation fails, and gives you power to walk away.",
+                5: "While each type of leverage can be powerful, the most effective approach combines multiple types of leverage working together to create a strong negotiating position."
+            };
+            return feedbacks[questionNum];
+        }
+        
+        function checkTeaserAnswer() {
+            const userAnswer = document.getElementById('teaserAnswer').value;
+            const resultDiv = document.getElementById('teaserResult');
+            
+            // Convert to number and check if it's in a reasonable range
+            const offerAmount = parseInt(userAnswer.replace(/[,$]/g, ''));
+            
+            resultDiv.classList.remove('correct', 'incorrect');
+            resultDiv.classList.add('show');
+            
+            // Analysis: Owner has $60K equity, vacant 8 months (carrying costs), out of state (management burden), 
+            // price reduction shows flexibility, comps suggest $190-210K is fair range
+            // Strategic opening should be $165K-175K (significant discount but not insulting)
+            
+            if (offerAmount >= 165000 && offerAmount <= 175000) {
+                resultDiv.classList.add('correct');
+                resultDiv.innerHTML = `<strong>Excellent preparation!</strong> ${offerAmount.toLocaleString()} leverages the seller's situation (vacant property, out-of-state, carrying costs) while staying within a reasonable range. This gives you room to negotiate up while anchoring below their reduced asking price.`;
+            } else if (offerAmount >= 176000 && offerAmount <= 190000) {
+                resultDiv.classList.add('incorrect');
+                resultDiv.innerHTML = `<strong>Good but conservative.</strong> ${offerAmount.toLocaleString()} is reasonable but doesn't fully leverage the seller's motivated situation. Consider opening lower (around $170K) given their 8-month carrying costs and out-of-state management burden.`;
+            } else if (offerAmount < 165000) {
+                resultDiv.classList.add('incorrect');
+                resultDiv.innerHTML = `<strong>Too aggressive and risky.</strong> ${offerAmount.toLocaleString()} might offend the seller and damage negotiations. While they're motivated, they still have $60K equity. Try $165K-175K range.`;
+            } else {
+                resultDiv.classList.add('incorrect');
+                resultDiv.innerHTML = `<strong>Doesn't leverage their situation.</strong> ${offerAmount.toLocaleString()} is too close to asking price given their motivation. Use the preparation insights: vacant 8 months, out-of-state burden, recent price reduction. Try $165K-175K.`;
+            }
+        }
+    </script>
+</body>
+</html>

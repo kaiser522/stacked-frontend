@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Plan - Automated Email Sequences</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .form-header {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 45px;
+            margin-bottom: 35px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            animation: shimmer 4s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            border-radius: 15px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 35px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .plan-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #0f0c29;
+            padding: 12px 30px;
+            border-radius: 35px;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: rgba(0, 212, 170, 0.9);
+            color: white;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            font-weight: 600;
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 25px;
+            color: #00D4AA;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .sequence-container {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 35px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            position: relative;
+        }
+        
+        .sequence-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .sequence-title {
+            color: #00D4AA;
+            font-size: 2em;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .sequence-overview {
+            background: rgba(0, 212, 170, 0.1);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .sequence-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #FFD700;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 5px;
+        }
+        
+        .email-timeline {
+            position: relative;
+            margin: 35px 0;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 35px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #00D4AA, #FFD700, #FF6B35);
+        }
+        
+        .email-item {
+            position: relative;
+            margin-left: 90px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-left: 6px solid #FFD700;
+            transition: all 0.3s ease;
+        }
+        
+        .email-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(10px);
+        }
+        
+        .email-item::before {
+            content: '';
+            position: absolute;
+            left: -96px;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            background: #FFD700;
+            border-radius: 50%;
+            border: 4px solid #0f0c29;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+        }
+        
+        .email-timing {
+            position: absolute;
+            left: -85px;
+            top: 60px;
+            background: rgba(255, 215, 0, 0.95);
+            color: #0f0c29;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            font-weight: bold;
+            white-space: nowrap;
+            box-shadow: 0 3px 10px rgba(255, 215, 0, 0.3);
+        }
+        
+        .email-subject {
+            color: #FFD700;
+            font-weight: bold;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+        }
+        
+        .email-preview {
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 1.05em;
+        }
+        
+        .email-purpose {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 0.95em;
+            color: #00D4AA;
+            border-left: 4px solid #00D4AA;
+        }
+        
+        .advanced-features {
+            background: rgba(255, 107, 53, 0.1);
+            border: 2px solid #FF6B35;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        .features-title {
+            color: #FF6B35;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.95);
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+        
+        .feature-icon {
+            color: #FF6B35;
+            font-weight: bold;
+            margin-top: 2px;
+        }
+        
+        .pro-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #0f0c29;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .ai-features {
+            background: rgba(138, 43, 226, 0.1);
+            border: 2px solid #8A2BE2;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        
+        .ai-title {
+            color: #8A2BE2;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .print-button {
+            background: linear-gradient(45deg, #00D4AA, #00B894);
+            color: #0f0c29;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 18px;
+            font-weight: bold;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin: 30px auto;
+            display: block;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 212, 170, 0.4);
+        }
+        
+        .print-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            .form-header {
+                padding: 30px;
+            }
+            
+            .sequence-container {
+                padding: 25px;
+            }
+            
+            .email-item {
+                margin-left: 50px;
+            }
+            
+            .email-timing {
+                left: -45px;
+                font-size: 0.75em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <div class="logo">🧠</div>
+            <div class="plan-badge">PRO PLAN</div>
+            <div class="section-badge">SECTION 2: AI-POWERED SEQUENCES</div>
+            <h1>Elite Automation Sequences</h1>
+            <p style="color: rgba(255,255,255,0.8);">Sophisticated, AI-driven email sequences for high-level real estate professionals</p>
+        </div>
+
+        <!-- SEQUENCE 1: LUXURY BUYER CULTIVATION -->
+        <div class="sequence-container">
+            <div class="sequence-header">
+                <h2 class="sequence-title">💎 Luxury Buyer Cultivation Sequence</h2>
+                <div class="pro-badge">PREMIUM</div>
+            </div>
+            
+            <div class="sequence-overview">
+                <div class="sequence-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">9</span>
+                        <span class="stat-label">Emails</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">60</span>
+                        <span class="stat-label">Days</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">$1M+</span>
+                        <span class="stat-label">Target Price</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Ultra-High</span>
+                        <span class="stat-label">Priority</span>
+                    </div>
+                </div>
+                <p style="color: rgba(255,255,255,0.9);">
+                    <strong>Target Audience:</strong> High-net-worth individuals seeking luxury properties $1M+<br>
+                    <strong>Goal:</strong> Build trust and exclusivity while positioning premium properties and services
+                </p>
+            </div>
+
+            <div class="email-timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="email-item">
+                    <div class="email-timing">Day 1</div>
+                    <div class="email-subject">Welcome to our exclusive buyer's circle</div>
+                    <div class="email-preview">
+                        Dear [First Name],<br><br>
+                        
+                        Thank you for your interest in luxury properties in [Area]. You're now part of an exclusive circle of discerning buyers who receive private access to exceptional estates.<br><br>
+                        
+                        <strong>What this means for you:</strong><br>
+                        • First access to off-market properties before public listing<br>
+                        • Private showings arranged at your convenience<br>
+                        • Comprehensive market intelligence and investment analysis<br>
+                        • White-glove concierge service throughout your search<br><br>
+                        
+                        <strong>Your dedicated team includes:</strong><br>
+                        • [Your Name] - Executive Agent and Market Strategist<br>
+                        • [Assistant Name] - Personal Showing Coordinator<br>
+                        • [Partner Name] - Luxury Market Specialist<br><br>
+                        
+                        I'll be personally overseeing your property search and ensuring you have access to the most exceptional opportunities in the market.<br><br>
+                        
+                        <strong>Next step:</strong> I'd like to schedule a private consultation to understand your vision and preferences in detail.<br><br>
+                        
+                        Best regards,<br>
+                        [Your Full Name]<br>
+                        [Luxury Designations]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Establish exclusivity and premium service level, build luxury market positioning
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 4</div>
+                    <div class="email-subject">Confidential: Three exceptional properties available</div>
+                    <div class="email-preview">
+                        [First Name],<br><br>
+                        
+                        I have three extraordinary properties that became available this week through my private network. Each offers something unique for the sophisticated buyer.<br><br>
+                        
+                        <strong>Property Alpha:</strong> [Location] Estate<br>
+                        • $[Price] | [Square footage] | [Lot size]<br>
+                        • [Unique luxury feature 1]<br>
+                        • [Unique luxury feature 2]<br>
+                        • Investment potential: [Specific analysis]<br><br>
+                        
+                        <strong>Property Beta:</strong> [Location] Residence<br>
+                        • $[Price] | [Square footage] | [Lot size]<br>
+                        • [Unique luxury feature 1]<br>
+                        • [Unique luxury feature 2]<br>
+                        • Lifestyle benefit: [Specific advantage]<br><br>
+                        
+                        <strong>Property Gamma:</strong> [Location] Compound<br>
+                        • $[Price] | [Square footage] | [Lot size]<br>
+                        • [Unique luxury feature 1]<br>
+                        • [Unique luxury feature 2]<br>
+                        • Rare attribute: [What makes it special]<br><br>
+                        
+                        <strong>Confidentiality note:</strong> These properties are being marketed discretely. I can arrange private viewings with 48-hour notice.<br><br>
+                        
+                        Which properties align with your vision?<br><br>
+                        
+                        [Your Name]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Provide exclusive inventory, demonstrate market access, create viewing urgency
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 8</div>
+                    <div class="email-subject">Market intelligence: Luxury trends impacting your search</div>
+                    <div class="email-preview">
+                        Dear [First Name],<br><br>
+                        
+                        I wanted to share some intelligence from this quarter's luxury market analysis that could impact your property search strategy.<br><br>
+                        
+                        <strong>Key Market Dynamics:</strong><br><br>
+                        
+                        📈 <strong>Ultra-luxury segment ($2M+):</strong> [Trend analysis]<br>
+                        🏛️ <strong>Historic properties:</strong> [Appreciation/demand data]<br>
+                        🏢 <strong>New construction luxury:</strong> [Market positioning]<br>
+                        🌊 <strong>Waterfront estates:</strong> [Scarcity/value analysis]<br><br>
+                        
+                        <strong>Investment opportunity:</strong> Properties in [specific luxury sub-market] are showing [X]% annual appreciation, outperforming the broader luxury market.<br><br>
+                        
+                        <strong>Timing considerations:</strong> [Seasonal/economic factors affecting luxury market]<br><br>
+                        
+                        <strong>For your search specifically:</strong> Based on your preferences for [their stated criteria], this market intelligence suggests [strategic recommendation].<br><br>
+                        
+                        I've prepared a detailed market report if you'd like to review the complete analysis.<br><br>
+                        
+                        Best regards,<br>
+                        [Your Name]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Demonstrate market expertise, provide investment-grade analysis, build advisor relationship
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 12</div>
+                    <div class="email-subject">Private showing recap and next steps</div>
+                    <div class="email-preview">
+                        [First Name],<br><br>
+                        
+                        Thank you for taking the time to view [Property Address] with me yesterday. I enjoyed our conversation about [specific detail from showing].<br><br>
+                        
+                        <strong>Follow-up items from our discussion:</strong><br>
+                        • [Specific information they requested]<br>
+                        • [Research item or clarification needed]<br>
+                        • [Additional property detail or document]<br><br>
+                        
+                        <strong>My professional assessment:</strong> This property offers [specific benefits aligned with their goals] and represents [investment/lifestyle value proposition].<br><br>
+                        
+                        <strong>Comparable analysis:</strong> Recent sales of similar properties:<br>
+                        • [Address]: $[Price] - [Key differentiator]<br>
+                        • [Address]: $[Price] - [Key differentiator]<br>
+                        • Current listing: Positioned [competitively/premium] in comparison<br><br>
+                        
+                        <strong>If you're interested in moving forward:</strong> I recommend [specific action - offer strategy, additional inspections, etc.]<br><br>
+                        
+                        <strong>Alternative options:</strong> I have two similar properties that might also interest you based on our conversation yesterday.<br><br>
+                        
+                        What are your thoughts on our next steps?<br><br>
+                        
+                        [Your Name]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Provide detailed follow-up, comparative analysis, guide decision-making process
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 18</div>
+                    <div class="email-subject">Exclusive opportunity: Estate coming to market next week</div>
+                    <div class="email-preview">
+                        Dear [First Name],<br><br>
+                        
+                        I received confidential information about an extraordinary estate that will come to market next week. Given your interest in [specific criteria], I believe this could be exactly what you're seeking.<br><br>
+                        
+                        <strong>The Property:</strong> [Location] Historic Estate<br>
+                        • Originally built: [Year] by [Notable architect/owner if applicable]<br>
+                        • Completely renovated: [Recent year]<br>
+                        • Size: [Square footage] on [Lot size]<br>
+                        • Expected listing price: $[Range]<br><br>
+                        
+                        <strong>What makes it exceptional:</strong><br>
+                        • [Unique architectural or historical feature]<br>
+                        • [Luxury amenity that matches their preferences]<br>
+                        • [Location advantage or view]<br>
+                        • [Investment or lifestyle benefit]<br><br>
+                        
+                        <strong>The opportunity:</strong> The listing agent is allowing me to show it to select buyers before the public launch. This gives you a significant advantage in a competitive luxury market.<br><br>
+                        
+                        <strong>Viewing availability:</strong> Tuesday 2-4pm or Wednesday 10am-12pm (before marketing begins)<br><br>
+                        
+                        Based on current luxury market activity, I expect this property to generate significant interest once public.<br><br>
+                        
+                        Shall I arrange a private preview?<br><br>
+                        
+                        [Your Name]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Present exceptional opportunity, create time urgency, leverage exclusive access
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 25</div>
+                    <div class="email-subject">Investment strategy: Diversifying through luxury real estate</div>
+                    <div class="email-preview">
+                        [First Name],<br><br>
+                        
+                        During our recent conversations, you mentioned your interest in the investment potential of luxury real estate. I've prepared some analysis that might interest you.<br><br>
+                        
+                        <strong>Luxury Real Estate as Investment Vehicle:</strong><br><br>
+                        
+                        📊 <strong>Historical Performance:</strong><br>
+                        • [Local luxury market] has appreciated [X]% annually over past 5 years<br>
+                        • Significantly outperformed [comparison metric - stock market, bonds, etc.]<br>
+                        • Lower volatility than traditional equity investments<br><br>
+                        
+                        💰 <strong>Tax Advantages:</strong><br>
+                        • Depreciation benefits for income-producing properties<br>
+                        • 1031 exchange opportunities for portfolio growth<br>
+                        • Estate planning advantages for high-net-worth individuals<br><br>
+                        
+                        🏠 <strong>Portfolio Diversification:</strong><br>
+                        • Tangible asset with intrinsic value<br>
+                        • Hedge against inflation and currency devaluation<br>
+                        • Potential for both appreciation and income generation<br><br>
+                        
+                        <strong>Current opportunities:</strong> I've identified [X] properties that could serve dual purposes - exceptional residences and strong investment vehicles.<br><br>
+                        
+                        <strong>Next step:</strong> If this investment strategy interests you, I can arrange consultations with our preferred wealth advisors and tax specialists.<br><br>
+                        
+                        Would you like to explore this approach further?<br><br>
+                        
+                        Best regards,<br>
+                        [Your Name]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Position real estate as investment strategy, demonstrate financial sophistication
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 35</div>
+                    <div class="email-subject">Concierge update: Your luxury lifestyle transition</div>
+                    <div class="email-preview">
+                        Dear [First Name],<br><br>
+                        
+                        As we continue your property search, I want to ensure you're aware of all the concierge services available to make your transition seamless.<br><br>
+                        
+                        <strong>Pre-Purchase Services:</strong><br>
+                        • Private jet coordination for property tours<br>
+                        • Luxury hotel arrangements during visit weekends<br>
+                        • Introduction to exclusive club memberships and social networks<br>
+                        • Connection with private banking and wealth management services<br><br>
+                        
+                        <strong>Post-Purchase Support:</strong><br>
+                        • Interior design team recommendations (luxury specialists)<br>
+                        • Property management and estate services<br>
+                        • Security system design and installation<br>
+                        • Landscaping and grounds maintenance coordination<br><br>
+                        
+                        <strong>Lifestyle Integration:</strong><br>
+                        • Private chef and household staff placement<br>
+                        • Children's private school enrollment assistance<br>
+                        • Healthcare concierge services<br>
+                        • Cultural and social event access<br><br>
+                        
+                        <strong>Recent client example:</strong> I recently assisted [Client initial] with their $[X]M purchase, coordinating everything from the initial viewing to move-in day, including [specific high-end service provided].<br><br>
+                        
+                        These services ensure your property acquisition is just the beginning of a seamless luxury lifestyle transition.<br><br>
+                        
+                        Which of these services would be most valuable for your situation?<br><br>
+                        
+                        [Your Name]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Demonstrate comprehensive luxury service offering, differentiate from competition
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 45</div>
+                    <div class="email-subject">Market shift alert: Opportunity for sophisticated buyers</div>
+                    <div class="email-preview">
+                        [First Name],<br><br>
+                        
+                        I'm observing a subtle but significant shift in the luxury market that creates an interesting opportunity for buyers with your sophistication and flexibility.<br><br>
+                        
+                        <strong>What's changing:</strong><br>
+                        • [Market trend 1 - inventory, pricing, etc.]<br>
+                        • [Market trend 2 - buyer behavior, seller motivation, etc.]<br>
+                        • [Market trend 3 - economic factors, policy changes, etc.]<br><br>
+                        
+                        <strong>The opportunity:</strong> This combination of factors means exceptional properties are staying on the market slightly longer, giving qualified buyers more negotiating leverage.<br><br>
+                        
+                        <strong>Strategic timing:</strong> The next 60-90 days could present the best buying conditions we've seen in [X] years for luxury properties.<br><br>
+                        
+                        <strong>Properties positioned for opportunity:</strong><br>
+                        • [Address]: Now priced at $[Amount] (originally $[Higher amount])<br>
+                        • [Address]: Seller highly motivated due to [reason]<br>
+                        • [Address]: Exceptional value at current asking price<br><br>
+                        
+                        <strong>My recommendation:</strong> If any properties have captured your interest, this could be an optimal time to make strategic offers.<br><br>
+                        
+                        I can prepare detailed offer strategies that capitalize on current market conditions.<br><br>
+                        
+                        Shall we discuss your approach to this market opportunity?<br><br>
+                        
+                        [Your Name]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Create urgency through market timing, position for offer-making
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 60</div>
+                    <div class="email-subject">Quarterly review: Refining your property search</div>
+                    <div class="email-preview">
+                        Dear [First Name],<br><br>
+                        
+                        As we complete two months of working together, I wanted to take a moment to review our progress and refine our strategy moving forward.<br><br>
+                        
+                        <strong>Properties Viewed:</strong> [X] exclusive properties<br>
+                        <strong>Market Areas Explored:</strong> [List of neighborhoods/areas]<br>
+                        <strong>Price Range Refined:</strong> $[Range] based on your feedback<br><br>
+                        
+                        <strong>Key insights from our journey:</strong><br>
+                        • You responded most positively to properties with [specific features]<br>
+                        • [Location type] seems to align best with your lifestyle goals<br>
+                        • [Architectural style/era] appears to be your preference<br>
+                        • Investment potential is [high/moderate/low] priority for you<br><br>
+                        
+                        <strong>Refined search criteria:</strong><br>
+                        Based on your feedback, I'm now focusing on properties that offer:<br>
+                        1. [Updated criterion 1]<br>
+                        2. [Updated criterion 2]<br>
+                        3. [Updated criterion 3]<br><br>
+                        
+                        <strong>Market outlook for your refined search:</strong> [Specific analysis based on their preferences]<br><br>
+                        
+                        <strong>Upcoming opportunities:</strong> I'm tracking [X] properties that should become available in the next 30 days that align with your refined preferences.<br><br>
+                        
+                        Is there anything you'd like to adjust about our search strategy or service approach?<br><br>
+                        
+                        Best regards,<br>
+                        [Your Name]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Demonstrate attentiveness, refine search criteria, show progress and value
+                    </div>
+                </div>
+            </div>
+
+            <div class="advanced-features">
+                <div class="features-title">
+                    ⚙️ Advanced Pro Features
+                </div>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <span class="feature-icon">💎</span>
+                        <span>Private property network integration</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📊</span>
+                        <span>Investment-grade property analysis</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🏛️</span>
+                        <span>Concierge service coordination</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📈</span>
+                        <span>Real-time luxury market intelligence</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🎭</span>
+                        <span>Behavioral preference learning</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ai-features">
+                <div class="ai-title">
+                    🧠 AI-Powered Intelligence
+                </div>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <span class="feature-icon">🤖</span>
+                        <span>Predictive property matching based on viewing history</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📱</span>
+                        <span>Dynamic content personalization from CRM data</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">💬</span>
+                        <span>Sentiment analysis of client communications</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">⏰</span>
+                        <span>Optimal send-time prediction by client</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEQUENCE 2: INVESTMENT PROPERTY SEQUENCE -->
+        <div class="sequence-container">
+            <div class="sequence-header">
+                <h2 class="sequence-title">📈 Investment Property Mastery Sequence</h2>
+                <div class="pro-badge">PREMIUM</div>
+            </div>
+            
+            <div class="sequence-overview">
+                <div class="sequence-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">Emails</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">45</span>
+                        <span class="stat-label">Days</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">ROI-Focused</span>
+                        <span class="stat-label">Buyer Type</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">High</span>
+                        <span class="stat-label">Conversion</span>
+                    </div>
+                </div>
+                <p style="color: rgba(255,255,255,0.9);">
+                    <strong>Target Audience:</strong> Sophisticated investors seeking income-producing or appreciation properties<br>
+                    <strong>Goal:</strong> Educate on investment strategies while presenting profitable opportunities
+                </p>
+            </div>
+
+            <div class="email-timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="email-item">
+                    <div class="email-timing">Day 1</div>
+                    <div class="email-subject">Your real estate investment strategy blueprint</div>
+                    <div class="email-preview">
+                        [First Name],<br><br>
+                        
+                        Welcome to our exclusive real estate investment program. As someone with experience in [their known investment area], you understand the power of strategic asset allocation.<br><br>
+                        
+                        <strong>Why real estate for your portfolio?</strong><br>
+                        • Historical returns: [X]% annually in our market<br>
+                        • Tax advantages: Depreciation, 1031 exchanges, tax-deferred growth<br>
+                        • Inflation hedge: Property values and rents typically rise with inflation<br>
+                        • Control: Unlike stocks, you can directly influence property performance<br><br>
+                        
+                        <strong>Investment strategies we'll explore:</strong><br>
+                        1. <strong>Cash flow properties:</strong> Immediate income generation<br>
+                        2. <strong>Value-add opportunities:</strong> Force appreciation through improvements<br>
+                        3. <strong>Appreciation plays:</strong> Long-term wealth building in growth markets<br>
+                        4. <strong>Portfolio diversification:</strong> Geographic and property type spreading<br><br>
+                        
+                        <strong>Your investment profile analysis:</strong> Based on our conversation, you appear suited for [specific strategy] given your [timeline/risk tolerance/capital availability].<br><br>
+                        
+                        <strong>Next step:</strong> I've prepared 3 current opportunities that align with your criteria. Each offers different risk/return profiles.<br><br>
+                        
+                        Ready to review your first investment opportunities?<br><br>
+                        
+                        [Your Name]<br>
+                        [Investment Credentials]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Establish investment credibility, educate on strategies, set expectations
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 5</div>
+                    <div class="email-subject">Investment opportunity analysis: 3 properties, 3 strategies</div>
+                    <div class="email-preview">
+                        [First Name],<br><br>
+                        
+                        I've identified three investment opportunities that demonstrate different wealth-building strategies. Each offers unique advantages for sophisticated investors.<br><br>
+                        
+                        <strong>OPPORTUNITY 1: Cash Flow Champion</strong><br>
+                        📍 [Address] - Multi-family property<br>
+                        💰 Purchase price: $[Amount]<br>
+                        💵 Monthly cash flow: $[Amount] after all expenses<br>
+                        📊 Cap rate: [X]% | Cash-on-cash return: [X]%<br>
+                        🎯 Strategy: Immediate income with stable tenants<br><br>
+                        
+                        <strong>OPPORTUNITY 2: Value-Add Potential</strong><br>
+                        📍 [Address] - Single-family renovation project<br>
+                        💰 Purchase price: $[Amount] | Renovation budget: $[Amount]<br>
+                        📈 ARV (After Repair Value): $[Amount]<br>
+                        📊 Projected ROI: [X]% over [timeframe]<br>
+                        🎯 Strategy: Force appreciation through strategic improvements<br><br>
+                        
+                        <strong>OPPORTUNITY 3: Appreciation Play</strong><br>
+                        📍 [Address] - Growth area development<br>
+                        💰 Purchase price: $[Amount]<br>
+                        📊 5-year appreciation projection: [X]% based on area development<br>
+                        🏗️ Catalysts: [Specific developments driving growth]<br>
+                        🎯 Strategy: Long-term wealth building in emerging market<br><br>
+                        
+                        <strong>My recommendation:</strong> Based on your [risk tolerance/timeline/capital], I suggest starting with [specific opportunity and reasoning].<br><br>
+                        
+                        <strong>Due diligence package:</strong> I can provide detailed financial analysis, comparable sales, and market projections for any property that interests you.<br><br>
+                        
+                        Which opportunity aligns best with your investment thesis?<br><br>
+                        
+                        [Your Name]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Present concrete opportunities, demonstrate different strategies, prompt engagement
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 10</div>
+                    <div class="email-subject">Market intelligence: Emerging investment trends 2025</div>
+                    <div class="email-preview">
+                        Dear [First Name],<br><br>
+                        
+                        I wanted to share some forward-looking market intelligence that could impact your investment strategy over the next 12-18 months.<br><br>
+                        
+                        <strong>Trend 1: Short-term rental market evolution</strong><br>
+                        • Regulation changes in [City]: [Impact analysis]<br>
+                        • Emerging profitable markets: [Specific areas]<br>
+                        • ROI comparison: STR vs. traditional rental in our market<br><br>
+                        
+                        <strong>Trend 2: Build-to-rent communities</strong><br>
+                        • Institutional investor activity increasing<br>
+                        • Opportunity for individual investors in [specific market segment]<br>
+                        • Entry strategies for sophisticated investors<br><br>
+                        
+                        <strong>Trend 3: Climate-conscious investing</strong><br>
+                        • Properties with energy efficiency commanding premium rents<br>
+                        • Federal and state incentives for green improvements<br>
+                        • Long-term value protection against climate risks<br><br>
+                        
+                        <strong>Interest rate environment impact:</strong><br>
+                        • Current rates: [X]% for investment properties<br>
+                        • Projected direction: [Analysis based on Fed policy]<br>
+                        • Timing strategy: [Recommendations for current environment]<br><br>
+                        
+                        <strong>Opportunity timing:</strong> Based on these trends, I believe the next 6 months present optimal conditions for [specific investment strategy].<br><br>
+                        
+                        <strong>Action items for your portfolio:</strong><br>
+                        1. [Specific recommendation 1]<br>
+                        2. [Specific recommendation 2]<br>
+                        3. [Specific recommendation 3]<br><br>
+                        
+                        Would you like to discuss how these trends affect your investment timeline?<br><br>
+                        
+                        [Your Name]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Demonstrate market expertise, provide forward-looking intelligence, create urgency
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 18</div>
+                    <div class="email-subject">Tax strategy: Maximizing your real estate investment returns</div>
+                    <div class="email-preview">
+                        [First Name],<br><br>
+                        
+                        Given your high-income bracket, I wanted to discuss how real estate investments can significantly reduce your tax burden while building wealth.<br><br>
+                        
+                        <strong>Key Tax Advantages:</strong><br><br>
+                        
+                        💰 <strong>Depreciation Benefits:</strong><br>
+                        • Residential properties: 27.5-year depreciation schedule<br>
+                        • Commercial properties: 39-year schedule<br>
+                        • Potential annual deduction: $[Amount] on typical investment<br><br>
+                        
+                        🔄 <strong>1031 Exchange Strategy:</strong><br>
+                        • Defer capital gains taxes indefinitely<br>
+                        • Portfolio growth without tax drag<br>
+                        • Example: $[Amount] property can become $[Higher amount] without tax consequences<br><br>
+                        
+                        📊 <strong>Passive Loss Utilization:</strong><br>
+                        • Offset other passive income<br>
+                        • Real estate professional status advantages<br>
+                        • Strategic timing of gains and losses<br><br>
+                        
+                        <strong>Case study:</strong> Recent client with similar income profile:<br>
+                        • Investment: $[Amount] in rental property<br>
+                        • Annual tax savings: $[Amount] through depreciation<br>
+                        • 5-year wealth impact: $[Amount] in tax savings + appreciation<br><br>
+                        
+                        <strong>Year-end tax planning opportunity:</strong> We have [X] days left in the tax year to implement strategies that could save you $[Amount] in 2025 taxes.<br><br>
+                        
+                        <strong>Next step:</strong> I work closely with [Tax professional name], a specialist in real estate tax strategy. Would you like me to arrange a three-way consultation to explore your specific opportunities?<br><br>
+                        
+                        [Your Name]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Demonstrate tax sophistication, create urgency for tax planning, introduce professional network
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 25</div>
+                    <div class="email-subject">Portfolio diversification: Geographic and property type analysis</div>
+                    <div class="email-preview">
+                        Dear [First Name],<br><br>
+                        
+                        As we discuss building your real estate investment portfolio, I wanted to share some analysis on diversification strategies that reduce risk while maximizing returns.<br><br>
+                        
+                        <strong>Geographic Diversification Analysis:</strong><br><br>
+                        
+                        🏙️ <strong>Primary Market ([Your City]):</strong><br>
+                        • Advantages: Local knowledge, easier management, strong fundamentals<br>
+                        • Considerations: Market concentration risk<br>
+                        • Recommended allocation: 60-70% of portfolio<br><br>
+                        
+                        🌆 <strong>Secondary Markets:</strong><br>
+                        • [City 1]: [Growth drivers and investment case]<br>
+                        • [City 2]: [Growth drivers and investment case]<br>
+                        • Recommended allocation: 20-30% of portfolio<br><br>
+                        
+                        <strong>Property Type Diversification:</strong><br><br>
+                        
+                        🏠 <strong>Single-family rentals:</strong> Stable, easy to understand, good for beginners<br>
+                        🏢 <strong>Small multifamily (2-4 units):</strong> Better cash flow, economies of scale<br>
+                        🏬 <strong>Commercial properties:</strong> Higher returns, longer leases, professional tenants<br>
+                        🏨 <strong>Short-term rentals:</strong> Higher income potential, more management intensive<br><br>
+                        
+                        <strong>Your optimal portfolio allocation:</strong><br>
+                        Based on your [capital/experience/risk tolerance], I recommend:<br>
+                        • [X]% in [property type] for [reason]<br>
+                        • [X]% in [property type] for [reason]<br>
+                        • [X]% in [property type] for [reason]<br><br>
+                        
+                        <strong>Current market opportunities:</strong> I've identified properties in each category that could serve as portfolio anchors.<br><br>
+                        
+                        Would you like to review properties that could serve as your foundation investments?<br><br>
+                        
+                        [Your Name]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Educate on portfolio strategy, position for multiple property purchases
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 32</div>
+                    <div class="email-subject">Due diligence checklist: Protecting your investment</div>
+                    <div class="email-preview">
+                        [First Name],<br><br>
+                        
+                        As you evaluate investment properties, I wanted to share my comprehensive due diligence process that has protected my clients from costly mistakes.<br><br>
+                        
+                        <strong>Financial Due Diligence:</strong><br>
+                        ✅ Rent roll analysis (current rents vs. market rates)<br>
+                        ✅ Operating expense verification (3-year history)<br>
+                        ✅ Capital expenditure needs assessment<br>
+                        ✅ Cash flow projections (conservative assumptions)<br>
+                        ✅ Comparable sales analysis<br>
+                        ✅ Financing options and terms comparison<br><br>
+                        
+                        <strong>Physical Due Diligence:</strong><br>
+                        ✅ Professional property inspection<br>
+                        ✅ Environmental assessments (if applicable)<br>
+                        ✅ Title and survey review<br>
+                        ✅ Zoning and legal compliance verification<br>
+                        ✅ Insurance requirement and cost analysis<br><br>
+                        
+                        <strong>Market Due Diligence:</strong><br>
+                        ✅ Neighborhood trend analysis<br>
+                        ✅ Future development impact assessment<br>
+                        ✅ Local economic and employment trends<br>
+                        ✅ School district quality and trends<br>
+                        ✅ Crime statistics and trends<br><br>
+                        
+                        <strong>Management Due Diligence:</strong><br>
+                        ✅ Current property management evaluation<br>
+                        ✅ Tenant quality and lease term analysis<br>
+                        ✅ Maintenance history and current needs<br>
+                        ✅ Local property management options and costs<br><br>
+                        
+                        <strong>Red flags that have saved clients money:</strong><br>
+                        • [Example 1 of issue discovered and cost avoided]<br>
+                        • [Example 2 of issue discovered and cost avoided]<br>
+                        • [Example 3 of issue discovered and cost avoided]<br><br>
+                        
+                        <strong>Your due diligence team:</strong> I work with trusted professionals including inspectors, appraisers, attorneys, and accountants who specialize in investment properties.<br><br>
+                        
+                        Ready to put this process to work on a specific property?<br><br>
+                        
+                        [Your Name]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Demonstrate thoroughness, build confidence, introduce professional team
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 38</div>
+                    <div class="email-subject">Success story: How [Client] built $2M in equity in 3 years</div>
+                    <div class="email-preview">
+                        Dear [First Name],<br><br>
+                        
+                        I wanted to share a recent success story that demonstrates the wealth-building power of strategic real estate investing.<br><br>
+                        
+                        <strong>Client Background:</strong> [Client initial], similar situation to yours - high-income professional seeking portfolio diversification.<br><br>
+                        
+                        <strong>Starting Point (2022):</strong><br>
+                        • Available capital: $500K<br>
+                        • Goal: Generate passive income and build long-term wealth<br>
+                        • Risk tolerance: Moderate<br><br>
+                        
+                        <strong>Strategy Implemented:</strong><br>
+                        • Year 1: Acquired 2 single-family rentals ($300K each)<br>
+                        • Year 2: Added small multifamily property ($450K)<br>
+                        • Year 3: Value-add duplex renovation project ($280K)<br><br>
+                        
+                        <strong>Results After 3 Years:</strong><br>
+                        • Total portfolio value: $1.8M<br>
+                        • Total equity: $650K (started with $200K down payments)<br>
+                        • Monthly cash flow: $3,200 after all expenses<br>
+                        • Annual tax savings: $15,000 through depreciation<br><br>
+                        
+                        <strong>Key Success Factors:</strong><br>
+                        1. Started with conservative, cash-flowing properties<br>
+                        2. Reinvested cash flow into next property down payments<br>
+                        3. Used 1031 exchanges to defer taxes and upgrade<br>
+                        4. Focused on emerging neighborhoods with development catalysts<br><br>
+                        
+                        <strong>Current Status:</strong> [Client] is now acquiring property #5 and has achieved financial independence through real estate cash flow.<br><br>
+                        
+                        <strong>Lessons for your strategy:</strong> [Specific applications to their situation]<br><br>
+                        
+                        <strong>Timeline for you:</strong> Based on your situation, I believe you could achieve similar results in [timeframe] using [specific strategy].<br><br>
+                        
+                        Ready to begin building your real estate wealth portfolio?<br><br>
+                        
+                        [Your Name]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Provide social proof, demonstrate results, create investment timeline vision
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 45</div>
+                    <div class="email-subject">Investment portfolio roadmap: Your 5-year wealth plan</div>
+                    <div class="email-preview">
+                        [First Name],<br><br>
+                        
+                        Based on our conversations over the past 6 weeks, I've created a personalized 5-year investment roadmap that could help you achieve your wealth-building goals.<br><br>
+                        
+                        <strong>Your Investment Profile:</strong><br>
+                        • Available capital: $[Amount]<br>
+                        • Annual investment capacity: $[Amount]<br>
+                        • Risk tolerance: [Conservative/Moderate/Aggressive]<br>
+                        • Timeline: [Short/Medium/Long-term focus]<br><br>
+                        
+                        <strong>5-Year Roadmap:</strong><br><br>
+                        
+                        <strong>Year 1:</strong> Foundation Building<br>
+                        • Acquire: [Property type] in [Location]<br>
+                        • Investment: $[Amount]<br>
+                        • Expected cash flow: $[Amount]/month<br>
+                        • Goal: Establish track record and cash flow base<br><br>
+                        
+                        <strong>Year 2:</strong> Portfolio Expansion<br>
+                        • Acquire: [Property type] in [Location]<br>
+                        • Funding: Cash flow + additional capital<br>
+                        • Portfolio value: $[Amount]<br>
+                        • Goal: Diversification and increased cash flow<br><br>
+                        
+                        <strong>Years 3-5:</strong> Acceleration Phase<br>
+                        • Strategy: [Specific approach - value-add, geographical expansion, etc.]<br>
+                        • Target portfolio: [X] properties worth $[Amount]<br>
+                        • Projected cash flow: $[Amount]/month<br>
+                        • Net worth impact: $[Amount] in equity<br><br>
+                        
+                        <strong>Financial Projections:</strong><br>
+                        • Total investment: $[Amount] over 5 years<br>
+                        • Portfolio value: $[Amount]<br>
+                        • Equity buildup: $[Amount]<br>
+                        • Monthly passive income: $[Amount]<br>
+                        • Tax savings: $[Amount] annually<br><br>
+                        
+                        <strong>Risk mitigation strategies:</strong><br>
+                        • [Strategy 1]<br>
+                        • [Strategy 2]<br>
+                        • [Strategy 3]<br><br>
+                        
+                        <strong>Next step:</strong> I've identified the perfect property to begin your wealth-building journey. It meets all your criteria and could serve as your portfolio foundation.<br><br>
+                        
+                        Ready to review Property #1 and begin building your real estate empire?<br><br>
+                        
+                        [Your Name]<br>
+                        [Investment Specialist Designation]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Present comprehensive investment plan, create long-term vision, prompt immediate action
+                    </div>
+                </div>
+            </div>
+
+            <div class="advanced-features">
+                <div class="features-title">
+                    📊 Investment-Grade Features
+                </div>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <span class="feature-icon">💹</span>
+                        <span>Real-time ROI calculations and projections</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🏦</span>
+                        <span>Lender network integration for investment financing</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📈</span>
+                        <span>Market trend analysis and forecasting</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">⚖️</span>
+                        <span>Tax strategy optimization tools</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🎯</span>
+                        <span>Due diligence workflow automation</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📊</span>
+                        <span>Portfolio performance tracking</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEQUENCE 3: VIP PAST CLIENT SEQUENCE -->
+        <div class="sequence-container">
+            <div class="sequence-header">
+                <h2 class="sequence-title">👑 VIP Past Client Nurture Sequence</h2>
+                <div class="pro-badge">PREMIUM</div>
+            </div>
+            
+            <div class="sequence-overview">
+                <div class="sequence-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">6</span>
+                        <span class="stat-label">Emails</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">365</span>
+                        <span class="stat-label">Days</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">VIP</span>
+                        <span class="stat-label">Client Status</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Referral</span>
+                        <span class="stat-label">Focus</span>
+                    </div>
+                </div>
+                <p style="color: rgba(255,255,255,0.9);">
+                    <strong>Target Audience:</strong> High-value past clients who could provide premium referrals<br>
+                    <strong>Goal:</strong> Maintain elite relationships and generate high-quality referral business
+                </p>
+            </div>
+
+            <div class="email-timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="email-item">
+                    <div class="email-timing">60 Days Post-Close</div>
+                    <div class="email-subject">How's life in your new home? + exclusive invitation</div>
+                    <div class="email-preview">
+                        Dear [First Name],<br><br>
+                        
+                        I hope you and [Family member names] are settling beautifully into [Property Address]. It feels like just yesterday we were walking through those rooms for the first time!<br><br>
+                        
+                        <strong>How are things going?</strong><br>
+                        • Have you discovered your favorite room yet?<br>
+                        • Any fun projects or improvements planned?<br>
+                        • How are you enjoying [specific neighborhood feature they mentioned loving]?<br><br>
+                        
+                        <strong>Exclusive invitation:</strong> I'm hosting an intimate client appreciation dinner at [Upscale restaurant/venue] on [Date] for my most valued clients. It's a chance to connect with other successful professionals who've made strategic real estate moves.<br><br>
+                        
+                        <strong>Who you'll meet:</strong><br>
+                        • [Client A] - [Their profession/business], recently purchased $[X]M estate<br>
+                        • [Client B] - [Their profession/business], built impressive investment portfolio<br>
+                        • [Client C] - [Their profession/business], successfully sold and upgraded<br><br>
+                        
+                        <strong>Evening details:</strong><br>
+                        📅 Date: [Date and time]<br>
+                        📍 Venue: [Exclusive location]<br>
+                        🍽️ Format: Multi-course dinner with wine pairings<br>
+                        👥 Group size: Limited to 8 couples for intimate conversation<br><br>
+                        
+                        I'd love to have you join us - are you and [Spouse name] available that evening?<br><br>
+                        
+                        <strong>P.S.</strong> If you need any local recommendations - contractors, services, restaurants - I have a curated list of the best professionals in [City].<br><br>
+                        
+                        Looking forward to hearing from you!<br><br>
+                        
+                        Warmest regards,<br>
+                        [Your Name]
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Check satisfaction, create networking opportunities, maintain VIP status
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">6 Months</div>
+                    <div class="email-subject">Your home's appreciation update + market intelligence</div>
+                    <div class="email-preview">
+                        [First Name],<br><br>
+                        
+                        I was running my quarterly market analysis and had some exciting news to share about your investment at [Address].<br><br>
+                        
+                        <strong>Your home's performance:</strong><br>
+                        • Purchase price: $[Original price] ([Purchase date])<br>
+                        • Current estimated value: $[New estimate]<br>
+                        • Appreciation: $[Amount] ([X]% increase)<br>
+                        • Annualized return: [X]% (excellent for residential real estate)<br><br>
+                        
+                        <strong>What's driving the appreciation:</strong><br>
+                        • [Local market factor 1]<br>
+                        • [Local market factor 2]<br>
+                        • [Specific neighborhood development or trend]<br><br>
+                        
+                        <strong>Market intelligence for your network:</strong><br>
+                        I know you have colleagues and friends who might be interested in real estate moves. Here's what I'm seeing:<br><br>
+                        
+                        • <strong>Best buying opportunities:</strong> [Specific areas/price points with reasoning]<br>
+                        • <strong>Optimal selling conditions:</strong> [Property types/locations that should sell now]<br>
+                        • <strong>Investment hotspots:</strong> [Areas with development catalysts]<br><br>
+                        
+                        <strong>Exclusive preview:</strong> I have 2 exceptional off-market properties becoming available next month. Both would suit successful professionals in your network:<br><br>
+                        
+                        Property 1: $[Price] in [Desirable area] - [Key selling points]<br>
+                        Property 2: $[Price] in [Prestigious location] - [Key selling points]<br><br>
+                        
+                        <strong>If anyone in your circle is considering a move,</strong> I'd be honored to provide the same level of service you experienced.<br><br>
+                        
+                        Hope you're continuing to love the new place!<br><br>
+                        
+                        Best regards,<br>
+                        [Your Name]
+                    </div>
+                    <div class="email-purpose">
+                        ">🎯</span>
+                        <span>Luxury market segmentation and targeting</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon

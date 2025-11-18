@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacked Technologies - Affiliate Playbook</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f7fafc;
+            min-height: 100vh;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 40px rgba(0,0,0,0.08);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0A1B2A 0%, #0A1B2A 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            color: #7D7D7D;
+            margin-bottom: 2rem;
+        }
+
+        .format-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            color: #7D7D7D;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(26, 188, 156, 0.2);
+            color: #1ABC9C;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(26, 188, 156, 0.3);
+            display: inline-block;
+            margin: 4px;
+        }
+
+        .bulk-download {
+            background: #1ABC9C;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .bulk-download:hover {
+            background: #16a085;
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 3rem 2rem;
+        }
+
+        .intro-section {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+            border-left: 4px solid #1ABC9C;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .intro-section h2 {
+            color: #0A1B2A;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .intro-section p {
+            color: #0A1B2A;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            background: #e2e8f0;
+            color: #2d3748;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-tab.active {
+            background: #1ABC9C;
+            color: white;
+        }
+
+        .nav-tab:hover {
+            background: #cbd5e0;
+        }
+
+        .nav-tab.active:hover {
+            background: #16a085;
+        }
+
+        .section {
+            display: none;
+            margin-bottom: 3rem;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section h2 {
+            color: #0A1B2A;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .step-container {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .step-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            border-color: #1ABC9C;
+            box-shadow: 0 8px 25px rgba(26, 188, 156, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .step-header {
+            background: #0A1B2A;
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .step-number {
+            background: #1ABC9C;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1ABC9C;
+        }
+
+        .step-content {
+            padding: 2rem;
+        }
+
+        .step-content p {
+            margin-bottom: 1.5rem;
+            color: #4a5568;
+            font-size: 1.05rem;
+        }
+
+        .step-content ul {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .step-content li {
+            margin-bottom: 0.75rem;
+            color: #4a5568;
+        }
+
+        .highlight-box {
+            background: #f0fff4;
+            border: 1px solid #1ABC9C;
+            border-left: 4px solid #1ABC9C;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box h4 {
+            color: #0A1B2A;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .highlight-box p {
+            color: #0A1B2A;
+            margin-bottom: 0;
+        }
+
+        .warning-box {
+            background: #fffaf0;
+            border: 1px solid #fbd38d;
+            border-left: 4px solid #ed8936;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box h4 {
+            color: #c05621;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .warning-box p {
+            color: #744210;
+            margin-bottom: 0;
+        }
+
+        .commission-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .commission-table th,
+        .commission-table td {
+            padding: 1.25rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .commission-table th {
+            background: #f7fafc;
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .commission-table td {
+            color: #4a5568;
+        }
+
+        .commission-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .commission-table tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .action-btn.primary {
+            background: #1ABC9C;
+            color: white;
+        }
+
+        .action-btn.primary:hover {
+            background: #16a085;
+        }
+
+        .action-btn.secondary {
+            background: #e2e8f0;
+            color: #0A1B2A;
+        }
+
+        .action-btn.secondary:hover {
+            background: #cbd5e0;
+        }
+
+        .checklist {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .checklist h4 {
+            color: #0A1B2A;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .checklist-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #1ABC9C;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+        }
+
+        .checklist-checkbox.checked {
+            background: #1ABC9C;
+            color: white;
+        }
+
+        .checklist-text {
+            flex: 1;
+            color: #4a5568;
+        }
+
+        .progress-tracker {
+            background: #0A1B2A;
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .progress-tracker h3 {
+            color: #1ABC9C;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .progress-step {
+            background: rgba(255, 255, 255, 0.1);
+            color: #7D7D7D;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+        }
+
+        .progress-step.completed {
+            background: #1ABC9C;
+            color: white;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 2rem 1rem;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-tab {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .format-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .progress-steps {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .progress-line {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Affiliate Playbook</h1>
+            <p>Your complete step-by-step guide to affiliate success</p>
+            <div class="format-info">
+                <span>🔗 Get Your Links</span>
+                <span>📈 Promotion Strategies</span>
+                <span>💰 Track Commissions</span>
+                <span>🎯 Success Tips</span>
+            </div>
+            <div style="margin-top: 20px;">
+                <span class="tag">step-by-step</span>
+                <span class="tag">actionable</span>
+                <span class="tag">comprehensive</span>
+                <span class="tag">success-focused</span>
+            </div>
+            <button class="bulk-download" onclick="downloadPlaybook()">Download Complete Playbook</button>
+        </div>
+
+        <div class="content">
+            <div class="intro-section">
+                <h2>Your Path to Affiliate Success</h2>
+                <p>This playbook walks you through everything you need to know to succeed as a Stacked Technologies affiliate. From getting your first referral link to tracking your commissions and scaling your income.</p>
+            </div>
+
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="showSection('getting-started')">Getting Started</button>
+                <button class="nav-tab" onclick="showSection('promotion')">Promotion Strategies</button>
+                <button class="nav-tab" onclick="showSection('tracking')">Commission Tracking</button>
+                <button class="nav-tab" onclick="showSection('scaling')">Scaling & Growth</button>
+            </div>
+
+            <!-- Getting Started Section -->
+            <div class="section active" id="getting-started">
+                <h2>Getting Started</h2>
+
+                <div class="step-container">
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">1</div>
+                            <h3 class="step-title">Access Your Affiliate Dashboard</h3>
+                        </div>
+                        <div class="step-content">
+                            <p>Once approved for the affiliate program, you'll receive login credentials for your affiliate dashboard.</p>
+                            
+                            <div class="highlight-box">
+                                <h4>What You'll Find in Your Dashboard:</h4>
+                                <p>Commission tracking, referral links, marketing materials, performance analytics, and payout history.</p>
+                            </div>
+
+                            <div class="checklist">
+                                <h4>Setup Checklist:</h4>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Log into your affiliate dashboard</div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Complete your profile information</div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Set up payment method for commissions</div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Review affiliate terms and commission structure</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">2</div>
+                            <h3 class="step-title">Generate Your Referral Links</h3>
+                        </div>
+                        <div class="step-content">
+                            <p>Your unique referral links are the foundation of your affiliate success. Each link tracks back to you for commission credit.</p>
+                            
+                            <p><strong>Link Format:</strong></p>
+                            <p style="background: #f8fafc; padding: 1rem; border-radius: 6px; font-family: monospace; word-break: break-all;">
+                                https://get-stacked.com/partners/&lt;handle&gt;?ref=&lt;affiliate_id&gt;&utm_source=&lt;handle&gt;&utm_medium=affiliate&utm_campaign=&lt;campaign&gt;
+                            </p>
+
+                            <div class="highlight-box">
+                                <h4>Link Customization Options:</h4>
+                                <p>Create different campaign links to track which promotion methods work best (social media, email, blog posts, etc.).</p>
+                            </div>
+
+                            <div class="checklist">
+                                <h4>Link Setup Tasks:</h4>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Generate your main referral link</div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Create campaign-specific links for different channels</div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Test all links to ensure they work properly</div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Save links in a secure document for easy access</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">3</div>
+                            <h3 class="step-title">Download Marketing Materials</h3>
+                        </div>
+                        <div class="step-content">
+                            <p>Access professionally designed marketing materials to support your promotional efforts.</p>
+                            
+                            <p><strong>Available Resources:</strong></p>
+                            <ul>
+                                <li>Video script templates for TikTok/Instagram</li>
+                                <li>Email swipe files and sequences</li>
+                                <li>Social media post templates</li>
+                                <li>Competitor comparison charts</li>
+                                <li>FAQ cheat sheets</li>
+                                <li>Display ad templates</li>
+                            </ul>
+
+                            <div class="warning-box">
+                                <h4>Important Usage Rules:</h4>
+                                <p>Always use your unique referral links in all marketing materials. Do not post links on coupon or deal sites as this violates program terms.</p>
+                            </div>
+
+                            <div class="action-buttons">
+                                <a href="#" class="action-btn primary">Access Marketing Portal</a>
+                                <a href="#" class="action-btn secondary">View Usage Guidelines</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Promotion Strategies Section -->
+            <div class="section" id="promotion">
+                <h2>Promotion Strategies</h2>
+
+                <div class="step-container">
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">1</div>
+                            <h3 class="step-title">Social Media Marketing</h3>
+                        </div>
+                        <div class="step-content">
+                            <p>Leverage social platforms to reach real estate professionals where they're already spending time.</p>
+                            
+                            <p><strong>Best Platforms for Real Estate:</strong></p>
+                            <ul>
+                                <li><strong>TikTok:</strong> Short videos showing system benefits and success stories</li>
+                                <li><strong>Instagram:</strong> Reels, Stories, and posts about productivity and tools</li>
+                                <li><strong>LinkedIn:</strong> Professional content targeting real estate agents</li>
+                                <li><strong>Facebook:</strong> Groups, pages, and targeted real estate communities</li>
+                                <li><strong>YouTube:</strong> Longer-form tutorials and system demonstrations</li>
+                            </ul>
+
+                            <div class="highlight-box">
+                                <h4>Content Ideas That Convert:</h4>
+                                <p>Behind-the-scenes of your workflow, before/after productivity comparisons, client success stories, tool tutorials, and industry tips.</p>
+                            </div>
+
+                            <div class="checklist">
+                                <h4>Social Media Action Plan:</h4>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Choose 2-3 primary platforms to focus on</div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Create content calendar for consistent posting</div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Record first video using provided script templates</div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Add referral link to bio/profile</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">2</div>
+                            <h3 class="step-title">Email Marketing</h3>
+                        </div>
+                        <div class="step-content">
+                            <p>Build an email list of real estate professionals and nurture them with valuable content.</p>
+                            
+                            <p><strong>Email Strategy Framework:</strong></p>
+                            <ul>
+                                <li>Create lead magnets (free guides, checklists, templates)</li>
+                                <li>Use provided email sequences to nurture prospects</li>
+                                <li>Share industry insights and productivity tips</li>
+                                <li>Include soft pitches for Stacked Technologies</li>
+                                <li>Track open rates and click-through rates</li>
+                            </ul>
+
+                            <div class="highlight-box">
+                                <h4>High-Converting Lead Magnets:</h4>
+                                <p>"5 CRM Hacks That Double Follow-Up Success," "Real Estate Productivity Checklist," "Lead Management Templates," "Compliance Quick Reference Guide."</p>
+                            </div>
+
+                            <div class="warning-box">
+                                <h4>Email Compliance:</h4>
+                                <p>Always follow CAN-SPAM requirements: include unsubscribe links, use legitimate from addresses, and don't use misleading subject lines.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">3</div>
+                            <h3 class="step-title">Content Marketing</h3>
+                        </div>
+                        <div class="step-content">
+                            <p>Create valuable content that positions you as an authority while naturally promoting Stacked.</p>
+                            
+                            <p><strong>Content Types That Work:</strong></p>
+                            <ul>
+                                <li>Blog posts about real estate productivity and systems</li>
+                                <li>Comparison articles between different CRM systems</li>
+                                <li>Case studies of your own success with Stacked</li>
+                                <li>Tutorial videos and screen recordings</li>
+                                <li>Podcast appearances as a productivity expert</li>
+                            </ul>
+
+                            <div class="highlight-box">
+                                <h4>SEO-Friendly Article Ideas:</h4>
+                                <p>"Best CRM for Real Estate Agents 2025," "How to Organize Your Lead Database," "Real Estate Follow-Up Best Practices," "CRM vs Spreadsheets: Why Agents Need Better Tools."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">4</div>
+                            <h3 class="step-title">Network & Community Building</h3>
+                        </div>
+                        <div class="step-content">
+                            <p>Build relationships within the real estate community to create organic referral opportunities.</p>
+                            
+                            <p><strong>Networking Strategies:</strong></p>
+                            <ul>
+                                <li>Join real estate Facebook groups and provide value</li>
+                                <li>Attend local real estate meetups and conferences</li>
+                                <li>Participate in online forums and communities</li>
+                                <li>Partner with real estate coaches and trainers</li>
+                                <li>Build relationships with top-producing agents</li>
+                            </ul>
+
+                            <div class="highlight-box">
+                                <h4>Value-First Approach:</h4>
+                                <p>Always lead with helpful advice and insights. Build trust first, then naturally mention how Stacked has helped your business or could help theirs.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Commission Tracking Section -->
+            <div class="section" id="tracking">
+                <h2>Commission Tracking</h2>
+
+                <div class="step-container">
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">1</div>
+                            <h3 class="step-title">Understanding the Commission Structure</h3>
+                        </div>
+                        <div class="step-content">
+                            <p>Familiarize yourself with how and when you earn commissions to set proper expectations.</p>
+                            
+                            <table class="commission-table">
+                                <thead>
+                                    <tr>
+                                        <th>Period</th>
+                                        <th>Commission Rate</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Month 1</td>
+                                        <td><strong>30%</strong></td>
+                                        <td>Of customer's first monthly payment</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Months 2-12</td>
+                                        <td><strong>10%</strong></td>
+                                        <td>Recurring monthly commissions</td>
+                                    </tr>
+                                    <tr>
+                                        <td>After Month 12</td>
+                                        <td><strong>0%</strong></td>
+                                        <td>12-month cap per customer</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="highlight-box">
+                                <h4>Activity Requirement:</h4>
+                                <p>Refer 2+ new paying customers each calendar month to maintain recurring commission eligibility.</p>
+                            </div>
+
+                            <div class="warning-box">
+                                <h4>Important Notes:</h4>
+                                <p>Commissions are held for 14 days after each charge. Minimum $150 in approved commissions required for monthly payout. New customers only - no self-referrals.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">2</div>
+                            <h3 class="step-title">Monitor Your Dashboard</h3>
+                        </div>
+                        <div class="step-content">
+                            <p>Regular dashboard monitoring helps you track performance and optimize your strategy.</p>
+                            
+                            <p><strong>Key Metrics to Track:</strong></p>
+                            <ul>
+                                <li><strong>Clicks:</strong> How many people clicked your referral links</li>
+                                <li><strong>Conversions:</strong> How many became paying customers</li>
+                                <li><strong>Conversion Rate:</strong> Percentage of clicks that convert</li>
+                                <li><strong>Pending Commissions:</strong> Earnings in 14-day hold period</li>
+                                <li><strong>Approved Commissions:</strong> Ready for payout</li>
+                                <li><strong>Monthly New Customers:</strong> Progress toward 2+ requirement</li>
+                            </ul>
+
+                            <div class="highlight-box">
+                                <h4>Optimization Tips:</h4>
+                                <p>Track which traffic sources convert best, test different messaging, and focus on channels with highest conversion rates.</p>
+                            </div>
+
+                            <div class="checklist">
+                                <h4>Weekly Tracking Routine:</h4>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Check total clicks and traffic sources</div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Review new conversions and customer details</div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Calculate conversion rates by traffic source</div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Monitor progress toward monthly 2+ customer requirement</div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Check pending vs approved commission status</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">3</div>
+                            <h3 class="step-title">Attribution & Tracking Rules</h3>
+                        </div>
+                        <div class="step-content">
+                            <p>Understanding how attribution works ensures you get proper credit for your referrals.</p>
+                            
+                            <p><strong>Attribution Details:</strong></p>
+                            <ul>
+                                <li><strong>30-day last-click:</strong> Customer must purchase within 30 days of clicking your link</li>
+                                <li><strong>New customers only:</strong> System blocks by email, phone, and payment method</li>
+                                <li><strong>Last-click wins:</strong> If customer clicks multiple affiliate links, last one gets credit</li>
+                                <li><strong>Referral links only:</strong> No public coupon codes or deal site posting allowed</li>
+                            </ul>
+
+                            <div class="warning-box">
+                                <h4>What Doesn't Count:</h4>
+                                <p>Self-referrals, existing customers, refunded/chargebacked payments, or customers acquired through prohibited methods (spam, brand-bidding, coupon sites).</p>
+                            </div>
+
+                            <div class="highlight-box">
+                                <h4>Best Practices for Attribution:</h4>
+                                <p>Use campaign tracking in your links, focus on warm leads who are ready to buy, and follow up within the 30-day window to maintain your attribution.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">4</div>
+                            <h3 class="step-title">Payout Process</h3>
+                        </div>
+                        <div class="step-content">
+                            <p>Know when and how you'll receive your commission payments.</p>
+                            
+                            <p><strong>Payout Schedule:</strong></p>
+                            <ul>
+                                <li><strong>Hold Period:</strong> 14 days after customer payment clears</li>
+                                <li><strong>Payment Date:</strong> By the 15th of each month for approved commissions</li>
+                                <li><strong>Minimum Threshold:</strong> $150 in approved commissions required</li>
+                                <li><strong>Sub-minimum:</strong> Amounts below $150 do not roll over to next month</li>
+                            </ul>
+
+                            <div class="highlight-box">
+                                <h4>Maximizing Payouts:</h4>
+                                <p>Focus on consistent monthly performance to hit the $150 minimum and maintain the 2+ new customer requirement for recurring commissions.</p>
+                            </div>
+
+                            <div class="warning-box">
+                                <h4>Clawback Policy:</h4>
+                                <p>Refunds, chargebacks, fraud, or payment reversals will be deducted from future commissions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scaling & Growth Section -->
+            <div class="section" id="scaling">
+                <h2>Scaling & Growth</h2>
+
+                <div class="step-container">
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">1</div>
+                            <h3 class="step-title">Optimize Your Top Channels</h3>
+                        </div>
+                        <div class="step-content">
+                            <p>Double down on what's working and eliminate what isn't to maximize your ROI.</p>
+                            
+                            <p><strong>Performance Analysis:</strong></p>
+                            <ul>
+                                <li>Identify your highest-converting traffic sources</li>
+                                <li>Calculate cost per acquisition for paid channels</li>
+                                <li>Measure time investment vs. commission return</li>
+                                <li>Test different messaging and content formats</li>
+                                <li>Scale successful campaigns gradually</li>
+                            </ul>
+
+                            <div class="highlight-box">
+                                <h4>80/20 Rule for Affiliates:</h4>
+                                <p>Typically 20% of your efforts will generate 80% of your results. Find those high-impact activities and focus there.</p>
+                            </div>
+
+                            <div class="checklist">
+                                <h4>Monthly Optimization Tasks:</h4>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Analyze conversion rates by traffic source</div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Pause or eliminate low-performing channels</div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Increase effort/budget on top performers</div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-checkbox" onclick="toggleCheckbox(this)"></div>
+                                    <div class="checklist-text">Test new content formats or platforms</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">2</div>
+                            <h3 class="step-title">Build Systems & Automation</h3>
+                        </div>
+                        <div class="step-content">
+                            <p>Create repeatable systems to scale your affiliate business without proportionally increasing your time investment.</p>
+                            
+                            <p><strong>Automation Opportunities:</strong></p>
+                            <ul>
+                                <li>Email autoresponder sequences for lead nurturing</li>
+                                <li>Social media scheduling tools for consistent posting</li>
+                                <li>Template responses for common questions</li>
+                                <li>Affiliate link management and tracking systems</li>
+                                <li>Content creation workflows and batching</li>
+                            </ul>
+
+                            <div class="highlight-box">
+                                <h4>Recommended Tools:</h4>
+                                <p>Email: ConvertKit/Mailchimp, Social: Buffer/Hootsuite, Analytics: Google Analytics, Link Management: Bitly/Pretty Links, Content: Canva/Loom.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">3</div>
+                            <h3 class="step-title">Expand Your Reach</h3>
+                        </div>
+                        <div class="step-content">
+                            <p>Once you've optimized your core channels, strategically expand to new audiences and platforms.</p>
+                            
+                            <p><strong>Expansion Strategies:</strong></p>
+                            <ul>
+                                <li>Partner with real estate influencers or coaches</li>
+                                <li>Guest post on industry blogs and publications</li>
+                                <li>Speak at real estate conferences and events</li>
+                                <li>Create affiliate partnerships with complementary businesses</li>
+                                <li>Develop premium content or courses as lead magnets</li>
+                            </ul>
+
+                            <div class="warning-box">
+                                <h4>Scaling Safely:</h4>
+                                <p>Don't expand too quickly. Master 1-2 channels first, then gradually add new ones while maintaining quality and compliance.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">4</div>
+                            <h3 class="step-title">Long-term Success Strategies</h3>
+                        </div>
+                        <div class="step-content">
+                            <p>Build a sustainable affiliate business that grows over time.</p>
+                            
+                            <p><strong>Success Principles:</strong></p>
+                            <ul>
+                                <li><strong>Consistency:</strong> Regular promotion beats sporadic bursts</li>
+                                <li><strong>Value-first:</strong> Always lead with helpful content</li>
+                                <li><strong>Relationship building:</strong> Focus on long-term connections</li>
+                                <li><strong>Continuous learning:</strong> Stay updated on industry trends</li>
+                                <li><strong>Data-driven decisions:</strong> Let metrics guide your strategy</li>
+                            </ul>
+
+                            <div class="highlight-box">
+                                <h4>Monthly Goal Framework:</h4>
+                                <p>Set specific targets for new customers, commission earnings, content creation, and audience growth. Review and adjust monthly based on performance.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        function toggleCheckbox(element) {
+            element.classList.toggle('checked');
+            if (element.classList.contains('checked')) {
+                element.innerHTML = '✓';
+            } else {
+                element.innerHTML = '';
+            }
+        }
+
+        function downloadPlaybook() {
+            let content = `STACKED TECHNOLOGIES - AFFILIATE PLAYBOOK\n`;
+            content += `Generated: ${new Date().toLocaleDateString()}\n\n`;
+            content += `Your complete step-by-step guide to affiliate success\n\n`;
+            content += `=`.repeat(80) + `\n\n`;
+            
+            content += `SECTION 1: GETTING STARTED\n\n`;
+            content += `Step 1: Access Your Affiliate Dashboard\n`;
+            content += `- Log into affiliate dashboard with provided credentials\n`;
+            content += `- Complete profile and payment information\n`;
+            content += `- Review commission structure and terms\n\n`;
+            
+            content += `Step 2: Generate Your Referral Links\n`;
+            content += `- Create main referral link from dashboard\n`;
+            content += `- Set up campaign-specific tracking links\n`;
+            content += `- Test all links before promoting\n`;
+            content += `- Save links in secure document\n\n`;
+            
+            content += `Step 3: Download Marketing Materials\n`;
+            content += `- Access video script templates\n`;
+            content += `- Download email swipe files\n`;
+            content += `- Get social media templates\n`;
+            content += `- Review competitor comparison charts\n`;
+            content += `- Study FAQ cheat sheets\n\n`;
+            
+            content += `SECTION 2: PROMOTION STRATEGIES\n\n`;
+            content += `Strategy 1: Social Media Marketing\n`;
+            content += `Best Platforms: TikTok, Instagram, LinkedIn, Facebook, YouTube\n`;
+            content += `Content Types: Behind-scenes videos, productivity tips, success stories\n\n`;
+            
+            content += `Strategy 2: Email Marketing\n`;
+            content += `- Create valuable lead magnets\n`;
+            content += `- Use provided email sequences\n`;
+            content += `- Build email list of real estate professionals\n`;
+            content += `- Follow CAN-SPAM compliance requirements\n\n`;
+            
+            content += `Strategy 3: Content Marketing\n`;
+            content += `- Write SEO-friendly blog posts\n`;
+            content += `- Create comparison articles\n`;
+            content += `- Share success case studies\n`;
+            content += `- Make tutorial videos\n\n`;
+            
+            content += `Strategy 4: Network & Community Building\n`;
+            content += `- Join real estate Facebook groups\n`;
+            content += `- Attend local meetups and conferences\n`;
+            content += `- Participate in online forums\n`;
+            content += `- Partner with coaches and trainers\n\n`;
+            
+            content += `SECTION 3: COMMISSION TRACKING\n\n`;
+            content += `Commission Structure:\n`;
+            content += `- Month 1: 30% of first payment\n`;
+            content += `- Months 2-12: 10% recurring\n`;
+            content += `- Requirement: 2+ new customers per month\n`;
+            content += `- Minimum payout: $150\n`;
+            content += `- Hold period: 14 days\n`;
+            content += `- Payment: By 15th of each month\n\n`;
+            
+            content += `Key Metrics to Track:\n`;
+            content += `- Total clicks on referral links\n`;
+            content += `- Conversion rate by traffic source\n`;
+            content += `- Monthly new customer count\n`;
+            content += `- Pending vs approved commissions\n\n`;
+            
+            content += `Attribution Rules:\n`;
+            content += `- 30-day last-click attribution\n`;
+            content += `- New customers only\n`;
+            content += `- Referral links only (no coupon sites)\n`;
+            content += `- No self-referrals\n\n`;
+            
+            content += `SECTION 4: SCALING & GROWTH\n\n`;
+            content += `Step 1: Optimize Top Channels\n`;
+            content += `- Analyze performance by traffic source\n`;
+            content += `- Focus on highest-converting channels\n`;
+            content += `- Eliminate low-performing activities\n`;
+            content += `- Test and iterate messaging\n\n`;
+            
+            content += `Step 2: Build Systems & Automation\n`;
+            content += `- Set up email autoresponders\n`;
+            content += `- Use social media scheduling tools\n`;
+            content += `- Create template responses\n`;
+            content += `- Implement tracking systems\n\n`;
+            
+            content += `Step 3: Expand Your Reach\n`;
+            content += `- Partner with industry influencers\n`;
+            content += `- Guest post on relevant blogs\n`;
+            content += `- Speak at conferences and events\n`;
+            content += `- Develop premium lead magnets\n\n`;
+            
+            content += `Step 4: Long-term Success\n`;
+            content += `- Maintain consistency in promotion\n`;
+            content += `- Always lead with value\n`;
+            content += `- Build genuine relationships\n`;
+            content += `- Make data-driven decisions\n`;
+            content += `- Set and track monthly goals\n\n`;
+            
+            content += `SUCCESS CHECKLIST:\n`;
+            content += `□ Dashboard access and setup complete\n`;
+            content += `□ Referral links generated and tested\n`;
+            content += `□ Marketing materials downloaded\n`;
+            content += `□ First promotion campaign launched\n`;
+            content += `□ Tracking system in place\n`;
+            content += `□ First referral achieved\n`;
+            content += `□ Monthly 2+ customer requirement met\n`;
+            content += `□ First commission payout received\n`;
+            content += `□ Optimization process implemented\n`;
+            content += `□ Scaling strategy developed\n\n`;
+            
+            content += `IMPORTANT REMINDERS:\n`;
+            content += `• Always use your unique referral links\n`;
+            content += `• Focus on new customers only\n`;
+            content += `• Maintain 2+ new customers per month\n`;
+            content += `• Follow all program terms and guidelines\n`;
+            content += `• Lead with value in all content\n`;
+            content += `• Track and optimize based on data\n`;
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'stacked-affiliate-playbook.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

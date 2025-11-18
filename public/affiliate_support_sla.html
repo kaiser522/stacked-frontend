@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacked Technologies - Affiliate Support & SLAs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f7fafc;
+            min-height: 100vh;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 40px rgba(0,0,0,0.08);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0A1B2A 0%, #0A1B2A 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            color: #7D7D7D;
+            margin-bottom: 2rem;
+        }
+
+        .tag {
+            background: rgba(26, 188, 156, 0.2);
+            color: #1ABC9C;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(26, 188, 156, 0.3);
+            display: inline-block;
+            margin: 4px;
+        }
+
+        .content {
+            padding: 3rem 2rem;
+        }
+
+        .intro-section {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+            border-left: 4px solid #1ABC9C;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .intro-section h2 {
+            color: #0A1B2A;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .intro-section p {
+            color: #0A1B2A;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .support-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .support-card:hover {
+            border-color: #1ABC9C;
+            box-shadow: 0 8px 25px rgba(26, 188, 156, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .support-header {
+            background: #0A1B2A;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .support-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1ABC9C;
+            margin-bottom: 0.5rem;
+        }
+
+        .support-subtitle {
+            color: #7D7D7D;
+            font-size: 1rem;
+        }
+
+        .support-content {
+            padding: 2rem;
+        }
+
+        .sla-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .sla-table th,
+        .sla-table td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .sla-table th {
+            background: #f8fafc;
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .sla-table td {
+            color: #4a5568;
+        }
+
+        .sla-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .sla-table tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 3px solid #1ABC9C;
+        }
+
+        .contact-icon {
+            background: #1ABC9C;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-title {
+            font-weight: 600;
+            color: #0A1B2A;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-description {
+            color: #4a5568;
+            font-size: 0.95rem;
+        }
+
+        .contact-info {
+            color: #1ABC9C;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .priority-box {
+            background: #f0fff4;
+            border: 1px solid #1ABC9C;
+            border-left: 4px solid #1ABC9C;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .priority-box h4 {
+            color: #0A1B2A;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .priority-box p {
+            color: #0A1B2A;
+            margin-bottom: 0;
+        }
+
+        .urgent-box {
+            background: #fffaf0;
+            border: 1px solid #fbd38d;
+            border-left: 4px solid #ed8936;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .urgent-box h4 {
+            color: #c05621;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .urgent-box p {
+            color: #744210;
+            margin-bottom: 0;
+        }
+
+        .escalation-section {
+            background: #0A1B2A;
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+        }
+
+        .escalation-section h3 {
+            color: #1ABC9C;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .escalation-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .escalation-step {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(26, 188, 156, 0.3);
+            text-align: center;
+        }
+
+        .step-number {
+            background: #1ABC9C;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .escalation-step h4 {
+            color: #1ABC9C;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .escalation-step p {
+            color: #7D7D7D;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 2rem 1rem;
+            }
+
+            .support-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .escalation-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .sla-table th,
+            .sla-table td {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Affiliate Support & SLAs</h1>
+            <p>Dedicated support channels and service level commitments</p>
+            <div style="margin-top: 20px;">
+                <span class="tag">24-hour response</span>
+                <span class="tag">dedicated-team</span>
+                <span class="tag">priority-support</span>
+                <span class="tag">escalation-path</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="intro-section">
+                <h2>Your Success is Our Priority</h2>
+                <p>We provide dedicated affiliate support with guaranteed response times and clear escalation paths. Our team is here to help you maximize your earning potential and resolve any issues quickly.</p>
+            </div>
+
+            <div class="support-grid">
+                <!-- Contact Methods -->
+                <div class="support-card">
+                    <div class="support-header">
+                        <h3 class="support-title">Contact Methods</h3>
+                        <p class="support-subtitle">Multiple ways to reach our affiliate support team</p>
+                    </div>
+                    <div class="support-content">
+                        <div class="contact-method">
+                            <div class="contact-icon">📧</div>
+                            <div class="contact-details">
+                                <div class="contact-title">All Affiliate Support</div>
+                                <div class="contact-description">All questions, issues, and support requests</div>
+                                <div class="contact-info">stackedcare@gmail.com</div>
+                            </div>
+                        </div>
+
+                        <div class="priority-box">
+                            <h4>One Email for Everything</h4>
+                            <p>We use a single email address for all affiliate support to ensure nothing gets missed. All inquiries are triaged and routed to the appropriate team member based on urgency and type.</p>
+                        </div>
+
+                        <div class="priority-box">
+                            <h4>Email Subject Line Format</h4>
+                            <p>Use format: [AFFILIATE] - [Issue Type] - [Brief Description]<br>
+                            Example: "[AFFILIATE] - PAYOUT - Missing December Commission"<br>
+                            Send all requests to: <strong>stackedcare@gmail.com</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Level Agreements -->
+                <div class="support-card">
+                    <div class="support-header">
+                        <h3 class="support-title">Service Level Agreements</h3>
+                        <p class="support-subtitle">Guaranteed response times and resolution commitments</p>
+                    </div>
+                    <div class="support-content">
+                        <table class="sla-table">
+                            <thead>
+                                <tr>
+                                    <th>Issue Type</th>
+                                    <th>Response Time</th>
+                                    <th>Resolution Target</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Urgent Issues</strong><br><small>Payment blocks, account suspension</small></td>
+                                    <td>4 hours</td>
+                                    <td>24 hours</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Commission Questions</strong><br><small>Payment disputes, tracking issues</small></td>
+                                    <td>8 hours</td>
+                                    <td>48 hours</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>General Support</strong><br><small>Questions, guidance, clarifications</small></td>
+                                    <td>24 hours</td>
+                                    <td>72 hours</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Training Requests</strong><br><small>Materials, strategy help, onboarding</small></td>
+                                    <td>24 hours</td>
+                                    <td>5 business days</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="urgent-box">
+                            <h4>What Qualifies as Urgent?</h4>
+                            <p>• Payment system blocking legitimate commissions<br>
+                            • Account wrongfully suspended or terminated<br>
+                            • Technical issues preventing affiliate tracking<br>
+                            • Missing payouts for approved commissions</p>
+                        </div>
+
+                        <div class="priority-box">
+                            <h4>Business Hours</h4>
+                            <p>Monday-Friday, 9 AM - 6 PM EST<br>
+                            Urgent issues monitored 24/7 with weekend coverage</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="escalation-section">
+                <h3>Escalation Process</h3>
+                <p style="text-align: center; color: #7D7D7D; margin-bottom: 2rem;">If your issue isn't resolved within SLA timeframes, here's how to escalate:</p>
+                
+                <div class="escalation-steps">
+                    <div class="escalation-step">
+                        <div class="step-number">1</div>
+                        <h4>Follow Up</h4>
+                        <p>Reply to original support email with "FOLLOW-UP" in subject line after SLA time expires</p>
+                    </div>
+                    
+                    <div class="escalation-step">
+                        <div class="step-number">2</div>
+                        <h4>Mark as Urgent</h4>
+                        <p>Reply with "URGENT" in subject line and reference original ticket if critical issue isn't resolved within SLA timeframe</p>
+                    </div>
+                    
+                    <div class="escalation-step">
+                        <div class="step-number">3</div>
+                        <h4>Executive Escalation</h4>
+                        <p>Email stackedcare@gmail.com with "EXECUTIVE ESCALATION" in subject line for unresolved critical issues affecting earnings</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; padding: 3rem 2rem; background: #f8fafc; border-radius: 12px; margin: 3rem 0;">
+                <h3 style="color: #0A1B2A; margin-bottom: 1rem;">We're Here to Help You Succeed</h3>
+                <p style="color: #4a5568; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Our affiliate support team is dedicated to your success. Don't hesitate to reach out with any questions, concerns, or suggestions for improvement.</p>
+                <div style="background: rgba(26, 188, 156, 0.1); padding: 1rem; border-radius: 8px; display: inline-block;">
+                    <p style="color: #0A1B2A; margin: 0; font-weight: 600;">Contact: stackedcare@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

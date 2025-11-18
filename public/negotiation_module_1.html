@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: Negotiation Fundamentals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .timer-bar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .timer-content {
+            background: #00D4AA;
+            color: #1a1a1a;
+            border-radius: 25px;
+            padding: 8px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .timer-display {
+            color: #1a1a1a;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .module-header {
+            text-align: center;
+            margin: 80px 0 40px 0;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .module-number {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #00D4AA;
+        }
+        
+        .duration {
+            background: #FFD700;
+            color: #1e3a5f;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .module-description {
+            font-size: 1.2em;
+            color: #B0C4DE;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            color: #00D4AA;
+        }
+        
+        h3 {
+            font-size: 1.6em;
+            margin: 30px 0 15px 0;
+            color: #FFD700;
+        }
+        
+        h4 {
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+            color: #B0C4DE;
+        }
+        
+        p, li {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #E6F3FF;
+        }
+        
+        ul, ol {
+            margin: 20px 0 20px 30px;
+        }
+        
+        .highlight-box {
+            background: rgba(0, 212, 170, 0.2);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .highlight-box h3 {
+            color: #00D4AA;
+            margin-top: 0;
+        }
+        
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid #ef4444;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .warning-box h3 {
+            color: #ef4444;
+            margin-top: 0;
+        }
+        
+        .case-study {
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid #8b5cf6;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .case-study h3 {
+            color: #8b5cf6;
+            margin-top: 0;
+        }
+        
+        .quiz-section {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .quiz-question {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .quiz-question h4 {
+            color: #FFD700;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+        
+        .quiz-options {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #00D4AA;
+        }
+        
+        .quiz-option.selected {
+            background: rgba(0, 212, 170, 0.2);
+            border-color: #00D4AA;
+            color: #00D4AA;
+        }
+        
+        .quiz-option.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: #22c55e;
+            color: #22c55e;
+        }
+        
+        .quiz-option.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+        
+        .option-letter {
+            background: #00D4AA;
+            color: #1e3a5f;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .quiz-feedback {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .quiz-feedback.show {
+            display: block;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(45deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #00B894, #009B7D);
+            transform: translateY(-2px);
+        }
+        
+        .brain-teaser {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .brain-teaser h3 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .teaser-question {
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            color: #f3e8ff;
+        }
+        
+        .teaser-input {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            color: white;
+            width: 300px;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .teaser-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .teaser-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .teaser-btn:hover {
+            background: white;
+            color: #8b5cf6;
+        }
+        
+        .teaser-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .teaser-result.show {
+            display: block;
+        }
+        
+        .teaser-result.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border: 2px solid #22c55e;
+            color: #22c55e;
+        }
+        
+        .teaser-result.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #ef4444;
+            color: #ef4444;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(45deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-btn:hover {
+            background: linear-gradient(45deg, #00B894, #009B7D);
+            transform: translateY(-2px);
+        }
+        
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .strategy-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .strategy-card:hover {
+            transform: translateY(-5px);
+            border-color: #FFD700;
+        }
+        
+        .strategy-card h4 {
+            color: #00D4AA;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .data-table {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        th {
+            background: rgba(0, 212, 170, 0.2);
+            color: #00D4AA;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .strategy-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 25px 20px;
+            }
+            
+            .timer-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Timer Bar -->
+    <div class="timer-bar">
+        <div class="timer-content">
+            <div class="timer-display" id="timer">Time Spent: 0:00</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Module Header -->
+        <div class="module-header">
+            <div class="module-number">Module 1</div>
+            <h1>Negotiation Fundamentals</h1>
+            <div class="duration">45 minutes</div>
+            <p class="module-description">Master the core principles of negotiation, understand psychological motivations, and learn the foundations of successful real estate deal-making.</p>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="section">
+            <h2>Learning Objectives</h2>
+            <p>By the end of this module, you will be able to:</p>
+            <ul>
+                <li>Understand the fundamental principles of win-win negotiation</li>
+                <li>Identify the key psychological factors that drive decision-making</li>
+                <li>Recognize different negotiation styles and adapt accordingly</li>
+                <li>Apply the core framework of preparation, rapport, and influence</li>
+                <li>Distinguish between positions and underlying interests</li>
+                <li>Use basic psychological triggers ethically in negotiations</li>
+                <li>Set proper expectations and objectives before any negotiation</li>
+            </ul>
+        </div>
+
+        <!-- Introduction -->
+        <div class="section">
+            <h2>What Is Negotiation?</h2>
+            <p>Negotiation is the process of reaching a mutually acceptable agreement between parties with different needs, wants, and constraints. In real estate, every transaction involves multiple negotiations - price, terms, contingencies, timelines, and conditions.</p>
+            
+            <h3>The Real Estate Negotiation Landscape</h3>
+            <p>Real estate negotiations are unique because they involve:</p>
+            <ul>
+                <li><strong>High-value transactions:</strong> Often the largest financial decision people make</li>
+                <li><strong>Emotional attachment:</strong> Properties represent homes, dreams, and security</li>
+                <li><strong>Multiple parties:</strong> Buyers, sellers, agents, lenders, inspectors, attorneys</li>
+                <li><strong>Complex variables:</strong> Price, financing, contingencies, timing, conditions</li>
+                <li><strong>Time pressure:</strong> Market conditions and personal situations create urgency</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <h3>Key Insight: Beyond Price</h3>
+                <p>Most people think negotiation is just about price, but successful real estate negotiations focus on creating value through terms, timing, and conditions that benefit all parties. A skilled negotiator can often get their price by being flexible on other terms.</p>
+            </div>
+        </div>
+
+        <!-- Quiz 1 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Negotiation Basics</h2>
+            
+            <div class="quiz-question" id="question1">
+                <h4>1. What makes real estate negotiations unique compared to other types of negotiations?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(1, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>They only involve price discussions</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(1, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>They involve high-value, emotional decisions with multiple parties</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(1, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>They are always adversarial</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(1, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>They don't require preparation</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback1">
+                    Real estate negotiations are unique because they combine high financial stakes with emotional attachment and involve multiple parties with different interests and timelines.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(1)">Check Answer</button>
+        </div>
+
+        <!-- Core Principles -->
+        <div class="section">
+            <h2>The Five Core Principles of Successful Negotiation</h2>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <h4>1. Prepare Thoroughly</h4>
+                    <p>Research the property, market conditions, comparable sales, and the other party's situation. Knowledge is power in negotiations, and preparation determines 80% of your success.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>2. Focus on Interests, Not Positions</h4>
+                    <p>Understand why people want what they want. A seller demanding $300K might need $280K to pay off debts and moving costs. Focus on solving their underlying problem.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>3. Create Value Before Claiming It</h4>
+                    <p>Look for ways to expand the pie before dividing it. Can you offer flexible timing, quick closing, or assumption of repairs to create mutual value?</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>4. Build Rapport and Trust</h4>
+                    <p>People do business with people they like and trust. Invest time in building genuine relationships before discussing terms.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>5. Always Have Alternatives</h4>
+                    <p>Your negotiating power comes from your ability to walk away. Always have backup options and know your BATNA (Best Alternative to a Negotiated Agreement).</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>6. Communicate with Influence</h4>
+                    <p>Use psychological principles like reciprocity, social proof, and scarcity ethically to guide the negotiation toward agreement.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz 2 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Core Principles</h2>
+            
+            <div class="quiz-question" id="question2">
+                <h4>2. What does it mean to "focus on interests, not positions" in a negotiation?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(2, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>Stick firmly to your initial offer</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(2, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>Understand the underlying reasons behind what people want</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(2, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>Only negotiate on price</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(2, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>Take a competitive approach</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback2">
+                    Focusing on interests means understanding the underlying needs, concerns, and motivations behind someone's stated position. This helps you find creative solutions that address their real needs.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(2)">Check Answer</button>
+        </div>
+
+        <!-- Psychology of Decision Making -->
+        <div class="section">
+            <h2>The Psychology Behind Real Estate Decisions</h2>
+            <p>Understanding how people make decisions gives you a significant advantage in negotiations. Here are the key psychological factors that influence real estate decisions:</p>
+            
+            <h3>Emotional vs. Logical Decision Making</h3>
+            <p>Research shows that people make decisions emotionally and then justify them logically. In real estate:</p>
+            <ul>
+                <li><strong>Sellers:</strong> Emotional attachment to memories, fear of loss, pride in ownership</li>
+                <li><strong>Buyers:</strong> Vision of future lifestyle, safety and security needs, status considerations</li>
+                <li><strong>Investors:</strong> Greed and fear cycles, analysis paralysis, confirmation bias</li>
+            </ul>
+            
+            <h3>Key Psychological Triggers</h3>
+            
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Psychological Trigger</th>
+                            <th>How It Works</th>
+                            <th>Real Estate Application</th>
+                            <th>Ethical Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Reciprocity</td>
+                            <td>People feel obligated to return favors</td>
+                            <td>Provide market analysis or helpful information first</td>
+                            <td>Offer genuine value before asking for anything</td>
+                        </tr>
+                        <tr>
+                            <td>Social Proof</td>
+                            <td>People follow others' behavior</td>
+                            <td>"Other investors have found success with similar properties"</td>
+                            <td>Use truthful examples and testimonials</td>
+                        </tr>
+                        <tr>
+                            <td>Scarcity</td>
+                            <td>Limited availability increases perceived value</td>
+                            <td>Multiple offers, limited time frames</td>
+                            <td>Only use when genuinely true</td>
+                        </tr>
+                        <tr>
+                            <td>Anchoring</td>
+                            <td>First number influences all subsequent negotiations</td>
+                            <td>Set initial offer strategically</td>
+                            <td>Base anchors on market data</td>
+                        </tr>
+                        <tr>
+                            <td>Loss Aversion</td>
+                            <td>Fear of losing is stronger than desire to gain</td>
+                            <td>Frame in terms of what they might lose</td>
+                            <td>Focus on preventing real losses</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="warning-box">
+                <h3>Ethical Considerations</h3>
+                <p>These psychological principles should be used to create genuine win-win outcomes, not to manipulate or deceive. Your goal is to help all parties make good decisions, not to trick them into bad ones.</p>
+            </div>
+        </div>
+
+        <!-- Quiz 3 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Psychology</h2>
+            
+            <div class="quiz-question" id="question3">
+                <h4>3. Which psychological principle explains why providing a market analysis before making an offer can be effective?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(3, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>Scarcity</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(3, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>Reciprocity</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(3, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>Social Proof</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(3, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>Anchoring</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback3">
+                    Reciprocity explains why providing value first (like a market analysis) makes people more likely to return the favor by considering your offer seriously.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(3)">Check Answer</button>
+        </div>
+
+        <!-- Negotiation Styles -->
+        <div class="section">
+            <h2>Understanding Different Negotiation Styles</h2>
+            <p>People approach negotiations differently based on their personality, experience, and situation. Recognizing these styles helps you adapt your approach for maximum effectiveness.</p>
+            
+            <h3>The Five Negotiation Styles</h3>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <h4>Competing (Win-Lose)</h4>
+                    <p><strong>Characteristics:</strong> Aggressive, demanding, focused on winning</p>
+                    <p><strong>When to use:</strong> Emergency situations, when stakes are very high</p>
+                    <p><strong>How to handle:</strong> Stay calm, focus on facts, don't take it personally</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Accommodating (Lose-Win)</h4>
+                    <p><strong>Characteristics:</strong> Agreeable, relationship-focused, avoids conflict</p>
+                    <p><strong>When to use:</strong> When relationship is more important than outcome</p>
+                    <p><strong>How to handle:</strong> Draw out their true needs, ensure they're not being taken advantage of</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Avoiding (Lose-Lose)</h4>
+                    <p><strong>Characteristics:</strong> Withdraws from conflict, postpones decisions</p>
+                    <p><strong>When to use:</strong> When issue is minor or you need time to prepare</p>
+                    <p><strong>How to handle:</strong> Create safe environment, break down complex issues</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Compromising (Lose-Lose)</h4>
+                    <p><strong>Characteristics:</strong> Seeks middle ground, "split the difference"</p>
+                    <p><strong>When to use:</strong> When time is limited and stakes are moderate</p>
+                    <p><strong>How to handle:</strong> Look for creative alternatives before settling for compromise</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Collaborating (Win-Win)</h4>
+                    <p><strong>Characteristics:</strong> Problem-solving, creative, seeks mutual gains</p>
+                    <p><strong>When to use:</strong> Complex deals with multiple variables</p>
+                    <p><strong>How to handle:</strong> This is the ideal approach for most real estate negotiations</p>
+                </div>
+            </div>
+            
+            <div class="case-study">
+                <h3>Case Study: Adapting to Different Styles</h3>
+                <p><strong>Situation:</strong> You're negotiating to buy a rental property from an elderly seller who inherited it.</p>
+                <p><strong>Seller's Style:</strong> Accommodating - wants to avoid conflict, very concerned about being fair</p>
+                <p><strong>Your Adaptation:</strong></p>
+                <ul>
+                    <li>Emphasize how your offer helps them achieve their goals</li>
+                    <li>Provide detailed market analysis to show fairness</li>
+                    <li>Offer flexible terms on timing and conditions</li>
+                    <li>Focus on relationship-building and trust</li>
+                    <li>Avoid high-pressure tactics</li>
+                </ul>
+                <p><strong>Result:</strong> Successful purchase at favorable terms because seller felt comfortable and fairly treated</p>
+            </div>
+        </div>
+
+        <!-- Quiz 4 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Negotiation Styles</h2>
+            
+            <div class="quiz-question" id="question4">
+                <h4>4. What is the most effective negotiation style for complex real estate deals?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(4, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>Competing (Win-Lose)</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(4, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>Accommodating (Lose-Win)</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(4, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>Collaborating (Win-Win)</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(4, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>Compromising (Split the difference)</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback4">
+                    Collaborating (Win-Win) is most effective for complex real estate deals because it allows you to explore creative solutions that benefit all parties and build long-term relationships.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(4)">Check Answer</button>
+        </div>
+
+        <!-- The POWER Framework -->
+        <div class="section">
+            <h2>The POWER Framework for Negotiation</h2>
+            <p>This framework provides a systematic approach to any negotiation. Each letter represents a crucial phase that builds toward successful outcomes.</p>
+            
+            <h3>P - Prepare and Plan</h3>
+            <ul>
+                <li><strong>Research:</strong> Property details, market conditions, comparable sales</li>
+                <li><strong>Objectives:</strong> Your ideal outcome, minimum acceptable terms, walk-away point</li>
+                <li><strong>Strategy:</strong> How you'll approach the negotiation, anticipated objections</li>
+                <li><strong>Alternatives:</strong> Your BATNA (Best Alternative to Negotiated Agreement)</li>
+            </ul>
+            
+            <h3>O - Open with Rapport</h3>
+            <ul>
+                <li><strong>Build Connection:</strong> Find common ground, shared interests</li>
+                <li><strong>Listen Actively:</strong> Understand their situation, motivations, constraints</li>
+                <li><strong>Ask Questions:</strong> Discover their true interests beyond stated positions</li>
+                <li><strong>Establish Trust:</strong> Be honest, transparent, and professional</li>
+            </ul>
+            
+            <h3>W - Work Together</h3>
+            <ul>
+                <li><strong>Share Information:</strong> Exchange relevant data that helps both parties</li>
+                <li><strong>Brainstorm Options:</strong> Generate multiple solutions before evaluating</li>
+                <li><strong>Address Concerns:</strong> Handle objections with empathy and facts</li>
+                <li><strong>Find Trade-offs:</strong> Identify what each party values most</li>
+            </ul>
+            
+            <h3>E - Evaluate and Decide</h3>
+            <ul>
+                <li><strong>Review Options:</strong> Compare alternatives against objectives</li>
+                <li><strong>Test Solutions:</strong> Ensure proposed terms work for everyone</li>
+                <li><strong>Make Adjustments:</strong> Fine-tune details for better fit</li>
+                <li><strong>Check Understanding:</strong> Confirm everyone agrees on terms</li>
+            </ul>
+            
+            <h3>R - Reach Agreement</h3>
+            <ul>
+                <li><strong>Document Terms:</strong> Write down all agreed-upon points</li>
+                <li><strong>Plan Next Steps:</strong> Timeline for contracts, inspections, closing</li>
+                <li><strong>Maintain Relationship:</strong> End on positive note for future dealings</li>
+                <li><strong>Follow Through:</strong> Honor commitments and communicate regularly</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <h3>POWER Framework in Action</h3>
+                <p><strong>Example:</strong> Negotiating purchase of a distressed property</p>
+                <p><strong>P:</strong> Research foreclosure timeline, comparable sales, repair costs</p>
+                <p><strong>O:</strong> Build rapport with motivated seller, understand their timeline pressure</p>
+                <p><strong>W:</strong> Explore quick-close options, flexible terms, assumption of liens</p>
+                <p><strong>E:</strong> Compare all-cash quick close vs. traditional financing</p>
+                <p><strong>R:</strong> Agree on price with 2-week close and seller-paid closing costs</p>
+            </div>
+        </div>
+
+        <!-- Quiz 5 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: POWER Framework</h2>
+            
+            <div class="quiz-question" id="question5">
+                <h4>5. In the POWER framework, what does the "W" represent?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(5, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>Wait for the other party to make the first move</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(5, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>Work Together to find solutions</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(5, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>Win at all costs</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(5, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>Walk away from difficult negotiations</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback5">
+                    The "W" in POWER stands for "Work Together" - the collaborative phase where you share information, brainstorm options, and find creative solutions that benefit both parties.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(5)">Check Answer</button>
+        </div>
+
+        <!-- Common Mistakes -->
+        <div class="section">
+            <h2>Common Negotiation Mistakes to Avoid</h2>
+            <p>Even experienced negotiators fall into these traps. Recognizing them helps you negotiate more effectively and build better relationships.</p>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <h4>Mistake #1: Focusing Only on Price</h4>
+                    <p><strong>Problem:</strong> Missing opportunities to create value through terms, timing, and conditions</p>
+                    <p><strong>Solution:</strong> Explore all variables - closing date, contingencies, repairs, financing</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Mistake #2: Making Assumptions</h4>
+                    <p><strong>Problem:</strong> Assuming you know what the other party wants without asking</p>
+                    <p><strong>Solution:</strong> Ask open-ended questions to understand their true motivations</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Mistake #3: Negotiating Against Yourself</h4>
+                    <p><strong>Problem:</strong> Making concessions before the other party responds</p>
+                    <p><strong>Solution:</strong> Wait for their response before adjusting your offer</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Mistake #4: Taking Things Personally</h4>
+                    <p><strong>Problem:</strong> Letting emotions drive decisions instead of logic</p>
+                    <p><strong>Solution:</strong> Stay focused on interests and objectives, not personalities</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Mistake #5: Poor Preparation</h4>
+                    <p><strong>Problem:</strong> Entering negotiations without clear objectives or market knowledge</p>
+                    <p><strong>Solution:</strong> Always prepare thoroughly before any important negotiation</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Mistake #6: Win-Lose Thinking</h4>
+                    <p><strong>Problem:</strong> Believing that your gain requires their loss</p>
+                    <p><strong>Solution:</strong> Look for ways to expand value for both parties</p>
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                <h3>The Biggest Mistake: Not Negotiating at All</h3>
+                <p>Many people accept the first offer or avoid negotiating altogether out of fear or discomfort. Remember: everything is negotiable, and the worst they can say is no. You miss 100% of the shots you don't take.</p>
+            </div>
+        </div>
+
+        <!-- Brain Teaser Challenge -->
+        <div class="brain-teaser">
+            <h3>Negotiation Master Challenge</h3>
+            <div class="teaser-question">
+                You're negotiating to buy a duplex listed at $180,000. The seller reveals they need $165,000 to pay off their loan and moving expenses. Your max budget is $170,000, but you'd prefer to pay $160,000. Using negotiation principles, what's your opening offer strategy?
+            </div>
+            <input type="text" class="teaser-input" id="teaserAnswer" placeholder="Enter your opening offer amount">
+            <button class="teaser-btn" onclick="checkTeaserAnswer()">Submit Answer</button>
+            <div class="teaser-result" id="teaserResult"></div>
+        </div>
+
+        <!-- Module Summary -->
+        <div class="section">
+            <h2>Module Summary</h2>
+            <p>You've now mastered the fundamental principles of effective negotiation:</p>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <h4>Core Principles Mastered</h4>
+                    <p>Preparation, focusing on interests, creating value, building rapport, and maintaining alternatives.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Psychology Understanding</h4>
+                    <p>How emotions drive decisions and how to use psychological triggers ethically.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Style Adaptation</h4>
+                    <p>Recognizing different negotiation styles and adapting your approach accordingly.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>POWER Framework</h4>
+                    <p>A systematic approach to structure any negotiation for maximum success.</p>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>Key Takeaway</h3>
+                <p>Successful negotiation is not about winning or losing - it's about creating solutions that work for everyone involved. When you focus on understanding interests and building relationships, better deals naturally follow.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Timer functionality
+        let startTime = Date.now();
+        
+        function updateTimer() {
+            const elapsed = Date.now() - startTime;
+            const minutes = Math.floor(elapsed / 60000);
+            const seconds = Math.floor((elapsed % 60000) / 1000);
+            
+            const timerDisplay = document.getElementById('timer');
+            timerDisplay.textContent = `Time Spent: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // Update timer every second
+        setInterval(updateTimer, 1000);
+        
+        // Quiz functionality
+        let quizAnswers = {
+            1: null,
+            2: null,
+            3: null,
+            4: null,
+            5: null
+        };
+        
+        let correctAnswers = {
+            1: 'B',
+            2: 'B',
+            3: 'B',
+            4: 'C',
+            5: 'B'
+        };
+        
+        function selectAnswer(questionNum, answer) {
+            // Remove previous selections
+            const options = document.querySelectorAll(`#question${questionNum} .quiz-option`);
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selection to clicked option
+            event.currentTarget.classList.add('selected');
+            
+            // Store answer
+            quizAnswers[questionNum] = answer;
+        }
+        
+        function showQuestionResult(questionNum) {
+            const options = document.querySelectorAll(`#question${questionNum} .quiz-option`);
+            const feedback = document.getElementById(`feedback${questionNum}`);
+            const userAnswer = quizAnswers[questionNum];
+            const correctAnswer = correctAnswers[questionNum];
+            
+            if (!userAnswer) {
+                alert('Please select an answer first!');
+                return;
+            }
+            
+            options.forEach(option => {
+                const letter = option.querySelector('.option-letter').textContent;
+                if (letter === correctAnswer) {
+                    option.classList.add('correct');
+                } else if (letter === userAnswer && letter !== correctAnswer) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            feedback.classList.add('show');
+            
+            // Update feedback text based on correctness
+            if (userAnswer === correctAnswer) {
+                feedback.innerHTML = `<strong>Correct!</strong> ${getFeedbackText(questionNum)}`;
+            } else {
+                feedback.innerHTML = `<strong>Incorrect.</strong> The correct answer is ${correctAnswer}. ${getFeedbackText(questionNum)}`;
+            }
+        }
+        
+        function getFeedbackText(questionNum) {
+            const feedbacks = {
+                1: "Real estate negotiations are unique because they combine high financial stakes with emotional attachment and involve multiple parties with different interests and timelines.",
+                2: "Focusing on interests means understanding the underlying needs, concerns, and motivations behind someone's stated position. This helps you find creative solutions that address their real needs.",
+                3: "Reciprocity explains why providing value first (like a market analysis) makes people more likely to return the favor by considering your offer seriously.",
+                4: "Collaborating (Win-Win) is most effective for complex real estate deals because it allows you to explore creative solutions that benefit all parties and build long-term relationships.",
+                5: "The 'W' in POWER stands for 'Work Together' - the collaborative phase where you share information, brainstorm options, and find creative solutions that benefit both parties."
+            };
+            return feedbacks[questionNum];
+        }
+        
+        function checkTeaserAnswer() {
+            const userAnswer = document.getElementById('teaserAnswer').value;
+            const resultDiv = document.getElementById('teaserResult');
+            
+            // Convert to number and check if it's in a reasonable range
+            const offerAmount = parseInt(userAnswer.replace(/[,$]/g, ''));
+            
+            resultDiv.classList.remove('correct', 'incorrect');
+            resultDiv.classList.add('show');
+            
+            if (offerAmount >= 150000 && offerAmount <= 162000) {
+                resultDiv.classList.add('correct');
+                resultDiv.innerHTML = `<strong>Excellent strategy!</strong> An offer of ${offerAmount.toLocaleString()} uses good anchoring - starting below their stated need but within a reasonable range. This gives you room to negotiate up to their $165K requirement while potentially securing a better deal.`;
+            } else if (offerAmount > 162000 && offerAmount < 170000) {
+                resultDiv.classList.add('incorrect');
+                resultDiv.innerHTML = `<strong>Too high for an opening offer.</strong> Starting at ${offerAmount.toLocaleString()} doesn't give you much negotiating room. Consider opening lower (around $155K-160K) to anchor the negotiation in your favor.`;
+            } else if (offerAmount < 150000) {
+                resultDiv.classList.add('incorrect');
+                resultDiv.innerHTML = `<strong>Too low and might offend.</strong> ${offerAmount.toLocaleString()} is so far below their stated need ($165K) that it might damage rapport. Try $155K-160K to be aggressive but reasonable.`;
+            } else {
+                resultDiv.classList.add('incorrect');
+                resultDiv.innerHTML = `<strong>Good effort!</strong> The ideal opening offer would be $155K-160K. This anchors below their need but shows you're serious, giving room to negotiate up to their $165K requirement.`;
+            }
+        }
+    </script>
+</body>
+</html>

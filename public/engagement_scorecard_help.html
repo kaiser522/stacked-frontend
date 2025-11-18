@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Engagement Scorecard - Help Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #e1e5e9;
+            background-color: #2c3e50;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid #00d4aa;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #00d4aa;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content-section {
+            background: #34495e;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #485e73;
+        }
+        
+        .content-section h2 {
+            color: #00d4aa;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #00d4aa;
+            padding-bottom: 10px;
+        }
+        
+        .content-section h3 {
+            color: #00d4aa;
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+        }
+        
+        .content-section p {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: #e1e5e9;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .metric-card {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #00d4aa;
+            border: 1px solid #485e73;
+        }
+        
+        .metric-card h4 {
+            color: #00d4aa;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .metric-card .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e1e5e9;
+            margin-bottom: 5px;
+        }
+        
+        .metric-card .subtitle {
+            font-size: 0.8rem;
+            color: #b8c5d1;
+        }
+        
+        .engagement-levels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .engagement-card {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #485e73;
+        }
+        
+        .engagement-card.high {
+            border-left: 4px solid #27ae60;
+        }
+        
+        .engagement-card.moderate {
+            border-left: 4px solid #f39c12;
+        }
+        
+        .engagement-card.low {
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .engagement-card h4 {
+            color: #00d4aa;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .engagement-card .criteria {
+            color: #b8c5d1;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        
+        .engagement-card .indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .indicator.high {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .indicator.moderate {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .indicator.low {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .client-card-example {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #485e73;
+        }
+        
+        .client-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .client-name {
+            color: #e1e5e9;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .client-type {
+            color: #00d4aa;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        
+        .score-ring {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 4px solid #27ae60;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #e1e5e9;
+        }
+        
+        .client-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            color: #b8c5d1;
+            font-size: 0.9rem;
+        }
+        
+        .stat-value {
+            color: #e1e5e9;
+            font-weight: bold;
+        }
+        
+        .step-list {
+            counter-reset: step-counter;
+        }
+        
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #00d4aa;
+            color: #2c3e50;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .tip-box {
+            background: #1e3d59;
+            border-left: 4px solid #00d4aa;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #e1e5e9;
+        }
+        
+        .tip-box strong {
+            color: #00d4aa;
+        }
+        
+        .warning-box {
+            background: #3d2f2f;
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #e1e5e9;
+        }
+        
+        .warning-box strong {
+            color: #ff6b6b;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            color: #e1e5e9;
+        }
+        
+        .time-period-options {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .time-option {
+            background: #2c3e50;
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: 1px solid #485e73;
+            color: #00d4aa;
+            font-size: 0.9rem;
+        }
+        
+        .time-option.active {
+            background: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Client Engagement Scorecard</h1>
+            <p>Track and optimize your client communication effectiveness</p>
+        </div>
+
+        <div class="content-section">
+            <h2>What is the Client Engagement Scorecard?</h2>
+            <p>The Client Engagement Scorecard is an advanced analytics tool that automatically tracks and analyzes your email communication patterns with clients. It provides real-time insights into how effectively you're engaging with your client base by monitoring email opens, reply rates, response times, and overall engagement levels.</p>
+            
+            <p>This powerful feature helps you identify which clients need more attention, track your communication effectiveness over time, and make data-driven decisions about where to focus your follow-up efforts. The scorecard integrates with your email platform to provide automatic, real-time updates without any manual data entry.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Email Tracking System</h2>
+            <p>The scorecard automatically connects to your email platform to track engagement metrics in real-time:</p>
+            
+            <div class="tip-box">
+                <strong>📧 Automatic Tracking:</strong> This scorecard automatically tracks email opens, reply rates, and response times from your email platform. Scores update in real-time based on client engagement patterns.
+            </div>
+
+            <h3>How Email Tracking Works</h3>
+            <ul>
+                <li><strong>Email Opens:</strong> Tracks when clients open your emails and calculates open rates</li>
+                <li><strong>Reply Tracking:</strong> Monitors when clients respond to your messages</li>
+                <li><strong>Response Time:</strong> Measures how quickly you respond to client emails</li>
+                <li><strong>Engagement Patterns:</strong> Analyzes communication frequency and consistency</li>
+                <li><strong>Real-Time Updates:</strong> Scores refresh automatically as new data comes in</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>⚠️ Email Integration Required:</strong> The scorecard requires connection to your email platform to function. Ensure your email account is properly integrated in your CRM settings.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Key Performance Metrics</h2>
+            <p>The dashboard displays four critical metrics that provide an overview of your communication performance:</p>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h4>Avg Response Time</h4>
+                    <div class="value">2.4h</div>
+                    <div class="subtitle">+15% faster this month</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Highly Engaged (80+)</h4>
+                    <div class="value">3</div>
+                    <div class="subtitle">+2 from last week</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Moderate (50-79)</h4>
+                    <div class="value">4</div>
+                    <div class="subtitle">Stable</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Low Engagement (<50)</h4>
+                    <div class="value">2</div>
+                    <div class="subtitle">Needs attention</div>
+                </div>
+            </div>
+
+            <h3>Understanding Your Metrics</h3>
+            <ul>
+                <li><strong>Average Response Time:</strong> Shows how quickly you respond to client emails on average. Lower times indicate better responsiveness. The percentage shows improvement or decline compared to the previous period.</li>
+                <li><strong>Highly Engaged Clients (80+):</strong> Number of clients with engagement scores of 80 or higher. These clients consistently open emails and reply promptly.</li>
+                <li><strong>Moderate Engagement (50-79):</strong> Clients showing decent but not exceptional engagement. They open most emails and reply within 24 hours.</li>
+                <li><strong>Low Engagement (<50):</strong> Clients requiring immediate attention. They rarely open emails or take days to respond, if at all.</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>💡 Performance Target:</strong> Aim for an average response time under 4 hours and strive to move clients from low to moderate or high engagement categories through consistent, value-driven communication.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Engagement Level Rankings</h2>
+            <p>Clients are automatically categorized into three engagement levels based on their email behavior:</p>
+            
+            <div class="engagement-levels">
+                <div class="engagement-card high">
+                    <h4>High Engagement</h4>
+                    <div class="criteria">Opens 80%+ emails, replies within 4 hours</div>
+                    <span class="indicator high">SCORE: 80-100</span>
+                </div>
+                <div class="engagement-card moderate">
+                    <h4>Moderate Engagement</h4>
+                    <div class="criteria">Opens 50-79% emails, replies within 24 hours</div>
+                    <span class="indicator moderate">SCORE: 50-79</span>
+                </div>
+                <div class="engagement-card low">
+                    <h4>Low Engagement</h4>
+                    <div class="criteria">Opens <50% emails, slow/no replies</div>
+                    <span class="indicator low">SCORE: <50</span>
+                </div>
+            </div>
+
+            <h3>Engagement Score Calculation</h3>
+            <p>The engagement score is calculated using multiple factors:</p>
+            <ul>
+                <li><strong>Email Open Rate:</strong> Percentage of your emails the client opens (40% weight)</li>
+                <li><strong>Reply Rate:</strong> How often the client responds to your emails (30% weight)</li>
+                <li><strong>Response Speed:</strong> How quickly they reply when they do respond (20% weight)</li>
+                <li><strong>Recent Activity:</strong> More recent interactions are weighted higher (10% weight)</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>🎯 Engagement Strategy:</strong> High engagement clients are your most active leads—prioritize closing. Moderate clients need nurturing. Low engagement clients require strategy changes or different communication channels.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Client Engagement Cards</h2>
+            <p>Each client is displayed in a detailed card showing their engagement metrics and latest activity:</p>
+
+            <div class="client-card-example">
+                <div class="client-header">
+                    <div>
+                        <div class="client-name">Sarah & Mike Johnson</div>
+                        <div class="client-type">BUYER</div>
+                    </div>
+                    <div class="score-ring">92</div>
+                </div>
+                
+                <div class="client-stats">
+                    <div class="stat-item">
+                        <span>Open Rate</span>
+                        <span class="stat-value">95%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Avg Response</span>
+                        <span class="stat-value">1.2h</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Emails Sent</span>
+                        <span class="stat-value">28</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Replies Received</span>
+                        <span class="stat-value">26</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Last Email Opened</span>
+                        <span class="stat-value">2 hours ago</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Engagement Level</span>
+                        <span class="stat-value">Highly Engaged</span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #485e73; color: #b8c5d1; font-size: 0.9rem;">
+                    <strong>Latest Activity:</strong> Viewed financing options email
+                </div>
+            </div>
+
+            <h3>Card Components Explained</h3>
+            <ul>
+                <li><strong>Client Name & Type:</strong> Identifies the client and their role (Buyer, Seller, or Both)</li>
+                <li><strong>Engagement Score:</strong> The circular indicator shows the overall score (0-100)</li>
+                <li><strong>Open Rate:</strong> Percentage of your emails this client has opened</li>
+                <li><strong>Average Response Time:</strong> How quickly they typically reply to your emails</li>
+                <li><strong>Emails Sent:</strong> Total number of emails you've sent to this client</li>
+                <li><strong>Replies Received:</strong> Number of responses received from the client</li>
+                <li><strong>Last Email Opened:</strong> When they most recently opened one of your emails</li>
+                <li><strong>Engagement Level:</strong> Their current engagement category</li>
+                <li><strong>Latest Activity:</strong> Most recent interaction with your communications</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Time Period Selection</h2>
+            <p>Use the time period dropdown to analyze engagement over different timeframes:</p>
+            
+            <div class="time-period-options">
+                <div class="time-option active">Last 30 Days</div>
+                <div class="time-option">Last 7 Days</div>
+                <div class="time-option">Last 90 Days</div>
+            </div>
+
+            <h3>Choosing the Right Time Period</h3>
+            <ul>
+                <li><strong>Last 7 Days:</strong> View very recent engagement for immediate follow-up decisions. Best for identifying clients who suddenly became inactive.</li>
+                <li><strong>Last 30 Days:</strong> Standard view showing current monthly performance. Ideal for regular client management and weekly reviews.</li>
+                <li><strong>Last 90 Days:</strong> Quarterly perspective to identify long-term engagement trends and patterns. Useful for strategic planning.</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>📅 Time Period Strategy:</strong> Start with 30 days for standard monitoring. Switch to 7 days when you need to act quickly on recent changes. Use 90 days for quarterly reviews and trend analysis.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Export Report Feature</h2>
+            <p>Generate comprehensive engagement reports for analysis and record-keeping:</p>
+
+            <h3>What's Included in Exports</h3>
+            <ul>
+                <li>Complete engagement scores for all clients</li>
+                <li>Open rates, reply rates, and response time data</li>
+                <li>Engagement level categorizations</li>
+                <li>Latest activity information for each client</li>
+                <li>Time period-specific data based on current selection</li>
+                <li>Overall performance metrics and trends</li>
+            </ul>
+
+            <h3>Export Use Cases</h3>
+            <ul>
+                <li><strong>Team Meetings:</strong> Share engagement data with brokers or team members</li>
+                <li><strong>Performance Reviews:</strong> Track your communication effectiveness over time</li>
+                <li><strong>Client Prioritization:</strong> Create action plans based on engagement levels</li>
+                <li><strong>Business Planning:</strong> Identify patterns to improve communication strategies</li>
+                <li><strong>Accountability Tracking:</strong> Document your responsiveness and follow-up consistency</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Using the Scorecard Effectively</h2>
+            
+            <h3>Daily Monitoring Strategy</h3>
+            <ol class="step-list">
+                <li>Check the dashboard each morning to see overnight engagement changes</li>
+                <li>Review clients with recent activity in "Latest Activity" fields</li>
+                <li>Prioritize responses to highly engaged clients who have replied</li>
+                <li>Identify any clients who dropped from moderate to low engagement</li>
+                <li>Note your average response time and aim to improve it daily</li>
+            </ol>
+
+            <h3>Weekly Review Process</h3>
+            <ol class="step-list">
+                <li>Export a report at the start of each week for comparison</li>
+                <li>Analyze which clients moved between engagement categories</li>
+                <li>Develop targeted strategies for low engagement clients</li>
+                <li>Celebrate improvements in response time and engagement scores</li>
+                <li>Plan your outreach priorities for the upcoming week</li>
+            </ol>
+
+            <h3>Monthly Performance Analysis</h3>
+            <ol class="step-list">
+                <li>Review the full 30-day period to identify trends</li>
+                <li>Compare current month metrics to previous months</li>
+                <li>Identify which communication approaches generate highest engagement</li>
+                <li>Adjust your email strategy based on what's working</li>
+                <li>Set engagement improvement goals for the next month</li>
+            </ol>
+        </div>
+
+        <div class="content-section">
+            <h2>Improving Client Engagement</h2>
+            
+            <h3>For Low Engagement Clients</h3>
+            <ul>
+                <li><strong>Change Communication Channels:</strong> Try calling or texting instead of email</li>
+                <li><strong>Adjust Email Timing:</strong> Experiment with different days and times</li>
+                <li><strong>Provide More Value:</strong> Share market insights or property recommendations</li>
+                <li><strong>Personalize Content:</strong> Reference their specific needs and preferences</li>
+                <li><strong>Reduce Frequency:</strong> You may be emailing too often; give them space</li>
+                <li><strong>Ask for Preferences:</strong> Directly inquire how they prefer to communicate</li>
+            </ul>
+
+            <h3>For Moderate Engagement Clients</h3>
+            <ul>
+                <li><strong>Increase Value:</strong> Share exclusive listings or insights to boost opens</li>
+                <li><strong>Use Clear CTAs:</strong> Make it easy for them to respond with specific questions</li>
+                <li><strong>Timing Optimization:</strong> Send emails when they're most likely to engage</li>
+                <li><strong>Segment Content:</strong> Tailor messages to their specific transaction stage</li>
+                <li><strong>Follow Up Strategically:</strong> Don't over-communicate but stay consistent</li>
+            </ul>
+
+            <h3>For High Engagement Clients</h3>
+            <ul>
+                <li><strong>Maintain Momentum:</strong> Keep providing timely, relevant information</li>
+                <li><strong>Move to Action:</strong> These clients are ready—focus on closing</li>
+                <li><strong>Provide Priority Service:</strong> Respond even faster to their messages</li>
+                <li><strong>Ask for Referrals:</strong> Engaged clients are your best referral sources</li>
+                <li><strong>Document Preferences:</strong> Note what keeps them engaged for future clients</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Response Time Best Practices</h2>
+            
+            <h3>Response Time Targets</h3>
+            <ul>
+                <li><strong>Under 1 hour:</strong> Excellent—shows exceptional responsiveness</li>
+                <li><strong>1-4 hours:</strong> Good—maintains high engagement levels</li>
+                <li><strong>4-12 hours:</strong> Acceptable—should be your minimum standard</li>
+                <li><strong>12-24 hours:</strong> Slow—risks losing client interest</li>
+                <li><strong>Over 24 hours:</strong> Poor—likely contributes to low engagement scores</li>
+            </ul>
+
+            <h3>Improving Response Time</h3>
+            <ul>
+                <li>Enable mobile email notifications for client messages</li>
+                <li>Set specific times each day to check and respond to emails</li>
+                <li>Use email templates for common responses to save time</li>
+                <li>Delegate administrative emails to allow focus on client communication</li>
+                <li>Send acknowledgment emails immediately, with full responses to follow</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>⏱️ Response Time Hack:</strong> Even if you can't provide a complete answer immediately, send a quick acknowledgment within an hour. This keeps your response time low and shows clients you're attentive.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Understanding Engagement Trends</h2>
+            
+            <h3>Positive Trend Indicators</h3>
+            <ul>
+                <li>Response time decreasing over time</li>
+                <li>Clients moving from low to moderate or high engagement</li>
+                <li>Increasing number of highly engaged clients</li>
+                <li>Higher open rates on recent emails</li>
+                <li>More frequent client replies and interactions</li>
+            </ul>
+
+            <h3>Warning Signs</h3>
+            <ul>
+                <li>Response time increasing consistently</li>
+                <li>Clients dropping from high to moderate engagement</li>
+                <li>Growing number of low engagement clients</li>
+                <li>Declining open rates across your client base</li>
+                <li>Long gaps in "Last Email Opened" timestamps</li>
+            </ul>
+
+            <h3>Taking Action on Trends</h3>
+            <ul>
+                <li>When you spot negative trends, immediately review your email content and timing</li>
+                <li>Compare high engagement clients to low engagement ones—what's different?</li>
+                <li>Test different email subject lines and content styles</li>
+                <li>Consider whether you're providing enough value in your communications</li>
+                <li>Analyze if you're sending too many or too few emails</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Troubleshooting Common Issues</h2>
+            
+            <h3>Scores Not Updating</h3>
+            <ul>
+                <li>Verify your email account is properly connected in CRM settings</li>
+                <li>Check that email tracking is enabled in your account</li>
+                <li>Ensure emails are being sent through your connected email platform</li>
+                <li>Refresh the page to force a data sync</li>
+                <li>Contact support if integration issues persist</li>
+            </ul>
+
+            <h3>Inaccurate Engagement Scores</h3>
+            <ul>
+                <li>Remember scores are based on the selected time period—switch periods to see full history</li>
+                <li>Very new clients may have incomplete data—allow time for accurate scoring</li>
+                <li>Clients who prefer phone calls will naturally have lower email engagement scores</li>
+                <li>Check if emails are being blocked by client's spam filters</li>
+                <li>Verify that tracked emails are actually reaching recipients</li>
+            </ul>
+
+            <h3>Missing Client Data</h3>
+            <ul>
+                <li>Ensure clients have email addresses properly recorded in your CRM</li>
+                <li>Check that you've sent at least one tracked email to the client</li>
+                <li>Verify the client hasn't opted out of email tracking</li>
+                <li>New clients need time to accumulate engagement data</li>
+                <li>Refresh the scorecard page to see recently added clients</li>
+            </ul>
+
+            <h3>Export Problems</h3>
+            <ul>
+                <li>Disable browser popup blockers which may prevent downloads</li>
+                <li>Try exporting with a different time period selected</li>
+                <li>Clear browser cache and attempt export again</li>
+                <li>Try using a different browser if issues persist</li>
+                <li>Ensure you have stable internet connection during export</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Privacy and Data Considerations</h2>
+            
+            <h3>Email Tracking Ethics</h3>
+            <ul>
+                <li>Email tracking is standard business practice in professional communication</li>
+                <li>Tracking helps you provide better, more responsive service to clients</li>
+                <li>All tracking complies with email marketing and privacy regulations</li>
+                <li>Tracking data is used solely for improving client communication</li>
+                <li>Client email data is protected and never shared with third parties</li>
+            </ul>
+
+            <h3>Data Security</h3>
+            <ul>
+                <li>All engagement data is encrypted and securely stored</li>
+                <li>Only you and authorized team members can view client scores</li>
+                <li>Email content is not stored—only engagement metrics are tracked</li>
+                <li>Clients can opt out of tracking by disabling email images</li>
+                <li>Your email platform credentials are stored using industry-standard encryption</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>🔒 Privacy Note:</strong> While email tracking is legal and standard practice, always maintain professional communication standards. Use engagement data to provide better service, not to pressure clients.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Integration with Other CRM Sections</h2>
+            
+            <h3>Clients Section Connection</h3>
+            <p>Engagement scores integrate with your main Clients section:</p>
+            <ul>
+                <li>Client engagement levels appear in client profiles</li>
+                <li>Filter clients by engagement score in the Clients section</li>
+                <li>Sort client lists by engagement to prioritize follow-ups</li>
+                <li>Engagement data informs automated workflow triggers</li>
+            </ul>
+
+            <h3>Analytics Dashboard Integration</h3>
+            <p>Engagement metrics feed into your Analytics section:</p>
+            <ul>
+                <li>Average response time contributes to overall performance metrics</li>
+                <li>Client engagement levels inform activity tracking</li>
+                <li>Email communication patterns appear in recent activity feeds</li>
+                <li>Engagement trends help identify top-performing communication strategies</li>
+            </ul>
+
+            <h3>Library Resources Support</h3>
+            <p>Use Library resources to improve engagement:</p>
+            <ul>
+                <li>Share guides with low engagement clients to add value</li>
+                <li>Use checklists to give clients actionable next steps</li>
+                <li>Educational resources can re-engage inactive clients</li>
+                <li>Timeline trackers help set clear communication expectations</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Best Practices Summary</h2>
+            
+            <h3>Daily Habits for Success</h3>
+            <ul>
+                <li>Check the scorecard first thing each morning</li>
+                <li>Respond to all client emails within 4 hours</li>
+                <li>Review "Latest Activity" to identify engagement opportunities</li>
+                <li>Prioritize high engagement clients who are ready to move forward</li>
+                <li>Address low engagement clients before they disengage completely</li>
+            </ul>
+
+            <h3>Weekly Optimization</h3>
+            <ul>
+                <li>Export a weekly report to track trends</li>
+                <li>Develop specific strategies for clients moving between categories</li>
+                <li>Test different email approaches with moderate engagement clients</li>
+                <li>Celebrate improvements in response time and engagement scores</li>
+                <li>Plan targeted outreach campaigns based on engagement data</li>
+            </ul>
+
+            <h3>Monthly Strategic Review</h3>
+            <ul>
+                <li>Analyze 30-day and 90-day trends to identify patterns</li>
+                <li>Compare month-over-month performance improvements</li>
+                <li>Document what communication strategies work best</li>
+                <li>Adjust your email templates and timing based on results</li>
+                <li>Set new engagement improvement goals for the next period</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>Success Formula:</strong> Consistent daily monitoring + rapid response times + value-driven content + strategic follow-up = Higher engagement scores and more closed deals.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Advanced Tips and Strategies</h2>
+            
+            <h3>Segmentation Strategy</h3>
+            <p>Treat each engagement level differently for optimal results:</p>
+            <ul>
+                <li><strong>High Engagement Clients:</strong> Focus on closing and asking for referrals. These clients trust you—move them to action.</li>
+                <li><strong>Moderate Engagement Clients:</strong> Provide additional value to push them into high engagement. Share exclusive insights, personalized recommendations, and clear next steps.</li>
+                <li><strong>Low Engagement Clients:</strong> Change your approach entirely. Try phone calls, text messages, or address concerns about fit. Consider if they're still active buyers/sellers.</li>
+            </ul>
+
+            <h3>Email Content Optimization</h3>
+            <ul>
+                <li>Use compelling subject lines that promise value</li>
+                <li>Keep emails concise and scannable with clear CTAs</li>
+                <li>Include personalized details that show you understand their needs</li>
+                <li>Provide actionable information, not just status updates</li>
+                <li>Use questions to encourage replies and boost engagement</li>
+            </ul>
+
+            <h3>Timing Optimization</h3>
+            <ul>
+                <li>Track when individual clients typically open emails</li>
+                <li>Test sending emails at different times to improve open rates</li>
+                <li>Avoid weekends for business-focused communication</li>
+                <li>Send important emails mid-morning (9-11 AM) or early afternoon (1-3 PM)</li>
+                <li>Use the scorecard data to identify each client's optimal response times</li>
+            </ul>
+
+            <h3>Re-engagement Campaigns</h3>
+            <p>For clients who have dropped to low engagement:</p>
+            <ul>
+                <li>Send a "checking in" email acknowledging the gap in communication</li>
+                <li>Ask directly if their needs or timeline have changed</li>
+                <li>Offer valuable resources from your Library with no pressure</li>
+                <li>Suggest a phone call instead of continued email communication</li>
+                <li>Provide an easy way to pause communications if they need space</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+            
+            <h3>How often does the scorecard update?</h3>
+            <p>The scorecard updates in real-time as email events occur. When a client opens an email or sends a reply, their engagement score recalculates automatically within minutes.</p>
+
+            <h3>Why is my response time different from what I expected?</h3>
+            <p>Response time is calculated from when a client sends you an email to when you reply. It's not about how long it takes you to send emails. Make sure you're measuring your reply speed, not your outbound email timing.</p>
+
+            <h3>Can clients see their engagement scores?</h3>
+            <p>No. Engagement scores are internal analytics tools visible only to you and authorized team members. Clients never see their scores or know they're being tracked.</p>
+
+            <h3>What if a client prefers phone communication?</h3>
+            <p>Clients who prefer phone calls will naturally have lower email engagement scores. This doesn't mean they're not engaged—it means email isn't their preferred channel. Use the scorecard to identify this pattern, then adjust your communication method.</p>
+
+            <h3>How many emails do I need before scores are accurate?</h3>
+            <p>Engagement scores become reliable after sending at least 5-10 emails to a client. Very new clients may have incomplete or fluctuating scores until more data is collected.</p>
+
+            <h3>Why did a client's score suddenly drop?</h3>
+            <p>Sudden score drops can indicate: they're on vacation, they changed email addresses, emails are going to spam, they lost interest in buying/selling, or they're working with another agent. Investigate and reach out through a different channel.</p>
+
+            <h3>Should I remove low engagement clients?</h3>
+            <p>Not immediately. First, try re-engagement strategies and alternative communication methods. If after multiple attempts they remain unresponsive for 90+ days, they may need to be moved to a "cold leads" category rather than deleted.</p>
+
+            <h3>Can I manually adjust engagement scores?</h3>
+            <p>No. Scores are automatically calculated based on actual email behavior to ensure objectivity and accuracy. You cannot manually change scores.</p>
+
+            <h3>Does the scorecard track other communication channels?</h3>
+            <p>Currently, the scorecard only tracks email communication. Phone calls, texts, and in-person meetings are not included in engagement scoring. Future updates may include additional channels.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Getting Started Checklist</h2>
+            
+            <ol class="step-list">
+                <li>Verify your email account is properly integrated in CRM settings</li>
+                <li>Ensure email tracking is enabled on your account</li>
+                <li>Review the engagement level definitions to understand scoring</li>
+                <li>Check current engagement scores for all active clients</li>
+                <li>Export a baseline report for future comparison</li>
+                <li>Identify your 2-3 lowest engagement clients who need immediate attention</li>
+                <li>Set a personal response time goal (aim for under 4 hours)</li>
+                <li>Add scorecard review to your daily morning routine</li>
+                <li>Plan a weekly scorecard review time every Monday morning</li>
+                <li>Test different email approaches and track impact on engagement</li>
+            </ol>
+
+            <div class="tip-box">
+                <strong>Quick Start:</strong> The fastest way to improve your engagement scores is to reduce your average response time. Focus on replying to client emails faster—even quick acknowledgments count—and watch your scores improve within days.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Support and Additional Help</h2>
+            
+            <h3>Need Technical Support?</h3>
+            <p>If you experience technical issues with the scorecard:</p>
+            <ul>
+                <li>Check the Troubleshooting section above for common solutions</li>
+                <li>Verify your email integration is properly configured</li>
+                <li>Try refreshing the page or clearing your browser cache</li>
+                <li>Contact CRM support with specific error messages or issues</li>
+                <li>Reference this help guide when describing problems to support</li>
+            </ul>
+
+            <h3>Want to Learn More?</h3>
+            <ul>
+                <li>Review the Analytics help guide for related performance metrics</li>
+                <li>Check the Clients section help for integration features</li>
+                <li>Explore the Library for client engagement resources</li>
+                <li>Attend CRM training sessions focused on communication strategies</li>
+            </ul>
+
+            <h3>Feedback and Suggestions</h3>
+            <p>We're constantly improving the Client Engagement Scorecard. If you have suggestions for new features, metrics, or improvements, please share them with our product team. Your real-world usage insights help us build better tools for real estate professionals.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Home Marketing Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #FF6B35;
+            border-radius: 8px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        h1 {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .framework-badge {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #B0C4DE;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .read-time {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #00D4AA;
+        }
+        
+        h3 {
+            font-size: 1.8em;
+            margin: 40px 0 20px 0;
+            color: #FFD700;
+        }
+        
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #E6F3FF;
+        }
+        
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .strategy-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .strategy-card:hover {
+            border-color: #FFD700;
+            transform: translateY(-5px);
+        }
+        
+        .card-title {
+            color: #FFD700;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .card-content {
+            color: #E6F3FF;
+            margin-bottom: 15px;
+        }
+        
+        .checklist-section {
+            background: rgba(0, 212, 170, 0.2);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            margin-right: 15px;
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+        
+        .checklist-text {
+            flex: 1;
+            color: #E6F3FF;
+        }
+        
+        .pricing-strategy {
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #FF6B35;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .pricing-title {
+            color: #FF6B35;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .pricing-range {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #FFD700;
+            margin: 10px 0;
+        }
+        
+        .buyer-personas {
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .persona-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .persona-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .persona-title {
+            color: #FFD700;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .persona-traits {
+            color: #E6F3FF;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        
+        .tip-box {
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #FF6B35;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .tip-box h3 {
+            color: #FF6B35;
+            margin-top: 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+        
+        @media (max-width: 900px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .strategy-grid, .pricing-grid, .persona-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo">💎</div>
+            <h1>Luxury Home Marketing</h1>
+            <div class="framework-badge">GUIDE</div>
+            <p class="subtitle">Advanced marketing strategies for high-end properties including professional photography requirements, luxury staging tips, and affluent buyer targeting.</p>
+            <div class="read-time">Premium marketing</div>
+        </div>
+
+        <!-- Luxury Marketing Strategy -->
+        <div class="section">
+            <h2>Luxury Marketing Strategy</h2>
+            <p>Marketing luxury properties requires a different approach than traditional homes. Focus on exclusivity, lifestyle, and emotional connection.</p>
+
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <div class="card-title">Exclusivity & Scarcity</div>
+                    <div class="card-content">
+                        Create sense of exclusivity through private showings, invitation-only events, and limited marketing exposure to select audiences.
+                    </div>
+                </div>
+                
+                <div class="strategy-card">
+                    <div class="card-title">Lifestyle Marketing</div>
+                    <div class="card-content">
+                        Sell the lifestyle and experience, not just the house. Emphasize prestige, privacy, and unique amenities that enhance daily life.
+                    </div>
+                </div>
+                
+                <div class="strategy-card">
+                    <div class="card-title">Quality Over Quantity</div>
+                    <div class="card-content">
+                        Target fewer, highly qualified prospects rather than mass market exposure. Focus on high-net-worth individuals and their networks.
+                    </div>
+                </div>
+                
+                <div class="strategy-card">
+                    <div class="card-title">White Glove Service</div>
+                    <div class="card-content">
+                        Provide exceptional service throughout the process. Luxury buyers expect personalized attention and seamless experiences.
+                    </div>
+                </div>
+                
+                <div class="strategy-card">
+                    <div class="card-title">Network & Relationships</div>
+                    <div class="card-content">
+                        Leverage relationships with other luxury agents, wealth managers, private bankers, and high-end service providers.
+                    </div>
+                </div>
+                
+                <div class="strategy-card">
+                    <div class="card-title">Discretion & Privacy</div>
+                    <div class="card-content">
+                        Many luxury buyers value privacy. Offer confidential showings and be prepared to market "off-market" when appropriate.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professional Photography & Media -->
+        <div class="section">
+            <h2>Professional Photography & Media Requirements</h2>
+            <p>Luxury properties demand the highest quality visual presentation across all marketing channels.</p>
+
+            <div class="checklist-section">
+                <h3 style="color: #00D4AA; margin-top: 0;">Photography Checklist</h3>
+                
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Professional luxury photographer with high-end portfolio</strong><br>
+                        Hire photographers who specialize in luxury properties and understand architectural photography
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Twilight/golden hour exterior shots</strong><br>
+                        Capture dramatic exterior photos during magic hour for maximum visual impact
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>High-resolution images (minimum 3000px wide)</strong><br>
+                        Ensure images are large enough for print materials and high-end marketing pieces
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Drone photography for aerial perspectives</strong><br>
+                        Showcase property location, acreage, and surrounding neighborhood from above
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>3D virtual tours or Matterport scans</strong><br>
+                        Provide immersive experience for out-of-town buyers and initial screening
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Professional video walkthrough or cinematic property film</strong><br>
+                        Create emotional connection through storytelling and lifestyle imagery
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Detail shots of luxury finishes and unique features</strong><br>
+                        Highlight craftsmanship, custom elements, and high-end materials
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Staging Strategy -->
+        <div class="section">
+            <h2>Luxury Staging Strategy</h2>
+            <p>Professional staging is essential for luxury properties to help buyers envision the lifestyle and maximize perceived value.</p>
+
+            <div class="tip-box">
+                <h3>Luxury Staging Principles</h3>
+                <p><strong>Less is More:</strong> Sophisticated, uncluttered spaces that highlight architecture<br>
+                <strong>Quality Over Quantity:</strong> Invest in fewer, high-end pieces rather than budget furniture<br>
+                <strong>Lifestyle Focus:</strong> Create aspirational settings that show how spaces can be lived in<br>
+                <strong>Art & Accessories:</strong> Use museum-quality art and designer accessories</p>
+            </div>
+
+            <div class="checklist-section">
+                <h3 style="color: #00D4AA; margin-top: 0;">Staging Checklist</h3>
+                
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Hire certified luxury staging professional</strong><br>
+                        Work with stagers who specialize in high-end properties and understand luxury buyer expectations
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Maximize natural light and views</strong><br>
+                        Remove window treatments or use sheer panels to showcase views and brightness
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Create defined spaces with clear purposes</strong><br>
+                        Help buyers understand how to use large or unique spaces effectively
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Highlight architectural features</strong><br>
+                        Draw attention to coffered ceilings, crown molding, built-ins, and custom millwork
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Stage outdoor living spaces</strong><br>
+                        Don't forget patios, pools, gardens, and other outdoor amenities
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Pricing Strategy -->
+        <div class="section">
+            <h2>Luxury Pricing Strategy</h2>
+            <p>Pricing luxury properties requires understanding local luxury market dynamics and buyer psychology.</p>
+
+            <div class="pricing-strategy">
+                <h3 style="color: #FF6B35; margin-top: 0;">Pricing Approaches</h3>
+                
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div class="pricing-title">Aspirational Pricing</div>
+                        <div class="pricing-range">105-115% of Value</div>
+                        <div>Price above market to create exclusivity, allow for negotiation room</div>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <div class="pricing-title">Market Value Pricing</div>
+                        <div class="pricing-range">95-105% of Value</div>
+                        <div>Price at or slightly above market comparables for quicker sale</div>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <div class="pricing-title">Strategic Underpricing</div>
+                        <div class="pricing-range">85-95% of Value</div>
+                        <div>Price below market to create urgency and multiple offer situations</div>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h3>Luxury Pricing Considerations</h3>
+                    <p><strong>Comps Are Limited:</strong> Fewer comparable sales make pricing more art than science<br>
+                    <strong>Longer Marketing Time:</strong> Luxury buyers take more time to decide<br>
+                    <strong>Seasonal Factors:</strong> Some markets have strong seasonal preferences<br>
+                    <strong>Global Buyers:</strong> Consider international buyers and currency fluctuations</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Target Buyer Personas -->
+        <div class="section">
+            <h2>Luxury Buyer Personas</h2>
+            <p>Understanding different types of luxury buyers helps tailor marketing messages and showing experiences.</p>
+
+            <div class="buyer-personas">
+                <h3 style="color: #FFD700; margin-top: 0;">Key Buyer Types</h3>
+                
+                <div class="persona-grid">
+                    <div class="persona-card">
+                        <div class="persona-title">The Executive</div>
+                        <div class="persona-traits">
+                            <strong>Profile:</strong> Corporate executives, entrepreneurs<br>
+                            <strong>Priorities:</strong> Prestigious location, home office space, entertaining areas<br>
+                            <strong>Timeline:</strong> Often relocating for work, may need quick decisions<br>
+                            <strong>Approach:</strong> Focus on productivity, status, and convenience
+                        </div>
+                    </div>
+                    
+                    <div class="persona-card">
+                        <div class="persona-title">The Empty Nester</div>
+                        <div class="persona-traits">
+                            <strong>Profile:</strong> Established professionals, recently retired<br>
+                            <strong>Priorities:</strong> Low maintenance, luxury amenities, location<br>
+                            <strong>Timeline:</strong> Patient shoppers, not rushed<br>
+                            <strong>Approach:</strong> Emphasize lifestyle, ease of living, and experiences
+                        </div>
+                    </div>
+                    
+                    <div class="persona-card">
+                        <div class="persona-title">The Investor</div>
+                        <div class="persona-traits">
+                            <strong>Profile:</strong> Real estate investors, second home buyers<br>
+                            <strong>Priorities:</strong> ROI potential, rental income, appreciation<br>
+                            <strong>Timeline:</strong> Analytical, may take time for due diligence<br>
+                            <strong>Approach:</strong> Focus on market data, investment potential, cash flow
+                        </div>
+                    </div>
+                    
+                    <div class="persona-card">
+                        <div class="persona-title">The Family Upgrader</div>
+                        <div class="persona-traits">
+                            <strong>Profile:</strong> Growing families, multigenerational households<br>
+                            <strong>Priorities:</strong> Space, privacy, schools, safety<br>
+                            <strong>Timeline:</strong> Often contingent on selling current home<br>
+                            <strong>Approach:</strong> Highlight family features, privacy, room for growth
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p style="color: #B0C4DE;">Stacked • Real Estate CRM • Transaction Mastery Series</p>
+        </div>
+    </div>
+</body>
+</html>

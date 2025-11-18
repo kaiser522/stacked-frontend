@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacked Technologies - Affiliate Welcome Packet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.7;
+            color: #2d3748;
+            background-color: #f7fafc;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 40px rgba(0,0,0,0.08);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0A1B2A 0%, #0A1B2A 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.75rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.025em;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .nav-bar {
+            background: #fff;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-bar ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            overflow-x: auto;
+        }
+
+        .nav-bar li {
+            flex-shrink: 0;
+        }
+
+        .nav-bar a {
+            display: block;
+            padding: 1.25rem 1.75rem;
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+
+        .nav-bar a:hover {
+            color: #1ABC9C;
+            background-color: #f7fafc;
+        }
+
+        .nav-bar a.active {
+            color: #1ABC9C;
+            border-bottom-color: #1ABC9C;
+            background-color: #f0fff4;
+        }
+
+        .content {
+            padding: 4rem 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        h2 {
+            color: #1a202c;
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            letter-spacing: -0.025em;
+        }
+
+        h3 {
+            color: #2d3748;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 3rem 0 1.5rem 0;
+            letter-spacing: -0.025em;
+        }
+
+        h4 {
+            color: #2d3748;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #4a5568;
+            font-size: 1.1rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+            border-left: 4px solid #1ABC9C;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2.5rem 0;
+        }
+
+        .highlight-box h3 {
+            color: #0A1B2A;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-box p {
+            color: #0A1B2A;
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+
+        .feature-card h4 {
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+
+        .feature-card p {
+            color: #4a5568;
+            margin-bottom: 0;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .commission-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2.5rem 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .commission-table th,
+        .commission-table td {
+            padding: 1.25rem 1.5rem;
+            text-align: left;
+        }
+
+        .commission-table th {
+            background: #f7fafc;
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .commission-table td {
+            border-bottom: 1px solid #f1f5f9;
+            color: #4a5568;
+        }
+
+        .commission-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .commission-table tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .info-box {
+            background: #f0fff4;
+            border: 1px solid #1ABC9C;
+            border-left: 4px solid #1ABC9C;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .warning-box {
+            background: #fffaf0;
+            border: 1px solid #fbd38d;
+            border-left: 4px solid #ed8936;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .contact-section {
+            background: #0A1B2A;
+            color: white;
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .contact-section h3 {
+            color: white;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .contact-section p {
+            color: #7D7D7D;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-section a {
+            color: #1ABC9C;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-section a:hover {
+            color: #16a085;
+        }
+
+        ul {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        li strong {
+            color: #2d3748;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #0A1B2A 0%, #0A1B2A 100%);
+            color: white;
+            border-radius: 12px;
+            margin: 3rem 0;
+        }
+
+        .cta-section h3 {
+            color: white;
+            font-size: 1.75rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: #7D7D7D;
+            font-size: 1.125rem;
+            margin-bottom: 0;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        code {
+            background: #edf2f7;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #2d3748;
+            display: block;
+            word-break: break-all;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 2rem 1rem;
+            }
+
+            .header h1 {
+                font-size: 2.25rem;
+            }
+
+            .header p {
+                font-size: 1.125rem;
+            }
+            
+            .nav-bar ul {
+                justify-content: flex-start;
+            }
+
+            .nav-bar a {
+                padding: 1rem 1.25rem;
+            }
+            
+            .content {
+                padding: 2.5rem 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.875rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .commission-table th,
+            .commission-table td {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .contact-section,
+            .cta-section {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .commission-table {
+                font-size: 0.85rem;
+            }
+
+            .commission-table th,
+            .commission-table td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Stacked Technologies</h1>
+            <p>Affiliate Welcome Packet - Your Success is Our Success</p>
+        </div>
+
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="#welcome" class="nav-link active">Welcome</a></li>
+                <li><a href="#about" class="nav-link">About Us</a></li>
+                <li><a href="#story" class="nav-link">Our Story</a></li>
+                <li><a href="#product" class="nav-link">Product Info</a></li>
+                <li><a href="#tracking" class="nav-link">Referral Tracking</a></li>
+                <li><a href="#payouts" class="nav-link">Payouts</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <!-- Welcome Page -->
+            <div class="page active" id="welcome">
+                <h2>Welcome to the Stacked Technologies Team!</h2>
+                
+                <div class="highlight-box">
+                    <h3>We're Thrilled to Have You Here!</h3>
+                    <p>We're excited about the partnership ahead. At Stacked, we believe great relationships create great results—and we're looking forward to a long, rewarding collaboration where your success is our success.</p>
+                </div>
+
+                <p>Inside this welcome packet, you'll find everything you need to get started: a quick overview of who we are, how we are different from other CRM companies out there, how referrals are tracked, commission and payout details, and best-practice tips.</p>
+
+                <div class="info-box">
+                    <strong>Marketing Materials:</strong> We created a special section where you can find anything you need, but feel free to use any of your own marketing if you prefer that.
+                </div>
+
+                <p>Take a few minutes to look it over and get familiar with our company, our products, and how we'll support you.</p>
+
+                <div class="contact-section">
+                    <h3>Need Help?</h3>
+                    <p>If you have questions, reach us anytime at <a href="mailto:stackedcare@gmail.com">stackedcare@gmail.com</a></p>
+                    <p><strong>We're glad you're here—let's start winning, together.</strong></p>
+                </div>
+            </div>
+
+            <!-- About Us Page -->
+            <div class="page" id="about">
+                <h2>Who We Are</h2>
+                
+                <div class="highlight-box">
+                    <h3>Our Mission</h3>
+                    <p>Make real estate operations simpler, smarter, and more compliant so teams can focus on closing, while having all resources in one spot.</p>
+                </div>
+
+                <p>Stacked Technologies builds niche-specific CRMs for real-estate professionals. Our goal is simple: help you run your entire deal flow—properties, contacts, texting, calling, email, tasks and tracking—from one customized workspace.</p>
+
+                <h3>What Sets Us Apart</h3>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>🤝 Our Partners</h4>
+                        <p>We've established strategic partnerships with industry-leading platforms to streamline your workflow. Through our integration with PropStream, agents can efficiently access and pull targeted lead lists. Our partnership with SkipMatrix provides discounted access to verified contact information and updated property details. This seamless integration allows you to import clean, verified data directly into our dialer system, transforming prospects into clients through an automated, efficient process.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>📚 Our Training</h4>
+                        <p>Compliance and continuous education are fundamental to success in real estate. That's why we've integrated comprehensive training resources directly into your CRM platform. Our training modules cover current compliance requirements, industry best practices, and featured educational content to keep you informed and compliant in an ever-evolving regulatory landscape.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🛠️ Our Support</h4>
+                        <p>We're committed to providing exceptional customer support that goes beyond basic troubleshooting. Our dedicated support team, based entirely in the United States, focuses on both clear communication and effective problem resolution. Additionally, we've created a comprehensive help section within your CRM that explains each page and feature with clear, detailed guidance on system functionality, eliminating the need to search external resources for answers.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>💻 Our CRM</h4>
+                        <p>We've conducted extensive market research to develop a comprehensive CRM solution that consolidates your entire real estate operation. Our platform eliminates the inefficiency of managing leads across multiple systems by providing a unified workspace. Features include customizable sections for property management, document storage, educational resources, marketing materials, and automated email sequences—all designed to streamline your workflow and maximize productivity.</p>
+                    </div>
+                </div>
+
+                <div class="cta-section">
+                    <h3>Product-Obsessed, Partner-Friendly</h3>
+                    <p>We're here to earn trust by delivering tools that actually help you move deals forward.</p>
+                </div>
+            </div>
+
+            <!-- Our Story Page -->
+            <div class="page" id="story">
+                <h2>Our Story</h2>
+                
+                <div class="highlight-box">
+                    <h3>Building Something Exceptional</h3>
+                    <p>Stacked Technologies began its journey in 2024, but we took our time—launching officially in 2025 only after we knew we'd built something truly exceptional.</p>
+                </div>
+
+                <p>Those months of dedicated research, thoughtful preparation, and focused development weren't just about creating another platform; they were about crafting a solution that would genuinely transform how agents work.</p>
+
+                <h3>The Challenge We Saw</h3>
+                <p>We saw the challenges agents face every day:</p>
+                <ul>
+                    <li><strong>Juggling multiple clients</strong> while maintaining quality service</li>
+                    <li><strong>Staying organized</strong> across different platforms and tools</li>
+                    <li><strong>Keeping up with constant market changes</strong> and regulations</li>
+                    <li><strong>Managing endless follow-ups</strong> while doing outreach</li>
+                    <li><strong>Finding time for family</strong> and personal life</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>Our Solution:</strong> We knew there had to be a better way—a centralized hub where everything comes together, keeping everything organized, being aware of compliance rules and always ahead of the curve.
+                </div>
+
+                <h3>More Than Just Software</h3>
+                <p>That vision drove us to create more than just software; we built a partner for your success. A space where agents from every specialty can thrive, where staying on top of your business feels effortless, and where you have the tools and resources to excel in any market condition.</p>
+
+                <div class="cta-section">
+                    <h3>Your Success Stories Drive Us</h3>
+                    <p>We're incredibly excited about the possibilities ahead and the success stories you'll create. Having you as part of the Stacked Technologies community isn't just exciting for us—it's the whole reason we do what we do.</p>
+                </div>
+            </div>
+
+            <!-- Product Info Page -->
+            <div class="page" id="product">
+                <h2>What is Stacked?</h2>
+                
+                <p>Stacked is a real-estate-focused CRM that centralizes properties, contacts, texting, calling, email, tasks, and more into one simple workflow. It's built to feel fast and familiar.</p>
+
+                <div class="highlight-box">
+                    <h3>Customized for Your Niche</h3>
+                    <p>We offer niche-specific CRMs so different professionals can choose the best fit, then pick a plan and optional add-ons to customize their workflow.</p>
+                </div>
+
+                <h3>Who It's For</h3>
+                <p>We currently offer 4 niche-specific CRMs (each with 3 plans and optional add-ons):</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>🏠 Real Estate Agents</h4>
+                        <p>Complete CRM solution for commercial and residential real estate professionals</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🔄 Wholesalers</h4>
+                        <p>Specialized tools for wholesale real estate operations</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>⚖️ Probate</h4>
+                        <p>Specialized CRM for probate real estate professionals</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🔨 House Flippers</h4>
+                        <p>Project management and deal tracking for fix-and-flip professionals</p>
+                    </div>
+                </div>
+
+                <h3>Core Benefits</h3>
+                <ul>
+                    <li><strong>Dashboard & Analytics:</strong> Real-time stats and progress toward goals</li>
+                    <li><strong>Communication Suite:</strong> Texting, email, and calling with a dialer included in every plan</li>
+                    <li><strong>Learning & Library:</strong> Stay current on compliance and effective closing tactics/materials</li>
+                </ul>
+            </div>
+
+            <!-- Referral Tracking Page -->
+            <div class="page" id="tracking">
+                <h2>How Referrals Are Tracked</h2>
+                
+                <div class="highlight-box">
+                    <h3>Simple Link-Based Tracking</h3>
+                    <p>Affiliates receive a unique referral link. We use 30-day last-click attribution and links only (no public coupon field).</p>
+                </div>
+
+                <h3>Example Link Format</h3>
+                <code>https://get-stacked.com/partners/&lt;handle&gt;?ref=&lt;affiliate_id&gt;&utm_source=&lt;handle&gt;&utm_medium=affiliate&utm_campaign=&lt;campaign&gt;</code>
+
+                <h3>Link Rules</h3>
+                <div class="warning-box">
+                    <ul>
+                        <li><strong>Use your issued link</strong> - but do not post to coupon/deal sites (violates terms)</li>
+                        <li><strong>30-day last-click wins attribution</strong></li>
+                        <li><strong>New customers only</strong> - we block matches by email, phone, and card fingerprint/payment identifier</li>
+                        <li><strong>You are paid only for brand-new clients you bring</strong></li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <strong>Attribution Window:</strong> 30-day last-click attribution means if a customer clicks your link, they have 30 days to make their first purchase and you'll get credit for that referral.
+                </div>
+            </div>
+
+            <!-- Payouts Page -->
+            <div class="page" id="payouts">
+                <h2>Affiliate Payouts</h2>
+                
+                <h3>Commission Structure</h3>
+                <table class="commission-table">
+                    <thead>
+                        <tr>
+                            <th>Period</th>
+                            <th>Commission Rate</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>First Paid Month</td>
+                            <td><strong>30%</strong></td>
+                            <td>Of the customer's first monthly payment</td>
+                        </tr>
+                        <tr>
+                            <td>Months 2-12</td>
+                            <td><strong>10%</strong></td>
+                            <td>While subscription remains paid</td>
+                        </tr>
+                        <tr>
+                            <td>After Month 12</td>
+                            <td><strong>0%</strong></td>
+                            <td>12-month cap per referred customer</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Activity Target</h3>
+                <div class="highlight-box">
+                    <h3>Monthly Requirement</h3>
+                    <p>2+ new paying customers each calendar month</p>
+                </div>
+
+                <h3>What Happens If Target Isn't Met</h3>
+                <div class="warning-box">
+                    <ul>
+                        <li><strong>First miss (&lt;2 in a month):</strong> No penalty; we send an automated heads-up so you can track your stats</li>
+                        <li><strong>Second consecutive miss:</strong> Recurring commissions pause for the next month (no back-pay). When you hit ≥2 in any later month, recurring resumes the following month</li>
+                        <li><strong>Third consecutive miss:</strong> Recurring commissions end permanently starting the next month, and the account is subject to termination</li>
+                    </ul>
+                </div>
+
+                <h3>Payout Details</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>📅 Timing</h4>
+                        <p><strong>Net-14 hold:</strong> Eligibility begins 14 days after each charge (no refund/dispute)</p>
+                        <p><strong>Monthly payments:</strong> Paid by the 15th each month</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>💰 Minimum Payout</h4>
+                        <p><strong>$150 minimum</strong> in approved commissions must be met for that month</p>
+                        <p>If minimum not met, no payout is made and amounts do not roll over</p>
+                    </div>
+                </div>
+
+                <h3>Attribution & Anti-Abuse Policy</h3>
+                <div class="warning-box">
+                    <ul>
+                        <li><strong>30-day last-click;</strong> referral links only, no coupon sites</li>
+                        <li><strong>New customers only</strong> (blocked by email, phone, and card fingerprint/payment identifier)</li>
+                        <li><strong>Prohibited:</strong> No self-referrals, spam, coupon-site posting, or brand-bidding</li>
+                        <li><strong>Monitoring:</strong> We actively monitor for abuse; violations may result in immediate termination and forfeiture of unpaid commissions with clawbacks for fake accounts</li>
+                        <li><strong>Clawbacks:</strong> Refunds, chargebacks, fraud, disputes, or payment reversals are deducted from future pay</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <strong>Definition - "New Paid Customer":</strong> A brand-new customer whose first charge successfully processes and clears the 14-day hold without refund or dispute.
+                </div>
+
+                <div class="contact-section">
+                    <h3>Questions About Payouts?</h3>
+                    <p>Contact us at <a href="mailto:stackedcare@gmail.com">stackedcare@gmail.com</a></p>
+                    <p><strong>We're here to help you succeed!</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all nav links and pages
+                    navLinks.forEach(nl => nl.classList.remove('active'));
+                    pages.forEach(page => page.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Show corresponding page
+                    const targetPage = this.getAttribute('href').substring(1);
+                    document.getElementById(targetPage).classList.add('active');
+                    
+                    // Smooth scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

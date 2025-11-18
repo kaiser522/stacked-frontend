@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 6: Lead Conversion & Sales Strategies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #FF6B35;
+            border-radius: 8px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        h1 {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .module-badge {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #B0C4DE;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .progress-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 5px;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #00D4AA, #00B894);
+            height: 25px;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #00D4AA;
+        }
+        
+        h3 {
+            font-size: 1.8em;
+            margin: 40px 0 20px 0;
+            color: #FFD700;
+        }
+        
+        h4 {
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+            color: #FFD700;
+        }
+        
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #E6F3FF;
+        }
+        
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .highlight-box h3 {
+            color: #FFD700;
+            margin-top: 0;
+        }
+        
+        .example-box {
+            background: rgba(0, 212, 170, 0.2);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .example-box h4 {
+            color: #00D4AA;
+            margin-top: 0;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #FF6B35, #E55533);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 40px 0;
+        }
+        
+        .quiz-section {
+            background: linear-gradient(135deg, #4A5568, #2D3748);
+            border: 3px solid #00D4AA;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 50px 0;
+        }
+        
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .quiz-header h3 {
+            color: #00D4AA;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .question {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .question h4 {
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .options li {
+            background: rgba(255, 255, 255, 0.05);
+            margin: 10px 0;
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .options li:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #00D4AA;
+        }
+        
+        .options li.selected {
+            background: rgba(0, 212, 170, 0.3);
+            border-color: #00D4AA;
+        }
+        
+        .options li.correct {
+            background: rgba(0, 212, 170, 0.5);
+            border-color: #00D4AA;
+        }
+        
+        .options li.incorrect {
+            background: rgba(255, 107, 53, 0.5);
+            border-color: #FF6B35;
+        }
+        
+        .quiz-button {
+            background: linear-gradient(135deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .quiz-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .quiz-results {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+        
+        .conversion-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .conversion-table th,
+        .conversion-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .conversion-table th {
+            background: rgba(0, 212, 170, 0.3);
+            color: #00D4AA;
+            font-weight: bold;
+        }
+        
+        .script-box {
+            background: rgba(0, 212, 170, 0.1);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            font-family: monospace;
+            line-height: 1.8;
+        }
+        
+        .script-box h4 {
+            color: #00D4AA;
+            margin-top: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .objection-box {
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #FF6B35;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .objection-box h4 {
+            color: #FF6B35;
+            margin-top: 0;
+        }
+        
+        .conversion-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .conversion-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #00D4AA;
+        }
+        
+        .funnel-stage {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .funnel-stage::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid #00D4AA;
+        }
+        
+        .stage-1 { border-left: 5px solid #00D4AA; }
+        .stage-2 { border-left: 5px solid #FFD700; }
+        .stage-3 { border-left: 5px solid #10B981; }
+        .stage-4 { border-left: 5px solid #8B5CF6; }
+        
+        ul {
+            margin: 15px 0 15px 20px;
+            color: #E6F3FF;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            color: #00D4AA;
+            font-size: 1.1em;
+            z-index: 1000;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 50px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+        
+        .nav-button {
+            background: linear-gradient(135deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .nav-button.back {
+            background: linear-gradient(135deg, #6B7280, #4B5563);
+        }
+        
+        @media (max-width: 900px) {
+            .conversion-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .timer {
+                position: static;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="timer" id="timer">Estimated Time: 40 minutes</div>
+    
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo">💰</div>
+            <h1>Lead Conversion & Sales Strategies</h1>
+            <div class="module-badge">Module 6 of 6</div>
+            <p class="subtitle">Convert qualified leads to appointments and sales through proven conversation frameworks and advanced closing techniques.</p>
+        </div>
+
+        <!-- Progress Tracker -->
+        <div class="section">
+            <h2>Your Progress</h2>
+            <div class="progress-container">
+                <div class="progress-fill" id="progressBar">0% Complete</div>
+            </div>
+            <p style="text-align: center; margin-top: 10px;">Complete each section and quiz to progress</p>
+        </div>
+
+        <!-- Section 1: Conversion Framework -->
+        <div class="section" data-section="1">
+            <h2>Section 1: The SPARK Conversion Framework</h2>
+            <p><strong>Estimated Reading Time: 12 minutes</strong></p>
+            
+            <p>Converting skip traced leads requires a systematic approach that builds trust, uncovers motivation, and guides prospects toward a decision. The SPARK framework provides a proven structure for high-converting conversations.</p>
+            
+            <h3>The SPARK Method Breakdown</h3>
+            
+            <div class="funnel-stage stage-1">
+                <h4>S - Situation Assessment</h4>
+                <p><strong>Goal:</strong> Understand their current property situation and circumstances</p>
+                <ul>
+                    <li>Property ownership timeline</li>
+                    <li>Current living arrangement</li>
+                    <li>Property condition and maintenance issues</li>
+                    <li>Financial situation indicators</li>
+                </ul>
+                <p><strong>Time Investment:</strong> 2-3 minutes</p>
+            </div>
+            
+            <div class="funnel-stage stage-2">
+                <h4>P - Problem Discovery</h4>
+                <p><strong>Goal:</strong> Identify pain points and challenges they're facing</p>
+                <ul>
+                    <li>Property maintenance costs</li>
+                    <li>Tenant or vacancy issues</li>
+                    <li>Tax burden concerns</li>
+                    <li>Life changes requiring liquidity</li>
+                </ul>
+                <p><strong>Time Investment:</strong> 3-4 minutes</p>
+            </div>
+            
+            <div class="funnel-stage stage-3">
+                <h4>A - Aspiration Alignment</h4>
+                <p><strong>Goal:</strong> Connect their problems to desired outcomes</p>
+                <ul>
+                    <li>What would an ideal solution look like?</li>
+                    <li>Timeline preferences and constraints</li>
+                    <li>Financial goals and requirements</li>
+                    <li>Stress reduction and convenience factors</li>
+                </ul>
+                <p><strong>Time Investment:</strong> 2-3 minutes</p>
+            </div>
+            
+            <div class="funnel-stage stage-4">
+                <h4>R - Resolution Presentation</h4>
+                <p><strong>Goal:</strong> Present your solution as the bridge to their goals</p>
+                <ul>
+                    <li>Quick closing timeline benefits</li>
+                    <li>Cash offer advantages</li>
+                    <li>No repair or showing hassles</li>
+                    <li>Certainty and reliability factors</li>
+                </ul>
+                <p><strong>Time Investment:</strong> 3-4 minutes</p>
+            </div>
+            
+            <div class="funnel-stage stage-1">
+                <h4>K - Commitment Securing</h4>
+                <p><strong>Goal:</strong> Move from interest to concrete next steps</p>
+                <ul>
+                    <li>Schedule property evaluation</li>
+                    <li>Confirm decision-making timeline</li>
+                    <li>Address final objections</li>
+                    <li>Set clear expectations</li>
+                </ul>
+                <p><strong>Time Investment:</strong> 2-3 minutes</p>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>SPARK Framework Success Metrics</h3>
+                <table class="conversion-table">
+                    <thead>
+                        <tr>
+                            <th>Stage</th>
+                            <th>Key Indicator</th>
+                            <th>Success Rate</th>
+                            <th>Next Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Situation</td>
+                            <td>They share property details freely</td>
+                            <td>70-80%</td>
+                            <td>Continue to Problem</td>
+                        </tr>
+                        <tr>
+                            <td>Problem</td>
+                            <td>They admit to challenges/frustrations</td>
+                            <td>50-60%</td>
+                            <td>Continue to Aspiration</td>
+                        </tr>
+                        <tr>
+                            <td>Aspiration</td>
+                            <td>They describe ideal outcomes</td>
+                            <td>40-50%</td>
+                            <td>Continue to Resolution</td>
+                        </tr>
+                        <tr>
+                            <td>Resolution</td>
+                            <td>They express interest in your solution</td>
+                            <td>30-40%</td>
+                            <td>Continue to Commitment</td>
+                        </tr>
+                        <tr>
+                            <td>Commitment</td>
+                            <td>They agree to next meeting/evaluation</td>
+                            <td>15-25%</td>
+                            <td>Schedule appointment</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Quiz 1 -->
+        <div class="quiz-section" data-quiz="1">
+            <div class="quiz-header">
+                <h3>Section 1 Quiz</h3>
+                <p>Test your understanding of the SPARK framework</p>
+            </div>
+            
+            <div class="question" data-question="1">
+                <h4>1. What is the primary goal of the Situation Assessment stage?</h4>
+                <ul class="options">
+                    <li data-answer="a">Present your solution immediately</li>
+                    <li data-answer="b">Understand their current property situation and circumstances</li>
+                    <li data-answer="c">Ask for their budget</li>
+                    <li data-answer="d">Schedule a property visit</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="2">
+                <h4>2. At which stage do you present your solution?</h4>
+                <ul class="options">
+                    <li data-answer="a">Situation Assessment</li>
+                    <li data-answer="b">Problem Discovery</li>
+                    <li data-answer="c">Aspiration Alignment</li>
+                    <li data-answer="d">Resolution Presentation</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="3">
+                <h4>3. What's the expected success rate for reaching the Commitment stage?</h4>
+                <ul class="options">
+                    <li data-answer="a">50-60%</li>
+                    <li data-answer="b">30-40%</li>
+                    <li data-answer="c">15-25%</li>
+                    <li data-answer="d">5-10%</li>
+                </ul>
+            </div>
+            
+            <button class="quiz-button" onclick="checkQuiz(1)">Check Answers</button>
+            <div class="quiz-results" id="quiz1-results"></div>
+        </div>
+
+        <!-- Section 2: Advanced Scripts and Objection Handling -->
+        <div class="section" data-section="2">
+            <h2>Section 2: Advanced Scripts and Objection Handling</h2>
+            <p><strong>Estimated Reading Time: 15 minutes</strong></p>
+            
+            <p>Mastering proven scripts and objection responses dramatically increases your conversion rates. These frameworks handle the most common scenarios you'll encounter with skip traced leads.</p>
+            
+            <h3>Opening Script Templates</h3>
+            
+            <div class="script-box">
+                <h4>High-Value Property Opening (Properties >$300K)</h4>
+                <p>"Hi [Name], this is [Your Name] with [Company]. I'm a local real estate investor, and I'm calling specifically about your property at [Address]. I've been tracking the market in your area, and I noticed some significant value changes that might interest you as a property owner.</p>
+
+                <p>Before I share what I've found, can you tell me - are you still the owner of that property on [Street Name]?"</p>
+                
+                <p><strong>Why this works:</strong></p>
+                <ul>
+                    <li>Positions you as a market expert</li>
+                    <li>Creates curiosity about value changes</li>
+                    <li>Confirms ownership immediately</li>
+                    <li>Avoids sounding like a cold caller</li>
+                </ul>
+            </div>
+            
+            <div class="script-box">
+                <h4>Distressed Property Opening (Properties <$200K)</h4>
+                <p>"Hi [Name], I'm [Your Name] from [Company]. I'm calling about the property you own at [Address]. I work with property owners in [Area] who sometimes need flexible solutions for their real estate.</p>
+
+                <p>I'm curious - is that property currently occupied, or are you dealing with any tenant or maintenance situations there?"</p>
+                
+                <p><strong>Why this works:</strong></p>
+                <ul>
+                    <li>Acknowledges potential challenges</li>
+                    <li>Positions you as a solution provider</li>
+                    <li>Opens conversation about problems</li>
+                    <li>Shows understanding of investor challenges</li>
+                </ul>
+            </div>
+            
+            <h3>The Top 5 Objections and Responses</h3>
+            
+            <div class="objection-box">
+                <h4>Objection 1: "I'm not interested in selling"</h4>
+                <p><strong>Response:</strong> "I completely understand, and most property owners I speak with aren't actively thinking about selling when I first call. That's actually normal.</p>
+                
+                <p>The reason I called is that I've noticed some market changes in your area that might affect your property value - both positively and negatively. Whether you're planning to sell now or in the future, this information could be valuable for your planning.</p>
+                
+                <p>Would you be open to hearing what I've observed in your neighborhood over the past few months?"</p>
+                
+                <p><strong>Conversion Rate:</strong> 35-45% continue the conversation</p>
+            </div>
+            
+            <div class="objection-box">
+                <h4>Objection 2: "How did you get my number?"</h4>
+                <p><strong>Response:</strong> "That's a fair question. I work with property records and market data to identify homeowners in areas where I'm active as an investor. I focus on [Your Area] specifically because I know the market well.</p>
+                
+                <p>I'm not a telemarketer or lead company - I'm a local real estate professional who buys properties directly. I called because I've been tracking your neighborhood and wanted to see if you might be interested in some market information I've gathered.</p>
+                
+                <p>Does that make sense? Would you like to hear what I've noticed about property values in your area?"</p>
+                
+                <p><strong>Conversion Rate:</strong> 40-50% accept the explanation</p>
+            </div>
+            
+            <div class="objection-box">
+                <h4>Objection 3: "What's your offer?"</h4>
+                <p><strong>Response:</strong> "I appreciate you asking directly - that tells me you might be open to exploring options. Here's the thing: I never make offers over the phone because every property is unique, and I want to be fair to you.</p>
+                
+                <p>My process is to first understand your situation and timeline, then schedule a brief property evaluation. Based on that, I can present you with a few different options that might work.</p>
+                
+                <p>Before we talk about offers, help me understand - if you were to consider selling, what would your ideal timeline look like?"</p>
+                
+                <p><strong>Conversion Rate:</strong> 55-65% engage in timeline discussion</p>
+            </div>
+            
+            <div class="conversion-grid">
+                <div class="conversion-card">
+                    <h4>Objection 4: "I need to think about it"</h4>
+                    <p><strong>The Think-It-Over Close:</strong></p>
+                    <p>"Absolutely, and I'd be concerned if you didn't want to think it over. This is an important decision.</p>
+                    
+                    <p>Help me understand what specifically you'd like to think about - is it the timeline, the process, or do you have questions about how this type of sale works?"</p>
+                    
+                    <p><strong>Follow-up:</strong> Address their specific concern, then: "Would it help if we scheduled a brief call later this week to discuss those details?"</p>
+                </div>
+                
+                <div class="conversion-card">
+                    <h4>Objection 5: "I want to list with a realtor"</h4>
+                    <p><strong>The Options Response:</strong></p>
+                    <p>"That's certainly one option, and realtors can be great for the right situation. Many of my clients actually considered that path initially.</p>
+                    
+                    <p>The difference is timing, certainty, and convenience. Would you be open to hearing about both options so you can make the best decision for your situation?"</p>
+                    
+                    <p><strong>Follow-up:</strong> Present the comparison between listing vs. direct sale based on their stated priorities.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz 2 -->
+        <div class="quiz-section" data-quiz="2">
+            <div class="quiz-header">
+                <h3>Section 2 Quiz</h3>
+                <p>Test your objection handling skills</p>
+            </div>
+            
+            <div class="question" data-question="1">
+                <h4>1. When someone says "I'm not interested in selling," what should you do first?</h4>
+                <ul class="options">
+                    <li data-answer="a">Immediately make an offer to change their mind</li>
+                    <li data-answer="b">Acknowledge their position and pivot to market information</li>
+                    <li data-answer="c">Ask why they don't want to sell</li>
+                    <li data-answer="d">End the call politely</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="2">
+                <h4>2. Why should you avoid making offers over the phone?</h4>
+                <ul class="options">
+                    <li data-answer="a">It's against TCPA regulations</li>
+                    <li data-answer="b">Every property is unique and requires evaluation</li>
+                    <li data-answer="c">Offers must be made in writing</li>
+                    <li data-answer="d">It's considered unprofessional</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="3">
+                <h4>3. What's the best response to "I need to think about it"?</h4>
+                <ul class="options">
+                    <li data-answer="a">Pressure them to decide now</li>
+                    <li data-answer="b">Ask what specifically they want to think about</li>
+                    <li data-answer="c">Give them your business card and leave</li>
+                    <li data-answer="d">Offer a discount to decide today</li>
+                </ul>
+            </div>
+            
+            <button class="quiz-button" onclick="checkQuiz(2)">Check Answers</button>
+            <div class="quiz-results" id="quiz2-results"></div>
+        </div>
+
+        <!-- Section 3: Closing Techniques -->
+        <div class="section" data-section="3">
+            <h2>Section 3: Advanced Closing Techniques</h2>
+            <p><strong>Estimated Reading Time: 10 minutes</strong></p>
+            
+            <p>Converting interested prospects to appointments requires mastery of closing psychology. These techniques guide prospects from curiosity to commitment.</p>
+            
+            <h3>The Three-Close System</h3>
+            
+            <div class="example-box">
+                <h4>Trial Close: Testing the Waters</h4>
+                <p><strong>Purpose:</strong> Gauge interest level without pressure</p>
+                <p><strong>Timing:</strong> After presenting benefits</p>
+                
+                <p><strong>Script:</strong> "Based on what you've told me about your situation, it sounds like a quick, cash sale might solve several problems for you. Does that make sense?"</p>
+                
+                <p><strong>Responses to Watch For:</strong></p>
+                <ul>
+                    <li><strong>"Yes, that makes sense"</strong> → Move to appointment close</li>
+                    <li><strong>"Maybe, but..."</strong> → Handle objection, then trial close again</li>
+                    <li><strong>"No, not really"</strong> → Return to problem discovery</li>
+                </ul>
+            </div>
+            
+            <div class="example-box">
+                <h4>Assumption Close: Creating Forward Motion</h4>
+                <p><strong>Purpose:</strong> Assume the sale and focus on logistics</p>
+                <p><strong>Timing:</strong> After positive trial close response</p>
+                
+                <p><strong>Script:</strong> "Perfect. So the next step would be for me to take a look at the property and put together a formal proposal for you. I have some time available this Thursday afternoon or Friday morning - which works better for your schedule?"</p>
+                
+                <p><strong>Psychology:</strong> By presenting two options, you're not asking IF they want to meet, but WHEN they want to meet.</p>
+            </div>
+            
+            <div class="example-box">
+                <h4>Urgency Close: Creating Decision Pressure</h4>
+                <p><strong>Purpose:</strong> Motivate immediate action with legitimate urgency</p>
+                <p><strong>Timing:</strong> When they're interested but hesitating</p>
+                
+                <p><strong>Script:</strong> "I should mention - I'm currently working on several properties in your area, and I typically focus on one neighborhood at a time. I'd hate for you to miss out on this opportunity because I got busy with other deals. Would it make sense to schedule this evaluation within the next few days?"</p>
+                
+                <p><strong>Key:</strong> The urgency must be genuine - never use false scarcity.</p>
+            </div>
+            
+            <h3>Reading Buying Signals</h3>
+            
+            <table class="conversion-table">
+                <thead>
+                    <tr>
+                        <th>Verbal Signal</th>
+                        <th>What It Means</th>
+                        <th>Your Response</th>
+                        <th>Close to Use</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>"How quickly could you close?"</td>
+                        <td>Timeline is important to them</td>
+                        <td>Emphasize fast closing capability</td>
+                        <td>Assumption Close</td>
+                    </tr>
+                    <tr>
+                        <td>"What kind of offer would you make?"</td>
+                        <td>They're financially motivated</td>
+                        <td>Explain evaluation process</td>
+                        <td>Appointment Close</td>
+                    </tr>
+                    <tr>
+                        <td>"I've been thinking about selling"</td>
+                        <td>Already considering their options</td>
+                        <td>Position as perfect timing</td>
+                        <td>Urgency Close</td>
+                    </tr>
+                    <tr>
+                        <td>"What's the process?"</td>
+                        <td>They want to understand next steps</td>
+                        <td>Outline simple 3-step process</td>
+                        <td>Trial Close</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Quiz 3 -->
+        <div class="quiz-section" data-quiz="3">
+            <div class="quiz-header">
+                <h3>Section 3 Quiz</h3>
+                <p>Test your closing technique knowledge</p>
+            </div>
+            
+            <div class="question" data-question="1">
+                <h4>1. What is the primary purpose of a trial close?</h4>
+                <ul class="options">
+                    <li data-answer="a">To pressure them into a decision</li>
+                    <li data-answer="b">To gauge interest level without pressure</li>
+                    <li data-answer="c">To get their contact information</li>
+                    <li data-answer="d">To schedule an appointment immediately</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="2">
+                <h4>2. In an assumption close, what are you assuming?</h4>
+                <ul class="options">
+                    <li data-answer="a">They will pay your asking price</li>
+                    <li data-answer="b">They are ready to sign a contract</li>
+                    <li data-answer="c">They want to move forward and are focusing on logistics</li>
+                    <li data-answer="d">They have no other options</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="3">
+                <h4>3. When someone asks "How quickly could you close?", what does this signal?</h4>
+                <ul class="options">
+                    <li data-answer="a">They're not serious about selling</li>
+                    <li data-answer="b">Timeline is important to them</li>
+                    <li data-answer="c">They want to delay the decision</li>
+                    <li data-answer="d">They're comparison shopping</li>
+                </ul>
+            </div>
+            
+            <button class="quiz-button" onclick="checkQuiz(3)">Check Answers</button>
+            <div class="quiz-results" id="quiz3-results"></div>
+        </div>
+
+        <!-- Section 4: Follow-up and Pipeline Management -->
+        <div class="section" data-section="4">
+            <h2>Section 4: Follow-up Systems and Pipeline Management</h2>
+            <p><strong>Estimated Reading Time: 8 minutes</strong></p>
+            
+            <p>Most sales are made in the follow-up, not the initial call. A systematic approach to nurturing leads significantly increases your conversion rates over time.</p>
+            
+            <h3>The 7-Touch Follow-up Sequence</h3>
+            
+            <div class="conversion-grid">
+                <div class="conversion-card" style="border-color: #00D4AA;">
+                    <h4>Touch 1: Same Day (2-4 hours after call)</h4>
+                    <p><strong>Method:</strong> Text message</p>
+                    <p><strong>Message:</strong> "Hi [Name], this is [Your Name] from our call earlier. Thanks for your time today. I'll be in your area Thursday - would that work for the property evaluation we discussed?"</p>
+                    <p><strong>Response Rate:</strong> 25-35%</p>
+                </div>
+                
+                <div class="conversion-card" style="border-color: #FFD700;">
+                    <h4>Touch 2: Next Day</h4>
+                    <p><strong>Method:</strong> Email</p>
+                    <p><strong>Content:</strong> Market analysis for their area + Your credentials</p>
+                    <p><strong>Subject:</strong> "Market Update for [Their Street] - [Your Name]"</p>
+                    <p><strong>Response Rate:</strong> 15-25%</p>
+                </div>
+            </div>
+            
+            <div class="conversion-grid">
+                <div class="conversion-card" style="border-color: #8B5CF6;">
+                    <h4>Touch 3: Day 3</h4>
+                    <p><strong>Method:</strong> Phone call</p>
+                    <p><strong>Purpose:</strong> Follow up on market data sent</p>
+                    <p><strong>Script:</strong> "Hi [Name], I sent over that market analysis - did you have a chance to review it? Any questions about what's happening in your neighborhood?"</p>
+                    <p><strong>Response Rate:</strong> 20-30%</p>
+                </div>
+                
+                <div class="conversion-card" style="border-color: #10B981;">
+                    <h4>Touch 4: Day 7</h4>
+                    <p><strong>Method:</strong> Postcard</p>
+                    <p><strong>Content:</strong> Recent sales in their area</p>
+                    <p><strong>Message:</strong> "Thought you'd find these recent sales interesting"</p>
+                    <p><strong>Response Rate:</strong> 5-10%</p>
+                </div>
+            </div>
+            
+            <h3>Pipeline Organization System</h3>
+            
+            <div class="highlight-box">
+                <h3>Lead Categories and Actions</h3>
+                <ul>
+                    <li><strong>Hot (A-Priority):</strong> Scheduled appointments or expressed strong interest
+                        <ul><li>Daily follow-up until appointment</li></ul>
+                    </li>
+                    <li><strong>Warm (B-Priority):</strong> Engaged in conversation, some interest shown
+                        <ul><li>Follow-up every 2-3 days for 2 weeks</li></ul>
+                    </li>
+                    <li><strong>Cool (C-Priority):</strong> Answered but not ready to engage
+                        <ul><li>Weekly follow-up for 1 month, then monthly</li></ul>
+                    </li>
+                    <li><strong>Cold (D-Priority):</strong> Minimal engagement or hostile response
+                        <ul><li>Monthly newsletter, quarterly check-ins</li></ul>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="warning-box">
+                Pipeline Reality Check: 80% of your deals will come from follow-up calls, not initial conversations. Consistency beats intensity.
+            </div>
+        </div>
+
+        <!-- Quiz 4 -->
+        <div class="quiz-section" data-quiz="4">
+            <div class="quiz-header">
+                <h3>Section 4 Quiz</h3>
+                <p>Test your follow-up system knowledge</p>
+            </div>
+            
+            <div class="question" data-question="1">
+                <h4>1. When should you send the first follow-up after an initial call?</h4>
+                <ul class="options">
+                    <li data-answer="a">Next week</li>
+                    <li data-answer="b">Same day, 2-4 hours later</li>
+                    <li data-answer="c">Next month</li>
+                    <li data-answer="d">Only if they requested it</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="2">
+                <h4>2. What percentage of deals typically come from follow-up rather than initial calls?</h4>
+                <ul class="options">
+                    <li data-answer="a">50%</li>
+                    <li data-answer="b">60%</li>
+                    <li data-answer="c">70%</li>
+                    <li data-answer="d">80%</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="3">
+                <h4>3. How often should you follow up with "Hot" A-priority leads?</h4>
+                <ul class="options">
+                    <li data-answer="a">Weekly</li>
+                    <li data-answer="b">Every few days</li>
+                    <li data-answer="c">Daily until appointment</li>
+                    <li data-answer="d">Monthly</li>
+                </ul>
+            </div>
+            
+            <button class="quiz-button" onclick="checkQuiz(4)">Check Answers</button>
+            <div class="quiz-results" id="quiz4-results"></div>
+        </div>
+
+        <!-- Final Quiz -->
+        <div class="quiz-section" data-quiz="final">
+            <div class="quiz-header">
+                <h3>Module 6 Final Assessment</h3>
+                <p>Comprehensive quiz covering all conversion topics</p>
+            </div>
+            
+            <div class="question" data-question="1">
+                <h4>1. In the SPARK framework, when do you present your solution?</h4>
+                <ul class="options">
+                    <li data-answer="a">Situation Assessment</li>
+                    <li data-answer="b">Problem Discovery</li>
+                    <li data-answer="c">Aspiration Alignment</li>
+                    <li data-answer="d">Resolution Presentation</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="2">
+                <h4>2. What's the best response to "I'm not interested in selling"?</h4>
+                <ul class="options">
+                    <li data-answer="a">Ask why they don't want to sell</li>
+                    <li data-answer="b">Acknowledge their position and pivot to market information</li>
+                    <li data-answer="c">Make an immediate offer</li>
+                    <li data-answer="d">End the call politely</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="3">
+                <h4>3. What is the main purpose of a trial close?</h4>
+                <ul class="options">
+                    <li data-answer="a">To pressure immediate decisions</li>
+                    <li data-answer="b">To gauge interest level without pressure</li>
+                    <li data-answer="c">To get contact information</li>
+                    <li data-answer="d">To end the conversation</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="4">
+                <h4>4. When should you send your first follow-up contact?</h4>
+                <ul class="options">
+                    <li data-answer="a">Next week</li>
+                    <li data-answer="b">Same day, 2-4 hours later</li>
+                    <li data-answer="c">Only if requested</li>
+                    <li data-answer="d">Next month</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="5">
+                <h4>5. What percentage of deals come from follow-up rather than initial calls?</h4>
+                <ul class="options">
+                    <li data-answer="a">50%</li>
+                    <li data-answer="b">60%</li>
+                    <li data-answer="c">70%</li>
+                    <li data-answer="d">80%</li>
+                </ul>
+            </div>
+            
+            <button class="quiz-button" onclick="checkQuiz('final')">Submit Final Assessment</button>
+            <div class="quiz-results" id="quizfinal-results"></div>
+        </div>
+
+        <!-- Brain Teaser Challenge -->
+        <div class="section" style="background: linear-gradient(135deg, #4A5568, #2D3748); border: 3px solid #FFD700;">
+            <h2 style="color: #FFD700; text-align: center;">Lead Conversion Master Challenge</h2>
+            <p style="text-align: center; font-size: 1.2em; margin-bottom: 30px;">Put your conversion skills to the ultimate test with this complex sales scenario!</p>
+            
+            <div style="background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 15px; margin: 30px 0;">
+                <h3 style="color: #FFD700; margin-top: 0;">The $2.1 Million Deal Challenge</h3>
+                <p><strong>Scenario:</strong> You've been working a high-value lead for 3 weeks. The property is a 4-unit apartment building worth $2.1 million with significant potential. Here's the complex situation unfolding:</p>
+                
+                <div style="background: rgba(255, 215, 0, 0.2); padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #FFD700;">
+                    <h4 style="color: #FFD700; margin-top: 0;">The Complex Lead Profile:</h4>
+                    
+                    <p><strong>Property Owner:</strong> Margaret Chen, 67, recently widowed</p>
+                    <ul>
+                        <li>Inherited the building from her husband 8 months ago</li>
+                        <li>Lives 3 states away, never managed rental property</li>
+                        <li>Currently has 2 vacant units, 2 problematic tenants</li>
+                        <li>Deferred maintenance estimated at $180,000</li>
+                        <li>Monthly expenses: $8,400 (taxes, insurance, utilities)</li>
+                        <li>Current rental income: $3,200/month (50% occupancy)</li>
+                    </ul>
+                    
+                    <p><strong>Your Previous Conversations:</strong></p>
+                    <ul>
+                        <li><strong>Call 1:</strong> She was "interested but overwhelmed"</li>
+                        <li><strong>Call 2:</strong> You provided market analysis - she said "very helpful"</li>
+                        <li><strong>Call 3:</strong> She agreed to property evaluation but then postponed</li>
+                        <li><strong>Text Follow-up:</strong> "Still thinking about it, will call you back"</li>
+                    </ul>
+                </div>
+                
+                <div style="background: rgba(220, 38, 38, 0.2); padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #DC2626;">
+                    <h4 style="color: #DC2626; margin-top: 0;">The Complications Just Escalated:</h4>
+                    <ul>
+                        <li>Her adult daughter Sarah is now "helping with decisions"</li>
+                        <li>Sarah lives locally and thinks mom should "fix it up and hold it"</li>
+                        <li>A local realtor (Sarah's friend) suggested listing for $2.3M</li>
+                        <li>Margaret just received a $187K estimate for emergency roof repairs</li>
+                        <li>City code enforcement sent violation notice - $25K in fines possible</li>
+                        <li>One tenant stopped paying rent and won't leave</li>
+                        <li>Margaret's retirement savings is running low due to property losses</li>
+                        <li>She mentioned "maybe I should just walk away from this mess"</li>
+                    </ul>
+                </div>
+                
+                <div style="background: rgba(0, 212, 170, 0.2); padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #00D4AA;">
+                    <h4 style="color: #00D4AA; margin-top: 0;">The Master-Level Challenge Questions:</h4>
+                    <ol>
+                        <li style="margin-bottom: 10px;">Margaret just called you sounding defeated: "I'm losing $5,200 every month, and now I need $187K for the roof. Sarah thinks I'm giving up too easily, but I can't afford this." How do you respond?</li>
+                        <li style="margin-bottom: 10px;">Sarah (the daughter) wants to be on the next call and is clearly the skeptical influencer. What's your strategy for handling a three-way conversation?</li>
+                        <li style="margin-bottom: 10px;">The realtor suggested $2.3M list price, but you know the as-is value is $1.7M max. How do you address this price expectation gap?</li>
+                        <li style="margin-bottom: 10px;">Margaret seems overwhelmed by decisions. Using SPARK framework, what's your conversation structure?</li>
+                        <li style="margin-bottom: 10px;">She says "I just want this nightmare to end." What closing technique is most appropriate?</li>
+                        <li style="margin-bottom: 10px;">If you could only ask 3 questions to move this to a signed contract, what would they be?</li>
+                    </ol>
+                </div>
+                
+                <div style="background: rgba(255, 107, 53, 0.2); padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #FF6B35;">
+                    <h4 style="color: #FF6B35; margin-top: 0;">The Ultimate Test:</h4>
+                    <p>During your next call, Margaret says: "I've been thinking... maybe Sarah is right. Maybe I should just tough it out, get a loan for the repairs, and try to rent it properly. What do you think I should do?"</p>
+                    
+                    <p><strong>This is the moment of truth.</strong> Your response to this question will either close this deal or lose a $2.1M opportunity forever. How do you respond?</p>
+                    
+                    <p><strong>Bonus Challenge:</strong> Script out your exact response that addresses her question, handles the daughter's influence, and moves toward commitment - all while being genuinely helpful rather than manipulative.</p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="quiz-button" onclick="toggleBrainTeaserAnswer()" id="brain-teaser-btn">Show Expert Conversion Strategy</button>
+                    <div id="brain-teaser-answer" style="display: none; margin-top: 20px; text-align: left;">
+                        <div style="background: rgba(0, 0, 0, 0.3); padding: 25px; border-radius: 15px; border-left: 5px solid #00D4AA;">
+                            <h4 style="color: #00D4AA; margin-top: 0;">Expert Conversion Response Strategy:</h4>
+                            
+                            <p><strong>The Master Response to "What do you think I should do?":</strong></p>
+                            <div style="background: rgba(0, 212, 170, 0.1); padding: 20px; border-radius: 10px; font-family: monospace; margin: 15px 0;">
+                                <p>"Margaret, that's exactly the right question to ask, and I respect you for being thoughtful about such an important decision.</p>
+                                
+                                <p>Here's what I think: You have two viable paths, and both have merit. Let me walk through what each realistically looks like...</p>
+                                
+                                <p><strong>Path 1 - Fix and Hold:</strong> You'd need about $212K upfront ($187K roof + $25K codes). At full occupancy, you might net $4,800/month after all expenses. That's $57,600 annual return on a $212K investment - about 27% ROI, which is excellent IF you can manage it from 3 states away and IF the market stays strong.</p>
+                                
+                                <p><strong>Path 2 - Sell Now:</strong> You stop the financial bleeding immediately, eliminate the stress, and free up your time and mental energy for things that matter more at this stage of your life.</p>
+                                
+                                <p>The real question isn't which option makes more money on paper - it's which option serves your life better right now. Sarah loves you and wants you to succeed, but she doesn't have to write the $5,200 checks every month or deal with tenant calls at midnight.</p>
+                                
+                                <p>What does your gut tell you when you think about managing this property for the next 10 years?"</p>
+                            </div>
+                            
+                            <p><strong>Why This Works:</strong></p>
+                            <ul>
+                                <li>Acknowledges both options as valid (builds trust)</li>
+                                <li>Provides realistic financial analysis</li>
+                                <li>Reframes from money to life impact</li>
+                                <li>Respectfully addresses daughter's influence</li>
+                                <li>Ends with emotional decision trigger</li>
+                            </ul>
+                            
+                            <p><strong>Three-Way Call Strategy:</strong></p>
+                            <ul>
+                                <li>Address Sarah directly: "Sarah, I can tell you really care about your mom's financial future"</li>
+                                <li>Acknowledge her concerns: "The fix-and-hold strategy you're suggesting could work"</li>
+                                <li>Redirect to practical reality: "Help me understand - are you planning to manage this property for your mom?"</li>
+                                <li>Let Sarah realize the burden herself rather than arguing</li>
+                            </ul>
+                            
+                            <p style="color: #FFD700; font-weight: bold;">Expected Outcome: 70% chance she says "You're right, I just want this stress to end" and moves to appointment scheduling.</p>
+                            
+                            <p style="color: #00D4AA; font-weight: bold;">Key Principle: In complex emotional sales, your job is to be the wise advisor who helps them see clearly, not the aggressive closer who pushes them toward your agenda.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Module Completion Section -->
+        <div class="section" id="completion-section" style="display: none;">
+            <div class="highlight-box" style="text-align: center;">
+                <h2>Congratulations!</h2>
+                <h3>You've completed Module 6: Lead Conversion & Sales Strategies</h3>
+                <p>You now master the SPARK framework, advanced objection handling, closing techniques, and follow-up systems that convert qualified leads into profitable deals.</p>
+                
+                <div style="margin: 30px 0;">
+                    <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 15px; display: inline-block;">
+                        <h4 style="color: #00D4AA; margin: 0;">Complete Skip Tracing Mastery!</h4>
+                        <p style="margin: 10px 0 0 0; color: #FFD700; font-size: 1.2em;">All 6 Modules Completed</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                Course Complete! You now have the complete system: sourcing leads, skip tracing, data evaluation, legal compliance, communication strategies, and conversion techniques.
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-button back" onclick="goToPreviousModule()">← Module 5</button>
+            <div style="text-align: center;">
+                <p style="margin: 0; color: #B0C4DE;">Module 6 of 6 Complete</p>
+            </div>
+            <button class="nav-button" id="next-module" onclick="goToNextModule()" style="display: none;">Course Complete!</button>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 60px; padding: 40px; background: rgba(255, 255, 255, 0.1); border-radius: 20px;">
+            <p style="color: #B0C4DE;">Stacked • Real Estate CRM • Module 6: Lead Conversion & Sales Strategies</p>
+        </div>
+    </div>
+
+    <script>
+        // Quiz answers
+        const quizAnswers = {
+            1: { 1: 'b', 2: 'd', 3: 'c' },
+            2: { 1: 'b', 2: 'b', 3: 'b' },
+            3: { 1: 'b', 2: 'c', 3: 'b' },
+            4: { 1: 'b', 2: 'd', 3: 'c' },
+            'final': { 1: 'd', 2: 'b', 3: 'b', 4: 'b', 5: 'd' }
+        };
+        
+        let completedSections = 0;
+        let completedQuizzes = 0;
+        const totalSections = 4;
+        const totalQuizzes = 5;
+        
+        function updateProgress() {
+            const totalItems = totalSections + totalQuizzes;
+            const completedItems = completedSections + completedQuizzes;
+            const percentage = Math.round((completedItems / totalItems) * 100);
+            
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '% Complete';
+            
+            if (completedItems === totalItems) {
+                document.getElementById('completion-section').style.display = 'block';
+                document.getElementById('next-module').style.display = 'inline-block';
+            }
+        }
+        
+        function checkQuiz(quizNumber) {
+            const quiz = document.querySelector(`[data-quiz="${quizNumber}"]`);
+            const questions = quiz.querySelectorAll('.question');
+            let correct = 0;
+            let total = questions.length;
+            
+            questions.forEach((question, index) => {
+                const questionNum = index + 1;
+                const selectedOption = question.querySelector('.options li.selected');
+                const correctAnswer = quizAnswers[quizNumber][questionNum];
+                
+                question.querySelectorAll('.options li').forEach(option => {
+                    option.classList.remove('correct', 'incorrect', 'selected');
+                });
+                
+                question.querySelectorAll('.options li').forEach(option => {
+                    if (option.dataset.answer === correctAnswer) {
+                        option.classList.add('correct');
+                    }
+                });
+                
+                if (selectedOption && selectedOption.dataset.answer === correctAnswer) {
+                    correct++;
+                } else if (selectedOption) {
+                    selectedOption.classList.add('incorrect');
+                }
+            });
+            
+            const resultsDiv = document.getElementById(`quiz${quizNumber}-results`);
+            const percentage = Math.round((correct / total) * 100);
+            let resultText = '';
+            
+            if (percentage >= 80) {
+                resultText = `Excellent! You scored ${correct}/${total} (${percentage}%)`;
+                if (!quiz.classList.contains('completed')) {
+                    completedQuizzes++;
+                    quiz.classList.add('completed');
+                }
+            } else if (percentage >= 60) {
+                resultText = `Good effort! You scored ${correct}/${total} (${percentage}%). Review the material and try again.`;
+            } else {
+                resultText = `Keep studying! You scored ${correct}/${total} (${percentage}%). Please review the content and retake the quiz.`;
+            }
+            
+            resultsDiv.innerHTML = `<p>${resultText}</p>`;
+            resultsDiv.style.display = 'block';
+            
+            quiz.querySelector('.quiz-button').disabled = true;
+            quiz.querySelector('.quiz-button').textContent = 'Quiz Completed';
+            
+            updateProgress();
+        }
+        
+        function toggleBrainTeaserAnswer() {
+            const answer = document.getElementById('brain-teaser-answer');
+            const btn = document.getElementById('brain-teaser-btn');
+            
+            if (answer.style.display === 'none') {
+                answer.style.display = 'block';
+                btn.textContent = 'Hide Expert Conversion Strategy';
+                btn.style.background = 'linear-gradient(135deg, #FF6B35, #E55533)';
+            } else {
+                answer.style.display = 'none';
+                btn.textContent = 'Show Expert Conversion Strategy';
+                btn.style.background = 'linear-gradient(135deg, #00D4AA, #00B894)';
+            }
+        }
+        
+        function goToNextModule() {
+            alert('Congratulations! You have completed the entire Skip Tracing Mastery Course! You now have all the tools needed to successfully skip trace leads and convert them into profitable real estate deals.');
+        }
+        
+        function goToPreviousModule() {
+            alert('Going back to Module 5: Legal Compliance');
+        }
+        
+        // Handle option selection
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('.options li')) {
+                const question = e.target.closest('.question');
+                question.querySelectorAll('.options li').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                e.target.classList.add('selected');
+            }
+        });
+        
+        // Mark sections as read when scrolled into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const section = entry.target;
+                    if (section.dataset.section && !section.classList.contains('completed')) {
+                        section.classList.add('completed');
+                        completedSections++;
+                        updateProgress();
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        document.querySelectorAll('[data-section]').forEach(section => {
+            observer.observe(section);
+        });
+        
+        updateProgress();
+        
+        // Timer functionality
+        let startTime = Date.now();
+        function updateTimer() {
+            const elapsed = Date.now() - startTime;
+            const minutes = Math.floor(elapsed / 60000);
+            const seconds = Math.floor((elapsed % 60000) / 1000);
+            document.getElementById('timer').innerHTML = `Time Spent: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>

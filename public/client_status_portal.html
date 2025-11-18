@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Transaction Status - Stacked</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #2c3e50;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: #2c3e50;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #34495e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #ffffff 0%, #ffffff 50%, transparent 50%);
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        .client-info {
+            background-color: #34495e;
+            padding: 2rem;
+            margin: 2rem;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .client-details h2 {
+            color: #5dade2;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .client-details p {
+            margin-bottom: 0.5rem;
+            color: #bdc3c7;
+        }
+
+        .agent-card {
+            background-color: #2c3e50;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #5dade2;
+        }
+
+        .agent-avatar {
+            width: 60px;
+            height: 60px;
+            background-color: #5dade2;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #2c3e50;
+        }
+
+        .timeline-section {
+            margin: 2rem;
+        }
+
+        .timeline-header {
+            background-color: #34495e;
+            padding: 1.5rem 2rem;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timeline-header h3 {
+            color: #5dade2;
+            font-size: 1.5rem;
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 8px;
+            background-color: #2c3e50;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #5dade2;
+            width: 65%;
+            transition: width 0.3s ease;
+        }
+
+        .timeline-container {
+            background-color: #34495e;
+            padding: 2rem;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #5dade2;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -27px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #5dade2;
+        }
+
+        .timeline-item.completed::before {
+            background-color: #5dade2;
+        }
+
+        .timeline-item.active::before {
+            background-color: #f39c12;
+            border-color: #f39c12;
+        }
+
+        .timeline-item.pending::before {
+            background-color: #2c3e50;
+        }
+
+        .timeline-content {
+            background-color: #2c3e50;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #5dade2;
+        }
+
+        .timeline-item.completed .timeline-content {
+            border-left-color: #5dade2;
+        }
+
+        .timeline-item.active .timeline-content {
+            border-left-color: #f39c12;
+        }
+
+        .timeline-item.pending .timeline-content {
+            border-left-color: #7f8c8d;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .timeline-date {
+            color: #5dade2;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            color: #bdc3c7;
+            font-size: 0.95rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-completed {
+            background-color: #5dade2;
+            color: #2c3e50;
+        }
+
+        .status-active {
+            background-color: #f39c12;
+            color: #ffffff;
+        }
+
+        .status-pending {
+            background-color: #7f8c8d;
+            color: #ffffff;
+        }
+
+        .contact-section {
+            background-color: #34495e;
+            margin: 2rem;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .contact-section h3 {
+            color: #5dade2;
+            margin-bottom: 1rem;
+        }
+
+        .contact-button {
+            background-color: #5dade2;
+            color: #2c3e50;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-button:hover {
+            background-color: #4fa8d8;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .client-info {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .timeline-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .progress-bar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">STACKED</div>
+        <div style="color: #5dade2; font-weight: bold;">Client Portal</div>
+    </div>
+
+    <div class="client-info">
+        <div class="client-details">
+            <h2>John Doe</h2>
+            <p><strong>Property:</strong> 123 Main Street</p>
+            <p><strong>Transaction Type:</strong> Purchase</p>
+            <p><strong>Contract Date:</strong> April 10, 2025</p>
+            <p><strong>Expected Closing:</strong> May 15, 2025</p>
+        </div>
+        <div class="agent-card">
+            <div class="agent-avatar">JS</div>
+            <h4>Jane Smith</h4>
+            <p style="color: #bdc3c7; margin-bottom: 1rem;">Your Agent</p>
+            <p style="color: #5dade2; font-size: 0.9rem;">jane.smith@example.com</p>
+            <p style="color: #5dade2; font-size: 0.9rem;">(555) 987-6543</p>
+        </div>
+    </div>
+
+    <div class="timeline-section">
+        <div class="timeline-header">
+            <h3>Transaction Progress</h3>
+            <div>
+                <div style="color: #bdc3c7; font-size: 0.9rem; margin-bottom: 0.5rem;">65% Complete</div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+        <div class="timeline-container">
+            <div class="timeline">
+                <div class="timeline-item completed">
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            Contract Signed
+                            <span class="status-badge status-completed">Completed</span>
+                        </div>
+                        <div class="timeline-date">April 10, 2025</div>
+                        <div class="timeline-description">
+                            Purchase agreement has been signed by all parties. Initial earnest money deposit has been received.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item completed">
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            Financing Application
+                            <span class="status-badge status-completed">Completed</span>
+                        </div>
+                        <div class="timeline-date">April 12, 2025</div>
+                        <div class="timeline-description">
+                            Mortgage application submitted to lender. All required documentation has been provided.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item completed">
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            Home Inspection
+                            <span class="status-badge status-completed">Completed</span>
+                        </div>
+                        <div class="timeline-date">April 18, 2025</div>
+                        <div class="timeline-description">
+                            Professional home inspection completed. Minor issues identified and addressed with seller.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item active">
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            Appraisal
+                            <span class="status-badge status-active">In Progress</span>
+                        </div>
+                        <div class="timeline-date">April 25, 2025</div>
+                        <div class="timeline-description">
+                            Appraisal has been ordered by your lender. Appraiser will contact you to schedule access to the property.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item pending">
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            Final Loan Approval
+                            <span class="status-badge status-pending">Pending</span>
+                        </div>
+                        <div class="timeline-date">Expected: May 5, 2025</div>
+                        <div class="timeline-description">
+                            Awaiting final underwriting approval from your lender. This step will be completed after the appraisal.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item pending">
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            Final Walkthrough
+                            <span class="status-badge status-pending">Pending</span>
+                        </div>
+                        <div class="timeline-date">Expected: May 14, 2025</div>
+                        <div class="timeline-description">
+                            Final walkthrough of the property to ensure it's in the agreed-upon condition before closing.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item pending">
+                    <div class="timeline-content">
+                        <div class="timeline-title">
+                            Closing Day
+                            <span class="status-badge status-pending">Pending</span>
+                        </div>
+                        <div class="timeline-date">Expected: May 15, 2025</div>
+                        <div class="timeline-description">
+                            Final closing meeting where you'll sign all documents and receive the keys to your new home!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-section">
+        <h3>Questions About Your Transaction?</h3>
+        <p style="color: #bdc3c7; margin-bottom: 1.5rem;">Your agent is here to help every step of the way.</p>
+        <a href="mailto:jane.smith@example.com" class="contact-button">Send Email</a>
+        <a href="tel:5559876543" class="contact-button">Call Now</a>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 Stacked Real Estate CRM. All rights reserved.</p>
+        <p style="margin-top: 0.5rem;">This portal is updated in real-time as your transaction progresses.</p>
+    </div>
+</body>
+</html>

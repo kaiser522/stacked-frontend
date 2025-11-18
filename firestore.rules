@@ -1,0 +1,63 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Affiliates collection - affiliates can only read their own profile
+    match /affiliates/{affiliateId} {
+      allow read: if request.auth != null && 
+        (request.auth.uid == affiliateId || 
+         resource.data.userId == request.auth.uid ||
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
+      allow write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Affiliate referrals - affiliates can only read their own referrals
+    match /affiliate_referrals/{referralId} {
+      allow read: if request.auth != null && 
+        (resource.data.affiliateId == request.auth.uid ||
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
+      allow write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Affiliate payouts - affiliates can only read their own payouts
+    match /affiliate_payouts/{payoutId} {
+      allow read: if request.auth != null && 
+        (resource.data.affiliateId == request.auth.uid ||
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
+      allow write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Affiliate clawbacks - affiliates can only read their own clawbacks
+    match /affiliate_clawbacks/{clawbackId} {
+      allow read: if request.auth != null && 
+        (resource.data.affiliateId == request.auth.uid ||
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
+      allow write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Users collection - users can read their own data, admins can read all
+    match /users/{userId} {
+      allow read: if request.auth != null && 
+        (request.auth.uid == userId ||
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
+      allow write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Newsletters collection - admin only
+    match /newsletters/{newsletterId} {
+      allow read, write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Calendar events collection - admin only
+    match /calendar_events/{eventId} {
+      allow read, write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+  }
+}
+

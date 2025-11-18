@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: SOI Fundamentals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #FF6B35;
+            border-radius: 8px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        h1 {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .module-badge {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #B0C4DE;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .progress-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 5px;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #00D4AA, #00B894);
+            height: 25px;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #00D4AA;
+        }
+        
+        h3 {
+            font-size: 1.8em;
+            margin: 40px 0 20px 0;
+            color: #FFD700;
+        }
+        
+        h4 {
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+            color: #FFD700;
+        }
+        
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #E6F3FF;
+        }
+        
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .highlight-box h3 {
+            color: #FFD700;
+            margin-top: 0;
+        }
+        
+        .example-box {
+            background: rgba(0, 212, 170, 0.2);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .example-box h4 {
+            color: #00D4AA;
+            margin-top: 0;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #FF6B35, #E55533);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 40px 0;
+        }
+        
+        .quiz-section {
+            background: linear-gradient(135deg, #4A5568, #2D3748);
+            border: 3px solid #00D4AA;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 50px 0;
+        }
+        
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .quiz-header h3 {
+            color: #00D4AA;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .question {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .question h4 {
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .options li {
+            background: rgba(255, 255, 255, 0.05);
+            margin: 10px 0;
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .options li:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #00D4AA;
+        }
+        
+        .options li.selected {
+            background: rgba(0, 212, 170, 0.3);
+            border-color: #00D4AA;
+        }
+        
+        .options li.correct {
+            background: rgba(0, 212, 170, 0.5);
+            border-color: #00D4AA;
+        }
+        
+        .options li.incorrect {
+            background: rgba(255, 107, 53, 0.5);
+            border-color: #FF6B35;
+        }
+        
+        .quiz-button {
+            background: linear-gradient(135deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .quiz-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .quiz-results {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .comparison-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #00D4AA;
+        }
+        
+        .soi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .soi-table th,
+        .soi-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .soi-table th {
+            background: rgba(0, 212, 170, 0.3);
+            color: #00D4AA;
+            font-weight: bold;
+        }
+        
+        .tier-high { 
+            color: #00D4AA; 
+            font-weight: bold; 
+            background: rgba(0, 212, 170, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        .tier-medium { 
+            color: #FFD700; 
+            font-weight: bold;
+            background: rgba(255, 215, 0, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        .tier-low { 
+            color: #FF6B35; 
+            font-weight: bold;
+            background: rgba(255, 107, 53, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        ul {
+            margin: 15px 0 15px 20px;
+            color: #E6F3FF;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .case-study {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid #FFD700;
+        }
+        
+        .case-study h4 {
+            color: #FFD700;
+            margin-top: 0;
+        }
+        
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            color: #00D4AA;
+            font-size: 1.1em;
+            z-index: 1000;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 50px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+        
+        .nav-button {
+            background: linear-gradient(135deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .nav-button.back {
+            background: linear-gradient(135deg, #6B7280, #4B5563);
+        }
+        
+        .brain-teaser {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .brain-teaser h3 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .teaser-question {
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            color: #f3e8ff;
+        }
+        
+        .teaser-input {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            color: white;
+            width: 300px;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .teaser-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .teaser-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .teaser-btn:hover {
+            background: white;
+            color: #8b5cf6;
+        }
+        
+        .teaser-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .teaser-result.show {
+            display: block;
+        }
+        
+        .teaser-result.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border: 2px solid #22c55e;
+            color: #22c55e;
+        }
+        
+        .teaser-result.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #ef4444;
+            color: #ef4444;
+        }
+        
+        @media (max-width: 900px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .timer {
+                position: static;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="timer" id="timer">Estimated Time: 45 minutes</div>
+    
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo">🤝</div>
+            <h1>SOI Fundamentals</h1>
+            <div class="module-badge">Module 1 of 6</div>
+            <p class="subtitle">Define and categorize your sphere of influence, understand relationship mapping, and identify your most valuable contacts for business development.</p>
+        </div>
+
+        <!-- Progress Tracker -->
+        <div class="section">
+            <h2>Your Progress</h2>
+            <div class="progress-container">
+                <div class="progress-fill" id="progressBar">0% Complete</div>
+            </div>
+            <p style="text-align: center; margin-top: 10px;">Complete each section and quiz to progress</p>
+        </div>
+
+        <!-- Section 1: What is Your SOI? -->
+        <div class="section" data-section="1">
+            <h2>Section 1: What is Your Sphere of Influence?</h2>
+            <p><strong>Estimated Reading Time: 12 minutes</strong></p>
+            
+            <p>Your Sphere of Influence (SOI) is the network of people who know you personally and professionally. Unlike cold leads or strangers, these individuals already have an established relationship with you and some level of trust. They represent your most valuable source of referrals and repeat business.</p>
+            
+            <div class="highlight-box">
+                <h3>Key Definition</h3>
+                <p><strong>Sphere of Influence:</strong> Everyone you know who could potentially refer business to you, buy from you again, or influence others to work with you. This includes personal relationships, professional contacts, and past clients.</p>
+            </div>
+            
+            <h3>The Hidden Goldmine in Your Phone</h3>
+            <p>Most agents underestimate the value of their existing network. Research shows that the average person knows 250-300 people well enough to have their contact information. Among those contacts:</p>
+            
+            <ul>
+                <li><strong>73% of people</strong> move within 10 years and need real estate services</li>
+                <li><strong>Each person influences</strong> an average of 8-12 other potential buyers/sellers</li>
+                <li><strong>Referral conversions</strong> are 5x higher than cold leads</li>
+                <li><strong>Cost to nurture</strong> existing relationships is 90% less than acquiring new leads</li>
+            </ul>
+            
+            <div class="example-box">
+                <h4>Real-World SOI Math</h4>
+                <p><strong>Average Agent Contacts:</strong> 300 people in their sphere</p>
+                <p><strong>Annual Transaction Potential:</strong> 300 × 0.05 (5% move yearly) = 15 transactions</p>
+                <p><strong>Referral Multiplier:</strong> 15 × 2.3 (average referrals per transaction) = 34.5 potential deals</p>
+                <p><strong>Revenue Impact:</strong> 34.5 transactions × $8,000 average commission = $276,000 annually</p>
+                <p><strong>Key Point:</strong> This assumes proper SOI nurturing - most agents only capture 10-20% of this potential</p>
+            </div>
+            
+            <h3>Why Agents Neglect Their SOI</h3>
+            <p>Despite the clear value, most agents focus on expensive lead generation instead of nurturing existing relationships. Common reasons include:</p>
+            
+            <ul>
+                <li><strong>Lack of System:</strong> No organized approach to stay in touch</li>
+                <li><strong>Fear of Being Pushy:</strong> Worry about mixing business with personal relationships</li>
+                <li><strong>Impatience:</strong> SOI nurturing takes time - paid leads feel faster</li>
+                <li><strong>Underestimation:</strong> Don't realize the referral potential in their network</li>
+                <li><strong>No Tracking:</strong> Can't measure what they don't monitor</li>
+            </ul>
+            
+            <div class="warning-box">
+                The #1 mistake agents make: Chasing expensive leads while ignoring the goldmine in their existing relationships.
+            </div>
+        </div>
+
+        <!-- Quiz 1 -->
+        <div class="quiz-section" data-quiz="1">
+            <div class="quiz-header">
+                <h3>Section 1 Quiz</h3>
+                <p>Test your understanding of SOI fundamentals</p>
+            </div>
+            
+            <div class="question" data-question="1">
+                <h4>1. What percentage of people move within 10 years, requiring real estate services?</h4>
+                <ul class="options">
+                    <li data-answer="a">45%</li>
+                    <li data-answer="b">60%</li>
+                    <li data-answer="c">73%</li>
+                    <li data-answer="d">85%</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="2">
+                <h4>2. How much higher are referral conversion rates compared to cold leads?</h4>
+                <ul class="options">
+                    <li data-answer="a">2x higher</li>
+                    <li data-answer="b">3x higher</li>
+                    <li data-answer="c">5x higher</li>
+                    <li data-answer="d">10x higher</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="3">
+                <h4>3. What is the main reason agents neglect their SOI?</h4>
+                <ul class="options">
+                    <li data-answer="a">SOI contacts aren't valuable</li>
+                    <li data-answer="b">Lack of organized system to stay in touch</li>
+                    <li data-answer="c">Referrals don't convert well</li>
+                    <li data-answer="d">It's too expensive to maintain</li>
+                </ul>
+            </div>
+            
+            <button class="quiz-button" onclick="checkQuiz(1)">Check Answers</button>
+            <div class="quiz-results" id="quiz1-results"></div>
+        </div>
+
+        <!-- Section 2: Categorizing Your SOI -->
+        <div class="section" data-section="2">
+            <h2>Section 2: The Five SOI Categories</h2>
+            <p><strong>Estimated Reading Time: 15 minutes</strong></p>
+            
+            <p>Not all relationships are equal in terms of business potential. To maximize your SOI effectiveness, you need to categorize contacts based on their relationship type, influence level, and referral potential.</p>
+            
+            <h3>The SOI Pyramid Framework</h3>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card" style="border-color: #00D4AA;">
+                    <h4 style="color: #00D4AA;">Tier 1: VIP Champions (Top 5%)</h4>
+                    <ul>
+                        <li>Past clients who loved working with you</li>
+                        <li>Close family and friends</li>
+                        <li>Business partners and colleagues</li>
+                        <li>Community leaders and influencers</li>
+                        <li><strong>Contact Frequency:</strong> Monthly</li>
+                        <li><strong>Expected Referrals:</strong> 2-5 per year each</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-card" style="border-color: #FFD700;">
+                    <h4 style="color: #FFD700;">Tier 2: Active Network (15%)</h4>
+                    <ul>
+                        <li>Recent past clients</li>
+                        <li>Professional contacts</li>
+                        <li>Active social connections</li>
+                        <li>Service providers you use</li>
+                        <li><strong>Contact Frequency:</strong> Quarterly</li>
+                        <li><strong>Expected Referrals:</strong> 1-2 per year each</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card" style="border-color: #FF6B35;">
+                    <h4 style="color: #FF6B35;">Tier 3: Extended Network (30%)</h4>
+                    <ul>
+                        <li>Distant relatives and acquaintances</li>
+                        <li>Former colleagues</li>
+                        <li>Social media connections</li>
+                        <li>Community members</li>
+                        <li><strong>Contact Frequency:</strong> Bi-annually</li>
+                        <li><strong>Expected Referrals:</strong> 0.5-1 per year each</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-card" style="border-color: #6B7280;">
+                    <h4 style="color: #6B7280;">Tier 4: Dormant Contacts (50%)</h4>
+                    <ul>
+                        <li>Old clients from years ago</li>
+                        <li>Former neighbors</li>
+                        <li>Inactive social connections</li>
+                        <li>Lost touch contacts</li>
+                        <li><strong>Contact Frequency:</strong> Annually</li>
+                        <li><strong>Expected Referrals:</strong> Occasional surprises</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Professional SOI Categories</h3>
+            <p>Within your SOI, certain professional categories have higher referral potential:</p>
+            
+            <table class="soi-table">
+                <thead>
+                    <tr>
+                        <th>Professional Category</th>
+                        <th>Referral Potential</th>
+                        <th>Why They Refer</th>
+                        <th>Best Approach</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mortgage Professionals</td>
+                        <td class="tier-high">Very High</td>
+                        <td>Daily contact with buyers/sellers</td>
+                        <td>Reciprocal referral partnership</td>
+                    </tr>
+                    <tr>
+                        <td>Financial Advisors</td>
+                        <td class="tier-high">Very High</td>
+                        <td>Clients with real estate needs</td>
+                        <td>Education and market insights</td>
+                    </tr>
+                    <tr>
+                        <td>Insurance Agents</td>
+                        <td class="tier-medium">High</td>
+                        <td>Home and life changes</td>
+                        <td>Cross-referral opportunities</td>
+                    </tr>
+                    <tr>
+                        <td>Attorneys</td>
+                        <td class="tier-medium">High</td>
+                        <td>Divorce, estate, business clients</td>
+                        <td>Professional relationship building</td>
+                    </tr>
+                    <tr>
+                        <td>Contractors/Builders</td>
+                        <td class="tier-medium">Medium</td>
+                        <td>Renovation and new construction</td>
+                        <td>Industry partnerships</td>
+                    </tr>
+                    <tr>
+                        <td>Accountants</td>
+                        <td class="tier-low">Medium</td>
+                        <td>Investment and tax planning</td>
+                        <td>Educational content sharing</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="case-study">
+                <h4>Case Study: Professional SOI Success</h4>
+                <p><strong>Agent:</strong> Sarah Martinez, 5 years in real estate</p>
+                <p><strong>Strategy:</strong> Focused on building relationships with 10 mortgage brokers</p>
+                <p><strong>Time Investment:</strong> 2 hours monthly - coffee meetings, market updates</p>
+                <p><strong>Results Year 1:</strong> 23 referrals from mortgage partners</p>
+                <p><strong>Results Year 3:</strong> 67 referrals annually (40% of her business)</p>
+                <p><strong>Key Success Factor:</strong> Provided value first through market data and client introductions</p>
+            </div>
+        </div>
+
+        <!-- Quiz 2 -->
+        <div class="quiz-section" data-quiz="2">
+            <div class="quiz-header">
+                <h3>Section 2 Quiz</h3>
+                <p>Test your understanding of SOI categorization</p>
+            </div>
+            
+            <div class="question" data-question="1">
+                <h4>1. Which tier should represent the top 5% of your SOI with monthly contact frequency?</h4>
+                <ul class="options">
+                    <li data-answer="a">Tier 1: VIP Champions</li>
+                    <li data-answer="b">Tier 2: Active Network</li>
+                    <li data-answer="c">Tier 3: Extended Network</li>
+                    <li data-answer="d">Tier 4: Dormant Contacts</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="2">
+                <h4>2. Which professional category typically has the highest referral potential?</h4>
+                <ul class="options">
+                    <li data-answer="a">Contractors/Builders</li>
+                    <li data-answer="b">Accountants</li>
+                    <li data-answer="c">Mortgage Professionals</li>
+                    <li data-answer="d">Insurance Agents</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="3">
+                <h4>3. How many referrals should you expect annually from each Tier 1 VIP Champion?</h4>
+                <ul class="options">
+                    <li data-answer="a">0.5-1 referrals</li>
+                    <li data-answer="b">1-2 referrals</li>
+                    <li data-answer="c">2-5 referrals</li>
+                    <li data-answer="d">5-10 referrals</li>
+                </ul>
+            </div>
+            
+            <button class="quiz-button" onclick="checkQuiz(2)">Check Answers</button>
+            <div class="quiz-results" id="quiz2-results"></div>
+        </div>
+
+        <!-- Section 3: SOI Audit Process -->
+        <div class="section" data-section="3">
+            <h2>Section 3: Conducting Your SOI Audit</h2>
+            <p><strong>Estimated Reading Time: 18 minutes</strong></p>
+            
+            <p>Before you can systematically nurture your SOI, you need to identify and catalog everyone in your sphere. This audit process will uncover hidden opportunities and help you prioritize your relationship-building efforts.</p>
+            
+            <h3>The Complete SOI Discovery Process</h3>
+            
+            <h4>Step 1: Digital Contact Mining</h4>
+            <p>Start by gathering contacts from all your digital sources:</p>
+            <ul>
+                <li><strong>Phone Contacts:</strong> Export your complete contact list</li>
+                <li><strong>Email Platforms:</strong> Gmail, Outlook, Yahoo contact lists</li>
+                <li><strong>Social Media:</strong> Facebook friends, LinkedIn connections, Instagram followers</li>
+                <li><strong>Messaging Apps:</strong> WhatsApp, Telegram, Signal contacts</li>
+                <li><strong>Past Transaction Records:</strong> MLS records, closing documents</li>
+                <li><strong>Business Cards:</strong> Scan and digitize collected cards</li>
+            </ul>
+            
+            <h4>Step 2: Memory-Based Contact Recovery</h4>
+            <p>Use these prompts to remember people you may have missed:</p>
+            
+            <div class="example-box">
+                <h4>SOI Memory Prompts</h4>
+                <ul>
+                    <li><strong>School Connections:</strong> Elementary, high school, college classmates</li>
+                    <li><strong>Work History:</strong> Current and former colleagues from every job</li>
+                    <li><strong>Neighborhoods:</strong> Current and past neighbors, HOA members</li>
+                    <li><strong>Activities:</strong> Gym members, hobby groups, sports teams</li>
+                    <li><strong>Services:</strong> Doctor, dentist, mechanic, hair stylist, accountant</li>
+                    <li><strong>Family Events:</strong> Wedding guests, funeral attendees, holiday gatherings</li>
+                    <li><strong>Kids' Activities:</strong> Other parents from school, sports, activities</li>
+                    <li><strong>Religious/Community:</strong> Church members, volunteer organizations</li>
+                </ul>
+            </div>
+            
+            <h4>Step 3: Relationship Scoring System</h4>
+            <p>Once you've compiled your contact list, rate each person using this scoring system:</p>
+            
+            <table class="soi-table">
+                <thead>
+                    <tr>
+                        <th>Scoring Factor</th>
+                        <th>High (3 pts)</th>
+                        <th>Medium (2 pts)</th>
+                        <th>Low (1 pt)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Relationship Strength</strong></td>
+                        <td>Close friend/family</td>
+                        <td>Regular contact</td>
+                        <td>Acquaintance</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Influence Level</strong></td>
+                        <td>High community profile</td>
+                        <td>Moderate influence</td>
+                        <td>Limited network</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Financial Capacity</strong></td>
+                        <td>High income/assets</td>
+                        <td>Middle income</td>
+                        <td>Lower income</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Life Stage</strong></td>
+                        <td>Active buyers/sellers</td>
+                        <td>Future potential</td>
+                        <td>Unlikely to move</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Geographic Relevance</strong></td>
+                        <td>Local market</td>
+                        <td>Regional area</td>
+                        <td>Out of market</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p><strong>Total Score Interpretation:</strong></p>
+            <ul>
+                <li><strong>13-15 points:</strong> Tier 1 VIP Champions</li>
+                <li><strong>10-12 points:</strong> Tier 2 Active Network</li>
+                <li><strong>7-9 points:</strong> Tier 3 Extended Network</li>
+                <li><strong>5-6 points:</strong> Tier 4 Dormant Contacts</li>
+            </ul>
+            
+            <div class="case-study">
+                <h4>SOI Audit Success Story</h4>
+                <p><strong>Agent:</strong> Mike Chen, 3 years experience</p>
+                <p><strong>Initial Assumption:</strong> "I don't know enough people for SOI to work"</p>
+                <p><strong>Audit Results:</strong></p>
+                <ul>
+                    <li>Total contacts discovered: 847 people</li>
+                    <li>Tier 1 VIP Champions: 23 people</li>
+                    <li>Tier 2 Active Network: 127 people</li>
+                    <li>Professional contacts: 89 people</li>
+                </ul>
+                <p><strong>12-Month Results:</strong> 34 transactions from SOI (vs 8 the previous year)</p>
+                <p><strong>Key Learning:</strong> Most agents have 3-5x more quality contacts than they realize</p>
+            </div>
+            
+            <h3>SOI Data Collection Template</h3>
+            <p>For each contact in your audit, collect this information:</p>
+            
+            <div class="highlight-box">
+                <h3>Essential SOI Data Points</h3>
+                <ul>
+                    <li><strong>Basic Info:</strong> Name, phone, email, address</li>
+                    <li><strong>Relationship:</strong> How you know them, relationship strength</li>
+                    <li><strong>Personal:</strong> Spouse/family, birthdays, interests</li>
+                    <li><strong>Professional:</strong> Job title, company, industry</li>
+                    <li><strong>Real Estate:</strong> Current home, previous moves, future plans</li>
+                    <li><strong>Preferences:</strong> Communication method, frequency preferences</li>
+                    <li><strong>Notes:</strong> Last interaction, personal details, conversation topics</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Quiz 3 -->
+        <div class="quiz-section" data-quiz="3">
+            <div class="quiz-header">
+                <h3>Section 3 Quiz</h3>
+                <p>Test your understanding of the SOI audit process</p>
+            </div>
+            
+            <div class="question" data-question="1">
+                <h4>1. What total score range qualifies someone as a Tier 1 VIP Champion?</h4>
+                <ul class="options">
+                    <li data-answer="a">5-6 points</li>
+                    <li data-answer="b">7-9 points</li>
+                    <li data-answer="c">10-12 points</li>
+                    <li data-answer="d">13-15 points</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="2">
+                <h4>2. Which scoring factor evaluates someone's position in the community and their network size?</h4>
+                <ul class="options">
+                    <li data-answer="a">Relationship Strength</li>
+                    <li data-answer="b">Influence Level</li>
+                    <li data-answer="c">Financial Capacity</li>
+                    <li data-answer="d">Geographic Relevance</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="3">
+                <h4>3. What is the most important outcome of conducting an SOI audit?</h4>
+                <ul class="options">
+                    <li data-answer="a">Discovering you have fewer contacts than expected</li>
+                    <li data-answer="b">Realizing most contacts aren't valuable</li>
+                    <li data-answer="c">Uncovering 3-5x more quality contacts than you realized</li>
+                    <li data-answer="d">Eliminating contacts who aren't useful</li>
+                </ul>
+            </div>
+            
+            <button class="quiz-button" onclick="checkQuiz(3)">Check Answers</button>
+            <div class="quiz-results" id="quiz3-results"></div>
+        </div>
+
+        <!-- Section 4: Relationship Mapping -->
+        <div class="section" data-section="4">
+            <h2>Section 4: Advanced Relationship Mapping</h2>
+            <p><strong>Estimated Reading Time: 10 minutes</strong></p>
+            
+            <p>Beyond categorizing individual contacts, successful agents understand the interconnections within their SOI. Relationship mapping reveals influence patterns, referral paths, and opportunities for strategic introductions.</p>
+            
+            <h3>The Network Effect</h3>
+            <p>Your SOI isn't just a list of individuals - it's an interconnected web of relationships. Understanding these connections allows you to:</p>
+            
+            <ul>
+                <li><strong>Leverage Influence:</strong> Identify key connectors who know multiple people in your sphere</li>
+                <li><strong>Create Introductions:</strong> Connect contacts for mutual benefit, strengthening relationships</li>
+                <li><strong>Amplify Referrals:</strong> One satisfied client can influence multiple connected contacts</li>
+                <li><strong>Build Communities:</strong> Host events bringing together connected contacts</li>
+            </ul>
+            
+            <h3>Identifying Power Connectors</h3>
+            <p>Some people in your SOI have disproportionate influence and connections. Look for:</p>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card" style="border-color: #00D4AA;">
+                    <h4 style="color: #00D4AA;">Social Connectors</h4>
+                    <ul>
+                        <li>Host regular gatherings or events</li>
+                        <li>Active on social media with large networks</li>
+                        <li>Know people across different social circles</li>
+                        <li>Frequently make introductions</li>
+                        <li><strong>Strategy:</strong> Invest extra time nurturing these relationships</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-card" style="border-color: #FFD700;">
+                    <h4 style="color: #FFD700;">Professional Hubs</h4>
+                    <ul>
+                        <li>Business owners with many employees</li>
+                        <li>Community leaders and board members</li>
+                        <li>Professional service providers</li>
+                        <li>Industry association leaders</li>
+                        <li><strong>Strategy:</strong> Provide valuable market insights and referrals</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>SOI Relationship Analysis Questions</h3>
+            <p>For each high-value contact, consider:</p>
+            
+            <div class="example-box">
+                <h4>Strategic Relationship Questions</h4>
+                <ul>
+                    <li>Who else do they know in your SOI?</li>
+                    <li>What professional or social groups are they part of?</li>
+                    <li>How many people typically attend their events/gatherings?</li>
+                    <li>What businesses or organizations do they influence?</li>
+                    <li>Who are their closest friends and family members?</li>
+                    <li>How often do they move or help others move?</li>
+                    <li>What's their referral personality (giver, receiver, connector)?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Brain Teaser Challenge -->
+        <div class="brain-teaser">
+            <h3>SOI Potential Calculator</h3>
+            <div class="teaser-question">
+                You complete your SOI audit and discover 312 total contacts. Using the tier system, you categorize them as follows: 18 Tier 1 contacts, 47 Tier 2 contacts, 94 Tier 3 contacts, and 153 Tier 4 contacts. If each Tier 1 contact generates an average of 3.5 referrals annually, Tier 2 generates 1.5, Tier 3 generates 0.7, and Tier 4 generates 0.2, what's your total annual referral potential?
+            </div>
+            <input type="number" class="teaser-input" id="teaserAnswer" placeholder="Enter total referrals">
+            <button class="teaser-btn" onclick="checkTeaserAnswer()">Calculate My Potential</button>
+            <div class="teaser-result" id="teaserResult"></div>
+        </div>
+
+        <!-- Final Quiz -->
+        <div class="quiz-section" data-quiz="final">
+            <div class="quiz-header">
+                <h3>Module 1 Final Assessment</h3>
+                <p>Comprehensive quiz covering all SOI fundamentals</p>
+            </div>
+            
+            <div class="question" data-question="1">
+                <h4>1. What percentage of people move within 10 years, creating real estate opportunities?</h4>
+                <ul class="options">
+                    <li data-answer="a">45%</li>
+                    <li data-answer="b">60%</li>
+                    <li data-answer="c">73%</li>
+                    <li data-answer="d">85%</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="2">
+                <h4>2. Which tier should contain only the top 5% of your SOI with the strongest relationships?</h4>
+                <ul class="options">
+                    <li data-answer="a">Tier 1: VIP Champions</li>
+                    <li data-answer="b">Tier 2: Active Network</li>
+                    <li data-answer="c">Tier 3: Extended Network</li>
+                    <li data-answer="d">Tier 4: Dormant Contacts</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="3">
+                <h4>3. What total score range in the relationship scoring system qualifies someone as Tier 2?</h4>
+                <ul class="options">
+                    <li data-answer="a">5-6 points</li>
+                    <li data-answer="b">7-9 points</li>
+                    <li data-answer="c">10-12 points</li>
+                    <li data-answer="d">13-15 points</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="4">
+                <h4>4. Why do most agents neglect their SOI despite its high value?</h4>
+                <ul class="options">
+                    <li data-answer="a">SOI contacts don't convert well</li>
+                    <li data-answer="b">It's too expensive to maintain</li>
+                    <li data-answer="c">Lack of organized system to stay in touch</li>
+                    <li data-answer="d">Referrals don't pay well</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="5">
+                <h4>5. What is the main benefit of relationship mapping within your SOI?</h4>
+                <ul class="options">
+                    <li data-answer="a">Eliminating weak connections</li>
+                    <li data-answer="b">Reducing the number of contacts to manage</li>
+                    <li data-answer="c">Understanding influence patterns and referral paths</li>
+                    <li data-answer="d">Focusing only on high-income contacts</li>
+                </ul>
+            </div>
+            
+            <button class="quiz-button" onclick="checkQuiz('final')">Submit Final Assessment</button>
+            <div class="quiz-results" id="quizfinal-results"></div>
+        </div>
+
+        <!-- Module Completion Section -->
+        <div class="section" id="completion-section" style="display: none;">
+            <div class="highlight-box" style="text-align: center;">
+                <h2>Congratulations!</h2>
+                <h3>You've completed Module 1: SOI Fundamentals</h3>
+                <p>You now understand what your Sphere of Influence is, how to categorize contacts effectively, and how to conduct a comprehensive SOI audit to uncover hidden opportunities.</p>
+                
+                <div style="margin: 30px 0;">
+                    <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 15px; display: inline-block;">
+                        <h4 style="color: #00D4AA; margin: 0;">Module 1 Complete!</h4>
+                        <p style="margin: 10px 0 0 0; color: #FFD700; font-size: 1.2em;">⭐⭐⭐⭐⭐</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                Next Steps: You're now ready for Module 2 - "Database Management: Organizing Your SOI for Success"
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-button back" onclick="goToPreviousModule()">← Course Overview</button>
+            <div style="text-align: center;">
+                <p style="margin: 0; color: #B0C4DE;">Module 1 of 6 Complete</p>
+            </div>
+            <button class="nav-button" id="next-module" onclick="goToNextModule()" style="display: none;">Module 2 →</button>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 60px; padding: 40px; background: rgba(255, 255, 255, 0.1); border-radius: 20px;">
+            <p style="color: #B0C4DE;">STACKED • Real Estate CRM • Module 1: SOI Fundamentals</p>
+        </div>
+    </div>
+
+    <script>
+        // Quiz answers
+        const quizAnswers = {
+            1: { 1: 'c', 2: 'c', 3: 'b' },
+            2: { 1: 'a', 2: 'c', 3: 'c' },
+            3: { 1: 'd', 2: 'b', 3: 'c' },
+            'final': { 1: 'c', 2: 'a', 3: 'c', 4: 'c', 5: 'c' }
+        };
+        
+        let completedSections = 0;
+        let completedQuizzes = 0;
+        const totalSections = 4;
+        const totalQuizzes = 4;
+        
+        function updateProgress() {
+            const totalItems = totalSections + totalQuizzes;
+            const completedItems = completedSections + completedQuizzes;
+            const percentage = Math.round((completedItems / totalItems) * 100);
+            
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '% Complete';
+            
+            if (completedItems === totalItems) {
+                document.getElementById('completion-section').style.display = 'block';
+                document.getElementById('next-module').style.display = 'inline-block';
+            }
+        }
+        
+        function checkQuiz(quizNumber) {
+            const quiz = document.querySelector(`[data-quiz="${quizNumber}"]`);
+            const questions = quiz.querySelectorAll('.question');
+            let correct = 0;
+            let total = questions.length;
+            
+            questions.forEach((question, index) => {
+                const questionNum = index + 1;
+                const selectedOption = question.querySelector('.options li.selected');
+                const correctAnswer = quizAnswers[quizNumber][questionNum];
+                
+                question.querySelectorAll('.options li').forEach(option => {
+                    option.classList.remove('correct', 'incorrect', 'selected');
+                });
+                
+                question.querySelectorAll('.options li').forEach(option => {
+                    if (option.dataset.answer === correctAnswer) {
+                        option.classList.add('correct');
+                    }
+                });
+                
+                if (selectedOption && selectedOption.dataset.answer === correctAnswer) {
+                    correct++;
+                } else if (selectedOption) {
+                    selectedOption.classList.add('incorrect');
+                }
+            });
+            
+            const resultsDiv = document.getElementById(`quiz${quizNumber}-results`);
+            const percentage = Math.round((correct / total) * 100);
+            let resultText = '';
+            
+            if (percentage >= 80) {
+                resultText = `Excellent! You scored ${correct}/${total} (${percentage}%)`;
+                if (!quiz.classList.contains('completed')) {
+                    completedQuizzes++;
+                    quiz.classList.add('completed');
+                }
+            } else if (percentage >= 60) {
+                resultText = `Good effort! You scored ${correct}/${total} (${percentage}%). Review the material and try again.`;
+            } else {
+                resultText = `Keep studying! You scored ${correct}/${total} (${percentage}%). Please review the content and retake the quiz.`;
+            }
+            
+            resultsDiv.innerHTML = `<p>${resultText}</p>`;
+            resultsDiv.style.display = 'block';
+            
+            quiz.querySelector('.quiz-button').disabled = true;
+            quiz.querySelector('.quiz-button').textContent = 'Quiz Completed';
+            
+            updateProgress();
+        }
+        
+        function checkTeaserAnswer() {
+            const userAnswer = parseInt(document.getElementById('teaserAnswer').value);
+            const resultDiv = document.getElementById('teaserResult');
+            
+            // Calculation: (18 × 3.5) + (47 × 1.5) + (94 × 0.7) + (153 × 0.2)
+            // = 63 + 70.5 + 65.8 + 30.6 = 229.9 ≈ 230 referrals
+            const correctAnswer = 230;
+            
+            resultDiv.classList.remove('correct', 'incorrect');
+            resultDiv.classList.add('show');
+            
+            if (Math.abs(userAnswer - correctAnswer) <= 5) {
+                resultDiv.classList.add('correct');
+                resultDiv.innerHTML = `<strong>Excellent!</strong> Your SOI has potential for approximately ${correctAnswer} referrals annually! That's ${Math.round(correctAnswer * 0.25)} potential transactions at a 25% conversion rate.`;
+            } else {
+                resultDiv.classList.add('incorrect');
+                resultDiv.innerHTML = `<strong>Not quite.</strong> The answer is approximately ${correctAnswer} referrals per year. Calculation: (18 × 3.5) + (47 × 1.5) + (94 × 0.7) + (153 × 0.2) = ${correctAnswer} total referrals.`;
+            }
+        }
+        
+        function goToNextModule() {
+            alert('Congratulations! You would now be taken to Module 2: Database Management');
+        }
+        
+        function goToPreviousModule() {
+            alert('Going back to Course Overview');
+        }
+        
+        // Handle option selection
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('.options li')) {
+                const question = e.target.closest('.question');
+                question.querySelectorAll('.options li').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                e.target.classList.add('selected');
+            }
+        });
+        
+        // Mark sections as read when scrolled into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const section = entry.target;
+                    if (section.dataset.section && !section.classList.contains('completed')) {
+                        section.classList.add('completed');
+                        completedSections++;
+                        updateProgress();
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        document.querySelectorAll('[data-section]').forEach(section => {
+            observer.observe(section);
+        });
+        
+        updateProgress();
+        
+        // Timer functionality
+        let startTime = Date.now();
+        function updateTimer() {
+            const elapsed = Date.now() - startTime;
+            const minutes = Math.floor(elapsed / 60000);
+            const seconds = Math.floor((elapsed % 60000) / 1000);
+            document.getElementById('timer').innerHTML = `Time Spent: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>

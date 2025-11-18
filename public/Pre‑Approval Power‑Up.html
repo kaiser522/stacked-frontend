@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Approval Power-Up Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #00D4AA;
+            border-radius: 8px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        h1 {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .framework-badge {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #B0C4DE;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .read-time {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #00D4AA;
+        }
+        
+        h3 {
+            font-size: 1.8em;
+            margin: 40px 0 20px 0;
+            color: #FFD700;
+        }
+        
+        h4 {
+            font-size: 1.4em;
+            margin: 30px 0 15px 0;
+            color: #00D4AA;
+        }
+        
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #E6F3FF;
+        }
+        
+        .power-up-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .power-up-card {
+            background: rgba(0, 212, 170, 0.15);
+            padding: 35px 25px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid rgba(0, 212, 170, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .power-up-card:hover {
+            transform: translateY(-3px);
+            border-color: #00D4AA;
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.2);
+        }
+        
+        .power-up-icon {
+            background: #00D4AA;
+            color: #1e3a5f;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.8em;
+            margin: 0 auto 20px;
+        }
+        
+        .power-up-card h4 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #00D4AA;
+        }
+        
+        .comparison-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .comparison-card {
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid;
+        }
+        
+        .buydown-card {
+            background: rgba(0, 212, 170, 0.1);
+            border-color: #00D4AA;
+        }
+        
+        .price-drop-card {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: #FFD700;
+        }
+        
+        .buydown-card h3 {
+            color: #00D4AA;
+        }
+        
+        .price-drop-card h3 {
+            color: #FFD700;
+        }
+        
+        .example-box {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 5px solid #FFD700;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .highlight {
+            background: #FFD700;
+            color: #1e3a5f;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .approval-template {
+            background: rgba(0, 212, 170, 0.2);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .template-title {
+            color: #00D4AA;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+        
+        .request-list {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .request-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .request-icon {
+            background: #00D4AA;
+            color: #1e3a5f;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .calculator {
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #FF6B35;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .calc-input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .calc-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .calc-button {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .calc-button:hover {
+            transform: scale(1.02);
+            background: #00B894;
+        }
+        
+        .payment-breakdown {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 30px 0;
+        }
+        
+        .payment-breakdown table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .payment-breakdown th {
+            background: #1e3a5f;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .payment-breakdown td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .payment-breakdown tr:nth-child(even) {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        .warning-box {
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #FF6B35;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .warning-title {
+            color: #FF6B35;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+        
+        @media (max-width: 900px) {
+            .power-up-grid, .comparison-split {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo">✅</div>
+            <h1>Pre-Approval Power-Up</h1>
+            <div class="framework-badge">Guide</div>
+            <p class="subtitle">Payment-anchored approvals, buydowns vs price drops, and what to request from lenders before you write.</p>
+            <div class="read-time">7 min read</div>
+        </div>
+
+        <!-- Introduction -->
+        <div class="section">
+            <h2>Turn Pre-Approvals Into Winning Weapons</h2>
+            <p>Most agents treat pre-approval letters like participation trophies—they get one and call it done. But the agents who win competitive offers know the secret: it's not about <em>getting</em> pre-approved, it's about <em>how</em> you structure that approval.</p>
+            
+            <p>The difference between a basic pre-approval and a power-up approval can mean winning offers at $20K less than competitors, or losing deals because your buyer's financing looks weak.</p>
+
+            <div class="power-up-grid">
+                <div class="power-up-card">
+                    <div class="power-up-icon">💪</div>
+                    <h4>Payment Anchoring</h4>
+                    <p>Structure approvals around monthly payments, not loan amounts</p>
+                </div>
+                <div class="power-up-card">
+                    <div class="power-up-icon">📉</div>
+                    <h4>Rate Strategy</h4>
+                    <p>Buydowns vs. price drops: when each makes sense</p>
+                </div>
+                <div class="power-up-card">
+                    <div class="power-up-icon">📋</div>
+                    <h4>Lender Intel</h4>
+                    <p>The 5 things to request before writing any offer</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Anchoring Strategy -->
+        <div class="section">
+            <h2>Payment-Anchored Approvals: The Game Changer</h2>
+            <p>Here's what separates pros from amateurs: instead of getting buyers approved for a loan amount, get them approved for a <span class="highlight">monthly payment</span> they're comfortable with. Then work backwards to find the maximum home price that fits.</p>
+
+            <h3>Why Payment Anchoring Wins</h3>
+            <p>When rates change (and they will), payment-anchored buyers stay in the game while loan-amount buyers get priced out. A buyer approved for a $2,500/month payment can buy a $450K house at 6.5% rates or a $480K house at 5.5% rates—same comfort level, more buying power when rates improve.</p>
+
+            <div class="example-box">
+                <div class="example-title">Real Example: The Rate Drop Advantage</div>
+                <p><strong>Scenario:</strong> Client pre-approved in January for $400K loan at 7.2% rates</p>
+                <p><strong>Monthly payment:</strong> $2,695</p>
+                <p><strong>Rate drop in March:</strong> 6.1% available</p>
+                <p><strong>Traditional approach:</strong> Still shopping $400K homes</p>
+                <p><strong>Payment-anchored approach:</strong> Now qualifies for $438K at same $2,695 payment</p>
+                <p><strong>Result:</strong> $38K more buying power from same approval</p>
+            </div>
+
+            <h3>How to Structure Payment-Anchored Approvals</h3>
+
+            <div class="approval-template">
+                <div class="template-title">Payment-Anchored Approval Language:</div>
+                "Buyer is pre-approved for monthly housing payments up to $2,800 (including principal, interest, taxes, insurance, and HOA), which supports purchase prices up to $485,000 at current interest rates. Buyer has verified funds for down payment and closing costs, with additional capacity if rates improve during the shopping period."
+            </div>
+
+            <p>Notice the difference? This approval tells listing agents that your buyer has <em>payment flexibility</em>, not just a fixed loan amount. It signals strength and adaptability.</p>
+
+                <div class="calculator">
+                <h3 style="color: #FF6B35; margin-top: 0;">🧮 Payment-to-Price Calculator</h3>
+                <p>Calculate maximum home price based on comfortable payment:</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 25px 0;">
+                    <div>
+                        <label style="display: block; margin-bottom: 10px; font-weight: bold;">Monthly Payment Budget:</label>
+                        <input type="number" id="monthly-payment" placeholder="2500" class="calc-input">
+                        
+                        <label style="display: block; margin-bottom: 10px; font-weight: bold;">Interest Rate (%):</label>
+                        <input type="number" id="interest-rate" placeholder="6.5" step="0.1" class="calc-input">
+                        
+                        <label style="display: block; margin-bottom: 10px; font-weight: bold;">Down Payment (%):</label>
+                        <input type="number" id="down-payment" placeholder="20" class="calc-input">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 10px; font-weight: bold;">State/Location:</label>
+                        <select id="tax-rate" class="calc-input" style="height: 48px;" onchange="updateTaxInsurance()">
+                            <option value="1.0">National Average (1.0%)</option>
+                            <option value="0.6">Hawaii (0.6%)</option>
+                            <option value="0.7">Alabama (0.7%)</option>
+                            <option value="0.8">Nevada, Utah (0.8%)</option>
+                            <option value="0.9">Arizona, California (0.9%)</option>
+                            <option value="1.1">Florida, North Carolina (1.1%)</option>
+                            <option value="1.2">Georgia, Virginia (1.2%)</option>
+                            <option value="1.3">Ohio, Michigan (1.3%)</option>
+                            <option value="1.4">Pennsylvania, Wisconsin (1.4%)</option>
+                            <option value="1.5">Minnesota, Iowa (1.5%)</option>
+                            <option value="1.6">Kansas, Nebraska (1.6%)</option>
+                            <option value="2.0">Texas, Illinois (2.0%)</option>
+                            <option value="2.2">New Jersey (2.2%)</option>
+                        </select>
+                        
+                        <label style="display: block; margin-bottom: 10px; font-weight: bold;">Estimated Tax + Insurance (auto-calculated):</label>
+                        <input type="number" id="tax-insurance" placeholder="400" class="calc-input" readonly style="background: rgba(255,255,255,0.05);">
+                        
+                        <div style="font-size: 0.9em; color: #B0C4DE; margin-top: 5px;">
+                            💡 Automatically estimated based on home price and location
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="calculateMaxPrice()" class="calc-button">
+                    Calculate Maximum Home Price
+                </button>
+                
+                <div id="price-results" style="display: none;">
+                    <div style="background: rgba(0, 212, 170, 0.2); padding: 20px; border-radius: 10px; margin-top: 20px;">
+                        <div id="max-price-display"></div>
+                    </div>
+                    <div style="background: rgba(255, 215, 0, 0.2); padding: 20px; border-radius: 10px; margin-top: 15px;">
+                        <div id="rate-comparison"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buydowns vs Price Drops -->
+        <div class="section">
+            <h2>Buydowns vs. Price Drops: The Strategic Choice</h2>
+            <p>When sellers offer concessions, should you ask for a lower price or use credits for rate buydowns? The answer depends on your buyer's timeline and market conditions.</p>
+
+            <div class="comparison-split">
+                <div class="comparison-card buydown-card">
+                    <h3>🎯 Choose Rate Buydowns When:</h3>
+                    <ul style="margin-left: 20px; color: #E6F3FF;">
+                        <li>Buyer plans to stay 7+ years</li>
+                        <li>Rates are above 6.5%</li>
+                        <li>Buyer is payment-sensitive</li>
+                        <li>Need to qualify for loan amount</li>
+                        <li>Tax benefits matter to buyer</li>
+                        <li>Seller prefers higher sales price</li>
+                    </ul>
+                    
+                    <div style="background: rgba(0, 212, 170, 0.2); padding: 15px; border-radius: 10px; margin-top: 20px;">
+                        <strong>💡 Pro Tip:</strong> Permanent buydowns often provide better long-term value than temporary 2-1 buydowns.
+                    </div>
+                </div>
+                
+                <div class="comparison-card price-drop-card">
+                    <h3>💰 Choose Price Drops When:</h3>
+                    <ul style="margin-left: 20px; color: #E6F3FF;">
+                        <li>Buyer may move within 5 years</li>
+                        <li>Rates are below 5.5%</li>
+                        <li>Buyer wants maximum equity</li>
+                        <li>Appraisal concerns exist</li>
+                        <li>Buyer values flexibility</li>
+                        <li>Market is declining</li>
+                    </ul>
+                    
+                    <div style="background: rgba(255, 215, 0, 0.2); padding: 15px; border-radius: 10px; margin-top: 20px;">
+                        <strong>💡 Pro Tip:</strong> Lower purchase prices provide immediate equity and reduce ongoing property tax burden.
+                    </div>
+                </div>
+            </div>
+
+            <h3>The Break-Even Analysis</h3>
+            <p>Here's the math that matters: compare the total cost over your buyer's expected ownership period.</p>
+
+            <div class="payment-breakdown">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Strategy</th>
+                            <th>Home Price</th>
+                            <th>Monthly Payment</th>
+                            <th>5-Year Total Cost</th>
+                            <th>10-Year Total Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Baseline</strong><br>$500K @ 6.5%</td>
+                            <td>$500,000</td>
+                            <td>$2,528</td>
+                            <td>$151,680</td>
+                            <td>$303,360</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Price Drop</strong><br>$480K @ 6.5%</td>
+                            <td>$480,000</td>
+                            <td>$2,427</td>
+                            <td>$145,620</td>
+                            <td>$291,240</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rate Buydown</strong><br>$500K @ 5.5%</td>
+                            <td>$500,000</td>
+                            <td>$2,271</td>
+                            <td>$136,260</td>
+                            <td>$272,520</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p><strong>The takeaway:</strong> Buydowns typically win for long-term owners, while price drops favor shorter ownership periods or uncertain rate environments.</p>
+        </div>
+
+        <!-- Lender Intel -->
+        <div class="section">
+            <h2>The 5 Things to Request From Every Lender</h2>
+            <p>Before you write a single offer, make sure your lender provides these five critical pieces of intel. This separates strong pre-approvals from weak ones:</p>
+
+            <div class="request-list">
+                <div class="request-item">
+                    <div class="request-icon">1</div>
+                    <div>
+                        <strong>Rate Lock Timeline & Costs</strong><br>
+                        <span style="color: #B0C4DE;">"What's your rate lock period, and what does it cost to extend? Can we lock at application or only after contract?"</span>
+                    </div>
+                </div>
+
+                <div class="request-item">
+                    <div class="request-icon">2</div>
+                    <div>
+                        <strong>Underwriting Timeline Guarantee</strong><br>
+                        <span style="color: #B0C4DE;">"Can you commit to full underwriting approval within X days of contract? What documents do you need upfront to make this happen?"</span>
+                    </div>
+                </div>
+
+                <div class="request-item">
+                    <div class="request-icon">3</div>
+                    <div>
+                        <strong>Appraisal Waiver Potential</strong><br>
+                        <span style="color: #B0C4DE;">"Based on this buyer's profile, what's the likelihood of getting an appraisal waiver? What loan-to-value ratios maximize our chances?"</span>
+                    </div>
+                </div>
+
+                <div class="request-item">
+                    <div class="request-icon">4</div>
+                    <div>
+                        <strong>Credit Score Buffer Analysis</strong><br>
+                        <span style="color: #B0C4DE;">"What's the minimum credit score for this rate? How much room does the buyer have before hitting the next pricing tier?"</span>
+                    </div>
+                </div>
+
+                <div class="request-item">
+                    <div class="request-icon">5</div>
+                    <div>
+                        <strong>Asset Verification Options</strong><br>
+                        <span style="color: #B0C4DE;">"What asset documentation options do we have? Can we use bank statements instead of full verification to speed up approval?"</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <div class="warning-title">🚨 Red Flags: Find a New Lender If They Can't Answer These</div>
+                <ul style="margin-left: 20px; color: #E6F3FF;">
+                    <li>Won't commit to specific underwriting timelines</li>
+                    <li>Can't explain their appraisal waiver criteria</li>
+                    <li>Gives vague answers about rate lock policies</li>
+                    <li>Hasn't run automated underwriting approval yet</li>
+                    <li>Won't provide direct underwriter contact info</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Advanced Approval Strategies -->
+        <div class="section">
+            <h2>Advanced Pre-Approval Strategies</h2>
+
+            <h3>The Dual-Track Approval</h3>
+            <p>For competitive buyers, consider getting pre-approved with two different lenders using different strategies:</p>
+
+            <div class="example-box">
+                <div class="example-title">Dual-Track Example</div>
+                <p><strong>Lender A:</strong> Conventional 20% down - fastest closing, best for competitive offers</p>
+                <p><strong>Lender B:</strong> Conventional 10% down - preserves cash for higher offer prices</p>
+                <p><strong>Strategy:</strong> Lead with Lender A for offer strength, switch to Lender B if needed for purchase price flexibility</p>
+            </div>
+
+            <h3>The Asset Strength Statement</h3>
+            <p>Beyond basic pre-approval, request a formal asset verification letter:</p>
+
+            <div class="approval-template">
+                <div class="template-title">Asset Strength Language:</div>
+                "Buyer has verified liquid assets of $125,000, consisting of $85,000 in savings and $40,000 in accessible investment accounts. These funds support down payment, closing costs, and post-closing reserves as required for this loan program, with additional capacity for competitive offer terms."
+            </div>
+
+            <h3>The Employment Stability Factor</h3>
+            <p>In uncertain economic times, employment verification becomes crucial:</p>
+
+            <ul style="margin-left: 20px; color: #E6F3FF;">
+                <li><span class="highlight">W-2 employees:</span> Request employment verification 10 days before closing, not just at application</li>
+                <li><span class="highlight">Self-employed buyers:</span> Get CPA letter confirming business stability and income consistency</li>
+                <li><span class="highlight">Commission-based income:</span> Provide 3-year income averaging to show earning stability</li>
+            </ul>
+        </div>
+
+        <!-- Market-Specific Strategies -->
+        <div class="section">
+            <h2>Tailoring Approvals to Market Conditions</h2>
+
+            <h3>Hot Market Approvals</h3>
+            <div style="background: rgba(255, 107, 53, 0.1); padding: 25px; border-radius: 15px; margin: 20px 0;">
+                <h4 style="color: #FF6B35; margin-top: 0;">🔥 Hot Market Must-Haves:</h4>
+                <ul style="margin-left: 20px; color: #E6F3FF;">
+                    <li>Automated underwriting approval (not just pre-qualified)</li>
+                    <li>Asset verification completed upfront</li>
+                    <li>Rate lock available immediately upon contract</li>
+                    <li>Lender reference letter for listing agents</li>
+                    <li>Direct underwriter contact information</li>
+                </ul>
+            </div>
+
+            <h3>Balanced Market Approvals</h3>
+            <div style="background: rgba(255, 215, 0, 0.1); padding: 25px; border-radius: 15px; margin: 20px 0;">
+                <h4 style="color: #FFD700; margin-top: 0;">⚖️ Balanced Market Focus:</h4>
+                <ul style="margin-left: 20px; color: #E6F3FF;">
+                    <li>Multiple loan program options (conventional, FHA, VA)</li>
+                    <li>Flexible down payment structures (5%, 10%, 20%)</li>
+                    <li>Rate buydown scenarios prepared in advance</li>
+                    <li>Clear payment-to-price relationship documented</li>
+                </ul>
+            </div>
+
+            <h3>Buyer's Market Approvals</h3>
+            <div style="background: rgba(0, 212, 170, 0.1); padding: 25px; border-radius: 15px; margin: 20px 0;">
+                <h4 style="color: #00D4AA; margin-top: 0;">❄️ Buyer's Market Advantages:</h4>
+                <ul style="margin-left: 20px; color: #E6F3FF;">
+                    <li>Extended rate lock periods (90+ days)</li>
+                    <li>Float-down rate options if markets improve</li>
+                    <li>Seller credit maximization strategies</li>
+                    <li>Alternative loan programs for unique properties</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Action Steps -->
+        <div class="section">
+            <h2>Your Pre-Approval Action Plan</h2>
+            <p>Turn this knowledge into wins with these immediate action steps:</p>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin: 40px 0;">
+                <div style="background: rgba(0, 212, 170, 0.15); padding: 30px; border-radius: 15px;">
+                    <h4 style="color: #00D4AA; margin-top: 0; margin-bottom: 20px;">Week 1: Foundation</h4>
+                    <ul style="margin-left: 20px; color: #E6F3FF;">
+                        <li>Audit your current lender relationships</li>
+                        <li>Create payment-anchored approval templates</li>
+                        <li>Practice the 5-question lender interview</li>
+                        <li>Set up dual-track approval process</li>
+                    </ul>
+                </div>
+                <div style="background: rgba(255, 215, 0, 0.15); padding: 30px; border-radius: 15px;">
+                    <h4 style="color: #FFD700; margin-top: 0; margin-bottom: 20px;">Week 2: Implementation</h4>
+                    <ul style="margin-left: 20px; color: #E6F3FF;">
+                        <li>Test payment-to-price calculator with clients</li>
+                        <li>Create buydown vs. price drop comparison sheets</li>
+                        <li>Build relationships with 2-3 backup lenders</li>
+                        <li>Practice approval strength conversations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Success Metrics to Track</div>
+                <p>Measure your pre-approval power-up success:</p>
+                <ul style="margin-left: 20px; color: #E6F3FF; margin-top: 10px;">
+                    <li><strong>Offer Acceptance Rate:</strong> Should improve 15-25% with stronger approvals</li>
+                    <li><strong>Closing Timeline:</strong> Target 21 days or less with proper lender preparation</li>
+                    <li><strong>Rate Lock Success:</strong> 95%+ of clients should lock rates within 24 hours of contract</li>
+                    <li><strong>Appraisal Issues:</strong> Less than 10% of deals should have appraisal problems</li>
+                    <li><strong>Client Satisfaction:</strong> Buyers should feel confident and prepared throughout process</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Common Mistakes -->
+        <div class="section">
+            <h2>Avoid These Pre-Approval Mistakes</h2>
+            <p>Even experienced agents fall into these traps. Here's how to avoid them:</p>
+
+            <div class="warning-box">
+                <div class="warning-title">❌ The "Set It and Forget It" Mistake</div>
+                <p><strong>Problem:</strong> Getting pre-approval once and never updating it</p>
+                <p><strong>Solution:</strong> Review approval monthly and after any financial changes. Rates change, so should your strategy.</p>
+            </div>
+
+            <div class="warning-box">
+                <div class="warning-title">❌ The "One Size Fits All" Mistake</div>
+                <p><strong>Problem:</strong> Using the same approval approach for every buyer</p>
+                <p><strong>Solution:</strong> Customize approval strategy based on buyer timeline, market conditions, and financial profile.</p>
+            </div>
+
+            <div class="warning-box">
+                <div class="warning-title">❌ The "Lender Loyalty" Mistake</div>
+                <p><strong>Problem:</strong> Sticking with one lender who doesn't deliver results</p>
+                <p><strong>Solution:</strong> Judge lenders by closing success rate, not personal relationships. Your client's deal comes first.</p>
+            </div>
+
+            <h3>Red Flag Lenders: When to Switch</h3>
+            <ul style="margin-left: 20px; color: #E6F3FF;">
+                <li>Takes more than 3 business days to issue pre-approval</li>
+                <li>Can't provide clear underwriting timeline commitments</li>
+                <li>Frequently requests additional documentation mid-process</li>
+                <li>Has closing delays in more than 15% of transactions</li>
+                <li>Won't communicate directly with listing agents when needed</li>
+            </ul>
+        </div>
+
+        <!-- Quick Reference -->
+        <div class="section">
+            <h2>Quick Reference: Pre-Approval Power-Up Checklist</h2>
+            <p>Print this and keep it with your buyer consultation materials:</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0;">
+                <div style="background: rgba(0, 212, 170, 0.1); border: 2px solid #00D4AA; padding: 25px; border-radius: 15px;">
+                    <h4 style="color: #00D4AA; margin-top: 0;">✅ Must-Have Documents</h4>
+                    <ul style="margin-left: 20px; color: #E6F3FF;">
+                        <li>Automated underwriting approval (not pre-qual)</li>
+                        <li>Payment-anchored approval letter</li>
+                        <li>Asset verification statement</li>
+                        <li>Rate lock timeline guarantee</li>
+                        <li>Lender reference contact info</li>
+                    </ul>
+                </div>
+                <div style="background: rgba(255, 215, 0, 0.1); border: 2px solid #FFD700; padding: 25px; border-radius: 15px;">
+                    <h4 style="color: #FFD700; margin-top: 0;">🎯 Strategic Questions</h4>
+                    <ul style="margin-left: 20px; color: #E6F3FF;">
+                        <li>What's your maximum comfortable payment?</li>
+                        <li>How long do you plan to own this home?</li>
+                        <li>Would you prefer lower price or lower rate?</li>
+                        <li>How important is closing speed vs. rate?</li>
+                        <li>What's your backup plan if rates rise?</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="approval-template">
+                <div class="template-title">Power-Up Pre-Approval Template:</div>
+                "[Buyer Name] is pre-approved for monthly housing payments up to $[X] which supports purchase prices up to $[Y] at current rates. Buyer has [Z]% down payment verified and additional reserves confirmed. This approval includes automated underwriting acceptance and can close within [timeline] days. Lender contact: [Name/Phone] for immediate verification."
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p style="color: #B0C4DE;">Stacked • Real Estate CRM • Buyer Success Series</p>
+        </div>
+    </div>
+
+    <script>
+        function updateTaxInsurance() {
+            const monthlyPayment = parseFloat(document.getElementById('monthly-payment').value) || 2500;
+            const taxRate = parseFloat(document.getElementById('tax-rate').value) || 1.0;
+            
+            // Estimate home price for tax calculation (rough estimate)
+            const estimatedPrice = monthlyPayment * 200; // Rough multiplier
+            
+            // Calculate annual property tax
+            const annualTax = (estimatedPrice * taxRate) / 100;
+            
+            // Estimate insurance (typically 0.3-0.5% of home value annually)
+            const annualInsurance = estimatedPrice * 0.004; // 0.4% average
+            
+            // Convert to monthly and combine
+            const monthlyTaxInsurance = Math.round((annualTax + annualInsurance) / 12);
+            
+            document.getElementById('tax-insurance').value = monthlyTaxInsurance;
+        }
+
+        function calculateMaxPrice() {
+            const monthlyPayment = parseFloat(document.getElementById('monthly-payment').value) || 0;
+            const interestRate = parseFloat(document.getElementById('interest-rate').value) || 0;
+            const downPaymentPercent = parseFloat(document.getElementById('down-payment').value) || 0;
+            const taxRate = parseFloat(document.getElementById('tax-rate').value) || 1.0;
+            
+            if (monthlyPayment === 0 || interestRate === 0 || downPaymentPercent === 0) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Use iterative approach to find home price that works with tax/insurance
+            let estimatedPrice = monthlyPayment * 200; // Starting estimate
+            let finalPrice = 0;
+            
+            // Iterate to find accurate price including taxes/insurance
+            for (let i = 0; i < 10; i++) {
+                // Calculate taxes and insurance based on current price estimate
+                const annualTax = (estimatedPrice * taxRate) / 100;
+                const annualInsurance = estimatedPrice * 0.004; // 0.4% for insurance
+                const monthlyTaxInsurance = (annualTax + annualInsurance) / 12;
+                
+                // Calculate available payment for principal and interest
+                const availablePI = monthlyPayment - monthlyTaxInsurance;
+                
+                if (availablePI <= 0) {
+                    alert('Monthly payment is too low for estimated taxes and insurance.');
+                    return;
+                }
+                
+                // Convert annual rate to monthly decimal
+                const monthlyRate = (interestRate / 100) / 12;
+                const numPayments = 30 * 12;
+                
+                // Calculate maximum loan amount
+                const maxLoanAmount = availablePI * (1 - Math.pow(1 + monthlyRate, -numPayments)) / monthlyRate;
+                
+                // Calculate home price
+                const downPaymentDecimal = downPaymentPercent / 100;
+                const newEstimatedPrice = maxLoanAmount / (1 - downPaymentDecimal);
+                
+                // Check for convergence
+                if (Math.abs(newEstimatedPrice - estimatedPrice) < 100) {
+                    finalPrice = newEstimatedPrice;
+                    break;
+                }
+                
+                estimatedPrice = newEstimatedPrice;
+            }
+            
+            // Update the tax/insurance field with final calculation
+            const finalAnnualTax = (finalPrice * taxRate) / 100;
+            const finalAnnualInsurance = finalPrice * 0.004;
+            const finalMonthlyTaxInsurance = (finalAnnualTax + finalAnnualInsurance) / 12;
+            document.getElementById('tax-insurance').value = Math.round(finalMonthlyTaxInsurance);
+            
+            const finalAvailablePI = monthlyPayment - finalMonthlyTaxInsurance;
+            const monthlyRate = (interestRate / 100) / 12;
+            const numPayments = 30 * 12;
+            const finalLoanAmount = finalAvailablePI * (1 - Math.pow(1 + monthlyRate, -numPayments)) / monthlyRate;
+            
+            // Calculate comparison scenarios
+            const lowerRate = interestRate - 0.5;
+            const higherRate = interestRate + 0.5;
+            
+            const lowerRateMonthly = (lowerRate / 100) / 12;
+            const higherRateMonthly = (higherRate / 100) / 12;
+            
+            const maxLoanLower = finalAvailablePI * (1 - Math.pow(1 + lowerRateMonthly, -numPayments)) / lowerRateMonthly;
+            const maxLoanHigher = finalAvailablePI * (1 - Math.pow(1 + higherRateMonthly, -numPayments)) / higherRateMonthly;
+            
+            const downPaymentDecimal = downPaymentPercent / 100;
+            const maxPriceLower = maxLoanLower / (1 - downPaymentDecimal);
+            const maxPriceHigher = maxLoanHigher / (1 - downPaymentDecimal);
+            
+            // Format currency
+            const formatPrice = (price) => new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(price);
+            
+            // Display results
+            document.getElementById('max-price-display').innerHTML = 
+                `<strong>💡 Maximum Home Price: ${formatPrice(finalPrice)}</strong><br>
+                <span style="font-size: 0.9em;">Loan Amount: ${formatPrice(finalLoanAmount)} | Down Payment: ${formatPrice(finalPrice * downPaymentDecimal)}</span><br>
+                <span style="font-size: 0.9em;">Monthly P&I: ${formatPrice(finalAvailablePI)} | Taxes/Insurance: ${formatPrice(finalMonthlyTaxInsurance)} | Total: ${formatPrice(monthlyPayment)}</span>`;
+            
+            document.getElementById('rate-comparison').innerHTML = 
+                `<strong>📊 Rate Sensitivity Analysis:</strong><br>
+                • At ${lowerRate.toFixed(1)}% rate: ${formatPrice(maxPriceLower)} (${formatPrice(maxPriceLower - finalPrice)} more buying power)<br>
+                • At ${higherRate.toFixed(1)}% rate: ${formatPrice(maxPriceHigher)} (${formatPrice(finalPrice - maxPriceHigher)} less buying power)<br>
+                <strong>💡 Strategy:</strong> Get payment-anchored approval to capture rate improvements automatically`;
+            
+            document.getElementById('price-results').style.display = 'block';
+            document.getElementById('price-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Initialize tax/insurance estimate on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTaxInsurance();
+            
+            // Update tax/insurance when payment amount changes
+            document.getElementById('monthly-payment').addEventListener('input', updateTaxInsurance);
+        });
+    </script>
+</body>
+</html>
+                    

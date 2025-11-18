@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expired Listing Conversion Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #FF6B35;
+            border-radius: 8px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        h1 {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .framework-badge {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #B0C4DE;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .read-time {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #00D4AA;
+        }
+        
+        h3 {
+            font-size: 1.8em;
+            margin: 40px 0 20px 0;
+            color: #FFD700;
+        }
+        
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #E6F3FF;
+        }
+        
+        .script-box {
+            background: rgba(0, 212, 170, 0.2);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .script-title {
+            color: #00D4AA;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .script-text {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            font-style: italic;
+            color: #E6F3FF;
+            margin: 15px 0;
+            border-left: 4px solid #00D4AA;
+        }
+        
+        .objection-handler {
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #FF6B35;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .objection-title {
+            color: #FF6B35;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .objection-response {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #FF6B35;
+        }
+        
+        .timeline-tracker {
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .timeline-day {
+            background: #FFD700;
+            color: #1e3a5f;
+            width: 60px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .timeline-action {
+            flex: 1;
+            color: #E6F3FF;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            margin-right: 15px;
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+        
+        .checklist-text {
+            flex: 1;
+            color: #E6F3FF;
+        }
+        
+        .tip-box {
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #FF6B35;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .tip-box h3 {
+            color: #FF6B35;
+            margin-top: 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+        
+        @media (max-width: 900px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .timeline-day {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo">🔄</div>
+            <h1>Expired Listing Conversion</h1>
+            <div class="framework-badge">GUIDE</div>
+            <p class="subtitle">Complete framework for converting expired listings into new business with proven scripts and objection handlers.</p>
+            <div class="read-time">Conversion system</div>
+        </div>
+
+        <!-- Overview -->
+        <div class="section">
+            <h2>The Expired Listing Opportunity</h2>
+            <p>Expired listings represent frustrated sellers who need help. When approached professionally with solutions, they become your best prospects.</p>
+            
+            <div class="tip-box">
+                <h3>Why Expired Listings Convert</h3>
+                <p>These sellers have already demonstrated motivation to sell and understand the process. They're looking for an agent who can succeed where others failed.</p>
+            </div>
+            
+            <h3>Key Success Factors</h3>
+            <div class="checklist-item">
+                <input type="checkbox">
+                <div class="checklist-text"><strong>Speed:</strong> Contact within 24 hours of expiration</div>
+            </div>
+            
+            <div class="checklist-item">
+                <input type="checkbox">
+                <div class="checklist-text"><strong>Research:</strong> Understand why it didn't sell</div>
+            </div>
+            
+            <div class="checklist-item">
+                <input type="checkbox">
+                <div class="checklist-text"><strong>Solutions:</strong> Present specific fixes, not criticism</div>
+            </div>
+            
+            <div class="checklist-item">
+                <input type="checkbox">
+                <div class="checklist-text"><strong>Value:</strong> Show market knowledge and results</div>
+            </div>
+        </div>
+
+        <!-- Contact Timeline -->
+        <div class="section">
+            <h2>Contact Timeline Strategy</h2>
+            <p>Systematic approach for reaching expired listing prospects over multiple touchpoints.</p>
+
+            <div class="timeline-tracker">
+                <h3 style="color: #FFD700; margin-top: 0;">Follow-Up Schedule</h3>
+                
+                <div class="timeline-item">
+                    <div class="timeline-day">Day 1</div>
+                    <div class="timeline-action">
+                        <strong>Phone Call + Handwritten Note</strong><br>
+                        Initial contact within 24 hours. Leave voicemail if no answer. Mail personalized note same day.
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-day">Day 3</div>
+                    <div class="timeline-action">
+                        <strong>Market Analysis Drop-Off</strong><br>
+                        Ring doorbell with CMA showing current market activity and pricing strategy.
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-day">Day 7</div>
+                    <div class="timeline-action">
+                        <strong>Follow-Up Call</strong><br>
+                        Second phone attempt with different approach focused on market changes.
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-day">Day 14</div>
+                    <div class="timeline-action">
+                        <strong>Email with Testimonials</strong><br>
+                        Send success stories from similar expired listings you've sold.
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-day">Day 30</div>
+                    <div class="timeline-action">
+                        <strong>Just Sold Postcard</strong><br>
+                        Mail "Just Sold" card showing recent success in their neighborhood.
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-day">Day 60</div>
+                    <div class="timeline-action">
+                        <strong>Market Update Call</strong><br>
+                        Final phone call with seasonal market update and fresh perspective.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Initial Contact Scripts -->
+        <div class="section">
+            <h2>Phone Scripts That Work</h2>
+            <p>Proven openers that get conversations started and appointments set.</p>
+
+            <div class="script-box">
+                <div class="script-title">Initial Phone Call Script</div>
+                <div class="script-text">
+                    "Hi [Name], this is [Your name] with [Brokerage]. I noticed your home at [Address] just came off the market. I'm sure that's frustrating after being listed for [X] months. I've actually sold several homes in your area recently, and I have some ideas about what might help yours sell. Could we set up a brief meeting so I can share what I'm seeing in the market?"
+                </div>
+            </div>
+
+            <div class="script-box">
+                <div class="script-title">Voice Mail Script</div>
+                <div class="script-text">
+                    "Hi [Name], this is [Your name] from [Brokerage]. I specialize in helping homeowners who've had their homes on the market without success. I've sold [X] expired listings in the past year and I have some specific ideas for your property at [Address]. My number is [Phone] - I'd love to share what I think could make the difference. Thanks!"
+                </div>
+            </div>
+
+            <div class="script-box">
+                <div class="script-title">Door Approach Script</div>
+                <div class="script-text">
+                    "Hi [Name], I'm [Your name] with [Brokerage]. I've been working in this neighborhood for [X] years and I noticed your home was recently on the market. I actually have three buyers looking in this area right now, and I wanted to see if you're still interested in selling. I brought a quick market update to show you what's been happening locally."
+                </div>
+            </div>
+        </div>
+
+        <!-- Objection Handlers -->
+        <div class="section">
+            <h2>Common Objections & Responses</h2>
+            <p>Handle the most frequent objections with confidence and professionalism.</p>
+
+            <div class="objection-handler">
+                <div class="objection-title">"We're taking a break from selling"</div>
+                <div class="objection-response">
+                    "I completely understand - selling can be exhausting when it doesn't go as planned. The good news is the market has shifted since you were last active. Can I show you what's changed? It might give you a different perspective, and there's no obligation."
+                </div>
+            </div>
+
+            <div class="objection-handler">
+                <div class="objection-title">"Our last agent said it was priced right"</div>
+                <div class="objection-response">
+                    "I'm sure they believed that at the time. However, the market is always changing, and what buyers are willing to pay is the only true measure of value. Let me show you what similar homes have actually sold for recently - the data might surprise you."
+                </div>
+            </div>
+
+            <div class="objection-handler">
+                <div class="objection-title">"We don't want to reduce the price"</div>
+                <div class="objection-response">
+                    "I understand not wanting to leave money on the table. Sometimes pricing isn't the issue though - it could be marketing, showing feedback, or timing. Before we talk about price, let me show you some strategies that have helped other sellers get their asking price."
+                </div>
+            </div>
+
+            <div class="objection-handler">
+                <div class="objection-title">"We're interviewing several agents"</div>
+                <div class="objection-response">
+                    "That's smart - this is an important decision. I'd appreciate the chance to show you specifically what I'll do differently to get your home sold. Most agents will promise you the same things. I'd like to show you my track record with expired listings and my detailed marketing plan."
+                </div>
+            </div>
+        </div>
+
+        <!-- Presentation Strategy -->
+        <div class="section">
+            <h2>Listing Presentation for Expired</h2>
+            <p>Focus on solutions and results, not criticism of the previous agent.</p>
+
+            <div class="tip-box">
+                <h3>Presentation Outline</h3>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">Market analysis showing current activity and trends</div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">Specific marketing plan with enhanced exposure strategy</div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">Success stories from similar expired listings you've sold</div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">Pricing strategy based on current market conditions</div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">Timeline expectations and communication plan</div>
+                </div>
+            </div>
+
+            <h3>What Not to Say</h3>
+            <p>Avoid criticizing the previous agent or brokerage. Focus on what you'll do differently rather than what they did wrong. Sellers want solutions, not blame.</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p style="color: #B0C4DE;">Stacked • Real Estate CRM • Transaction Mastery Series</p>
+        </div>
+    </div>
+</body>
+</html>

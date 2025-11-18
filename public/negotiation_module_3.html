@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3: Communication & Influence Tactics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .timer-bar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .timer-content {
+            background: #00D4AA;
+            color: #1a1a1a;
+            border-radius: 25px;
+            padding: 8px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .timer-display {
+            color: #1a1a1a;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .module-header {
+            text-align: center;
+            margin: 80px 0 40px 0;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .module-number {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #00D4AA;
+        }
+        
+        .duration {
+            background: #FFD700;
+            color: #1e3a5f;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .module-description {
+            font-size: 1.2em;
+            color: #B0C4DE;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            color: #00D4AA;
+        }
+        
+        h3 {
+            font-size: 1.6em;
+            margin: 30px 0 15px 0;
+            color: #FFD700;
+        }
+        
+        h4 {
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+            color: #B0C4DE;
+        }
+        
+        p, li {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #E6F3FF;
+        }
+        
+        ul, ol {
+            margin: 20px 0 20px 30px;
+        }
+        
+        .highlight-box {
+            background: rgba(0, 212, 170, 0.2);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .highlight-box h3 {
+            color: #00D4AA;
+            margin-top: 0;
+        }
+        
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid #ef4444;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .warning-box h3 {
+            color: #ef4444;
+            margin-top: 0;
+        }
+        
+        .case-study {
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid #8b5cf6;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .case-study h3 {
+            color: #8b5cf6;
+            margin-top: 0;
+        }
+        
+        .quiz-section {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .quiz-question {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .quiz-question h4 {
+            color: #FFD700;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+        
+        .quiz-options {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #00D4AA;
+        }
+        
+        .quiz-option.selected {
+            background: rgba(0, 212, 170, 0.2);
+            border-color: #00D4AA;
+            color: #00D4AA;
+        }
+        
+        .quiz-option.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: #22c55e;
+            color: #22c55e;
+        }
+        
+        .quiz-option.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+        
+        .option-letter {
+            background: #00D4AA;
+            color: #1e3a5f;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .quiz-feedback {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .quiz-feedback.show {
+            display: block;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(45deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #00B894, #009B7D);
+            transform: translateY(-2px);
+        }
+        
+        .brain-teaser {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .brain-teaser h3 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .teaser-question {
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            color: #f3e8ff;
+        }
+        
+        .teaser-textarea {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            color: white;
+            width: 100%;
+            max-width: 500px;
+            height: 100px;
+            margin-bottom: 20px;
+            resize: vertical;
+        }
+        
+        .teaser-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .teaser-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .teaser-btn:hover {
+            background: white;
+            color: #8b5cf6;
+        }
+        
+        .teaser-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .teaser-result.show {
+            display: block;
+        }
+        
+        .teaser-result.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border: 2px solid #22c55e;
+            color: #22c55e;
+        }
+        
+        .teaser-result.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #ef4444;
+            color: #ef4444;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(45deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-btn:hover {
+            background: linear-gradient(45deg, #00B894, #009B7D);
+            transform: translateY(-2px);
+        }
+        
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .strategy-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .strategy-card:hover {
+            transform: translateY(-5px);
+            border-color: #FFD700;
+        }
+        
+        .strategy-card h4 {
+            color: #00D4AA;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .data-table {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        th {
+            background: rgba(0, 212, 170, 0.2);
+            color: #00D4AA;
+            font-weight: bold;
+        }
+        
+        .technique-box {
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #FF6B35;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .technique-box h3 {
+            color: #FF6B35;
+            margin-top: 0;
+        }
+        
+        .script-example {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #FFD700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .strategy-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 25px 20px;
+            }
+            
+            .timer-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Timer Bar -->
+    <div class="timer-bar">
+        <div class="timer-content">
+            <div class="timer-display" id="timer">Time Spent: 0:00</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Module Header -->
+        <div class="module-header">
+            <div class="module-number">Module 3</div>
+            <h1>Communication & Influence Tactics</h1>
+            <div class="duration">55 minutes</div>
+            <p class="module-description">Master advanced communication strategies, learn to read body language and vocal cues, and discover ethical influence techniques that guide negotiations toward win-win outcomes.</p>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="section">
+            <h2>Learning Objectives</h2>
+            <p>By the end of this module, you will be able to:</p>
+            <ul>
+                <li>Use advanced questioning techniques to uncover hidden motivations</li>
+                <li>Read and interpret non-verbal communication signals accurately</li>
+                <li>Build genuine rapport quickly with different personality types</li>
+                <li>Apply ethical influence principles to guide decision-making</li>
+                <li>Frame proposals and offers for maximum psychological impact</li>
+                <li>Handle difficult conversations with confidence and professionalism</li>
+                <li>Use silence, pacing, and timing as powerful negotiation tools</li>
+            </ul>
+        </div>
+
+        <!-- Introduction -->
+        <div class="section">
+            <h2>The Power of Strategic Communication</h2>
+            <p>Communication is the vehicle through which all negotiation occurs. Your ability to convey ideas, understand others, and influence outcomes depends entirely on your communication skills. In real estate, where emotions run high and stakes are significant, masterful communication can mean the difference between a successful deal and a missed opportunity.</p>
+            
+            <h3>Why Communication Matters More in Real Estate</h3>
+            <p>Real estate negotiations involve unique communication challenges:</p>
+            <ul>
+                <li><strong>High emotional stakes:</strong> Properties represent homes, dreams, and financial security</li>
+                <li><strong>Complex information:</strong> Market data, financial terms, legal requirements</li>
+                <li><strong>Multiple stakeholders:</strong> Buyers, sellers, agents, lenders, attorneys</li>
+                <li><strong>Time pressure:</strong> Market conditions and personal deadlines create urgency</li>
+                <li><strong>Trust building:</strong> Large financial decisions require confidence in the other party</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <h3>The Communication Advantage</h3>
+                <p>Research shows that skilled communicators in real estate negotiations achieve 25% better outcomes on average. They also build stronger relationships, get more referrals, and close deals 30% faster than those with average communication skills.</p>
+            </div>
+        </div>
+
+        <!-- Quiz 1 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Communication Foundations</h2>
+            
+            <div class="quiz-question" id="question1">
+                <h4>1. What percentage better outcomes do skilled communicators typically achieve in real estate negotiations?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(1, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>10%</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(1, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>15%</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(1, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>25%</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(1, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>35%</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback1">
+                    Skilled communicators in real estate negotiations achieve 25% better outcomes on average compared to those with average communication skills.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(1)">Check Answer</button>
+        </div>
+
+        <!-- Advanced Questioning Techniques -->
+        <div class="section">
+            <h2>Advanced Questioning Techniques</h2>
+            <p>The quality of your questions determines the quality of information you receive. Master negotiators use strategic questioning to uncover motivations, test assumptions, and guide conversations toward favorable outcomes.</p>
+            
+            <h3>The Question Hierarchy</h3>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <h4>Level 1: Information Gathering</h4>
+                    <p>Basic facts about situation, timeline, and requirements</p>
+                    <div class="script-example">
+                        "How long have you owned the property?"<br>
+                        "What's your ideal timeline for selling?"<br>
+                        "What's most important to you in this transaction?"
+                    </div>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Level 2: Motivation Discovery</h4>
+                    <p>Understanding the deeper reasons behind their position</p>
+                    <div class="script-example">
+                        "What's driving your decision to sell now?"<br>
+                        "Help me understand what makes this timeline important."<br>
+                        "What would happen if this didn't work out?"
+                    </div>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Level 3: Priority Clarification</h4>
+                    <p>Identifying what they value most in trade-off situations</p>
+                    <div class="script-example">
+                        "If you had to choose between a higher price and a faster closing, which would you prefer?"<br>
+                        "What matters more - certainty or maximum dollar amount?"
+                    </div>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Level 4: Solution Testing</h4>
+                    <p>Gauging reactions to potential proposals before formal offers</p>
+                    <div class="script-example">
+                        "How would you feel about a scenario where..."<br>
+                        "Would it be helpful if we could..."<br>
+                        "What if we structured it so that..."
+                    </div>
+                </div>
+            </div>
+            
+            <h3>The Power of Open vs. Closed Questions</h3>
+            
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Question Type</th>
+                            <th>When to Use</th>
+                            <th>Example</th>
+                            <th>Information Gained</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Open-ended</td>
+                            <td>Exploring motivations and feelings</td>
+                            <td>"What concerns you most about selling?"</td>
+                            <td>Emotions, priorities, detailed context</td>
+                        </tr>
+                        <tr>
+                            <td>Funnel</td>
+                            <td>Moving from broad to specific</td>
+                            <td>"Tell me about your situation" → "When exactly do you need to move?"</td>
+                            <td>Complete picture with specific details</td>
+                        </tr>
+                        <tr>
+                            <td>Hypothetical</td>
+                            <td>Testing scenarios safely</td>
+                            <td>"What if we could close in 2 weeks?"</td>
+                            <td>Reactions to potential solutions</td>
+                        </tr>
+                        <tr>
+                            <td>Clarifying</td>
+                            <td>Ensuring understanding</td>
+                            <td>"When you say 'soon,' what timeframe do you mean?"</td>
+                            <td>Precise definitions and expectations</td>
+                        </tr>
+                        <tr>
+                            <td>Leading</td>
+                            <td>Guiding toward agreement</td>
+                            <td>"It sounds like flexibility on timing would be valuable, is that right?"</td>
+                            <td>Confirmation of assumptions</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="technique-box">
+                <h3>The 3-Question Deep Dive Technique</h3>
+                <p>When you get a surface-level answer, dig deeper with three follow-up questions:</p>
+                <ol>
+                    <li><strong>Clarification:</strong> "Help me understand what you mean by..."</li>
+                    <li><strong>Impact:</strong> "How does that affect your decision?"</li>
+                    <li><strong>Emotion:</strong> "How do you feel about that situation?"</li>
+                </ol>
+                <p>This technique uncovers the real motivations behind stated positions.</p>
+            </div>
+        </div>
+
+        <!-- Quiz 2 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Questioning Techniques</h2>
+            
+            <div class="quiz-question" id="question2">
+                <h4>2. Which type of question is most effective for understanding someone's underlying motivations?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(2, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>Closed-ended questions</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(2, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>Open-ended questions</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(2, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>Leading questions</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(2, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>Yes/no questions</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback2">
+                    Open-ended questions are most effective for understanding underlying motivations because they allow people to share emotions, priorities, and detailed context freely.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(2)">Check Answer</button>
+        </div>
+
+        <!-- Non-Verbal Communication -->
+        <div class="section">
+            <h2>Reading Non-Verbal Communication</h2>
+            <p>Research shows that 55% of communication is body language, 38% is tone of voice, and only 7% is actual words. In negotiations, your ability to read and respond to non-verbal cues gives you a significant advantage.</p>
+            
+            <h3>Key Body Language Signals</h3>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <h4>Interest and Engagement</h4>
+                    <ul>
+                        <li>Leaning forward</li>
+                        <li>Open posture (uncrossed arms)</li>
+                        <li>Direct eye contact</li>
+                        <li>Nodding and mirroring</li>
+                        <li>Taking notes</li>
+                    </ul>
+                    <p><strong>Response:</strong> Continue current approach, explore deeper</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Resistance or Discomfort</h4>
+                    <ul>
+                        <li>Crossed arms or legs</li>
+                        <li>Leaning back or away</li>
+                        <li>Minimal eye contact</li>
+                        <li>Touching face or neck</li>
+                        <li>Fidgeting with objects</li>
+                    </ul>
+                    <p><strong>Response:</strong> Pause, ask questions, address concerns</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Contemplation and Processing</h4>
+                    <ul>
+                        <li>Hand to chin or temple</li>
+                        <li>Looking up or to the side</li>
+                        <li>Slower speech patterns</li>
+                        <li>Pausing before responses</li>
+                        <li>Asking clarifying questions</li>
+                    </ul>
+                    <p><strong>Response:</strong> Give them time, don't rush</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Readiness to Decide</h4>
+                    <ul>
+                        <li>Sitting up straighter</li>
+                        <li>Moving closer</li>
+                        <li>Increased gesturing</li>
+                        <li>Faster speech</li>
+                        <li>Specific questions about next steps</li>
+                    </ul>
+                    <p><strong>Response:</strong> Move toward closing</p>
+                </div>
+            </div>
+            
+            <h3>Vocal Cues and Tone Recognition</h3>
+            <p>How someone says something often matters more than what they say:</p>
+            
+            <ul>
+                <li><strong>Rising tone:</strong> Usually indicates questions, uncertainty, or seeking approval</li>
+                <li><strong>Falling tone:</strong> Suggests confidence, finality, or authority</li>
+                <li><strong>Pace changes:</strong> Faster = excitement or nervousness; Slower = contemplation or emphasis</li>
+                <li><strong>Volume shifts:</strong> Louder = passion or frustration; Softer = intimacy or uncertainty</li>
+                <li><strong>Pauses:</strong> Processing time, emotional moments, or strategic emphasis</li>
+            </ul>
+            
+            <div class="case-study">
+                <h3>Case Study: Reading the Room</h3>
+                <p><strong>Situation:</strong> Presenting an offer to elderly homeowners</p>
+                <p><strong>Verbal Response:</strong> "That's an interesting offer..."</p>
+                <p><strong>Non-Verbal Signals:</strong> Husband leans back, crosses arms, looks down. Wife leans forward, maintains eye contact, nods slightly.</p>
+                <p><strong>Analysis:</strong> Mixed reactions - husband is resistant, wife is more open</p>
+                <p><strong>Strategy Adjustment:</strong> Address husband's concerns first, then engage wife as ally</p>
+                <p><strong>Response:</strong> "I can see this brings up some concerns. What questions do you have about this approach?"</p>
+                <p><strong>Result:</strong> Husband shared specific concerns about timing, leading to modified proposal that worked for both</p>
+            </div>
+        </div>
+
+        <!-- Quiz 3 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Non-Verbal Communication</h2>
+            
+            <div class="quiz-question" id="question3">
+                <h4>3. According to research, what percentage of communication is body language?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(3, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>38%</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(3, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>45%</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(3, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>55%</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(3, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>65%</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback3">
+                    Research shows that 55% of communication is body language, 38% is tone of voice, and only 7% is actual words.
+                </div>
+            </div>

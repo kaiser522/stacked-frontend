@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listing Video Script Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #4a5a6c 0%, #3a4a5c 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            border: 2px solid #40e0d0;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .video-icon {
+            width: 60px;
+            height: 60px;
+            background: #40e0d0;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #a0b4c3;
+            margin-bottom: 20px;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .script-preview {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            color: #333;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            min-height: 800px;
+            overflow-y: auto;
+        }
+
+        .controls-panel {
+            background: rgba(58, 74, 92, 0.8);
+            border: 2px solid #40e0d0;
+            border-radius: 20px;
+            padding: 25px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .panel-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #40e0d0;
+            text-align: center;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #a0b4c3;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .control-group input, 
+        .control-group textarea, 
+        .control-group select {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #5a6a7c;
+            border-radius: 5px;
+            background: #2c3e50;
+            color: white;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .control-group input:focus, 
+        .control-group textarea:focus, 
+        .control-group select:focus {
+            outline: none;
+            border-color: #40e0d0;
+        }
+
+        .control-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .download-btn {
+            width: 100%;
+            padding: 12px;
+            background: #40e0d0;
+            color: #2c3e50;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .download-btn:hover {
+            background: #36c5b6;
+            transform: translateY(-2px);
+        }
+
+        .script-header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #40e0d0;
+            margin-bottom: 30px;
+        }
+
+        .script-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .script-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #40e0d0;
+        }
+
+        .script-section-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .script-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .timing-note {
+            background: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        .cue-note {
+            background: #d1ecf1;
+            color: #0c5460;
+            padding: 8px;
+            border-radius: 5px;
+            margin: 8px 0;
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #40e0d0 0%, #40e0d0 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 0.2em;
+            background-position: 0 88%;
+            font-weight: 600;
+        }
+
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .controls-panel {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .script-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>
+            <div class="video-icon">🎬</div>
+            Listing Video Script Generator
+        </h1>
+        <p>Professional video scripts for property tours and marketing videos.</p>
+    </div>
+
+    <div class="main-container">
+        <div class="script-preview" id="scriptPreview">
+            <div class="script-header">
+                <h1 class="script-title" id="scriptTitle">Property Tour Video Script</h1>
+                <p><strong>Property:</strong> <span id="propertyAddress">123 Oak Street, Beverly Hills, CA</span></p>
+                <p><strong>Duration:</strong> 2-3 minutes | <strong>Style:</strong> <span id="videoStyle">Professional Tour</span></p>
+            </div>
+
+            <div class="script-section">
+                <h2 class="script-section-title">Opening Hook (0:00 - 0:15)</h2>
+                <div class="cue-note">[Wide exterior shot of property]</div>
+                <div class="script-content" id="openingScript">
+                    Welcome to this stunning <span class="highlight" id="propertyType">3-bedroom, 2.5-bathroom</span> home located in the desirable <span class="highlight" id="neighborhood">Beverly Hills</span> neighborhood. I'm <span class="highlight" id="agentName">Sarah Johnson</span> with <span id="brokerage">Premium Realty</span>, and I can't wait to show you everything this beautiful property has to offer.
+                </div>
+                <div class="timing-note">Timing: 15 seconds | Keep energy high and engaging</div>
+            </div>
+
+            <div class="script-section">
+                <h2 class="script-section-title">Exterior Features (0:15 - 0:45)</h2>
+                <div class="cue-note">[Walk around exterior, showing key features]</div>
+                <div class="script-content" id="exteriorScript">
+                    Let's start with the impressive curb appeal. This home features <span class="highlight" id="exteriorFeature1">beautiful landscaping</span> and <span class="highlight" id="exteriorFeature2">a welcoming front porch</span>. The <span class="highlight" id="exteriorFeature3">two-car garage</span> provides excellent storage, and you'll love the <span class="highlight" id="exteriorFeature4">spacious backyard</span> perfect for entertaining.
+                </div>
+                <div class="timing-note">Timing: 30 seconds | Show each feature as you mention it</div>
+            </div>
+
+            <div class="script-section">
+                <h2 class="script-section-title">Main Living Areas (0:45 - 1:30)</h2>
+                <div class="cue-note">[Enter home, tour living room, dining room, kitchen]</div>
+                <div class="script-content" id="interiorScript">
+                    Step inside and you're greeted by <span class="highlight" id="interiorFeature1">an open floor plan</span> that's perfect for both daily living and entertaining. The living room features <span class="highlight" id="interiorFeature2">beautiful hardwood floors</span> and <span class="highlight" id="interiorFeature3">large windows</span> that flood the space with natural light.
+
+                    The heart of this home is definitely the kitchen, which boasts <span class="highlight" id="kitchenFeature1">granite countertops</span>, <span class="highlight" id="kitchenFeature2">stainless steel appliances</span>, and <span class="highlight" id="kitchenFeature3">plenty of cabinet space</span>. This is where memories are made!
+                </div>
+                <div class="timing-note">Timing: 45 seconds | Move smoothly between rooms</div>
+            </div>
+
+            <div class="script-section">
+                <h2 class="script-section-title">Bedrooms & Bathrooms (1:30 - 2:15)</h2>
+                <div class="cue-note">[Tour bedrooms and bathrooms]</div>
+                <div class="script-content" id="bedroomScript">
+                    Upstairs, you'll find the spacious master suite with <span class="highlight" id="masterFeature1">walk-in closet</span> and <span class="highlight" id="masterFeature2">ensuite bathroom</span>. The additional bedrooms are perfect for <span class="highlight" id="bedroomUse">family, guests, or a home office</span>.
+
+                    All bathrooms have been <span class="highlight" id="bathroomFeature">recently updated</span> with modern fixtures and finishes.
+                </div>
+                <div class="timing-note">Timing: 45 seconds | Highlight storage and natural light</div>
+            </div>
+
+            <div class="script-section">
+                <h2 class="script-section-title">Closing & Call to Action (2:15 - 2:30)</h2>
+                <div class="cue-note">[Return to living room or exterior for closing]</div>
+                <div class="script-content" id="closingScript">
+                    This beautiful home at <span class="highlight" id="closingAddress">123 Oak Street</span> is priced at <span class="highlight" id="listingPrice">$485,000</span> and won't last long in today's market. 
+
+                    If you'd like to schedule a private showing or have any questions, give me a call at <span class="highlight" id="agentPhone">(555) 123-4567</span> or visit my website. Don't let this amazing opportunity pass you by!
+                </div>
+                <div class="timing-note">Timing: 15 seconds | Include clear contact information</div>
+            </div>
+
+            <div class="script-section">
+                <h2 class="script-section-title">Production Notes</h2>
+                <div class="script-content">
+                    <strong>Equipment Needed:</strong> DSLR camera or smartphone with stabilizer, external microphone, good lighting
+                    <br><br>
+                    <strong>Best Times to Film:</strong> Golden hour (1 hour before sunset) for exterior shots, well-lit daytime for interior
+                    <br><br>
+                    <strong>Key Tips:</strong>
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                        <li>Keep camera movements smooth and steady</li>
+                        <li>Film each room from multiple angles</li>
+                        <li>Capture unique features and selling points</li>
+                        <li>Ensure good audio quality - consider voice-over in post</li>
+                        <li>Include neighborhood shots and local amenities</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls-panel">
+            <h3 class="panel-title">Customize Script</h3>
+            
+            <div class="control-group">
+                <label>Property Address</label>
+                <input type="text" id="propertyAddressInput" value="123 Oak Street, Beverly Hills, CA" oninput="updateScript()">
+            </div>
+            
+            <div class="control-group">
+                <label>Property Type</label>
+                <input type="text" id="propertyTypeInput" value="3-bedroom, 2.5-bathroom" oninput="updateScript()">
+            </div>
+            
+            <div class="control-group">
+                <label>Neighborhood</label>
+                <input type="text" id="neighborhoodInput" value="Beverly Hills" oninput="updateScript()">
+            </div>
+            
+            <div class="control-group">
+                <label>Listing Price</label>
+                <input type="text" id="listingPriceInput" value="$485,000" oninput="updateScript()">
+            </div>
+            
+            <div class="control-group">
+                <label>Video Style</label>
+                <select id="videoStyleInput" onchange="updateScript()">
+                    <option value="Professional Tour">Professional Tour</option>
+                    <option value="Lifestyle Video">Lifestyle Video</option>
+                    <option value="Drone Showcase">Drone Showcase</option>
+                    <option value="Walkthrough">Simple Walkthrough</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label>Agent Name</label>
+                <input type="text" id="agentNameInput" value="Sarah Johnson" oninput="updateScript()">
+            </div>
+            
+            <div class="control-group">
+                <label>Brokerage</label>
+                <input type="text" id="brokerageInput" value="Premium Realty" oninput="updateScript()">
+            </div>
+            
+            <div class="control-group">
+                <label>Phone Number</label>
+                <input type="text" id="agentPhoneInput" value="(555) 123-4567" oninput="updateScript()">
+            </div>
+            
+            <div class="control-group">
+                <label>Exterior Feature 1</label>
+                <input type="text" id="exteriorFeature1Input" value="beautiful landscaping" oninput="updateScript()">
+            </div>
+            
+            <div class="control-group">
+                <label>Exterior Feature 2</label>
+                <input type="text" id="exteriorFeature2Input" value="a welcoming front porch" oninput="updateScript()">
+            </div>
+            
+            <div class="control-group">
+                <label>Kitchen Feature 1</label>
+                <input type="text" id="kitchenFeature1Input" value="granite countertops" oninput="updateScript()">
+            </div>
+            
+            <div class="control-group">
+                <label>Kitchen Feature 2</label>
+                <input type="text" id="kitchenFeature2Input" value="stainless steel appliances" oninput="updateScript()">
+            </div>
+            
+            <div class="control-group">
+                <label>Master Suite Feature</label>
+                <input type="text" id="masterFeature1Input" value="walk-in closet" oninput="updateScript()">
+            </div>
+            
+            <button class="download-btn" onclick="downloadScript()">Download Script</button>
+            <button class="download-btn" style="background: #667eea; margin-top: 10px;" onclick="printScript()">Print Script</button>
+        </div>
+    </div>
+
+    <script>
+        function updateScript() {
+            document.getElementById('propertyAddress').textContent = document.getElementById('propertyAddressInput').value;
+            document.getElementById('closingAddress').textContent = document.getElementById('propertyAddressInput').value;
+            document.getElementById('propertyType').textContent = document.getElementById('propertyTypeInput').value;
+            document.getElementById('neighborhood').textContent = document.getElementById('neighborhoodInput').value;
+            document.getElementById('listingPrice').textContent = document.getElementById('listingPriceInput').value;
+            document.getElementById('videoStyle').textContent = document.getElementById('videoStyleInput').value;
+            document.getElementById('agentName').textContent = document.getElementById('agentNameInput').value;
+            document.getElementById('brokerage').textContent = document.getElementById('brokerageInput').value;
+            document.getElementById('agentPhone').textContent = document.getElementById('agentPhoneInput').value;
+            document.getElementById('exteriorFeature1').textContent = document.getElementById('exteriorFeature1Input').value;
+            document.getElementById('exteriorFeature2').textContent = document.getElementById('exteriorFeature2Input').value;
+            document.getElementById('exteriorFeature3').textContent = 'two-car garage';
+            document.getElementById('exteriorFeature4').textContent = 'spacious backyard';
+            document.getElementById('interiorFeature1').textContent = 'an open floor plan';
+            document.getElementById('interiorFeature2').textContent = 'beautiful hardwood floors';
+            document.getElementById('interiorFeature3').textContent = 'large windows';
+            document.getElementById('kitchenFeature1').textContent = document.getElementById('kitchenFeature1Input').value;
+            document.getElementById('kitchenFeature2').textContent = document.getElementById('kitchenFeature2Input').value;
+            document.getElementById('kitchenFeature3').textContent = 'plenty of cabinet space';
+            document.getElementById('masterFeature1').textContent = document.getElementById('masterFeature1Input').value;
+            document.getElementById('masterFeature2').textContent = 'ensuite bathroom';
+            document.getElementById('bedroomUse').textContent = 'family, guests, or a home office';
+            document.getElementById('bathroomFeature').textContent = 'recently updated';
+        }
+
+        function downloadScript() {
+            const scriptContent = document.getElementById('scriptPreview').innerHTML;
+            
+            const fullHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Script</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            background: white; 
+            color: #333;
+            line-height: 1.6;
+        }
+        .script-container { 
+            max-width: 8.5in; 
+            margin: 0 auto; 
+            background: white;
+        }
+        .script-header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #40e0d0;
+            margin-bottom: 30px;
+        }
+        .script-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .script-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #40e0d0;
+            page-break-inside: avoid;
+        }
+        .script-section-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .script-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        .timing-note {
+            background: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+        .cue-note {
+            background: #d1ecf1;
+            color: #0c5460;
+            padding: 8px;
+            border-radius: 5px;
+            margin: 8px 0;
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #40e0d0 0%, #40e0d0 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 0.2em;
+            background-position: 0 88%;
+            font-weight: 600;
+        }
+        @media print {
+            body { margin: 0; padding: 10mm; }
+            .script-section { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="script-container">
+        ${scriptContent}
+    </div>
+</body>
+</html>`;
+
+            const blob = new Blob([fullHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'video-script.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function printScript() {
+            window.print();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateScript();
+        });
+    </script>
+</body>
+</html>

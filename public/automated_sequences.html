@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Plan - Automated Email Sequences</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2d5a87 0%, #1e3a5f 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .form-header {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #FF6B35;
+            border-radius: 8px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .plan-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #2d5a87;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: rgba(0, 212, 170, 0.8);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #00D4AA;
+        }
+        
+        .sequence-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .sequence-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .sequence-title {
+            color: #00D4AA;
+            font-size: 1.8em;
+            margin: 0;
+        }
+        
+        .sequence-overview {
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid #00D4AA;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .sequence-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .stat-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #FFD700;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .email-timeline {
+            position: relative;
+            margin: 30px 0;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #00D4AA, #FFD700);
+        }
+        
+        .email-item {
+            position: relative;
+            margin-left: 80px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #FFD700;
+        }
+        
+        .email-item::before {
+            content: '';
+            position: absolute;
+            left: -84px;
+            top: 25px;
+            width: 16px;
+            height: 16px;
+            background: #FFD700;
+            border-radius: 50%;
+            border: 3px solid #2d5a87;
+        }
+        
+        .email-timing {
+            position: absolute;
+            left: -75px;
+            top: 50px;
+            background: rgba(255, 215, 0, 0.9);
+            color: #2d5a87;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.8em;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        
+        .email-subject {
+            color: #FFD700;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        
+        .email-preview {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .email-purpose {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 0.9em;
+            color: #00D4AA;
+            border-left: 3px solid #00D4AA;
+        }
+        
+        .automation-features {
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid #FF6B35;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+        
+        .automation-title {
+            color: #FF6B35;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .print-button {
+            background: #00D4AA;
+            color: #2d5a87;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 170, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .form-header {
+                padding: 20px;
+            }
+            
+            .sequence-container {
+                padding: 20px;
+            }
+            
+            .email-item {
+                margin-left: 40px;
+            }
+            
+            .email-timing {
+                left: -35px;
+                font-size: 0.7em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <div class="logo">🤖</div>
+            <div class="plan-badge">POWER PLAN</div>
+            <div class="section-badge">SECTION 2: AUTOMATED SEQUENCES</div>
+            <h1>Email Automation Sequences</h1>
+            <p style="color: rgba(255,255,255,0.8);">Enroll leads manually, let the system handle the rest</p>
+        </div>
+
+        <!-- SEQUENCE 1: HOT BUYER NURTURE -->
+        <div class="sequence-container">
+            <div class="sequence-header">
+                <h2 class="sequence-title">🔥 Hot Buyer Nurture Sequence</h2>
+            </div>
+            
+            <div class="sequence-overview">
+                <div class="sequence-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">7</span>
+                        <span class="stat-label">Emails</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">21</span>
+                        <span class="stat-label">Days</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Ready</span>
+                        <span class="stat-label">Buyer Status</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">High</span>
+                        <span class="stat-label">Priority</span>
+                    </div>
+                </div>
+                <p style="color: rgba(255,255,255,0.9);">
+                    <strong>Target Audience:</strong> Pre-approved buyers actively looking to purchase within 90 days<br>
+                    <strong>Goal:</strong> Keep hot leads engaged and moving toward a purchase decision
+                </p>
+            </div>
+
+            <div class="email-timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="email-item">
+                    <div class="email-timing">Day 1</div>
+                    <div class="email-subject">Welcome to your VIP buyer experience!</div>
+                    <div class="email-preview">
+                        Hi [First Name],<br><br>
+                        
+                        Excited to work with you! Since you're pre-approved and ready to move, I'm setting you up with VIP access to listings before they hit the public market.<br><br>
+                        
+                        Here's what happens next:<br>
+                        • I'll send you off-market opportunities first<br>
+                        • You'll get same-day notifications for new listings<br>
+                        • Priority scheduling for showings<br><br>
+                        
+                        Quick question: What's your ideal move-in timeline?
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Set VIP expectations, confirm timeline, establish premium service level
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 3</div>
+                    <div class="email-subject">3 homes that just became available</div>
+                    <div class="email-preview">
+                        Hey [First Name],<br><br>
+                        
+                        Three properties just hit my radar that match your criteria:<br><br>
+                        
+                        🏠 [Address] - $[Price] - [Key Features]<br>
+                        🏠 [Address] - $[Price] - [Key Features]<br>
+                        🏠 [Address] - $[Price] - [Key Features]<br><br>
+                        
+                        I can show you all three tomorrow if you're available. The market's moving fast - two similar properties went under contract this week within 24 hours of listing.<br><br>
+                        
+                        Which ones interest you most?
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Provide immediate value with listings, create urgency, schedule showings
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 7</div>
+                    <div class="email-subject">How the best buyers win in this market</div>
+                    <div class="email-preview">
+                        Hi [First Name],<br><br>
+                        
+                        After showing you properties this week, I want to share the strategies my most successful buyers use:<br><br>
+                        
+                        ✅ <strong>Move fast:</strong> Good properties get multiple offers within 48 hours<br>
+                        ✅ <strong>Be flexible:</strong> Closing dates and small requests can make or break deals<br>
+                        ✅ <strong>Know your max:</strong> Decide your absolute ceiling before you fall in love<br><br>
+                        
+                        The buyer who got [recent success story] followed exactly this approach.<br><br>
+                        
+                        Ready to talk strategy for your next offer?
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Educate on winning strategies, reference social proof, prepare for offers
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 10</div>
+                    <div class="email-subject">Market alert: Inventory dropping fast</div>
+                    <div class="email-preview">
+                        [First Name], wanted to give you a heads up on what's happening:<br><br>
+                        
+                        Inventory in your price range has dropped 23% this month. Here's what this means for you:<br><br>
+                        
+                        📉 <strong>Fewer choices</strong> - but the good ones are still out there<br>
+                        📈 <strong>More competition</strong> - buyers are getting more aggressive<br>
+                        ⏰ <strong>Faster decisions needed</strong> - hesitation costs opportunities<br><br>
+                        
+                        I'm not trying to pressure you, just want you to have the full picture.<br><br>
+                        
+                        How are you feeling about the properties we've seen?
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Create urgency with market data, check in on decision-making process
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 14</div>
+                    <div class="email-subject">Found something special - need to see today</div>
+                    <div class="email-preview">
+                        Hi [First Name],<br><br>
+                        
+                        A property just came on the market that checks every box you mentioned:<br><br>
+                        
+                        🏠 [Address]<br>
+                        💰 $[Price] (priced $15K below recent comps)<br>
+                        ⭐ [List of features matching their criteria]<br><br>
+                        
+                        The listing agent mentioned the seller wants offers by Friday. I can show it to you today at 4pm or 6pm.<br><br>
+                        
+                        Even if this isn't "the one," it would be a great comparison for what's possible in your budget.<br><br>
+                        
+                        Available to see it?
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Present perfect-match property, create time urgency, schedule immediate showing
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 17</div>
+                    <div class="email-subject">Your thoughts on the showing yesterday?</div>
+                    <div class="email-preview">
+                        Hey [First Name],<br><br>
+                        
+                        I've been thinking about our conversation after the showing yesterday. You seemed really interested in the layout and location.<br><br>
+                        
+                        Here's my honest take: This property has the best combination of value and features I've seen in your range this month.<br><br>
+                        
+                        A few things to consider:<br>
+                        • Similar homes in the area sold for $[X] more<br>
+                        • The updates are exactly what today's buyers want<br>
+                        • Location and lot size are hard to replicate<br><br>
+                        
+                        What questions can I answer to help you make a decision?
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Follow up on showing, provide expert opinion, address hesitations
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 21</div>
+                    <div class="email-subject">Checking in - how can I help you get to "yes"?</div>
+                    <div class="email-preview">
+                        Hi [First Name],<br><br>
+                        
+                        We've looked at some great properties over the past few weeks, and I want to make sure I'm giving you exactly what you need.<br><br>
+                        
+                        <strong>Quick question:</strong> What would need to be different about the next property we see for you to feel confident making an offer?<br><br>
+                        
+                        Is it:<br>
+                        • Price range?<br>
+                        • Location/neighborhood?<br>
+                        • Specific features?<br>
+                        • Timing concerns?<br><br>
+                        
+                        I'd rather adjust my search than keep showing you properties that aren't quite right.<br><br>
+                        
+                        15-minute call this week to recalibrate?
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Re-qualify needs, identify obstacles, refine search criteria
+                    </div>
+                </div>
+            </div>
+
+            <div class="automation-features">
+                <div class="automation-title">
+                    ⚙️ Automation Features
+                </div>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <span>✅</span> Auto-personalizes with property criteria
+                    </div>
+                    <div class="feature-item">
+                        <span>✅</span> Pulls real-time market data
+                    </div>
+                    <div class="feature-item">
+                        <span>✅</span> Tracks email opens & clicks
+                    </div>
+                    <div class="feature-item">
+                        <span>✅</span> Stops if they go under contract
+                    </div>
+                    <div class="feature-item">
+                        <span>✅</span> Alerts you to high-engagement emails
+                    </div>
+                    <div class="feature-item">
+                        <span>✅</span> Integrates with showing scheduler
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEQUENCE 2: SELLER CONVERSION SEQUENCE -->
+        <div class="sequence-container">
+            <div class="sequence-header">
+                <h2 class="sequence-title">🏡 Seller Conversion Sequence</h2>
+            </div>
+            
+            <div class="sequence-overview">
+                <div class="sequence-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">6</span>
+                        <span class="stat-label">Emails</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">28</span>
+                        <span class="stat-label">Days</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Considering</span>
+                        <span class="stat-label">Seller Status</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Medium</span>
+                        <span class="stat-label">Priority</span>
+                    </div>
+                </div>
+                <p style="color: rgba(255,255,255,0.9);">
+                    <strong>Target Audience:</strong> Homeowners who requested a valuation or expressed interest in selling<br>
+                    <strong>Goal:</strong> Convert seller leads into listing appointments through education and market insights
+                </p>
+            </div>
+
+            <div class="email-timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="email-item">
+                    <div class="email-timing">Day 1</div>
+                    <div class="email-subject">Your home valuation + what happens next</div>
+                    <div class="email-preview">
+                        Hi [First Name],<br><br>
+                        
+                        Thanks for requesting a valuation on [Address]! Based on my analysis of recent sales, your home is worth approximately $[Value Range].<br><br>
+                        
+                        <strong>Here's how I arrived at that number:</strong><br>
+                        • [Recent comp 1]: $[Price] - [Days on market]<br>
+                        • [Recent comp 2]: $[Price] - [Days on market]<br>
+                        • [Recent comp 3]: $[Price] - [Days on market]<br><br>
+                        
+                        This is a preliminary estimate. For a precise valuation, I'd need to see your specific upgrades and condition.<br><br>
+                        
+                        Interested in a detailed, in-person assessment?
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Deliver promised value, show methodology, transition to consultation
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 5</div>
+                    <div class="email-subject">What's driving home values in your neighborhood</div>
+                    <div class="email-preview">
+                        Hey [First Name],<br><br>
+                        
+                        I've been tracking the [Neighborhood] market closely, and there are some interesting trends affecting home values:<br><br>
+                        
+                        📈 <strong>What's helping values:</strong><br>
+                        • [Positive trend 1]<br>
+                        • [Positive trend 2]<br>
+                        • [Positive trend 3]<br><br>
+                        
+                        📊 <strong>Recent market activity:</strong><br>
+                        • Average days on market: [X] days<br>
+                        • Homes selling above/below asking: [X]%<br>
+                        • Current inventory: [X] months<br><br>
+                        
+                        Bottom line: This is a [strong/moderate/challenging] market for sellers right now.<br><br>
+                        
+                        Curious how these trends specifically affect your property?
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Demonstrate market expertise, provide neighborhood-specific insights
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 10</div>
+                    <div class="email-subject">The #1 mistake sellers make (and how to avoid it)</div>
+                    <div class="email-preview">
+                        Hi [First Name],<br><br>
+                        
+                        I just finished a listing consultation where the homeowner said something I hear too often:<br><br>
+                        
+                        <strong>"We'll just list it high and see what happens. We can always lower the price."</strong><br><br>
+                        
+                        Here's why that's a costly mistake:<br><br>
+                        
+                        🔍 <strong>First impressions matter:</strong> Most buyers see your home in the first 2 weeks<br>
+                        📉 <strong>Price reductions look desperate:</strong> Buyers wonder "what's wrong with it?"<br>
+                        💰 <strong>You lose money:</strong> I've seen this cost sellers $15K-$30K<br><br>
+                        
+                        <strong>The better strategy:</strong> Price strategically from day one to create buyer competition.<br><br>
+                        
+                        Want to see how this approach worked for my recent sellers?
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Educate on pricing strategy, build credibility, overcome common objections
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 15</div>
+                    <div class="email-subject">Your neighbor just listed for $XXX,XXX</div>
+                    <div class="email-preview">
+                        Hey [First Name],<br><br>
+                        
+                        Thought you'd want to know - [Nearby Address] just hit the market for $[Price].<br><br>
+                        
+                        <strong>How it compares to your home:</strong><br>
+                        • Square footage: [Comparison]<br>
+                        • Lot size: [Comparison]<br>
+                        • Updates/condition: [Assessment]<br>
+                        • Location within neighborhood: [Comparison]<br><br>
+                        
+                        <strong>My take:</strong> They're priced [appropriately/high/low] based on condition and location.<br><br>
+                        
+                        This creates an interesting opportunity for you because [specific opportunity/concern based on their pricing].<br><br>
+                        
+                        Want to discuss how this affects your potential listing strategy?
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Use competition to create urgency, position for consultation
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 21</div>
+                    <div class="email-subject">Simple improvements that add $10K+ in value</div>
+                    <div class="email-preview">
+                        Hi [First Name],<br><br>
+                        
+                        Been thinking about your home and what could maximize its sale price. Here are some improvements I consistently see add serious value:<br><br>
+                        
+                        🎨 <strong>Fresh paint (interior):</strong> $5K investment = $8K-$12K return<br>
+                        🌿 <strong>Landscaping/curb appeal:</strong> $2K investment = $8K-$15K return<br>
+                        ✨ <strong>Deep clean/staging:</strong> $1K investment = $5K-$10K return<br><br>
+                        
+                        <strong>The math:</strong> $8K total investment could add $20K+ to your sale price.<br><br>
+                        
+                        Not every home needs all of this, but I'd love to walk through yours and give you specific recommendations.<br><br>
+                        
+                        30-minute consultation this week to talk strategy?
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Show ROI potential, offer specific value, request consultation
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 28</div>
+                    <div class="email-subject">Ready to explore your options?</div>
+                    <div class="email-preview">
+                        Hey [First Name],<br><br>
+                        
+                        Over the past few weeks, I've shared insights about your neighborhood market and strategies for maximizing your home's value.<br><br>
+                        
+                        <strong>Here's what we know:</strong><br>
+                        • Your home is worth approximately $[Value Range]<br>
+                        • The current market conditions are [favorable/challenging] for sellers<br>
+                        • Strategic improvements could add $[Amount] to your sale price<br><br>
+                        
+                        <strong>The question is:</strong> Are you ready to explore what selling could look like for you?<br><br>
+                        
+                        No pressure at all - I'm happy to answer questions whether you sell next month or next year.<br><br>
+                        
+                        Coffee this week to talk through your situation?
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Summarize value provided, soft close for listing consultation
+                    </div>
+                </div>
+            </div>
+
+            <div class="automation-features">
+                <div class="automation-title">
+                    ⚙️ Automation Features
+                </div>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <span>✅</span> Auto-populates property details
+                    </div>
+                    <div class="feature-item">
+                        <span>✅</span> Pulls comparable sales data
+                    </div>
+                    <div class="feature-item">
+                        <span>✅</span> Monitors new listings nearby
+                    </div>
+                    <div class="feature-item">
+                        <span>✅</span> Calculates improvement ROI
+                    </div>
+                    <div class="feature-item">
+                        <span>✅</span> Tracks engagement scoring
+                    </div>
+                    <div class="feature-item">
+                        <span>✅</span> Alerts for consultation requests
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEQUENCE 3: LONG-TERM NURTURE -->
+        <div class="sequence-container">
+            <div class="sequence-header">
+                <h2 class="sequence-title">🌱 Long-Term Nurture Sequence</h2>
+            </div>
+            
+            <div class="sequence-overview">
+                <div class="sequence-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Emails</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">180</span>
+                        <span class="stat-label">Days</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Future</span>
+                        <span class="stat-label">Buyer Status</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Low</span>
+                        <span class="stat-label">Priority</span>
+                    </div>
+                </div>
+                <p style="color: rgba(255,255,255,0.9);">
+                    <strong>Target Audience:</strong> Leads who are 6+ months away from buying/selling but want to stay informed<br>
+                    <strong>Goal:</strong> Stay top-of-mind through valuable market insights and education
+                </p>
+            </div>
+
+            <div class="email-timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="email-item">
+                    <div class="email-timing">Day 1</div>
+                    <div class="email-subject">No rush - let's stay in touch</div>
+                    <div class="email-preview">
+                        Hi [First Name],<br><br>
+                        
+                        I totally understand that your timeline for [buying/selling] is still pretty flexible. No pressure at all!<br><br>
+                        
+                        Since you expressed interest in staying informed about the market, I'll send you occasional updates on what's happening in [Area] - nothing pushy, just useful information.<br><br>
+                        
+                        <strong>What you can expect:</strong><br>
+                        • Quarterly market reports for your area<br>
+                        • Notable sales or listings you might find interesting<br>
+                        • Changes in financing or market conditions<br><br>
+                        
+                        And of course, if your timeline changes or you have questions, I'm always here to help.<br><br>
+                        
+                        Sound good?
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Set expectations for low-pressure nurture, confirm interest in staying informed
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 45</div>
+                    <div class="email-subject">Q1 market report for [Area]</div>
+                    <div class="email-preview">
+                        Hey [First Name],<br><br>
+                        
+                        Here's what happened in the [Area] market this quarter:<br><br>
+                        
+                        📊 <strong>Key Numbers:</strong><br>
+                        • Median sale price: $[Amount] ([up/down X% from last quarter])<br>
+                        • Average days on market: [X] days<br>
+                        • Number of sales: [X] ([up/down from last quarter])<br><br>
+                        
+                        🏠 <strong>Notable Sales:</strong><br>
+                        [Address] sold for $[Amount] - [interesting detail]<br>
+                        [Address] sold for $[Amount] - [interesting detail]<br><br>
+                        
+                        💡 <strong>What this means:</strong> [Brief, plain-English interpretation]<br><br>
+                        
+                        Any questions about how these trends might affect your future plans?
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Provide valuable market intelligence, demonstrate ongoing expertise
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 90</div>
+                    <div class="email-subject">Interesting development in [Neighborhood]</div>
+                    <div class="email-preview">
+                        Hi [First Name],<br><br>
+                        
+                        Saw something in [Area] that I thought you'd find interesting given your interest in the neighborhood.<br><br>
+                        
+                        [Description of development - could be new construction, commercial development, infrastructure improvement, school news, etc.]<br><br>
+                        
+                        <strong>Why this matters:</strong> [Explanation of how this could impact property values, desirability, etc.]<br><br>
+                        
+                        <strong>Timeline:</strong> [When this development will be completed/take effect]<br><br>
+                        
+                        This kind of thing doesn't happen often, so I wanted to make sure you knew about it as you think about your future plans.<br><br>
+                        
+                        Hope you're doing well!
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Share relevant local intelligence, maintain relationship
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 135</div>
+                    <div class="email-subject">Has anything changed with your timeline?</div>
+                    <div class="email-preview">
+                        Hey [First Name],<br><br>
+                        
+                        Hope you're having a great [season]! I know when we first talked, you mentioned your timeline for [buying/selling] was pretty flexible.<br><br>
+                        
+                        Just wanted to check in and see if anything has changed in your world that might affect your plans:<br><br>
+                        
+                        • Job or family situation changes?<br>
+                        • Different thoughts on timing?<br>
+                        • New questions about the market?<br><br>
+                        
+                        <strong>No worries if everything's still the same</strong> - just want to make sure I'm giving you the right kind of information.<br><br>
+                        
+                        The market has shifted a bit since we last talked, so happy to give you an update if you're curious.<br><br>
+                        
+                        How are things going?
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Re-qualify timeline and needs, check for life changes
+                    </div>
+                </div>
+
+                <div class="email-item">
+                    <div class="email-timing">Day 180</div>
+                    <div class="email-subject">6-month market recap + what's ahead</div>
+                    <div class="email-preview">
+                        Hi [First Name],<br><br>
+                        
+                        It's been about 6 months since we first connected, so I thought I'd give you a recap of what's happened in the [Area] market:<br><br>
+                        
+                        📈 <strong>Biggest changes:</strong><br>
+                        • [Major market trend 1]<br>
+                        • [Major market trend 2]<br>
+                        • [Major market trend 3]<br><br>
+                        
+                        🔮 <strong>What I'm watching for the next 6 months:</strong><br>
+                        • [Prediction/trend to watch 1]<br>
+                        • [Prediction/trend to watch 2]<br><br>
+                        
+                        <strong>For you:</strong> If your timeline is still flexible, [specific advice based on market conditions].<br><br>
+                        
+                        Still happy to be your market resource whenever you're ready to make a move!
+                    </div>
+                    <div class="email-purpose">
+                        <strong>Purpose:</strong> Provide comprehensive market summary, demonstrate long-term value
+                    </div>
+                </div>
+            </div>
+
+            <div class="automation-features">
+                <div class="automation-title">
+                    ⚙️ Automation Features
+                </div>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <span>✅</span> Quarterly market data updates
+                    </div>
+                    <div class="feature-item">
+                        <span>✅</span> Local development monitoring
+                    </div>
+                    <div class="feature-item">
+                        <span>✅</span> Interest rate change triggers
+                    </div>
+                    <div class="feature-item">
+                        <span>✅</span> Engagement-based frequency adjustment
+                    </div>
+                    <div class="feature-item">
+                        <span>✅</span> Automatic re-qualification prompts
+                    </div>
+                    <div class="feature-item">
+                        <span>✅</span> Graduation to hot sequence trigger
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="print-button" onclick="window.print()">Print Automation Sequences</button>
+    </div>
+
+    <script>
+        // Print styling
+        const printStyles = `
+            <style>
+                @media print {
+                    body {
+                        background: white !important;
+                        color: black !important;
+                    }
+                    .print-button { display: none !important; }
+                    .sequence-container, .email-item {
+                        background: white !important;
+                        border: 1px solid #ccc !important;
+                    }
+                    .timeline-line {
+                        background: #ccc !important;
+                    }
+                    .email-item::before {
+                        background: #000 !important;
+                    }
+                    .sequence-overview, .automation-features, .email-purpose {
+                        background: #f0f0f0 !important;
+                        color: black !important;
+                        border: 1px solid #ccc !important;
+                    }
+                    .email-timing {
+                        background: #ddd !important;
+                        color: black !important;
+                    }
+                }
+            </style>
+        `;
+        
+        document.head.insertAdjacentHTML('beforeend', printStyles);
+    </script>
+</body>
+</html>
+                

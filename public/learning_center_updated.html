@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Materials - Stacked CRM Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #2c3e50;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: #2c3e50;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #34495e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo::before {
+            content: '';
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(45deg, #5dade2 0%, #5dade2 50%, transparent 50%);
+            margin-right: 12px;
+            border-radius: 3px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: #34495e;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            width: 400px;
+            max-width: 50%;
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+        }
+
+        .search-bar input::placeholder {
+            color: #bdc3c7;
+        }
+
+        .search-icon {
+            color: #5dade2;
+            margin-right: 0.5rem;
+        }
+
+        .main-content {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #5dade2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #bdc3c7;
+            margin-bottom: 2rem;
+        }
+
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            background-color: #34495e;
+            color: #bdc3c7;
+            border: 2px solid transparent;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background-color: #5dade2;
+            color: #2c3e50;
+            border-color: #5dade2;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Side-by-side layout for Essential Basics section */
+        .basics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .content-card {
+            background-color: #34495e;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(93, 173, 226, 0.2);
+            border-color: #5dade2;
+        }
+
+        .card-header {
+            position: relative;
+            height: 160px;
+            background: linear-gradient(135deg, #5dade2, #4fa8d8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .card-header.basic {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .card-header.advanced {
+            background: linear-gradient(135deg, #8e44ad, #9b59b6);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            color: #ffffff;
+            z-index: 2;
+        }
+
+        .card-type {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .card-duration {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            color: #ffffff;
+            font-size: 0.9rem;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.3rem 0.6rem;
+            border-radius: 15px;
+        }
+
+        .card-level {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #2c3e50;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+            color: #ffffff;
+        }
+
+        .card-description {
+            color: #bdc3c7;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background-color: #2c3e50;
+            color: #5dade2;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid #5dade2;
+        }
+
+        .tag.basic {
+            border-color: #27ae60;
+            color: #27ae60;
+        }
+
+        .tag.advanced {
+            border-color: #8e44ad;
+            color: #8e44ad;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .difficulty {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        .difficulty-dots {
+            display: flex;
+            gap: 0.2rem;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #7f8c8d;
+        }
+
+        .dot.filled {
+            background-color: #5dade2;
+        }
+
+        .access-btn {
+            background-color: #5dade2;
+            color: #2c3e50;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .access-btn:hover {
+            background-color: #4fa8d8;
+        }
+
+        .featured-section {
+            background-color: #34495e;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 2px solid #5dade2;
+        }
+
+        .featured-title {
+            color: #5dade2;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .featured-item {
+            background-color: #2c3e50;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #5dade2;
+        }
+
+        .quick-links {
+            background-color: #34495e;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-links h3 {
+            color: #5dade2;
+            margin-bottom: 1.5rem;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .quick-link {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem;
+            background-color: #2c3e50;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #bdc3c7;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .quick-link:hover {
+            color: #5dade2;
+            border-color: #5dade2;
+            transform: translateX(5px);
+        }
+
+        .progress-section {
+            background-color: #34495e;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-title {
+            color: #5dade2;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .progress-stats {
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        .progress-item {
+            background-color: #2c3e50;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .progress-bar-container {
+            width: 200px;
+            height: 8px;
+            background-color: #34495e;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #5dade2;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .section-header {
+            background-color: #34495e;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            color: #5dade2;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: #bdc3c7;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .search-bar {
+                width: 100%;
+                max-width: none;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .category-nav {
+                gap: 0.5rem;
+            }
+
+            .category-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .content-grid, .basics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">STACKED Learning Pro</div>
+        <div class="search-bar">
+            <span class="search-icon">🔍</span>
+            <input type="text" placeholder="Search courses, guides, tutorials...">
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="hero-section">
+            <h1 class="hero-title">Master Real Estate with Stacked Pro</h1>
+            <p class="hero-subtitle">
+                Complete learning library with progress tracking, advanced courses, and expert-level content
+            </p>
+        </div>
+
+        <div class="category-nav">
+            <a href="#" class="category-btn active">All Content</a>
+            <a href="#" class="category-btn">Essential Basics</a>
+            <a href="#" class="category-btn">Advanced Features</a>
+            <a href="#" class="category-btn">Lead Generation</a>
+            <a href="#" class="category-btn">Sales Process</a>
+            <a href="#" class="category-btn">Marketing</a>
+            <a href="#" class="category-btn">Analytics</a>
+        </div>
+
+        <div class="featured-section">
+            <h2 class="featured-title">
+                ⭐ Featured This Week
+            </h2>
+            <div class="featured-grid">
+                <div class="featured-item">
+                    <h4 style="color: #5dade2; margin-bottom: 0.5rem;">🎯 New Course</h4>
+                    <h3 style="margin-bottom: 0.5rem;">Advanced Lead Nurturing Strategies</h3>
+                    <p style="color: #bdc3c7; font-size: 0.9rem;">Learn proven techniques to convert more leads into clients</p>
+                </div>
+                <div class="featured-item">
+                    <h4 style="color: #5dade2; margin-bottom: 0.5rem;">📈 Updated</h4>
+                    <h3 style="margin-bottom: 0.5rem;">Stacked CRM 2025 Features</h3>
+                    <p style="color: #bdc3c7; font-size: 0.9rem;">Discover the latest tools and automation capabilities</p>
+                </div>
+                <div class="featured-item">
+                    <h4 style="color: #5dade2; margin-bottom: 0.5rem;">🏆 Popular</h4>
+                    <h3 style="margin-bottom: 0.5rem;">First 90 Days Success Plan</h3>
+                    <p style="color: #bdc3c7; font-size: 0.9rem;">Complete roadmap for new real estate professionals</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-header">
+                <h3 class="progress-title">Your Learning Progress</h3>
+                <div class="progress-stats">12 of 28 courses completed</div>
+            </div>
+            <div class="progress-item">
+                <div>
+                    <strong>Essential Basics Track</strong>
+                    <div style="color: #bdc3c7; font-size: 0.9rem;">Foundation Skills</div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 100%;"></div>
+                    </div>
+                    <span style="color: #5dade2; font-weight: bold;">✓</span>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div>
+                    <strong>Advanced Features Track</strong>
+                    <div style="color: #bdc3c7; font-size: 0.9rem;">Automation & Analytics</div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 65%;"></div>
+                    </div>
+                    <span style="color: #f39c12; font-weight: bold;">65%</span>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div>
+                    <strong>Marketing Mastery Track</strong>
+                    <div style="color: #bdc3c7; font-size: 0.9rem;">Lead Gen & Campaigns</div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 30%;"></div>
+                    </div>
+                    <span style="color: #f39c12; font-weight: bold;">30%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <h2>📚 Essential Basics - Foundation Skills</h2>
+            <p>Master the fundamentals of Stacked CRM and real estate basics</p>
+        </div>
+
+        <div class="basics-grid">
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">15 min read</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Getting Started Guide</h3>
+                    <p class="card-description">
+                        Learn the basics of Stacked CRM - navigation, adding contacts, and your first transaction.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Essential</span>
+                        <span class="tag basic">Beginner</span>
+                        <span class="tag basic">CRM Basics</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Start Class</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">📋</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">10 min</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Basic Contact Management</h3>
+                    <p class="card-description">
+                        How to add, organize, and manage your client contacts effectively in your CRM.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Contacts</span>
+                        <span class="tag basic">Organization</span>
+                        <span class="tag basic">Tutorial</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Start Tutorial</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">📞</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">12 min read</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Lead Follow-up Basics</h3>
+                    <p class="card-description">
+                        Simple strategies for following up with leads and keeping track of your communications.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Lead Management</span>
+                        <span class="tag basic">Follow-up</span>
+                        <span class="tag basic">Communication</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Read Guide</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">🏠</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">8 min</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Property Management Basics</h3>
+                    <p class="card-description">
+                        Learn how to add and manage property listings in your CRM system.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Properties</span>
+                        <span class="tag basic">Listings</span>
+                        <span class="tag basic">Management</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Start Tutorial</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">📄</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">18 min read</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Creating Your First Transaction</h3>
+                    <p class="card-description">
+                        Walk through creating and tracking your first real estate transaction from start to finish.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Transactions</span>
+                        <span class="tag basic">Process</span>
+                        <span class="tag basic">Step-by-step</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Read Guide</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">💬</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">5 min setup</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Basic Email Templates</h3>
+                    <p class="card-description">
+                        Download and customize basic email templates for common real estate communications.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Templates</span>
+                        <span class="tag basic">Email</span>
+                        <span class="tag basic">Communication</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Download</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">📊</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">12 min</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Understanding Your Dashboard</h3>
+                    <p class="card-description">
+                        Navigate your CRM dashboard and understand the key metrics and information displayed.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Dashboard</span>
+                        <span class="tag basic">Navigation</span>
+                        <span class="tag basic">Metrics</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Start Tutorial</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">📅</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">14 min read</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Task and Calendar Basics</h3>
+                    <p class="card-description">
+                        Learn how to schedule appointments, set reminders, and manage your daily tasks effectively.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Calendar</span>
+                        <span class="tag basic">Tasks</span>
+                        <span class="tag basic">Scheduling</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Read Guide</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">🔍</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">10 min</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Search and Filter Basics</h3>
+                    <p class="card-description">
+                        Master the search and filtering features to quickly find contacts, properties, and transactions.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Search</span>
+                        <span class="tag basic">Filtering</span>
+                        <span class="tag basic">Organization</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Start Tutorial</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <h2>🚀 Advanced Features - Power User Skills</h2>
+            <p>Unlock the full potential of Stacked CRM with advanced automation and analytics</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="content-card">
+                <div class="card-header advanced">
+                    <div class="card-icon">🤖</div>
+                    <div class="card-level">Advanced</div>
+                    <div class="card-duration">4 hours</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Automation Workflows Masterclass</h3>
+                    <p class="card-description">
+                        Set up sophisticated automation to nurture leads, manage follow-ups, and streamline your entire sales process.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag advanced">Automation</span>
+                        <span class="tag advanced">Workflows</span>
+                        <span class="tag advanced">Advanced</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Start Course</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header advanced">
+                    <div class="card-icon">📊</div>
+                    <div class="card-level">Advanced</div>
+                    <div class="card-duration">2.5 hours</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Advanced Analytics & Reporting</h3>
+                    <p class="card-description">
+                        Create powerful reports, dashboards, and analytics to track your business performance and identify growth opportunities.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag advanced">Analytics</span>
+                        <span class="tag advanced">Reporting</span>
+                        <span class="tag advanced">Dashboards</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header advanced">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-level">Advanced</div>
+                    <div class="card-duration">3.5 hours</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Advanced Lead Generation Strategies</h3>
+                    <p class="card-description">
+                        Master digital marketing, social media campaigns, referral systems, and advanced lead capture techniques.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag advanced">Lead Generation</span>
+                        <span class="tag advanced">Marketing</span>
+                        <span class="tag advanced">Digital Strategy</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Watch Course</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header advanced">
+                    <div class="card-icon">🏆</div>
+                    <div class="card-level">Advanced</div>
+                    <div class="card-duration">2 hours</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Transaction Management Mastery</h3>
+                    <p class="card-description">
+                        Advanced strategies for managing complex transactions, coordinating with multiple parties, and closing deals efficiently.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag advanced">Transactions</span>
+                        <span class="tag advanced">Process Management</span>
+                        <span class="tag advanced">Closing</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Start Course</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header advanced">
+                    <div class="card-icon">📧</div>
+                    <div class="card-level">Advanced</div>
+                    <div class="card-duration">1.5 hours</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Email Marketing Campaigns</h3>
+                    <p class="card-description">
+                        Create sophisticated email marketing campaigns with segmentation, automation, and performance tracking.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag advanced">Email Marketing</span>
+                        <span class="tag advanced">Campaigns</span>
+                        <span class="tag advanced">Automation</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Learn Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header advanced">
+                    <div class="card-icon">🔗</div>
+                    <div class="card-level">Advanced</div>
+                    <div class="card-duration">2 hours</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">CRM Integrations & API</h3>
+                    <p class="card-description">
+                        Connect Stacked CRM with third-party tools, set up integrations, and leverage API capabilities for maximum efficiency.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag advanced">Integrations</span>
+                        <span class="tag advanced">API</span>
+                        <span class="tag advanced">Technical</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Start Tutorial</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <h2>💼 Expert-Level Content - Master Class Series</h2>
+            <p>Advanced strategies and industry insights from top real estate professionals</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="content-card">
+                <div class="card-header">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-type">Masterclass</div>
+                    <div class="card-duration">6 hours</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">$50M Success Blueprint</h3>
+                    <p class="card-description">
+                        Learn from top agent Sarah Johnson who closed $50M in sales using Stacked CRM strategies and advanced techniques.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag">Case Study</span>
+                        <span class="tag">Success Story</span>
+                        <span class="tag">Blueprint</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Watch Series</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header">
+                    <div class="card-icon">📈</div>
+                    <div class="card-type">Live Webinar</div>
+                    <div class="card-duration">90 min</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Market Analysis & Client Presentations</h3>
+                    <p class="card-description">
+                        Create compelling market reports and presentations that position you as the local market expert.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag">Market Analysis</span>
+                        <span class="tag">Presentations</span>
+                        <span class="tag">Client Service</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Join Live</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header">
+                    <div class="card-icon">🏠</div>
+                    <div class="card-type">Workshop</div>
+                    <div class="card-duration">4 hours</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Investment Property Mastery</h3>
+                    <p class="card-description">
+                        Specialized training for working with real estate investors, analyzing deals, and building investor networks.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag">Investment</span>
+                        <span class="tag">Analysis</span>
+                        <span class="tag">Networking</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Start Workshop</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-links">
+            <h3>📚 Quick Resources & Tools</h3>
+            <div class="links-grid">
+                <a href="#" class="quick-link">
+                    <span>📋</span>
+                    <span>Checklists & Templates</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <span>🎯</span>
+                    <span>Best Practices Guide</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <span>💡</span>
+                    <span>Tips & Tricks Library</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <span>🔧</span>
+                    <span>Troubleshooting Help</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <span>📞</span>
+                    <span>Expert Support Chat</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <span>👥</span>
+                    <span>Pro Community Forum</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <span>📊</span>
+                    <span>Performance Benchmarks</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <span>🎥</span>
+                    <span>Video Tutorial Library</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Category navigation
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter content based on category
+                const category = this.textContent.toLowerCase();
+                const cards = document.querySelectorAll('.content-card');
+                
+                cards.forEach(card => {
+                    const cardLevel = card.querySelector('.card-level');
+                    const cardTags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+                    
+                    if (category === 'all content') {
+                        card.style.display = 'block';
+                    } else if (category === 'essential basics' && cardLevel && cardLevel.textContent === 'Basic') {
+                        card.style.display = 'block';
+                    } else if (category === 'advanced features' && cardLevel && cardLevel.textContent === 'Advanced') {
+                        card.style.display = 'block';
+                    } else if (cardTags.some(tag => tag.includes(category.replace(' ', '')))) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        document.querySelector('.search-bar input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.content-card');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const description = card.querySelector('.card-description').textContent.toLowerCase();
+                const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase()).join(' ');
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm) || tags.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = searchTerm ? 'none' : 'block';
+                }
+            });
+        });
+
+        // Animate progress bars on load
+        window.addEventListener('load', function() {
+            document.querySelectorAll('.progress-bar-fill').forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        });
+
+        // Track content access
+        document.querySelectorAll('.access-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const title = this.closest('.content-card').querySelector('.card-title').textContent;
+                console.log('Accessing content:', title);
+                // In real implementation, this would track user progress
+            });
+        });
+    </script>
+</body>
+</html>

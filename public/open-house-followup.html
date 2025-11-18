@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open House Follow-up Email Sequence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .sequence-info {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .email-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .email-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .email-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .email-number {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.3em;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .email-info {
+            flex-grow: 1;
+        }
+        
+        .email-title {
+            font-size: 1.4em;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        
+        .email-day {
+            color: #718096;
+            font-size: 0.9em;
+        }
+        
+        .email-subject {
+            background: #ecfeff;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #06b6d4;
+        }
+        
+        .email-subject strong {
+            color: #4a5568;
+        }
+        
+        .email-body {
+            color: #4a5568;
+            font-size: 1em;
+        }
+        
+        .email-body p {
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box {
+            background: #cffafe;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #06b6d4;
+        }
+        
+        .property-details {
+            background: #f0f9ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0f2fe;
+        }
+        
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #0e7490;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: opacity 0.3s;
+        }
+        
+        .cta-button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏡 Open House Follow-up</h1>
+            <p>Automatic follow-up sequence for open house attendees with property details and next steps</p>
+        </div>
+        
+        <div class="sequence-info">
+            📧 3 emails over 7 days
+        </div>
+        
+        <!-- Email 1 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">1</div>
+                <div class="email-info">
+                    <div class="email-title">Thank You & Property Details</div>
+                    <div class="email-day">Day 1 - Within 2 hours</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Thanks for stopping by [Address] today!
+            </div>
+            <div class="email-body">
+                <p>Hi [First Name]!</p>
+                <p>It was great meeting you at the open house today! Thanks so much for taking the time to check out the property at [Address].</p>
+                <p>I wanted to follow up while it's still fresh in your mind and share some additional details about the home that you might find helpful.</p>
+                
+                <div class="property-details">
+                    <h3 style="color: #0e7490; margin-bottom: 15px;">📋 Property Highlights</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Address:</span>
+                        <span>[Full Address]</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Price:</span>
+                        <span>$[Price]</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Beds/Baths:</span>
+                        <span>[X] bed | [X] bath</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Square Footage:</span>
+                        <span>[X] sq ft</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Lot Size:</span>
+                        <span>[X] sq ft / [X] acres</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Year Built:</span>
+                        <span>[Year]</span>
+                    </div>
+                </div>
+                
+                <p><strong>Key Features:</strong></p>
+                <p>✨ [Feature 1 - e.g., Updated kitchen with granite countertops]<br>
+                ✨ [Feature 2 - e.g., Master suite with walk-in closet]<br>
+                ✨ [Feature 3 - e.g., Large backyard perfect for entertaining]<br>
+                ✨ [Feature 4 - e.g., Recently renovated bathrooms]<br>
+                ✨ [Feature 5 - e.g., Two-car garage with storage]</p>
+                
+                <div class="highlight-box">
+                    <strong>📸 Want to see more?</strong><br><br>
+                    View the full photo gallery, virtual tour, and property details:<br>
+                    <a href="#" class="cta-button">View Full Listing</a>
+                </div>
+                
+                <p><strong>What did you think?</strong></p>
+                <p>I'd love to hear your thoughts! Does this property check the boxes for what you're looking for? Any questions I can answer?</p>
+                <p>If you'd like to schedule a private showing or want to see it again, just let me know. I'm happy to work around your schedule!</p>
+                
+                <p>Looking forward to hearing from you,<br>[Your Name]<br>[Phone Number]</p>
+            </div>
+        </div>
+        
+        <!-- Email 2 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">2</div>
+                <div class="email-info">
+                    <div class="email-title">Additional Info & Similar Properties</div>
+                    <div class="email-day">Day 3</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> A few more details about [Address] (+ similar homes you might like)
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name],</p>
+                <p>I wanted to circle back and share some additional information about [Address] that might be helpful as you're thinking things over.</p>
+                
+                <p><strong>🏘️ Neighborhood Info:</strong></p>
+                <p>• School District: [School District Name] (rated [X]/10)<br>
+                • Nearby: [List nearby amenities - parks, shopping, restaurants]<br>
+                • Commute: [X] minutes to [major employment center]<br>
+                • Walk Score: [X]/100<br>
+                • Property Taxes: Approximately $[X]/year</p>
+                
+                <p><strong>💰 Pricing Context:</strong></p>
+                <p>This home is priced at $[X] per square foot, which is [competitive/below/in line with] the neighborhood average of $[X] per square foot. Similar homes in the area have been selling quickly, typically within [X] days.</p>
+                
+                <div class="highlight-box">
+                    <strong>Recent comparable sales:</strong><br><br>
+                    🏡 [Nearby Address 1]: Sold for $[X] ([X] bed/[X] bath)<br>
+                    🏡 [Nearby Address 2]: Sold for $[X] ([X] bed/[X] bath)<br>
+                    🏡 [Nearby Address 3]: Sold for $[X] ([X] bed/[X] bath)
+                </div>
+                
+                <p><strong>📅 Next Steps if You're Interested:</strong></p>
+                <p>If you're thinking about making an offer or want to see the property again, here's what we'd do next:</p>
+                <p>1. Schedule a second showing (if you'd like)<br>
+                2. Review the seller's disclosure and inspection reports<br>
+                3. Discuss your financing (I can connect you with great lenders)<br>
+                4. Prepare and submit your offer<br>
+                5. Negotiate and get you the best deal possible!</p>
+                
+                <p><strong>Other Properties You Might Like:</strong></p>
+                <p>In case [Address] isn't quite the right fit, I found a few similar properties that match what you're looking for:</p>
+                
+                <p>🏡 <strong>[Alternative Property 1]</strong><br>
+                $[Price] | [X] bed/[X] bath | [X] sq ft<br>
+                Why you might like it: [Brief reason]<br>
+                <a href="#">View Listing</a></p>
+                
+                <p>🏡 <strong>[Alternative Property 2]</strong><br>
+                $[Price] | [X] bed/[X] bath | [X] sq ft<br>
+                Why you might like it: [Brief reason]<br>
+                <a href="#">View Listing</a></p>
+                
+                <p>Want to see any of these? I can set up showings this week!</p>
+                
+                <p>Any questions at all, just reach out. I'm here to help!</p>
+                
+                <p>Best,<br>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 3 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">3</div>
+                <div class="email-info">
+                    <div class="email-title">Final Follow-up & Clear Next Steps</div>
+                    <div class="email-day">Day 7</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Still interested in [Address]? Let's make it happen!
+            </div>
+            <div class="email-body">
+                <p>Hi [First Name],</p>
+                <p>Just wanted to check in one more time about the property at [Address] that you saw at the open house last week.</p>
+                
+                <p><strong>Quick update on the property:</strong><br>
+                [Current status - e.g., "Still available and generating a lot of interest!" OR "We've received [X] offers" OR "Price just reduced to $[X]"]</p>
+                
+                <div class="highlight-box">
+                    <strong>⏰ Here's why timing matters:</strong><br><br>
+                    Properties in this price range and location are moving fast right now. On average, homes like this are getting offers within [X] days of listing. I'd hate for you to miss out if this is the one!
+                </div>
+                
+                <p><strong>Where are you at in your search?</strong></p>
+                <p>I'm curious to know what you're thinking. Are you:</p>
+                <p>✓ Ready to move forward with this property?<br>
+                ✓ Still comparing options?<br>
+                ✓ Need to see it one more time?<br>
+                ✓ Have questions or concerns?<br>
+                ✓ Looking for something different?</p>
+                
+                <p>Whatever your situation, I'm here to help! No pressure at all - I just want to make sure you have all the information you need to make the best decision.</p>
+                
+                <p><strong>How I can help you right now:</strong></p>
+                <p>🏡 Schedule a private showing<br>
+                💰 Connect you with a lender for pre-approval<br>
+                📊 Provide a detailed market analysis<br>
+                📋 Answer any questions about the property<br>
+                🔍 Help you find other properties that might be a better fit</p>
+                
+                <div class="highlight-box">
+                    <strong>Ready to take action?</strong><br><br>
+                    If you're serious about this property, let's get you pre-approved (if you aren't already) and schedule a time to write up an offer. I can usually get offers submitted within 24 hours!<br><br>
+                    <a href="#" class="cta-button">Schedule a Call</a>
+                </div>
+                
+                <p><strong>Not the right fit?</strong><br>
+                That's okay too! I have access to every listing in the area and can set up a custom search based on exactly what you're looking for. You'll get alerts the moment new properties hit the market.</p>
+                
+                <p>Either way, I'd love to stay in touch and help you find the perfect home - whether it's this one or another property.</p>
+                
+                <p>Just reply to this email or give me a call at [Phone Number]. I'm usually available [your typical availability].</p>
+                
+                <p>Looking forward to hearing from you!</p>
+                
+                <p>[Your Name]<br>
+                [Phone Number]<br>
+                [Email]</p>
+                
+                <p><strong>P.S.</strong> Don't forget - if you want to be added to my VIP buyer list for early access to new listings, just let me know! 🔑</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Newsletter Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #3a4a5c 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            border: 2px solid #3498db;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .newsletter-icon {
+            width: 60px;
+            height: 60px;
+            background: #3498db;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #a0b4c3;
+            margin-bottom: 20px;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-preview {
+            background: white;
+            border-radius: 15px;
+            padding: 0;
+            color: #333;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            min-height: 800px;
+            max-height: 800px;
+            overflow-y: auto;
+        }
+
+        .controls-panel {
+            background: rgba(58, 74, 92, 0.8);
+            border: 2px solid #3498db;
+            border-radius: 20px;
+            padding: 25px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+            max-height: 800px;
+            overflow-y: auto;
+        }
+
+        .panel-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #3498db;
+            text-align: center;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #a0b4c3;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .control-group input, 
+        .control-group textarea, 
+        .control-group select {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #5a6a7c;
+            border-radius: 5px;
+            background: #2c3e50;
+            color: white;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .control-group input:focus, 
+        .control-group textarea:focus, 
+        .control-group select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .control-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .download-btn {
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .download-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .tag {
+            background: rgba(52, 152, 219, 0.2);
+            color: #3498db;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            display: inline-block;
+            margin: 2px;
+        }
+
+        /* Newsletter Styles */
+        .newsletter-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .newsletter-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .newsletter-date {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .newsletter-body {
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            font-weight: 600;
+        }
+
+        .featured-property {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #3498db;
+        }
+
+        .property-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .property-details {
+            display: flex;
+            gap: 15px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+
+        .property-detail {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .market-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .tip-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .community-events {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .event-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .event-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .event-title {
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 5px;
+        }
+
+        .event-details {
+            font-size: 0.9rem;
+            color: #856404;
+        }
+
+        .newsletter-footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .agent-info {
+            margin-bottom: 20px;
+        }
+
+        .agent-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .agent-contact {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            opacity: 0.9;
+        }
+
+        .testimonial {
+            background: #e8f5e8;
+            border-left: 4px solid #27ae60;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #27ae60;
+            text-align: right;
+        }
+
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .controls-panel {
+                position: static;
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .newsletter-title {
+                font-size: 2rem;
+            }
+            
+            .newsletter-body {
+                padding: 20px;
+            }
+            
+            .property-details {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>
+            <div class="newsletter-icon">📰</div>
+            Real Estate Newsletter Builder
+        </h1>
+        <p>Professional monthly newsletters to stay top-of-mind with clients.</p>
+        <div style="margin-top: 20px;">
+            <span class="tag">client nurturing</span>
+            <span class="tag">market updates</span>
+            <span class="tag">lead generation</span>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="newsletter-preview" id="newsletterPreview">
+            <div class="newsletter-header">
+                <h1 class="newsletter-title" id="newsletterTitle">The Real Estate Report</h1>
+                <p class="newsletter-date" id="newsletterDate">October 2024 Edition</p>
+            </div>
+
+            <div class="newsletter-body">
+                <div class="section">
+                    <h2 class="section-title">Featured Property</h2>
+                    <div class="featured-property">
+                        <div class="property-title" id="featuredTitle">Beautiful Family Home in Prime Location</div>
+                        <p id="featuredDescription">This stunning 4-bedroom, 3-bathroom home features modern updates throughout, including a gourmet kitchen, hardwood floors, and a spacious backyard perfect for entertaining.</p>
+                        <div class="property-details">
+                            <div class="property-detail" id="featuredPrice">$525,000</div>
+                            <div class="property-detail" id="featuredBeds">4 Bedrooms</div>
+                            <div class="property-detail" id="featuredBaths">3 Bathrooms</div>
+                            <div class="property-detail" id="featuredSqft">2,400 Sq Ft</div>
+                        </div>
+                        <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">Contact me for a private showing or more information about this exceptional property.</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Market Update</h2>
+                    <div class="market-stats">
+                        <div class="stat-card">
+                            <div class="stat-number" id="avgPrice">$485K</div>
+                            <div class="stat-label">Average Sale Price</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="priceChange">+5.2%</div>
+                            <div class="stat-label">YoY Growth</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="daysMarket">28</div>
+                            <div class="stat-label">Days on Market</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalSales">147</div>
+                            <div class="stat-label">Homes Sold</div>
+                        </div>
+                    </div>
+                    <p id="marketInsights">The local real estate market continues to show strong activity with steady price appreciation. Low inventory levels are creating competitive conditions for buyers, while sellers are seeing excellent results with proper pricing and marketing strategies.</p>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Home Seller Tip</h2>
+                    <div class="tip-box">
+                        <div class="tip-title" id="tipTitle">Fall Curb Appeal Boost</div>
+                        <p id="tipContent">As we head into fall, simple landscaping updates can make a huge difference in your home's curb appeal. Consider planting colorful mums, cleaning gutters, and power washing walkways to create an inviting first impression for potential buyers.</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Client Success Story</h2>
+                    <div class="testimonial">
+                        <div class="testimonial-text" id="testimonialText">"Working with [Agent Name] was an absolute pleasure. They guided us through every step of selling our home and helped us get top dollar in record time. Their marketing strategy and attention to detail made all the difference."</div>
+                        <div class="testimonial-author" id="testimonialAuthor">- The Johnson Family</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Community Events</h2>
+                    <div class="community-events">
+                        <div class="event-item">
+                            <div class="event-title" id="event1Title">Fall Festival Downtown</div>
+                            <div class="event-details" id="event1Details">October 15th, 10 AM - 4 PM | Main Street | Family-friendly activities, local vendors, and live music</div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-title" id="event2Title">Farmers Market</div>
+                            <div class="event-details" id="event2Details">Every Saturday, 8 AM - 2 PM | City Park | Fresh produce, artisanal goods, and local crafts</div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-title" id="event3Title">First-Time Homebuyer Workshop</div>
+                            <div class="event-details" id="event3Details">October 22nd, 6 PM | Community Center | Free workshop covering the home buying process</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Recent Sales in Your Area</h2>
+                    <div style="margin: 20px 0;">
+                        <p><strong>123 Oak Street:</strong> 3 BR/2 BA - Sold for $475,000 (15 days on market)</p>
+                        <p><strong>456 Maple Drive:</strong> 4 BR/3 BA - Sold for $520,000 (12 days on market)</p>
+                        <p><strong>789 Pine Avenue:</strong> 2 BR/2 BA - Sold for $385,000 (22 days on market)</p>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #666; font-style: italic;">Curious about your home's current value? Contact me for a complimentary market analysis.</p>
+                </div>
+            </div>
+
+            <div class="newsletter-footer">
+                <div class="agent-info">
+                    <div class="agent-name" id="agentName">Your Name</div>
+                    <div class="agent-contact">Licensed Real Estate Professional</div>
+                    <div class="agent-contact">📞 <span id="agentPhone">(555) 123-4567</span></div>
+                    <div class="agent-contact">✉️ <span id="agentEmail">your.email@realty.com</span></div>
+                    <div class="agent-contact" id="agentBrokerage">Your Brokerage Name</div>
+                </div>
+                <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 20px;">
+                    <p>Thank you for reading! Forward this newsletter to friends and family who might find it helpful.</p>
+                    <p style="margin-top: 10px;">Ready to buy or sell? I'm here to help you achieve your real estate goals.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls-panel">
+            <h3 class="panel-title">Customize Newsletter</h3>
+            
+            <div class="control-group">
+                <label>Newsletter Title</label>
+                <input type="text" id="newsletterTitleInput" value="The Real Estate Report" oninput="updateNewsletter()">
+            </div>
+            
+            <div class="control-group">
+                <label>Date/Edition</label>
+                <input type="text" id="newsletterDateInput" value="October 2024 Edition" oninput="updateNewsletter()">
+            </div>
+            
+            <div class="control-group">
+                <label>Featured Property Title</label>
+                <input type="text" id="featuredTitleInput" value="Beautiful Family Home in Prime Location" oninput="updateNewsletter()">
+            </div>
+            
+            <div class="control-group">
+                <label>Property Description</label>
+                <textarea id="featuredDescriptionInput" oninput="updateNewsletter()">This stunning 4-bedroom, 3-bathroom home features modern updates throughout, including a gourmet kitchen, hardwood floors, and a spacious backyard perfect for entertaining.</textarea>
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <div class="control-group" style="flex: 1;">
+                    <label>Property Price</label>
+                    <input type="text" id="featuredPriceInput" value="$525,000" oninput="updateNewsletter()">
+                </div>
+                <div class="control-group" style="flex: 1;">
+                    <label>Bedrooms</label>
+                    <input type="text" id="featuredBedsInput" value="4" oninput="updateNewsletter()">
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <div class="control-group" style="flex: 1;">
+                    <label>Bathrooms</label>
+                    <input type="text" id="featuredBathsInput" value="3" oninput="updateNewsletter()">
+                </div>
+                <div class="control-group" style="flex: 1;">
+                    <label>Square Feet</label>
+                    <input type="text" id="featuredSqftInput" value="2,400" oninput="updateNewsletter()">
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <div class="control-group" style="flex: 1;">
+                    <label>Avg Price</label>
+                    <input type="text" id="avgPriceInput" value="$485K" oninput="updateNewsletter()">
+                </div>
+                <div class="control-group" style="flex: 1;">
+                    <label>YoY Growth</label>
+                    <input type="text" id="priceChangeInput" value="+5.2%" oninput="updateNewsletter()">
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <div class="control-group" style="flex: 1;">
+                    <label>Days on Market</label>
+                    <input type="text" id="daysMarketInput" value="28" oninput="updateNewsletter()">
+                </div>
+                <div class="control-group" style="flex: 1;">
+                    <label>Total Sales</label>
+                    <input type="text" id="totalSalesInput" value="147" oninput="updateNewsletter()">
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label>Market Insights</label>
+                <textarea id="marketInsightsInput" oninput="updateNewsletter()">The local real estate market continues to show strong activity with steady price appreciation. Low inventory levels are creating competitive conditions for buyers, while sellers are seeing excellent results with proper pricing and marketing strategies.</textarea>
+            </div>
+            
+            <div class="control-group">
+                <label>Tip Title</label>
+                <input type="text" id="tipTitleInput" value="Fall Curb Appeal Boost" oninput="updateNewsletter()">
+            </div>
+            
+            <div class="control-group">
+                <label>Tip Content</label>
+                <textarea id="tipContentInput" oninput="updateNewsletter()">As we head into fall, simple landscaping updates can make a huge difference in your home's curb appeal. Consider planting colorful mums, cleaning gutters, and power washing walkways to create an inviting first impression for potential buyers.</textarea>
+            </div>
+            
+            <div class="control-group">
+                <label>Testimonial Text</label>
+                <textarea id="testimonialTextInput" oninput="updateNewsletter()">Working with [Agent Name] was an absolute pleasure. They guided us through every step of selling our home and helped us get top dollar in record time. Their marketing strategy and attention to detail made all the difference.</textarea>
+            </div>
+            
+            <div class="control-group">
+                <label>Testimonial Author</label>
+                <input type="text" id="testimonialAuthorInput" value="- The Johnson Family" oninput="updateNewsletter()">
+            </div>
+            
+            <div class="control-group">
+                <label>Event 1 Title</label>
+                <input type="text" id="event1TitleInput" value="Fall Festival Downtown" oninput="updateNewsletter()">
+            </div>
+            
+            <div class="control-group">
+                <label>Event 1 Details</label>
+                <input type="text" id="event1DetailsInput" value="October 15th, 10 AM - 4 PM | Main Street | Family-friendly activities, local vendors, and live music" oninput="updateNewsletter()">
+            </div>
+            
+            <div class="control-group">
+                <label>Agent Name</label>
+                <input type="text" id="agentNameInput" value="Your Name" oninput="updateNewsletter()">
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <div class="control-group" style="flex: 1;">
+                    <label>Phone</label>
+                    <input type="text" id="agentPhoneInput" value="(555) 123-4567" oninput="updateNewsletter()">
+                </div>
+                <div class="control-group" style="flex: 1;">
+                    <label>Email</label>
+                    <input type="text" id="agentEmailInput" value="your.email@realty.com" oninput="updateNewsletter()">
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label>Brokerage</label>
+                <input type="text" id="agentBrokerageInput" value="Your Brokerage Name" oninput="updateNewsletter()">
+            </div>
+            
+            <button class="download-btn" onclick="downloadNewsletter()">Download Newsletter</button>
+            <button class="download-btn" style="background: #27ae60; margin-top: 10px;" onclick="printNewsletter()">Print Newsletter</button>
+        </div>
+    </div>
+
+    <script>
+        function updateNewsletter() {
+            document.getElementById('newsletterTitle').textContent = document.getElementById('newsletterTitleInput').value;
+            document.getElementById('newsletterDate').textContent = document.getElementById('newsletterDateInput').value;
+            document.getElementById('featuredTitle').textContent = document.getElementById('featuredTitleInput').value;
+            document.getElementById('featuredDescription').textContent = document.getElementById('featuredDescriptionInput').value;
+            document.getElementById('featuredPrice').textContent = document.getElementById('featuredPriceInput').value;
+            document.getElementById('featuredBeds').textContent = document.getElementById('featuredBedsInput').value + ' Bedrooms';
+            document.getElementById('featuredBaths').textContent = document.getElementById('featuredBathsInput').value + ' Bathrooms';
+            document.getElementById('featuredSqft').textContent = document.getElementById('featuredSqftInput').value + ' Sq Ft';
+            document.getElementById('avgPrice').textContent = document.getElementById('avgPriceInput').value;
+            document.getElementById('priceChange').textContent = document.getElementById('priceChangeInput').value;
+            document.getElementById('daysMarket').textContent = document.getElementById('daysMarketInput').value;
+            document.getElementById('totalSales').textContent = document.getElementById('totalSalesInput').value;
+            document.getElementById('marketInsights').textContent = document.getElementById('marketInsightsInput').value;
+            document.getElementById('tipTitle').textContent = document.getElementById('tipTitleInput').value;
+            document.getElementById('tipContent').textContent = document.getElementById('tipContentInput').value;
+            document.getElementById('testimonialText').textContent = document.getElementById('testimonialTextInput').value;
+            document.getElementById('testimonialAuthor').textContent = document.getElementById('testimonialAuthorInput').value;
+            document.getElementById('event1Title').textContent = document.getElementById('event1TitleInput').value;
+            document.getElementById('event1Details').textContent = document.getElementById('event1DetailsInput').value;
+            document.getElementById('agentName').textContent = document.getElementById('agentNameInput').value;
+            document.getElementById('agentPhone').textContent = document.getElementById('agentPhoneInput').value;
+            document.getElementById('agentEmail').textContent = document.getElementById('agentEmailInput').value;
+            document.getElementById('agentBrokerage').textContent = document.getElementById('agentBrokerageInput').value;
+        }
+
+        function downloadNewsletter() {
+            const newsletterContent = document.getElementById('newsletterPreview').innerHTML;
+            
+            const fullHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Newsletter</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background: white; 
+            color: #333;
+            line-height: 1.6;
+        }
+        .newsletter-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            background: white;
+        }
+        .newsletter-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .newsletter-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .newsletter-date {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .newsletter-body {
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            font-weight: 600;
+        }
+        .featured-property {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #3498db;
+        }
+        .property-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .property-details {
+            display: flex;
+            gap: 15px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        .property-detail {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .market-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3498db;

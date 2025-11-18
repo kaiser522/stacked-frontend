@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drip Campaign Builder - Help Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #e1e5e9;
+            background-color: #2c3e50;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid #00d4aa;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #00d4aa;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content-section {
+            background: #34495e;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #485e73;
+        }
+        
+        .content-section h2 {
+            color: #00d4aa;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #00d4aa;
+            padding-bottom: 10px;
+        }
+        
+        .content-section h3 {
+            color: #00d4aa;
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+        }
+        
+        .content-section p {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: #e1e5e9;
+        }
+        
+        .campaign-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .campaign-card {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #485e73;
+        }
+        
+        .campaign-icon {
+            width: 50px;
+            height: 50px;
+            background: #00d4aa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .campaign-title {
+            color: #e1e5e9;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .campaign-description {
+            color: #b8c5d1;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .campaign-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: #00d4aa;
+            color: #2c3e50;
+        }
+        
+        .btn-secondary {
+            background: #485e73;
+            color: #e1e5e9;
+        }
+        
+        .enrolled-count {
+            color: #00d4aa;
+            font-size: 0.85rem;
+        }
+        
+        .step-list {
+            counter-reset: step-counter;
+        }
+        
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #00d4aa;
+            color: #2c3e50;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .tip-box {
+            background: #1e3d59;
+            border-left: 4px solid #00d4aa;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #e1e5e9;
+        }
+        
+        .tip-box strong {
+            color: #00d4aa;
+        }
+        
+        .warning-box {
+            background: #3d2f2f;
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #e1e5e9;
+        }
+        
+        .warning-box strong {
+            color: #ff6b6b;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            color: #e1e5e9;
+        }
+        
+        .template-feature {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #00d4aa;
+        }
+        
+        .template-feature h4 {
+            color: #00d4aa;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📧 Drip Campaign Builder</h1>
+            <p>Automated email sequences to nurture leads and close deals</p>
+        </div>
+
+        <div class="content-section">
+            <h2>What is the Drip Campaign Builder?</h2>
+            <p>The Drip Campaign Builder is a powerful automation tool that allows you to create and manage email sequences that automatically nurture your leads over time. Instead of manually sending individual follow-up emails, you can set up pre-written sequences that deliver the right message at the right time based on your client's journey.</p>
+            
+            <p>Drip campaigns help you stay top-of-mind with prospects, provide valuable information, and guide leads through your sales funnel—all while saving you hours of manual work each week. The system comes with pre-built templates for common real estate scenarios, or you can create custom campaigns tailored to your specific needs.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Pre-Built Campaign Templates</h2>
+            <p>The CRM includes six professionally-designed campaign templates ready to use:</p>
+
+            <div class="campaign-grid">
+                <div class="campaign-card">
+                    <div class="campaign-icon">🏠</div>
+                    <div class="campaign-title">New Lead Nurture Sequence</div>
+                    <div class="campaign-description">7-email sequence for converting new leads into qualified prospects with market insights and property recommendations.</div>
+                    <div class="enrolled-count">Example: 1 client enrolled</div>
+                </div>
+
+                <div class="campaign-card">
+                    <div class="campaign-icon">🔄</div>
+                    <div class="campaign-title">First-Time Buyer Journey</div>
+                    <div class="campaign-description">Complete nurture sequence guiding first-time buyers from initial interest through closing process.</div>
+                    <div class="enrolled-count">Example: 1 client enrolled</div>
+                </div>
+
+                <div class="campaign-card">
+                    <div class="campaign-icon">💰</div>
+                    <div class="campaign-title">Seller Follow-up Sequence</div>
+                    <div class="campaign-description">Automated follow-up campaign for potential sellers with market updates and pricing insights.</div>
+                    <div class="enrolled-count">Example: 0 clients enrolled</div>
+                </div>
+
+                <div class="campaign-card">
+                    <div class="campaign-icon">📈</div>
+                    <div class="campaign-title">Monthly Market Updates</div>
+                    <div class="campaign-description">Regular market insights and property value updates to keep clients engaged and informed.</div>
+                    <div class="enrolled-count">Example: 0 clients enrolled</div>
+                </div>
+
+                <div class="campaign-card">
+                    <div class="campaign-icon">🔄</div>
+                    <div class="campaign-title">Past Client Reactivation</div>
+                    <div class="campaign-description">Re-engage previous clients with personalized content and referral opportunities.</div>
+                    <div class="enrolled-count">Example: 0 clients enrolled</div>
+                </div>
+
+                <div class="campaign-card">
+                    <div class="campaign-icon">🏡</div>
+                    <div class="campaign-title">Open House Follow-up</div>
+                    <div class="campaign-description">Automatic follow-up sequence for open house attendees with property details and next steps.</div>
+                    <div class="enrolled-count">Example: 0 clients enrolled</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Campaign Template Details</h2>
+            
+            <div class="template-feature">
+                <h4>New Lead Nurture Sequence (7 emails)</h4>
+                <ul>
+                    <li>Email 1: Welcome and introduction to your services</li>
+                    <li>Email 2: Understanding their needs and goals</li>
+                    <li>Email 3: Market overview and current opportunities</li>
+                    <li>Email 4: Buyer/seller process education</li>
+                    <li>Email 5: Property recommendations or market analysis</li>
+                    <li>Email 6: Testimonials and success stories</li>
+                    <li>Email 7: Call to action - schedule consultation</li>
+                </ul>
+            </div>
+
+            <div class="template-feature">
+                <h4>First-Time Buyer Journey</h4>
+                <ul>
+                    <li>Pre-approval guidance and lender recommendations</li>
+                    <li>First-time buyer programs and incentives</li>
+                    <li>Home buying process step-by-step</li>
+                    <li>What to expect during showings</li>
+                    <li>Making competitive offers</li>
+                    <li>Inspection and due diligence</li>
+                    <li>Closing preparation and moving tips</li>
+                </ul>
+            </div>
+
+            <div class="template-feature">
+                <h4>Seller Follow-up Sequence</h4>
+                <ul>
+                    <li>Current market conditions in their area</li>
+                    <li>Home value estimate and pricing strategy</li>
+                    <li>Home preparation and staging tips</li>
+                    <li>Marketing plan overview</li>
+                    <li>Recent sales in their neighborhood</li>
+                    <li>Addressing common seller concerns</li>
+                </ul>
+            </div>
+
+            <div class="template-feature">
+                <h4>Monthly Market Updates</h4>
+                <ul>
+                    <li>Local market statistics and trends</li>
+                    <li>Interest rate updates</li>
+                    <li>New listings in their area of interest</li>
+                    <li>Recently sold properties</li>
+                    <li>Neighborhood spotlights</li>
+                    <li>Real estate tips and advice</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Campaign Actions</h2>
+            <p>Each campaign card includes four action buttons:</p>
+
+            <h3>Enroll Client</h3>
+            <ul>
+                <li>Add individual clients or contacts to the campaign</li>
+                <li>Select from your existing client list</li>
+                <li>Choose when the sequence should start</li>
+                <li>Clients automatically receive emails according to the campaign schedule</li>
+                <li>Can enroll multiple clients at once</li>
+            </ul>
+
+            <h3>Edit</h3>
+            <ul>
+                <li>Customize email content and subject lines</li>
+                <li>Adjust timing between emails</li>
+                <li>Add or remove emails from the sequence</li>
+                <li>Personalize with merge tags (client name, property address, etc.)</li>
+                <li>Modify campaign settings and triggers</li>
+            </ul>
+
+            <h3>View Enrolled</h3>
+            <ul>
+                <li>See all clients currently in the campaign</li>
+                <li>Check which email each client has received</li>
+                <li>View open rates and engagement metrics</li>
+                <li>Manually advance or pause individual clients</li>
+                <li>Remove clients from the sequence if needed</li>
+            </ul>
+
+            <h3>Preview</h3>
+            <ul>
+                <li>View what each email looks like before sending</li>
+                <li>Review the entire sequence flow</li>
+                <li>Check timing and spacing between emails</li>
+                <li>See how personalization fields will appear</li>
+                <li>Test email rendering on different devices</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Creating a New Campaign</h2>
+            <p>Click the "+ Create Campaign" button to build a custom drip campaign from scratch:</p>
+
+            <ol class="step-list">
+                <li>Click "+ Create Campaign" in the top-left corner</li>
+                <li>Enter a campaign name and description</li>
+                <li>Choose a campaign icon and color for easy identification</li>
+                <li>Click "Add Email" to create your first email in the sequence</li>
+                <li>Write your email subject line and body content</li>
+                <li>Set the delay (how many days after enrollment or previous email)</li>
+                <li>Add more emails to build your complete sequence</li>
+                <li>Preview the campaign to review all emails</li>
+                <li>Save and start enrolling clients</li>
+            </ol>
+
+            <h3>Email Timing Options</h3>
+            <ul>
+                <li><strong>Days After Enrollment:</strong> Send X days after client joins campaign</li>
+                <li><strong>Days After Previous Email:</strong> Send X days after they received last email</li>
+                <li><strong>Specific Date:</strong> Send on a particular date (for seasonal campaigns)</li>
+                <li><strong>Day of Week:</strong> Always send on specific days (e.g., every Monday)</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>Campaign Best Practice:</strong> Space emails 2-4 days apart for active campaigns, or 5-7 days for longer nurture sequences. Too frequent feels spammy; too spread out loses momentum.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Importing Campaign Templates</h2>
+            <p>Click "Import Templates" to access additional pre-built campaigns:</p>
+
+            <h3>Template Library</h3>
+            <ul>
+                <li>Seasonal campaigns (Spring Market, Holiday Greetings)</li>
+                <li>Specialized buyer sequences (Luxury Buyers, Investment Properties)</li>
+                <li>Seller-focused campaigns (Expired Listings, FSBO Outreach)</li>
+                <li>Referral request sequences</li>
+                <li>Anniversary and birthday campaigns</li>
+                <li>Community and neighborhood spotlights</li>
+            </ul>
+
+            <h3>Using Imported Templates</h3>
+            <ol class="step-list">
+                <li>Click "Import Templates" button</li>
+                <li>Browse available campaign templates</li>
+                <li>Read template descriptions and preview emails</li>
+                <li>Select templates you want to import</li>
+                <li>Templates appear in your campaign list</li>
+                <li>Customize as needed before enrolling clients</li>
+            </ol>
+        </div>
+
+        <div class="content-section">
+            <h2>Enrolling Clients in Campaigns</h2>
+            
+            <h3>Single Client Enrollment</h3>
+            <ol class="step-list">
+                <li>Click "Enroll Client" on the desired campaign card</li>
+                <li>Select a client from your contact list</li>
+                <li>Choose start date (immediate or scheduled)</li>
+                <li>Confirm enrollment</li>
+                <li>Client begins receiving emails according to sequence</li>
+            </ol>
+
+            <h3>Bulk Enrollment</h3>
+            <ul>
+                <li>Select multiple clients from your list</li>
+                <li>Choose "Bulk Actions" and select "Enroll in Campaign"</li>
+                <li>Pick the campaign to enroll them in</li>
+                <li>All selected clients start the sequence</li>
+                <li>Useful for adding entire lead lists to nurture campaigns</li>
+            </ul>
+
+            <h3>Automatic Enrollment Triggers</h3>
+            <p>Set up rules to automatically enroll clients based on actions:</p>
+            <ul>
+                <li><strong>New Lead:</strong> Automatically add to New Lead Nurture when created</li>
+                <li><strong>Stage Change:</strong> Move to different campaign when deal stage changes</li>
+                <li><strong>Tag Applied:</strong> Enroll when specific tag is added to contact</li>
+                <li><strong>Form Submission:</strong> Auto-enroll from website form captures</li>
+                <li><strong>Event Attendance:</strong> Add to follow-up after open house attendance</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>⚠️ Avoid Multiple Campaigns:</strong> Don't enroll the same client in multiple active campaigns simultaneously. This can overwhelm them with emails and reduce engagement. Use campaign sequences strategically.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Editing Campaign Content</h2>
+            
+            <h3>Email Editor Features</h3>
+            <ul>
+                <li>Rich text editor with formatting options</li>
+                <li>Add images, links, and buttons</li>
+                <li>Insert personalization merge tags</li>
+                <li>Email templates and layouts</li>
+                <li>Mobile-responsive preview</li>
+                <li>Spell check and grammar suggestions</li>
+            </ul>
+
+            <h3>Personalization Merge Tags</h3>
+            <p>Use merge tags to automatically insert client-specific information:</p>
+            <ul>
+                <li><code>{{first_name}}</code> - Client's first name</li>
+                <li><code>{{last_name}}</code> - Client's last name</li>
+                <li><code>{{email}}</code> - Client's email address</li>
+                <li><code>{{phone}}</code> - Client's phone number</li>
+                <li><code>{{property_address}}</code> - Associated property</li>
+                <li><code>{{agent_name}}</code> - Your name</li>
+                <li><code>{{company_name}}</code> - Your company</li>
+            </ul>
+
+            <h3>Campaign Settings</h3>
+            <ul>
+                <li><strong>Sending Schedule:</strong> What times to send emails (9 AM-5 PM recommended)</li>
+                <li><strong>Time Zone:</strong> Client's local time or your time zone</li>
+                <li><strong>Pause on Reply:</strong> Stop campaign if client responds</li>
+                <li><strong>Skip Weekends:</strong> Only send Monday-Friday</li>
+                <li><strong>Unsubscribe Option:</strong> Always included per CAN-SPAM compliance</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Monitoring Campaign Performance</h2>
+            
+            <h3>Campaign Metrics</h3>
+            <ul>
+                <li><strong>Open Rate:</strong> Percentage of recipients who opened each email</li>
+                <li><strong>Click Rate:</strong> Percentage who clicked links in emails</li>
+                <li><strong>Response Rate:</strong> Clients who replied to campaign emails</li>
+                <li><strong>Unsubscribe Rate:</strong> Percentage who opted out</li>
+                <li><strong>Conversion Rate:</strong> Clients who took desired action (booked meeting, etc.)</li>
+            </ul>
+
+            <h3>Viewing Enrolled Clients</h3>
+            <p>Click "View Enrolled" to see detailed enrollment information:</p>
+            <ul>
+                <li>List of all clients in the campaign</li>
+                <li>Current position in sequence (e.g., "Email 3 of 7")</li>
+                <li>Last email sent date and time</li>
+                <li>Engagement status (opened, clicked, replied)</li>
+                <li>Next scheduled email date</li>
+                <li>Option to pause or remove individual clients</li>
+            </ul>
+
+            <h3>A/B Testing</h3>
+            <ul>
+                <li>Test different subject lines to improve open rates</li>
+                <li>Try varying email content to boost engagement</li>
+                <li>Experiment with send times</li>
+                <li>Test different call-to-action buttons</li>
+                <li>Compare performance between variations</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>Performance Benchmark:</strong> Good email campaigns typically see 20-30% open rates and 2-5% click rates in real estate. If you're below these, test different subject lines and ensure your content provides value.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Campaign Best Practices</h2>
+            
+            <h3>Writing Effective Emails</h3>
+            <ul>
+                <li><strong>Compelling Subject Lines:</strong> Clear, benefit-focused, 6-8 words</li>
+                <li><strong>Personalized Content:</strong> Use merge tags and reference specific situations</li>
+                <li><strong>Clear Value:</strong> Every email should provide useful information or insights</li>
+                <li><strong>Single Call-to-Action:</strong> One clear next step per email</li>
+                <li><strong>Mobile-Friendly:</strong> Short paragraphs, scannable format</li>
+                <li><strong>Professional Tone:</strong> Friendly but authoritative</li>
+            </ul>
+
+            <h3>Campaign Strategy</h3>
+            <ul>
+                <li><strong>Match Campaign to Buyer Stage:</strong> First-time buyers need education; ready buyers need properties</li>
+                <li><strong>Progressive Value:</strong> Each email should build on previous ones</li>
+                <li><strong>Strategic Timing:</strong> Don't rush the sequence—nurturing takes time</li>
+                <li><strong>Clear Exit:</strong> End with strong call-to-action or transition</li>
+                <li><strong>Monitor and Adjust:</strong> Review performance monthly and refine</li>
+            </ul>
+
+            <h3>When to Use Each Template</h3>
+            <ul>
+                <li><strong>New Lead Nurture:</strong> Any new inquiry or lead capture</li>
+                <li><strong>First-Time Buyer:</strong> Buyers who indicate they haven't purchased before</li>
+                <li><strong>Seller Follow-up:</strong> Homeowners considering selling</li>
+                <li><strong>Market Updates:</strong> Past clients and sphere of influence</li>
+                <li><strong>Past Client Reactivation:</strong> Clients from 2+ years ago</li>
+                <li><strong>Open House Follow-up:</strong> Attendees from your open houses</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Managing Active Campaigns</h2>
+            
+            <h3>Pausing a Campaign</h3>
+            <ul>
+                <li>Click Edit on the campaign card</li>
+                <li>Toggle the "Active" switch to off</li>
+                <li>No new emails send, but enrolled clients remain in sequence</li>
+                <li>Reactivate anytime to resume sending</li>
+            </ul>
+
+            <h3>Removing Clients from Campaigns</h3>
+            <ul>
+                <li>Go to View Enrolled for the campaign</li>
+                <li>Find the client in the list</li>
+                <li>Click "Remove" or "Unenroll"</li>
+                <li>Client stops receiving emails immediately</li>
+                <li>Can re-enroll them later if needed</li>
+            </ul>
+
+            <h3>Duplicating Campaigns</h3>
+            <ul>
+                <li>Use "Duplicate" option in campaign menu</li>
+                <li>Creates copy of entire sequence</li>
+                <li>Modify for different audience or test variations</li>
+                <li>Useful for creating seasonal versions</li>
+            </ul>
+
+            <h3>Deleting Campaigns</h3>
+            <ul>
+                <li>Only delete campaigns with zero enrolled clients</li>
+                <li>Remove all enrollments first</li>
+                <li>Click Delete and confirm</li>
+                <li>Campaign and all emails permanently removed</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>⚠️ Before Deleting:</strong> Export campaign content if you might want it later. Deleted campaigns cannot be recovered. Consider pausing instead of deleting if you're unsure.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Compliance and Legal Considerations</h2>
+            
+            <h3>CAN-SPAM Compliance</h3>
+            <p>All drip campaigns must comply with CAN-SPAM Act requirements:</p>
+            <ul>
+                <li>Accurate "From" name and email address</li>
+                <li>Honest subject lines (no deceptive headers)</li>
+                <li>Physical mailing address in footer</li>
+                <li>Clear unsubscribe mechanism</li>
+                <li>Honor opt-out requests within 10 business days</li>
+            </ul>
+
+            <h3>Real Estate Email Best Practices</h3>
+            <ul>
+                <li>Only email people who have given permission</li>
+                <li>Include license number in email signature</li>
+                <li>Follow fair housing guidelines in content</li>
+                <li>Don't make misleading claims about properties</li>
+                <li>Respect state-specific real estate advertising laws</li>
+            </ul>
+
+            <h3>Legal Disclaimer</h3>
+            <div class="warning-box">
+                <strong>📋 IMPORTANT LEGAL DISCLAIMER:</strong> This template is for business use only and does not constitute legal advice. Stacked Technologies, LLC is not a law firm. Users are responsible for confirming compliance with all applicable local, state, and federal laws.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Troubleshooting</h2>
+            
+            <h3>Emails Not Sending</h3>
+            <ul>
+                <li>Check campaign is set to "Active"</li>
+                <li>Verify client email addresses are valid</li>
+                <li>Ensure sending schedule is configured correctly</li>
+                <li>Check if you've reached daily sending limits</li>
+                <li>Confirm email account is connected and authenticated</li>
+            </ul>
+
+            <h3>Low Open Rates</h3>
+            <ul>
+                <li>Test different subject lines</li>
+                <li>Check if emails are landing in spam</li>
+                <li>Verify sending from recognized domain</li>
+                <li>Send at optimal times (Tuesday-Thursday, 9 AM-2 PM)</li>
+                <li>Clean your list of inactive addresses</li>
+            </ul>
+
+            <h3>High Unsubscribe Rates</h3>
+            <ul>
+                <li>Review email frequency (may be too often)</li>
+                <li>Ensure content is valuable and relevant</li>
+                <li>Check that you're targeting right audience</li>
+                <li>Verify contacts opted in to receive emails</li>
+                <li>Improve content quality and personalization</li>
+            </ul>
+
+            <h3>Merge Tags Not Working</h3>
+            <ul>
+                <li>Check syntax: should be <code>{{field_name}}</code></li>
+                <li>Ensure client has data for that field</li>
+                <li>Verify field names match exactly</li>
+                <li>Preview with test client to check rendering</li>
+                <li>Contact support if issues persist</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Integration with Other CRM Sections</h2>
+            
+            <h3>Clients Section</h3>
+            <ul>
+                <li>View which campaigns each client is enrolled in</li>
+                <li>See campaign engagement history on client profiles</li>
+                <li>Enroll clients directly from client detail page</li>
+                <li>Campaign activity appears in client timeline</li>
+            </ul>
+
+            <h3>Analytics Section</h3>
+            <ul>
+                <li>Campaign performance feeds into overall analytics</li>
+                <li>Track lead source effectiveness by campaign</li>
+                <li>Monitor conversion rates by campaign type</li>
+                <li>Compare campaign ROI across different sequences</li>
+            </ul>
+
+            <h3>Activity Hub</h3>
+            <ul>
+                <li>Campaign emails appear in activity feed</li>
+                <li>Email opens/clicks trigger priority scoring</li>
+                <li>Responses to campaigns create follow-up tasks</li>
+                <li>Track engagement as part of overall client activity</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

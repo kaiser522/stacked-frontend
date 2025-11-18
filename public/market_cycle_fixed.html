@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Cycle Strategy and Timing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #9B59B6;
+            border-radius: 8px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        h1 {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .framework-badge {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #B0C4DE;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .read-time {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #00D4AA;
+        }
+        
+        h3 {
+            font-size: 1.8em;
+            margin: 40px 0 20px 0;
+            color: #FFD700;
+        }
+        
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #E6F3FF;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #9B59B6, #8E44AD);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 40px 0;
+        }
+        
+        .cycle-framework {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .cycle-step {
+            background: rgba(155, 89, 182, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid rgba(155, 89, 182, 0.3);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .cycle-step:hover {
+            transform: translateY(-5px);
+            border-color: #9B59B6;
+        }
+        
+        .cycle-step::after {
+            content: '→';
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: #9B59B6;
+            font-weight: bold;
+        }
+        
+        .cycle-step:last-child::after {
+            display: none;
+        }
+        
+        .step-number {
+            background: #9B59B6;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+        
+        .market-phases {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .phase-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            min-height: 400px;
+        }
+        
+        .phase-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .phase-card.expansion {
+            border: 3px solid #27AE60;
+        }
+        
+        .phase-card.peak {
+            border: 3px solid #E74C3C;
+        }
+        
+        .phase-card.contraction {
+            border: 3px solid #E67E22;
+        }
+        
+        .phase-card.trough {
+            border: 3px solid #3498DB;
+        }
+        
+        .phase-card h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        
+        .expansion h3 { color: #27AE60; }
+        .peak h3 { color: #E74C3C; }
+        .contraction h3 { color: #E67E22; }
+        .trough h3 { color: #3498DB; }
+        
+        .phase-indicator {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .cycle-tracker {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .tracker-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+        
+        .tracker-header {
+            background: #1e3a5f;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        
+        .tracker-cell {
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+        }
+        
+        .expansion-cell { 
+            background: #27AE60; 
+            color: white;
+            font-weight: bold;
+        }
+        .peak-cell { 
+            background: #E74C3C; 
+            color: white;
+            font-weight: bold;
+        }
+        .contraction-cell { 
+            background: #E67E22; 
+            color: white;
+            font-weight: bold;
+        }
+        .trough-cell { 
+            background: #3498DB; 
+            color: white;
+            font-weight: bold;
+        }
+        
+        .opportunity-calculator {
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .calc-input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #FFD700;
+            background: white;
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .calc-button {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .calc-button:hover {
+            transform: scale(1.02);
+            background: #00B894;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        @media (max-width: 900px) {
+            .cycle-framework {
+                grid-template-columns: 1fr;
+            }
+            
+            .market-phases {
+                grid-template-columns: 1fr;
+            }
+            
+            .tracker-grid {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .cycle-step::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">📈</div>
+            <h1>Market Cycle Strategy and Timing</h1>
+            <div class="framework-badge">Pro Plan</div>
+            <p class="subtitle">Master market timing, recognize cycle phases early, and position your business for maximum opportunity in any market condition.</p>
+            <div class="read-time">26 min read</div>
+        </div>
+
+        <div class="section">
+            <div class="highlight-box">
+                Agents who master market timing earn 45% more in down markets and 67% more in up markets
+            </div>
+
+            <p>Most agents are reactive to market changes. They adjust their strategies after the market has already shifted, missing the biggest opportunities and struggling through the hardest periods.</p>
+
+            <p>The agents who consistently succeed across all market cycles don't just adapt—they anticipate. They recognize early indicators of market shifts and position themselves to capitalize on opportunities while their competitors are still figuring out what happened.</p>
+
+            <div class="cycle-framework">
+                <div class="cycle-step">
+                    <div class="step-number">1</div>
+                    <h4>Recognize</h4>
+                    <p>Identify current market phase and early shift indicators</p>
+                </div>
+                <div class="cycle-step">
+                    <div class="step-number">2</div>
+                    <h4>Position</h4>
+                    <p>Align business strategy with market cycle phase</p>
+                </div>
+                <div class="cycle-step">
+                    <div class="step-number">3</div>
+                    <h4>Anticipate</h4>
+                    <p>Prepare for the next phase before it arrives</p>
+                </div>
+                <div class="cycle-step">
+                    <div class="step-number">4</div>
+                    <h4>Execute</h4>
+                    <p>Implement phase-specific tactics for maximum impact</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>The Four Market Cycle Phases</h2>
+            <p>Understanding where your market is in the cycle is essential for strategic planning:</p>
+
+            <div class="market-phases">
+                <div class="phase-card expansion">
+                    <div class="phase-indicator">🚀</div>
+                    <h3>Expansion Phase</h3>
+                    <p><strong>Characteristics:</strong></p>
+                    <ul style="text-align: left; margin-left: 20px; color: #E6F3FF;">
+                        <li>Rising prices and sales volume</li>
+                        <li>Low inventory levels</li>
+                        <li>Multiple offers common</li>
+                        <li>Quick sales (under 30 days)</li>
+                        <li>High buyer competition</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Duration:</strong> 2-5 years typically</p>
+                    <p><strong>Your Focus:</strong> Volume and efficiency</p>
+                </div>
+
+                <div class="phase-card peak">
+                    <div class="phase-indicator">⛰️</div>
+                    <h3>Peak Phase</h3>
+                    <p><strong>Characteristics:</strong></p>
+                    <ul style="text-align: left; margin-left: 20px; color: #E6F3FF;">
+                        <li>Maximum prices reached</li>
+                        <li>Sales pace starts slowing</li>
+                        <li>Inventory begins increasing</li>
+                        <li>First signs of buyer hesitation</li>
+                        <li>Media attention on "hot market"</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Duration:</strong> 6-18 months</p>
+                    <p><strong>Your Focus:</strong> Positioning and preparation</p>
+                </div>
+
+                <div class="phase-card contraction">
+                    <div class="phase-indicator">📉</div>
+                    <h3>Contraction Phase</h3>
+                    <p><strong>Characteristics:</strong></p>
+                    <ul style="text-align: left; margin-left: 20px; color: #E6F3FF;">
+                        <li>Declining prices and volume</li>
+                        <li>Rising inventory levels</li>
+                        <li>Longer days on market</li>
+                        <li>Price reductions common</li>
+                        <li>Buyer negotiation power</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Duration:</strong> 1-3 years</p>
+                    <p><strong>Your Focus:</strong> Value and expertise</p>
+                </div>
+
+                <div class="phase-card trough">
+                    <div class="phase-indicator">🏔️</div>
+                    <h3>Trough Phase</h3>
+                    <p><strong>Characteristics:</strong></p>
+                    <ul style="text-align: left; margin-left: 20px; color: #E6F3FF;">
+                        <li>Prices stabilize at low point</li>
+                        <li>Volume remains low</li>
+                        <li>High inventory but slowing growth</li>
+                        <li>Only motivated buyers active</li>
+                        <li>Media reports "market bottom"</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Duration:</strong> 6 months - 2 years</p>
+                    <p><strong>Your Focus:</strong> Investment and preparation</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Market Phase Identification System</h2>
+            <p>Use these metrics to accurately identify your current market phase:</p>
+
+            <div class="cycle-tracker">
+                <h3 style="color: #333; margin-top: 0;">Market Phase Diagnostic Matrix</h3>
+                <div class="tracker-grid">
+                    <div class="tracker-header">Metric</div>
+                    <div class="tracker-header">Expansion</div>
+                    <div class="tracker-header">Peak</div>
+                    <div class="tracker-header">Contraction</div>
+                    <div class="tracker-header">Trough</div>
+                    <div class="tracker-header">Current</div>
+                    
+                    <div class="tracker-cell"><strong>Median Days on Market</strong></div>
+                    <div class="tracker-cell expansion-cell">< 20 days</div>
+                    <div class="tracker-cell peak-cell">20-40 days</div>
+                    <div class="tracker-cell contraction-cell">40-90 days</div>
+                    <div class="tracker-cell trough-cell">90+ days</div>
+                    <div class="tracker-cell" id="current-dom">Enter data below</div>
+                    
+                    <div class="tracker-cell"><strong>Price Change YoY</strong></div>
+                    <div class="tracker-cell expansion-cell">+5% to +15%</div>
+                    <div class="tracker-cell peak-cell">+15%+</div>
+                    <div class="tracker-cell contraction-cell">-5% to +5%</div>
+                    <div class="tracker-cell trough-cell">-5% or more</div>
+                    <div class="tracker-cell" id="current-price">Enter data below</div>
+                    
+                    <div class="tracker-cell"><strong>Inventory Months</strong></div>
+                    <div class="tracker-cell expansion-cell">< 3 months</div>
+                    <div class="tracker-cell peak-cell">3-4 months</div>
+                    <div class="tracker-cell contraction-cell">4-8 months</div>
+                    <div class="tracker-cell trough-cell">8+ months</div>
+                    <div class="tracker-cell" id="current-inventory">Enter data below</div>
+                    
+                    <div class="tracker-cell"><strong>Sales Volume Change</strong></div>
+                    <div class="tracker-cell expansion-cell">+10%+ YoY</div>
+                    <div class="tracker-cell peak-cell">Flat to +5%</div>
+                    <div class="tracker-cell contraction-cell">-10% to flat</div>
+                    <div class="tracker-cell trough-cell">-10%+ YoY</div>
+                    <div class="tracker-cell" id="current-volume">Enter data below</div>
+                    
+                    <div class="tracker-cell"><strong>Multiple Offers</strong></div>
+                    <div class="tracker-cell expansion-cell">60%+ listings</div>
+                    <div class="tracker-cell peak-cell">30-60%</div>
+                    <div class="tracker-cell contraction-cell">10-30%</div>
+                    <div class="tracker-cell trough-cell">< 10%</div>
+                    <div class="tracker-cell" id="current-offers">Enter data below</div>
+                </div>
+                
+                <div style="margin: 25px 0;">
+                    <label style="display: block; margin-bottom: 10px; font-weight: bold; color: #333;">Enter your market data to analyze phase:</label>
+                    <input type="number" id="market-dom" placeholder="Days on Market" style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #9B59B6; background: white; color: #333; font-size: 16px; margin-bottom: 15px;">
+                    <input type="number" id="market-price-change" placeholder="Price Change % (use negative for declines)" style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #9B59B6; background: white; color: #333; font-size: 16px; margin-bottom: 15px;">
+                    <input type="number" id="market-inventory" placeholder="Months of Inventory" style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #9B59B6; background: white; color: #333; font-size: 16px; margin-bottom: 15px;">
+                    <input type="number" id="market-volume-change" placeholder="Volume Change % (use negative for declines)" style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #9B59B6; background: white; color: #333; font-size: 16px; margin-bottom: 15px;">
+                    <input type="number" id="market-offers" placeholder="Multiple Offers %" style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #9B59B6; background: white; color: #333; font-size: 16px; margin-bottom: 15px;">
+                </div>
+                
+                <button onclick="calculateMarketPhase()" style="background: #9B59B6; color: white; padding: 12px 24px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 15px;">
+                    Analyze My Market Phase
+                </button>
+                
+                <div id="phase-result" style="display: none; background: rgba(155, 89, 182, 0.2); padding: 20px; border-radius: 10px; margin-top: 20px; color: #333;">
+                    <div id="phase-analysis"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Market Timing Opportunity Calculator</h2>
+            <p>Quantify the potential impact of different market timing decisions:</p>
+
+            <div class="opportunity-calculator">
+                <h3 style="color: #FFD700; margin-top: 0;">📊 Market Timing Impact Calculator</h3>
+                <p>Calculate the potential revenue impact of timing strategies:</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 25px 0;">
+                    <div>
+                        <label style="display: block; margin-bottom: 10px; font-weight: bold; color: white;">Current Annual Sales Volume:</label>
+                        <input type="number" id="annual-volume" placeholder="24" class="calc-input">
+                        
+                        <label style="display: block; margin-bottom: 10px; font-weight: bold; color: white;">Average Sale Price:</label>
+                        <input type="number" id="avg-price" placeholder="450000" class="calc-input">
+                        
+                        <label style="display: block; margin-bottom: 10px; font-weight: bold; color: white;">Current Commission Rate (%):</label>
+                        <input type="number" id="commission-rate" placeholder="3" step="0.1" class="calc-input">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 10px; font-weight: bold; color: white;">Market Phase Timing:</label>
+                        <select id="timing-scenario" class="calc-input">
+                            <option value="early-expansion">Early Expansion Entry</option>
+                            <option value="peak-exit">Peak Exit Strategy</option>
+                            <option value="contraction-focus">Contraction Market Focus</option>
+                            <option value="trough-investment">Trough Investment Strategy</option>
+                        </select>
+                        
+                        <label style="display: block; margin-bottom: 10px; font-weight: bold; color: white;">Implementation Timeline (months):</label>
+                        <input type="number" id="implementation-time" placeholder="12" class="calc-input">
+                        
+                        <label style="display: block; margin-bottom: 10px; font-weight: bold; color: white;">Investment in Strategy ($):</label>
+                        <input type="number" id="strategy-investment" placeholder="15000" class="calc-input">
+                    </div>
+                </div>
+                
+                <button onclick="calculateTimingImpact()" class="calc-button">
+                    Calculate Timing Impact
+                </button>
+                
+                <div id="timing-results" style="display: none;">
+                    <div style="background: rgba(155, 89, 182, 0.2); padding: 20px; border-radius: 10px; margin-top: 20px;">
+                        <div id="timing-analysis"></div>
+                    </div>
+                    <div style="background: rgba(255, 215, 0, 0.2); padding: 20px; border-radius: 10px; margin-top: 15px;">
+                        <div id="strategy-recommendations"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Success Metrics and KPIs</h2>
+            <p>Track these metrics to measure your market timing effectiveness:</p>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin: 30px 0;">
+                <div style="background: rgba(255, 255, 255, 0.15); padding: 25px; border-radius: 15px; border: 2px solid #9B59B6;">
+                    <h4 style="color: #9B59B6; margin-top: 0;">Performance Metrics</h4>
+                    <ul style="color: white; margin-left: 20px;">
+                        <li><strong>Market share vs. phase:</strong> Track your share in each cycle</li>
+                        <li><strong>Revenue per transaction:</strong> Optimize for each phase</li>
+                        <li><strong>Lead conversion rates:</strong> By market condition</li>
+                        <li><strong>Client satisfaction scores:</strong> Maintain through all cycles</li>
+                    </ul>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.15); padding: 25px; border-radius: 15px; border: 2px solid #FFD700;">
+                    <h4 style="color: #FFD700; margin-top: 0;">Predictive Indicators</h4>
+                    <ul style="color: white; margin-left: 20px;">
+                        <li><strong>Lead indicator accuracy:</strong> How early you spot shifts</li>
+                        <li><strong>Strategy transition time:</strong> Speed of adaptation</li>
+                        <li><strong>Competitive positioning:</strong> Relative market performance</li>
+                        <li><strong>Client retention rates:</strong> Through market cycles</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.95); color: #1e3a5f; padding: 25px; border-radius: 15px; margin: 20px 0;">
+                <h4 style="color: #1e3a5f; margin-top: 0;">Market Timing ROI Analysis:</h4>
+                <p style="color: #1e3a5f;"><strong>Baseline Performance:</strong> Reactive agents average 15-20 transactions annually</p>
+                <p style="color: #1e3a5f;"><strong>Cycle-Aware Performance:</strong> Proactive agents average 25-35 transactions annually</p>
+                <p style="color: #1e3a5f;"><strong>Premium Positioning:</strong> 20-40% higher commission rates through expertise</p>
+                <p style="color: #1e3a5f;"><strong>Client Retention:</strong> 60% vs 35% for market-timing vs reactive agents</p>
+                <p style="margin-top: 15px; color: #1e3a5f; font-weight: bold;">Agents who master market timing typically earn 45-67% more over a complete market cycle.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p style="color: #B0C4DE;">Stacked • Real Estate CRM • Pro Plan Advanced Training</p>
+        </div>
+    </div>
+
+    <script>
+        function calculateMarketPhase() {
+            const dom = parseFloat(document.getElementById('market-dom').value) || 0;
+            const priceChange = parseFloat(document.getElementById('market-price-change').value) || 0;
+            const inventory = parseFloat(document.getElementById('market-inventory').value) || 0;
+            const volumeChange = parseFloat(document.getElementById('market-volume-change').value) || 0;
+            const offers = parseFloat(document.getElementById('market-offers').value) || 0;
+            
+            if (dom === 0 || inventory === 0) {
+                alert('Please enter at least Days on Market and Inventory data.');
+                return;
+            }
+            
+            let phaseScores = {
+                expansion: 0,
+                peak: 0,
+                contraction: 0,
+                trough: 0
+            };
+            
+            // Score based on DOM
+            if (dom < 20) phaseScores.expansion += 2;
+            else if (dom < 40) phaseScores.peak += 2;
+            else if (dom < 90) phaseScores.contraction += 2;
+            else phaseScores.trough += 2;
+            
+            // Score based on price change
+            if (priceChange >= 15) phaseScores.peak += 2;
+            else if (priceChange >= 5) phaseScores.expansion += 2;
+            else if (priceChange >= -5) phaseScores.contraction += 2;
+            else phaseScores.trough += 2;
+            
+            // Score based on inventory
+            if (inventory < 3) phaseScores.expansion += 2;
+            else if (inventory < 4) phaseScores.peak += 2;
+            else if (inventory < 8) phaseScores.contraction += 2;
+            else phaseScores.trough += 2;
+            
+            // Score based on volume change
+            if (volumeChange >= 10) phaseScores.expansion += 1;
+            else if (volumeChange >= 0) phaseScores.peak += 1;
+            else if (volumeChange >= -10) phaseScores.contraction += 1;
+            else phaseScores.trough += 1;
+            
+            // Score based on multiple offers
+            if (offers >= 60) phaseScores.expansion += 1;
+            else if (offers >= 

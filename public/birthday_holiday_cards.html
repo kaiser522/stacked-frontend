@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Birthday & Holiday Card Designer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            border: 2px solid #f093fb;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: #f093fb;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #a0b4c3;
+            margin-bottom: 20px;
+        }
+
+        .format-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            color: #a0b4c3;
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .template-card {
+            background: rgba(58, 74, 92, 0.8);
+            border: 2px solid #f093fb;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(240, 147, 251, 0.3);
+        }
+
+        .card-preview {
+            background: white;
+            margin: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            min-height: 350px;
+        }
+
+        .greeting-card {
+            width: 350px;
+            height: 250px;
+            background: white;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transform: scale(0.9);
+            font-family: 'Georgia', serif;
+        }
+
+        .card-front {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .card-header {
+            padding: 30px 25px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-message {
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .card-submessage {
+            font-size: 14px;
+            opacity: 0.95;
+            font-style: italic;
+        }
+
+        .card-footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            text-align: center;
+            color: #333;
+            font-size: 12px;
+        }
+
+        .agent-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 3px;
+        }
+
+        .agent-contact {
+            color: #666;
+            font-size: 11px;
+        }
+
+        .template-controls {
+            padding: 25px;
+            background: rgba(58, 74, 92, 1);
+        }
+
+        .template-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #f093fb;
+            text-align: center;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #a0b4c3;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .control-group input, 
+        .control-group textarea, 
+        .control-group select {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #5a6a7c;
+            border-radius: 5px;
+            background: #2c3e50;
+            color: white;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .control-group input:focus, 
+        .control-group textarea:focus, 
+        .control-group select:focus {
+            outline: none;
+            border-color: #f093fb;
+        }
+
+        .control-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .color-option.active {
+            border-color: #f093fb;
+        }
+
+        .download-btn {
+            width: 100%;
+            padding: 12px;
+            background: #f093fb;
+            color: #2c3e50;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .download-btn:hover {
+            background: #e085d8;
+            transform: translateY(-2px);
+        }
+
+        .bulk-download {
+            background: #f093fb;
+            color: #2c3e50;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .bulk-download:hover {
+            background: #e085d8;
+            transform: translateY(-2px);
+        }
+
+        .tag {
+            background: rgba(240, 147, 251, 0.2);
+            color: #f093fb;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(240, 147, 251, 0.3);
+            display: inline-block;
+            margin: 2px;
+        }
+
+        .decorative-element {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .format-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .greeting-card {
+                transform: scale(0.75);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>
+            <div class="card-icon">🎂</div>
+            Client Birthday & Holiday Cards
+        </h1>
+        <p>Personal touch cards to stay connected with past clients.</p>
+        <div class="format-info">
+            <span>🎉 Birthday Cards</span>
+            <span>🎄 Holiday Greetings</span>
+            <span>📮 Print Ready</span>
+        </div>
+        <div style="margin-top: 20px;">
+            <span class="tag">client retention</span>
+            <span class="tag">personal touch</span>
+            <span class="tag">relationship building</span>
+        </div>
+        <button class="bulk-download" onclick="downloadAllCards()">Download All Templates</button>
+    </div>
+
+    <div class="templates-grid">
+        <!-- Birthday Card Template -->
+        <div class="template-card">
+            <div class="card-preview">
+                <div class="greeting-card" id="birthdayCard">
+                    <div class="card-front">
+                        <div class="card-header" style="background: linear-gradient(135deg, #ff9a8b, #fecfef);">
+                            <div class="decorative-element">🎂</div>
+                            <div class="card-message" id="birthdayMessage">Happy Birthday!</div>
+                            <div class="card-submessage" id="birthdaySubmessage">Wishing you a wonderful year ahead filled with joy and happiness!</div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="agent-name" id="birthdayAgent">Your Name</div>
+                            <div class="agent-contact">
+                                📞 <span id="birthdayPhone">(555) 123-4567</span> | 
+                                ✉️ <span id="birthdayEmail">your@email.com</span>
+                            </div>
+                            <div style="margin-top: 5px; font-size: 10px; color: #888;">
+                                <span id="birthdayBrokerage">Your Real Estate Company</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="template-controls">
+                <h3 class="template-title">Birthday Card</h3>
+                
+                <div class="control-group">
+                    <label>Main Message</label>
+                    <input type="text" id="birthdayMessageInput" value="Happy Birthday!" oninput="updateBirthdayCard()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Personal Message</label>
+                    <textarea id="birthdaySubmessageInput" oninput="updateBirthdayCard()">Wishing you a wonderful year ahead filled with joy and happiness!</textarea>
+                </div>
+                
+                <div class="control-group">
+                    <label>Agent Name</label>
+                    <input type="text" id="birthdayAgentInput" value="Your Name" oninput="updateBirthdayCard()">
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <div class="control-group" style="flex: 1;">
+                        <label>Phone</label>
+                        <input type="text" id="birthdayPhoneInput" value="(555) 123-4567" oninput="updateBirthdayCard()">
+                    </div>
+                    <div class="control-group" style="flex: 1;">
+                        <label>Email</label>
+                        <input type="text" id="birthdayEmailInput" value="your@email.com" oninput="updateBirthdayCard()">
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Company Name</label>
+                    <input type="text" id="birthdayBrokerageInput" value="Your Real Estate Company" oninput="updateBirthdayCard()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Card Color Theme</label>
+                    <div class="color-picker">
+                        <div class="color-option active" style="background: linear-gradient(135deg, #ff9a8b, #fecfef)" data-gradient="linear-gradient(135deg, #ff9a8b, #fecfef)" onclick="changeBirthdayColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #667eea, #764ba2)" data-gradient="linear-gradient(135deg, #667eea, #764ba2)" onclick="changeBirthdayColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #f093fb, #f5576c)" data-gradient="linear-gradient(135deg, #f093fb, #f5576c)" onclick="changeBirthdayColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #4facfe, #00f2fe)" data-gradient="linear-gradient(135deg, #4facfe, #00f2fe)" onclick="changeBirthdayColor(this)"></div>
+                    </div>
+                </div>
+                
+                <button class="download-btn" onclick="downloadCard('birthday')">Download Birthday Card</button>
+            </div>
+        </div>
+
+        <!-- Christmas Holiday Card -->
+        <div class="template-card">
+            <div class="card-preview">
+                <div class="greeting-card" id="christmasCard">
+                    <div class="card-front">
+                        <div class="card-header" style="background: linear-gradient(135deg, #2d5016, #0f2027);">
+                            <div class="decorative-element">🎄</div>
+                            <div class="card-message" id="christmasMessage">Merry Christmas!</div>
+                            <div class="card-submessage" id="christmasSubmessage">May your holidays be filled with warmth, joy, and wonderful memories with loved ones.</div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="agent-name" id="christmasAgent">Your Name</div>
+                            <div class="agent-contact">
+                                📞 <span id="christmasPhone">(555) 123-4567</span> | 
+                                ✉️ <span id="christmasEmail">your@email.com</span>
+                            </div>
+                            <div style="margin-top: 5px; font-size: 10px; color: #888;">
+                                <span id="christmasBrokerage">Your Real Estate Company</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="template-controls">
+                <h3 class="template-title">Christmas Card</h3>
+                
+                <div class="control-group">
+                    <label>Main Message</label>
+                    <input type="text" id="christmasMessageInput" value="Merry Christmas!" oninput="updateChristmasCard()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Personal Message</label>
+                    <textarea id="christmasSubmessageInput" oninput="updateChristmasCard()">May your holidays be filled with warmth, joy, and wonderful memories with loved ones.</textarea>
+                </div>
+                
+                <div class="control-group">
+                    <label>Agent Name</label>
+                    <input type="text" id="christmasAgentInput" value="Your Name" oninput="updateChristmasCard()">
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <div class="control-group" style="flex: 1;">
+                        <label>Phone</label>
+                        <input type="text" id="christmasPhoneInput" value="(555) 123-4567" oninput="updateChristmasCard()">
+                    </div>
+                    <div class="control-group" style="flex: 1;">
+                        <label>Email</label>
+                        <input type="text" id="christmasEmailInput" value="your@email.com" oninput="updateChristmasCard()">
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Company Name</label>
+                    <input type="text" id="christmasBrokerageInput" value="Your Real Estate Company" oninput="updateChristmasCard()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Card Color Theme</label>
+                    <div class="color-picker">
+                        <div class="color-option active" style="background: linear-gradient(135deg, #2d5016, #0f2027)" data-gradient="linear-gradient(135deg, #2d5016, #0f2027)" onclick="changeChristmasColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #c31432, #240b36)" data-gradient="linear-gradient(135deg, #c31432, #240b36)" onclick="changeChristmasColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #134e5e, #71b280)" data-gradient="linear-gradient(135deg, #134e5e, #71b280)" onclick="changeChristmasColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #8b0000, #2e8b57)" data-gradient="linear-gradient(135deg, #8b0000, #2e8b57)" onclick="changeChristmasColor(this)"></div>
+                    </div>
+                </div>
+                
+                <button class="download-btn" onclick="downloadCard('christmas')">Download Christmas Card</button>
+            </div>
+        </div>
+
+        <!-- New Year Card -->
+        <div class="template-card">
+            <div class="card-preview">
+                <div class="greeting-card" id="newyearCard">
+                    <div class="card-front">
+                        <div class="card-header" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                            <div class="decorative-element">🎊</div>
+                            <div class="card-message" id="newyearMessage">Happy New Year!</div>
+                            <div class="card-submessage" id="newyearSubmessage">Wishing you prosperity, happiness, and success in the year ahead!</div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="agent-name" id="newyearAgent">Your Name</div>
+                            <div class="agent-contact">
+                                📞 <span id="newyearPhone">(555) 123-4567</span> | 
+                                ✉️ <span id="newyearEmail">your@email.com</span>
+                            </div>
+                            <div style="margin-top: 5px; font-size: 10px; color: #888;">
+                                <span id="newyearBrokerage">Your Real Estate Company</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="template-controls">
+                <h3 class="template-title">New Year Card</h3>
+                
+                <div class="control-group">
+                    <label>Main Message</label>
+                    <input type="text" id="newyearMessageInput" value="Happy New Year!" oninput="updateNewyearCard()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Personal Message</label>
+                    <textarea id="newyearSubmessageInput" oninput="updateNewyearCard()">Wishing you prosperity, happiness, and success in the year ahead!</textarea>
+                </div>
+                
+                <div class="control-group">
+                    <label>Agent Name</label>
+                    <input type="text" id="newyearAgentInput" value="Your Name" oninput="updateNewyearCard()">
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <div class="control-group" style="flex: 1;">
+                        <label>Phone</label>
+                        <input type="text" id="newyearPhoneInput" value="(555) 123-4567" oninput="updateNewyearCard()">
+                    </div>
+                    <div class="control-group" style="flex: 1;">
+                        <label>Email</label>
+                        <input type="text" id="newyearEmailInput" value="your@email.com" oninput="updateNewyearCard()">
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Company Name</label>
+                    <input type="text" id="newyearBrokerageInput" value="Your Real Estate Company" oninput="updateNewyearCard()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Card Color Theme</label>
+                    <div class="color-picker">
+                        <div class="color-option active" style="background: linear-gradient(135deg, #667eea, #764ba2)" data-gradient="linear-gradient(135deg, #667eea, #764ba2)" onclick="changeNewyearColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #ffd700, #ff8c00)" data-gradient="linear-gradient(135deg, #ffd700, #ff8c00)" onclick="changeNewyearColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #8e2de2, #4a00e0)" data-gradient="linear-gradient(135deg, #8e2de2, #4a00e0)" onclick="changeNewyearColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #ff6b6b, #ee5a24)" data-gradient="linear-gradient(135deg, #ff6b6b, #ee5a24)" onclick="changeNewyearColor(this)"></div>
+                    </div>
+                </div>
+                
+                <button class="download-btn" onclick="downloadCard('newyear')">Download New Year Card</button>
+            </div>
+        </div>
+
+        <!-- Thank You Anniversary Card -->
+        <div class="template-card">
+            <div class="card-preview">
+                <div class="greeting-card" id="thankyouCard">
+                    <div class="card-front">
+                        <div class="card-header" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                            <div class="decorative-element">💝</div>
+                            <div class="card-message" id="thankyouMessage">Thank You!</div>
+                            <div class="card-submessage" id="thankyouSubmessage">It's been one year since we worked together. Thank you for trusting me with your real estate needs!</div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="agent-name" id="thankyouAgent">Your Name</div>
+                            <div class="agent-contact">
+                                📞 <span id="thankyouPhone">(555) 123-4567</span> | 
+                                ✉️ <span id="thankyouEmail">your@email.com</span>
+                            </div>
+                            <div style="margin-top: 5px; font-size: 10px; color: #888;">
+                                <span id="thankyouBrokerage">Your Real Estate Company</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="template-controls">
+                <h3 class="template-title">Thank You / Anniversary Card</h3>
+                
+                <div class="control-group">
+                    <label>Main Message</label>
+                    <input type="text" id="thankyouMessageInput" value="Thank You!" oninput="updateThankyouCard()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Personal Message</label>
+                    <textarea id="thankyouSubmessageInput" oninput="updateThankyouCard()">It's been one year since we worked together. Thank you for trusting me with your real estate needs!</textarea>
+                </div>
+                
+                <div class="control-group">
+                    <label>Agent Name</label>
+                    <input type="text" id="thankyouAgentInput" value="Your Name" oninput="updateThankyouCard()">
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <div class="control-group" style="flex: 1;">
+                        <label>Phone</label>
+                        <input type="text" id="thankyouPhoneInput" value="(555) 123-4567" oninput="updateThankyouCard()">
+                    </div>
+                    <div class="control-group" style="flex: 1;">
+                        <label>Email</label>
+                        <input type="text" id="thankyouEmailInput" value="your@email.com" oninput="updateThankyouCard()">
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Company Name</label>
+                    <input type="text" id="thankyouBrokerageInput" value="Your Real Estate Company" oninput="updateThankyouCard()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Card Color Theme</label>
+                    <div class="color-picker">
+                        <div class="color-option active" style="background: linear-gradient(135deg, #667eea, #764ba2)" data-gradient="linear-gradient(135deg, #667eea, #764ba2)" onclick="changeThankyouColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #ff9a8b, #fecfef)" data-gradient="linear-gradient(135deg, #ff9a8b, #fecfef)" onclick="changeThankyouColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #a8edea, #fed6e3)" data-gradient="linear-gradient(135deg, #a8edea, #fed6e3)" onclick="changeThankyouColor(this)"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #ffecd2, #fcb69f)" data-gradient="linear-gradient(135deg, #ffecd2, #fcb69f)" onclick="changeThankyouColor(this)"></div>
+                    </div>
+                </div>
+                
+                <button class="download-btn" onclick="downloadCard('thankyou')">Download Thank You Card</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateBirthdayCard() {
+            document.getElementById('birthdayMessage').textContent = document.getElementById('birthdayMessageInput').value;
+            document.getElementById('birthdaySubmessage').textContent = document.getElementById('birthdaySubmessageInput').value;
+            document.getElementById('birthdayAgent').textContent = document.getElementById('birthdayAgentInput').value;
+            document.getElementById('birthdayPhone').textContent = document.getElementById('birthdayPhoneInput').value;
+            document.getElementById('birthdayEmail').textContent = document.getElementById('birthdayEmailInput').value;
+            document.getElementById('birthdayBrokerage').textContent = document.getElementById('birthdayBrokerageInput').value;
+        }
+
+        function updateChristmasCard() {
+            document.getElementById('christmasMessage').textContent = document.getElementById('christmasMessageInput').value;
+            document.getElementById('christmasSubmessage').textContent = document.getElementById('christmasSubmessageInput').value;
+            document.getElementById('christmasAgent').textContent = document.getElementById('christmasAgentInput').value;
+            document.getElementById('christmasPhone').textContent = document.getElementById('christmasPhoneInput').value;
+            document.getElementById('christmasEmail').textContent = document.getElementById('christmasEmailInput').value;
+            document.getElementById('christmasBrokerage').textContent = document.getElementById('christmasBrokerageInput').value;
+        }
+
+        function updateNewyearCard() {
+            document.getElementById('newyearMessage').textContent = document.getElementById('newyearMessageInput').value;
+            document.getElementById('newyearSubmessage').textContent = document.getElementById('newyearSubmessageInput').value;
+            document.getElementById('newyearAgent').textContent = document.getElementById('newyearAgentInput').value;
+            document.getElementById('newyearPhone').textContent = document.getElementById('newyearPhoneInput').value;
+            document.getElementById('newyearEmail').textContent = document.getElementById('newyearEmailInput').value;
+            document.getElementById('newyearBrokerage').textContent = document.getElementById('newyearBrokerageInput').value;
+        }
+
+        function updateThankyouCard() {
+            document.getElementById('thankyouMessage').textContent = document.getElementById('thankyouMessageInput').value;
+            document.getElementById('thankyouSubmessage').textContent = document.getElementById('thankyouSubmessageInput').value;
+            document.getElementById('thankyouAgent').textContent = document.getElementById('thankyouAgentInput').value;
+            document.getElementById('thankyouPhone').textContent = document.getElementById('thankyouPhoneInput').value;
+            document.getElementById('thankyouEmail').textContent = document.getElementById('thankyouEmailInput').value;
+            document.getElementById('thankyouBrokerage').textContent = document.getElementById('thankyouBrokerageInput').value;
+        }
+
+        function changeBirthdayColor(element) {
+            element.parentNode.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            element.classList.add('active');
+            
+            const gradient = element.getAttribute('data-gradient');
+            document.querySelector('#birthdayCard .card-header').style.background = gradient;
+        }
+
+        function changeChristmasColor(element) {
+            element.parentNode.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            element.classList.add('active');
+            
+            const gradient = element.getAttribute('data-gradient');
+            document.querySelector('#christmasCard .card-header').style.background = gradient;
+        }
+
+        function changeNewyearColor(element) {
+            element.parentNode.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            element.classList.add('active');
+            
+            const gradient = element.getAttribute('data-gradient');
+            document.querySelector('#newyearCard .card-header').style.background = gradient;
+        }
+
+        function changeThankyouColor(element) {
+            element.parentNode.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            element.classList.add('active');
+            
+            const gradient = element.getAttribute('data-gradient');
+            document.querySelector('#thankyouCard .card-header').style.background = gradient;
+        }
+
+        function downloadCard(cardType) {
+            let content = '';
+            let filename = '';
+            
+            switch(cardType) {
+                case 'birthday':
+                    content = document.getElementById('birthdayCard').outerHTML;
+                    filename = 'birthday-card.html';
+                    break;
+                case 'christmas':
+                    content = document.getElementById('christmasCard').outerHTML;
+                    filename = 'christmas-card.html';
+                    break;
+                case 'newyear':
+                    content = document.getElementById('newyearCard').outerHTML;
+                    filename = 'new-year-card.html';
+                    break;
+                case 'thankyou':
+                    content = document.getElementById('thankyouCard').outerHTML;
+                    filename = 'thank-you-card.html';
+                    break;
+            }
+            
+            const printHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greeting Card - Print Ready</title>
+    <style>
+        @page {
+            size: 5in 7in;
+            margin: 0.25in;
+        }
+        
+        body { 
+            font-family: 'Georgia', serif; 
+            margin: 0; 
+            padding: 0; 
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .greeting-card {
+            width: 4.5in;
+            height: 6.5in;
+            background: white;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: none;
+            overflow: hidden;
+            page-break-inside: avoid;
+            font-family: 'Georgia', serif;
+            border: 2px solid #ddd;
+        }
+
+        .card-front {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .card-header {
+            padding: 50px 40px 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-message {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .card-submessage {
+            font-size: 18px;
+            opacity: 0.95;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .card-footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            text-align: center;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .agent-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .agent-contact {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .decorative-element {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 32px;
+            opacity: 0.7;
+        }
+
+        @media print {
+            body { background: white; }
+            .greeting-card { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    ${content}
+</body>
+</html>`;
+
+            const blob = new Blob([printHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadAllCards() {
+            setTimeout(() => downloadCard('birthday'), 100);
+            setTimeout(() => downloadCard('christmas'), 300);
+            setTimeout(() => downloadCard('newyear'), 500);
+            setTimeout(() => downloadCard('thankyou'), 700);
+        }
+
+        // Initialize all cards on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateBirthdayCard();
+            updateChristmasCard();
+            updateNewyearCard();
+            updateThankyouCard();
+        });

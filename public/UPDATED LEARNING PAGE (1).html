@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Materials - Stacked CRM Power</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #2c3e50;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: #2c3e50;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #34495e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo::before {
+            content: '';
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(45deg, #5dade2 0%, #5dade2 50%, transparent 50%);
+            margin-right: 12px;
+            border-radius: 3px;
+        }
+
+        .plan-badge {
+            background-color: #f39c12;
+            color: #2c3e50;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: #34495e;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            width: 350px;
+            max-width: 40%;
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+        }
+
+        .search-bar input::placeholder {
+            color: #bdc3c7;
+        }
+
+        .search-icon {
+            color: #5dade2;
+            margin-right: 0.5rem;
+        }
+
+        .main-content {
+            padding: 2rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-title {
+            font-size: 2.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #5dade2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: #bdc3c7;
+            margin-bottom: 1.5rem;
+        }
+
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            background-color: #34495e;
+            color: #bdc3c7;
+            border: 2px solid transparent;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background-color: #5dade2;
+            color: #2c3e50;
+            border-color: #5dade2;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .content-card {
+            background-color: #34495e;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .content-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(93, 173, 226, 0.2);
+            border-color: #5dade2;
+        }
+
+        .card-header {
+            position: relative;
+            height: 140px;
+            background: linear-gradient(135deg, #5dade2, #4fa8d8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .card-header.basic {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .card-header.intermediate {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: #ffffff;
+            z-index: 2;
+        }
+
+        .card-type {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .card-duration {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            color: #ffffff;
+            font-size: 0.9rem;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.3rem 0.6rem;
+            border-radius: 15px;
+        }
+
+        .card-level {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #2c3e50;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+            color: #ffffff;
+        }
+
+        .card-description {
+            color: #bdc3c7;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background-color: #2c3e50;
+            color: #5dade2;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid #5dade2;
+        }
+
+        .tag.basic {
+            border-color: #27ae60;
+            color: #27ae60;
+        }
+
+        .tag.intermediate {
+            border-color: #f39c12;
+            color: #f39c12;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .difficulty {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        .difficulty-dots {
+            display: flex;
+            gap: 0.2rem;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #7f8c8d;
+        }
+
+        .dot.filled {
+            background-color: #5dade2;
+        }
+
+        .access-btn {
+            background-color: #5dade2;
+            color: #2c3e50;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .access-btn:hover {
+            background-color: #4fa8d8;
+        }
+
+        .featured-section {
+            background-color: #34495e;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            border: 2px solid #f39c12;
+        }
+
+        .featured-title {
+            color: #f39c12;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .featured-item {
+            background-color: #2c3e50;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #f39c12;
+        }
+
+        .progress-section {
+            background-color: #34495e;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-title {
+            color: #5dade2;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .progress-stats {
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        .progress-item {
+            background-color: #2c3e50;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .progress-bar-container {
+            width: 180px;
+            height: 8px;
+            background-color: #34495e;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #5dade2;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .section-header {
+            background-color: #34495e;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            color: #5dade2;
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: #bdc3c7;
+            font-size: 1rem;
+        }
+
+        .upgrade-notice {
+            background-color: #34495e;
+            border: 2px solid #8e44ad;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .upgrade-notice h3 {
+            color: #8e44ad;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .upgrade-notice p {
+            color: #bdc3c7;
+            margin-bottom: 1.5rem;
+        }
+
+        .upgrade-btn {
+            background-color: #8e44ad;
+            color: #ffffff;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .upgrade-btn:hover {
+            background-color: #9b59b6;
+        }
+
+        .quick-links {
+            background-color: #34495e;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-links h3 {
+            color: #5dade2;
+            margin-bottom: 1.5rem;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .quick-link {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem;
+            background-color: #2c3e50;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #bdc3c7;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .quick-link:hover {
+            color: #5dade2;
+            border-color: #5dade2;
+            transform: translateX(3px);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .search-bar {
+                width: 100%;
+                max-width: none;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .category-nav {
+                gap: 0.5rem;
+            }
+
+            .category-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">STACKED Learning Power</div>
+        <div class="search-bar">
+            <span class="search-icon">🔍</span>
+            <input type="text" placeholder="Search courses and tutorials...">
+        </div>
+        <div class="plan-badge">Power Plan</div>
+    </div>
+
+    <div class="main-content">
+        <div class="hero-section">
+            <h1 class="hero-title">Accelerate Your Real Estate Success</h1>
+            <p class="hero-subtitle">
+                Essential and intermediate learning materials with progress tracking and enhanced features
+            </p>
+        </div>
+
+        <div class="category-nav">
+            <a href="#" class="category-btn active">All Content</a>
+            <a href="#" class="category-btn">Essential Basics</a>
+            <a href="#" class="category-btn">Intermediate Skills</a>
+            <a href="#" class="category-btn">Lead Generation</a>
+            <a href="#" class="category-btn">CRM Features</a>
+        </div>
+
+        <div class="featured-section">
+            <h2 class="featured-title">
+                ⚡ Power Plan Highlights
+            </h2>
+            <div class="featured-grid">
+                <div class="featured-item">
+                    <h4 style="color: #f39c12; margin-bottom: 0.5rem;">🎯 Popular</h4>
+                    <h3 style="margin-bottom: 0.5rem;">Lead Generation Fundamentals</h3>
+                    <p style="color: #bdc3c7; font-size: 0.9rem;">Build a steady pipeline of quality leads</p>
+                </div>
+                <div class="featured-item">
+                    <h4 style="color: #f39c12; margin-bottom: 0.5rem;">🚀 New</h4>
+                    <h3 style="margin-bottom: 0.5rem;">Basic Automation Setup</h3>
+                    <p style="color: #bdc3c7; font-size: 0.9rem;">Save time with simple automation workflows</p>
+                </div>
+                <div class="featured-item">
+                    <h4 style="color: #f39c12; margin-bottom: 0.5rem;">📈 Essential</h4>
+                    <h3 style="margin-bottom: 0.5rem;">Progress Tracking</h3>
+                    <p style="color: #bdc3c7; font-size: 0.9rem;">Monitor your learning journey and achievements</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-header">
+                <h3 class="progress-title">Your Learning Progress</h3>
+                <div class="progress-stats">8 of 15 courses completed</div>
+            </div>
+            <div class="progress-item">
+                <div>
+                    <strong>Essential Basics Track</strong>
+                    <div style="color: #bdc3c7; font-size: 0.9rem;">Foundation Skills</div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 100%;"></div>
+                    </div>
+                    <span style="color: #5dade2; font-weight: bold;">✓</span>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div>
+                    <strong>Intermediate Skills Track</strong>
+                    <div style="color: #bdc3c7; font-size: 0.9rem;">Lead Gen & Automation</div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 50%;"></div>
+                    </div>
+                    <span style="color: #f39c12; font-weight: bold;">50%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <h2>📚 Essential Basics - Foundation Skills</h2>
+            <p>Master the fundamentals of Stacked CRM and real estate basics</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">15 min read</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Getting Started Guide</h3>
+                    <p class="card-description">
+                        Learn the basics of Stacked CRM - navigation, adding contacts, and your first transaction.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Essential</span>
+                        <span class="tag basic">Beginner</span>
+                        <span class="tag basic">CRM Basics</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Read Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">📋</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">10 min</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Basic Contact Management</h3>
+                    <p class="card-description">
+                        How to add, organize, and manage your client contacts effectively in your CRM.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Contacts</span>
+                        <span class="tag basic">Organization</span>
+                        <span class="tag basic">Tutorial</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Start Tutorial</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">📞</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">12 min read</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Lead Follow-up Basics</h3>
+                    <p class="card-description">
+                        Simple strategies for following up with leads and keeping track of your communications.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Lead Management</span>
+                        <span class="tag basic">Follow-up</span>
+                        <span class="tag basic">Communication</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Read Guide</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">🏠</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">8 min</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Property Management Basics</h3>
+                    <p class="card-description">
+                        Learn how to add and manage property listings in your CRM system.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Properties</span>
+                        <span class="tag basic">Listings</span>
+                        <span class="tag basic">Management</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Start Tutorial</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">📄</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">18 min read</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Creating Your First Transaction</h3>
+                    <p class="card-description">
+                        Walk through creating and tracking your first real estate transaction from start to finish.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Transactions</span>
+                        <span class="tag basic">Process</span>
+                        <span class="tag basic">Step-by-step</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Read Guide</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">💬</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">5 min setup</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Basic Email Templates</h3>
+                    <p class="card-description">
+                        Download and customize basic email templates for common real estate communications.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Templates</span>
+                        <span class="tag basic">Email</span>
+                        <span class="tag basic">Communication</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Download</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">📊</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">12 min</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Understanding Your Dashboard</h3>
+                    <p class="card-description">
+                        Navigate your CRM dashboard and understand the key metrics and information displayed.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Dashboard</span>
+                        <span class="tag basic">Navigation</span>
+                        <span class="tag basic">Metrics</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Start Tutorial</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">📅</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">14 min read</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Task and Calendar Basics</h3>
+                    <p class="card-description">
+                        Learn how to schedule appointments, set reminders, and manage your daily tasks effectively.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Calendar</span>
+                        <span class="tag basic">Tasks</span>
+                        <span class="tag basic">Scheduling</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Read Guide</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header basic">
+                    <div class="card-icon">🔍</div>
+                    <div class="card-level">Basic</div>
+                    <div class="card-duration">10 min</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Search and Filter Basics</h3>
+                    <p class="card-description">
+                        Master the search and filtering features to quickly find contacts, properties, and transactions.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag basic">Search</span>
+                        <span class="tag basic">Filtering</span>
+                        <span class="tag basic">Organization</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Start Tutorial</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <h2>⚡ Intermediate Skills - Power User Features</h2>
+            <p>Level up your CRM skills with intermediate automation and lead generation</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="content-card">
+                <div class="card-header intermediate">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-level">Intermediate</div>
+                    <div class="card-duration">2 hours</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Lead Generation Fundamentals</h3>
+                    <p class="card-description">
+                        Learn proven strategies for generating quality leads through online and offline channels.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag intermediate">Lead Generation</span>
+                        <span class="tag intermediate">Marketing</span>
+                        <span class="tag intermediate">Strategy</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Start Course</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header intermediate">
+                    <div class="card-icon">🤖</div>
+                    <div class="card-level">Intermediate</div>
+                    <div class="card-duration">1.5 hours</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Basic Automation Setup</h3>
+                    <p class="card-description">
+                        Set up simple automation workflows to save time on repetitive tasks and follow-ups.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag intermediate">Automation</span>
+                        <span class="tag intermediate">Workflows</span>
+                        <span class="tag intermediate">Efficiency</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Learn Setup</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header intermediate">
+                    <div class="card-icon">📧</div>
+                    <div class="card-level">Intermediate</div>
+                    <div class="card-duration">1 hour</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Email Marketing Basics</h3>
+                    <p class="card-description">
+                        Create effective email campaigns and newsletters to stay connected with your leads and clients.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag intermediate">Email Marketing</span>
+                        <span class="tag intermediate">Communication</span>
+                        <span class="tag intermediate">Campaigns</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Start Tutorial</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header intermediate">
+                    <div class="card-icon">📊</div>
+                    <div class="card-level">Intermediate</div>
+                    <div class="card-duration">45 min</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Basic Reports & Analytics</h3>
+                    <p class="card-description">
+                        Generate basic reports to track your performance and understand your business metrics.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag intermediate">Reports</span>
+                        <span class="tag intermediate">Analytics</span>
+                        <span class="tag intermediate">Performance</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Learn Reports</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header intermediate">
+                    <div class="card-icon">🏆</div>
+                    <div class="card-level">Intermediate</div>
+                    <div class="card-duration">1.5 hours</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Transaction Workflow Optimization</h3>
+                    <p class="card-description">
+                        Streamline your transaction process with templates, checklists, and organized workflows.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag intermediate">Transactions</span>
+                        <span class="tag intermediate">Optimization</span>
+                        <span class="tag intermediate">Workflow</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Optimize Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header intermediate">
+                    <div class="card-icon">📱</div>
+                    <div class="card-level">Intermediate</div>
+                    <div class="card-duration">30 min</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Mobile CRM Basics</h3>
+                    <p class="card-description">
+                        Learn how to effectively use your CRM on mobile devices for maximum productivity.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag intermediate">Mobile</span>
+                        <span class="tag intermediate">Productivity</span>
+                        <span class="tag intermediate">On-the-go</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dots">
+                                <div class="dot filled"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="access-btn">Go Mobile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="upgrade-notice">
+            <h3>🚀 Ready for Advanced Features?</h3>
+            <p>Unlock expert-level courses, advanced automation, team management, and exclusive masterclasses with Pro.</p>
+            <a href="#" class="upgrade-btn">Upgrade to Pro Plan</a>
+        </div>
+
+        <div class="quick-links">
+            <h3>📚 Quick Resources & Tools</h3>
+            <div class="links-grid">
+                <a href="#" class="quick-link">
+                    <span>📋</span>
+                    <span>Checklists & Templates</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <span>🎯</span>
+                    <span>Best Practices Guide</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <span>💡</span>
+                    <span>Tips & Tricks</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <span>🔧</span>
+                    <span>Help & Support</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <span>📞</span>
+                    <span>Contact Support</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <span>👥</span>
+                    <span>Community Forum</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Category navigation
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter content based on category
+                const category = this.textContent.toLowerCase();
+                const cards = document.querySelectorAll('.content-card');
+                
+                cards.forEach(card => {
+                    const cardLevel = card.querySelector('.card-level');
+                    const cardTags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+                    
+                    if (category === 'all content') {
+                        card.style.display = 'block';
+                    } else if (category === 'essential basics' && cardLevel && cardLevel.textContent === 'Basic') {
+                        card.style.display = 'block';
+                    } else if (category === 'intermediate skills' && cardLevel && cardLevel.textContent === 'Intermediate') {
+                        card.style.display = 'block';
+                    } else if (cardTags.some(tag => tag.includes(category.replace(' ', '')))) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        document.querySelector('.search-bar input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.content-card');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const description = card.querySelector('.card-description').textContent.toLowerCase();
+                const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase()).join(' ');
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm) || tags.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = searchTerm ? 'none' : 'block';
+                }
+            });
+        });
+
+        // Animate progress bars on load
+        window.addEventListener('load', function() {
+            document.querySelectorAll('.progress-bar-fill').forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        });
+
+        // Track content access
+        document.querySelectorAll('.access-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const title = this.closest('.content-card').querySelector('.card-title').textContent;
+                console.log('Accessing content:', title);
+                // In real implementation, this would track user progress
+            });
+        });
+    </script>
+</body>
+</html>

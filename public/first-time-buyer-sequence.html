@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First-Time Buyer Journey Email Sequence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .sequence-info {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .email-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .email-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .email-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .email-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.3em;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .email-info {
+            flex-grow: 1;
+        }
+        
+        .email-title {
+            font-size: 1.4em;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        
+        .email-day {
+            color: #718096;
+            font-size: 0.9em;
+        }
+        
+        .email-subject {
+            background: #f7fafc;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .email-subject strong {
+            color: #4a5568;
+        }
+        
+        .email-body {
+            color: #4a5568;
+            font-size: 1em;
+        }
+        
+        .email-body p {
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box {
+            background: #edf2f7;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: opacity 0.3s;
+        }
+        
+        .cta-button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏡 First-Time Buyer Journey</h1>
+            <p>Complete nurture sequence guiding first-time buyers from initial interest through closing</p>
+        </div>
+        
+        <div class="sequence-info">
+            📧 12 emails over 30 days
+        </div>
+        
+        <!-- Email 1 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">1</div>
+                <div class="email-info">
+                    <div class="email-title">Welcome & Congratulations</div>
+                    <div class="email-day">Day 1 - Immediate</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Congrats on taking the first step to homeownership! 🎉
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name]!</p>
+                <p>First off - congratulations! Deciding to buy your first home is a huge step, and I'm genuinely excited to be part of your journey.</p>
+                <p>I know this whole process might seem a bit overwhelming right now. You're probably wondering about mortgages, down payments, closing costs, inspections... and a million other things. That's totally normal!</p>
+                <p>Here's the good news: I've helped dozens of first-time buyers just like you, and I'm here to make this as simple and stress-free as possible. Think of me as your guide through all of this.</p>
+                <div class="highlight-box">
+                    <strong>Over the next month, I'll be sending you:</strong><br><br>
+                    ✅ Step-by-step guidance through the buying process<br>
+                    💰 Tips on budgeting and getting financing<br>
+                    🏘️ Insights on different neighborhoods<br>
+                    📝 Checklists so you don't miss anything important<br>
+                    🎯 Property recommendations tailored to you
+                </div>
+                <p>No pressure, no jargon, just helpful info when you need it.</p>
+                <p>For now, just reply and let me know - what's the #1 thing you're most excited about (or nervous about!) when it comes to buying your first home?</p>
+                <p>Can't wait to hear from you!</p>
+                <p>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 2 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">2</div>
+                <div class="email-info">
+                    <div class="email-title">First-Time Buyer 101</div>
+                    <div class="email-day">Day 2</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> The 5 steps to buying your first home (simplified!)
+            </div>
+            <div class="email-body">
+                <p>Hi [First Name],</p>
+                <p>Let's break down the home buying process into bite-sized pieces. Here's what the journey looks like:</p>
+                <p><strong>Step 1: Get Pre-Approved (Week 1)</strong><br>
+                This tells you how much you can borrow. It's like getting a VIP pass - sellers will take you seriously!</p>
+                <p><strong>Step 2: Find Your Home (Weeks 2-4)</strong><br>
+                The fun part! We'll tour homes, narrow down what you love, and find "the one."</p>
+                <p><strong>Step 3: Make an Offer (Week 4-5)</strong><br>
+                I'll help you craft a strong offer that gets accepted without overpaying.</p>
+                <p><strong>Step 4: Inspection & Appraisal (Weeks 5-6)</strong><br>
+                We make sure the home is actually worth what you're paying and in good condition.</p>
+                <p><strong>Step 5: Close the Deal (Week 7-8)</strong><br>
+                Sign the papers, get the keys, and move into YOUR home!</p>
+                <div class="highlight-box">
+                    <strong>First-Time Buyer Tip:</strong> Most people think they need 20% down, but many first-time buyer programs only require 3-5%! We'll talk about this more soon.
+                </div>
+                <p>Questions about any of these steps? Just hit reply - I'm here to help!</p>
+                <p>Talk soon,<br>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 3 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">3</div>
+                <div class="email-info">
+                    <div class="email-title">Money Talk: Budget & Financing</div>
+                    <div class="email-day">Day 4</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Let's talk money (without the scary finance stuff)
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name]!</p>
+                <p>Okay, let's tackle the money conversation. I promise to keep this simple and actually useful.</p>
+                <p><strong>How much house can you afford?</strong><br>
+                A general rule: your monthly payment (including mortgage, taxes, insurance) should be around 28% of your gross monthly income. But don't worry - lenders will figure this out precisely.</p>
+                <p><strong>What you'll need for upfront costs:</strong></p>
+                <p>💵 <strong>Down Payment:</strong> 3-20% of the home price<br>
+                💵 <strong>Closing Costs:</strong> Usually 2-5% of the home price<br>
+                💵 <strong>Moving & Initial Costs:</strong> Budget $2,000-5,000</p>
+                <div class="highlight-box">
+                    <strong>First-Time Buyer Programs:</strong><br><br>
+                    Did you know there are programs specifically for first-time buyers?<br><br>
+                    • FHA loans (as low as 3.5% down)<br>
+                    • VA loans (0% down for veterans)<br>
+                    • State programs with down payment assistance<br>
+                    • Conventional loans (as low as 3% down)
+                </div>
+                <p><strong>Next Step:</strong> Getting pre-approved! I work with some amazing lenders who specialize in first-time buyers. Want me to connect you with one? They can usually get you pre-approved in 24-48 hours.</p>
+                <p>Let me know if you have questions about any of this!</p>
+                <p>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 4 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">4</div>
+                <div class="email-info">
+                    <div class="email-title">Lender Referral & Pre-Approval</div>
+                    <div class="email-day">Day 6</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Ready to get pre-approved? Here's who I recommend
+            </div>
+            <div class="email-body">
+                <p>Hi [First Name],</p>
+                <p>Getting pre-approved is honestly one of the most important steps, so I want to make sure you're working with someone great.</p>
+                <p>I've worked with these lenders for years, and they're all fantastic with first-time buyers:</p>
+                <p><strong>🏦 [Lender Name 1]</strong><br>
+                Great for: FHA loans and first-time buyer programs<br>
+                Contact: [Phone/Email]</p>
+                <p><strong>🏦 [Lender Name 2]</strong><br>
+                Great for: Conventional loans and quick approvals<br>
+                Contact: [Phone/Email]</p>
+                <p><strong>🏦 [Lender Name 3]</strong><br>
+                Great for: VA loans and competitive rates<br>
+                Contact: [Phone/Email]</p>
+                <div class="highlight-box">
+                    <strong>What to bring when you contact them:</strong><br><br>
+                    • Last 2 years of tax returns<br>
+                    • Recent pay stubs<br>
+                    • Bank statements (last 2-3 months)<br>
+                    • ID and Social Security number<br><br>
+                    They'll walk you through everything else!
+                </div>
+                <p>Feel free to mention my name when you reach out - they'll take extra good care of you.</p>
+                <p>Once you're pre-approved, we can start looking at homes seriously. How exciting is that?!</p>
+                <p>Cheers,<br>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 5 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">5</div>
+                <div class="email-info">
+                    <div class="email-title">What to Look For in a Home</div>
+                    <div class="email-day">Day 8</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Your "must-haves" vs "nice-to-haves" worksheet
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name]!</p>
+                <p>Before we start touring homes, let's get crystal clear on what you're looking for. This will save us both a ton of time!</p>
+                <p><strong>Here's what I want you to think about:</strong></p>
+                <p><strong>MUST-HAVES (Deal breakers):</strong><br>
+                • Location/neighborhood<br>
+                • Number of bedrooms/bathrooms<br>
+                • Budget range<br>
+                • Move-in timeline<br>
+                • Any other non-negotiables?</p>
+                <p><strong>NICE-TO-HAVES (Would be great, but flexible):</strong><br>
+                • Yard size<br>
+                • Garage<br>
+                • Updated kitchen<br>
+                • Home office space<br>
+                • Specific style/features</p>
+                <div class="highlight-box">
+                    <strong>First-Time Buyer Reality Check:</strong><br><br>
+                    Your first home probably won't be your forever home, and that's okay! Focus on finding a place that meets your needs NOW and will be easy to sell later when you're ready to upgrade.
+                </div>
+                <p><strong>Pro tip:</strong> Be willing to compromise on finishes (paint colors, fixtures, etc.) but not on location or layout. Cosmetic stuff is easy to change; location isn't!</p>
+                <p>Reply to this email with your must-haves and nice-to-haves, and I'll start pulling together some options for you!</p>
+                <p>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 6 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">6</div>
+                <div class="email-info">
+                    <div class="email-title">Neighborhood Guide</div>
+                    <div class="email-day">Day 10</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Best neighborhoods for first-time buyers in [City]
+            </div>
+            <div class="email-body">
+                <p>Hi [First Name],</p>
+                <p>Location, location, location - you've heard it before, right? Let me break down some neighborhoods that are perfect for first-time buyers:</p>
+                <p><strong>🏘️ [Neighborhood 1] - "The Up-and-Comer"</strong><br>
+                Price Range: [Range]<br>
+                Vibe: [Description]<br>
+                Great for: Young professionals, investors<br>
+                Why I love it: Property values are climbing, great restaurants moving in</p>
+                <p><strong>🏘️ [Neighborhood 2] - "The Family Favorite"</strong><br>
+                Price Range: [Range]<br>
+                Vibe: [Description]<br>
+                Great for: Families, quiet lifestyle<br>
+                Why I love it: Top-rated schools, parks, safe streets</p>
+                <p><strong>🏘️ [Neighborhood 3] - "The Best Value"</strong><br>
+                Price Range: [Range]<br>
+                Vibe: [Description]<br>
+                Great for: Budget-conscious buyers<br>
+                Why I love it: More house for your money, easy commute</p>
+                <div class="highlight-box">
+                    <strong>Things to research about any neighborhood:</strong><br><br>
+                    • School ratings (even if you don't have kids - it affects resale)<br>
+                    • Crime statistics<br>
+                    • Future development plans<br>
+                    • Commute times to work<br>
+                    • Walkability score
+                </div>
+                <p>Want to drive around any of these areas together? I can show you the ins and outs that you won't find online!</p>
+                <p>Let me know,<br>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 7 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">7</div>
+                <div class="email-info">
+                    <div class="email-title">First Property Recommendations</div>
+                    <div class="email-day">Day 13</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Found some homes I think you'll love!
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name]!</p>
+                <p>I've been keeping an eye on the market for you, and there are a few properties that match what you're looking for. Want to check them out?</p>
+                <p><strong>🏡 [Address 1]</strong><br>
+                [Beds] bed | [Baths] bath | [Sq Ft] sq ft<br>
+                $[Price]<br>
+                Why I picked it: [Specific reason it matches their criteria]<br>
+                [Link]</p>
+                <p><strong>🏡 [Address 2]</strong><br>
+                [Beds] bed | [Baths] bath | [Sq Ft] sq ft<br>
+                $[Price]<br>
+                Why I picked it: [Specific reason it matches their criteria]<br>
+                [Link]</p>
+                <p><strong>🏡 [Address 3]</strong><br>
+                [Beds] bed | [Baths] bath | [Sq Ft] sq ft<br>
+                $[Price]<br>
+                Why I picked it: [Specific reason it matches their criteria]<br>
+                [Link]</p>
+                <div class="highlight-box">
+                    <strong>When you're browsing listings online, look for:</strong><br><br>
+                    • How long it's been on the market<br>
+                    • Any recent price reductions<br>
+                    • Quality of photos (bad photos might mean a hidden gem!)<br>
+                    • Words like "motivated seller"
+                </div>
+                <p>Want to see any of these in person? I can usually set up showings within 24-48 hours. Just let me know what works for your schedule!</p>
+                <p>Talk soon,<br>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 8 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">8</div>
+                <div class="email-info">
+                    <div class="email-title">What to Look for During Showings</div>
+                    <div class="email-day">Day 16</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Your home showing checklist (print this out!)
+            </div>
+            <div class="email-body">
+                <p>Hi [First Name],</p>
+                <p>When we're touring homes together, it's easy to get caught up in the excitement and forget to check important things. Here's your checklist to bring with you:</p>
+                <p><strong>📋 THE BIG STUFF:</strong><br>
+                ☐ Water pressure (turn on multiple faucets)<br>
+                ☐ Water heater age and condition<br>
+                ☐ HVAC system age (ask me to check this)<br>
+                ☐ Roof condition<br>
+                ☐ Foundation (any cracks?)<br>
+                ☐ Windows (do they open/close easily?)</p>
+                <p><strong>📋 THE MEDIUM STUFF:</strong><br>
+                ☐ Electrical outlets (enough of them?)<br>
+                ☐ Storage space<br>
+                ☐ Natural light<br>
+                ☐ Weird smells or stains<br>
+                ☐ Cell phone signal<br>
+                ☐ Noise level from street/neighbors</p>
+                <p><strong>📋 THE LITTLE STUFF THAT MATTERS:</strong><br>
+                ☐ Can your furniture fit?<br>
+                ☐ Parking situation<br>
+                ☐ Neighbors' yards (are they maintained?)<br>
+                ☐ Trash day situation<br>
+                ☐ Does it feel like home?</p>
+                <div class="highlight-box">
+                    <strong>My advice:</strong> Take photos and videos during showings (I'll help!). After seeing 5+ houses, they all blur together. Also, try to visit the neighborhood at different times of day if you're serious about a house.
+                </div>
+                <p>Ready to start touring? Let's find you some homes to see!</p>
+                <p>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 9 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">9</div>
+                <div class="email-info">
+                    <div class="email-title">Making an Offer</div>
+                    <div class="email-day">Day 19</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Found one you love? Here's how to make an offer
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name]!</p>
+                <p>So you've found a house that feels right? Amazing! Now comes the strategic part - making an offer that gets accepted without overpaying.</p>
+                <p><strong>Here's what goes into your offer:</strong></p>
+                <p><strong>1. Price</strong><br>
+                I'll pull comparable sales (comps) to show you what similar homes sold for recently. This helps us determine a fair price.</p>
+                <p><strong>2. Earnest Money</strong><br>
+                This is your "good faith" deposit - usually 1-3% of the purchase price. It shows you're serious.</p>
+                <p><strong>3. Contingencies</strong><br>
+                These are your escape hatches:<br>
+                • Inspection contingency (you can back out if inspection is bad)<br>
+                • Appraisal contingency (you can back out if it doesn't appraise)<br>
+                • Financing contingency (you can back out if loan falls through)</p>
+                <p><strong>4. Closing Timeline</strong><br>
+                Usually 30-45 days. Sometimes being flexible here can make your offer more attractive.</p>
+                <div class="highlight-box">
+                    <strong>First-Time Buyer Tip:</strong><br><br>
+                    Don't waive your inspection contingency! I know you're excited, but you need to know what you're buying. An inspection usually costs $300-500 and could save you tens of thousands.
+                </div>
+                <p><strong>What makes an offer strong?</strong><br>
+                • Pre-approval letter (this is why we got you pre-approved!)<br>
+                • Reasonable contingencies<br>
+                • Quick closing if possible<br>
+                • Personal letter to seller (sometimes this helps!)<br>
+                • Competitive price based on market data</p>
+                <p>When you're ready to make an offer, I'll walk you through everything step-by-step. We'll make sure it's competitive but smart!</p>
+                <p>Questions? Just ask!</p>
+                <p>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 10 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">10</div>
+                <div class="email-info">
+                    <div class="email-title">The Inspection Process</div>
+                    <div class="email-day">Day 22</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Your home inspection guide (what to expect)
+            </div>
+            <div class="email-body">
+                <p>Hi [First Name],</p>
+                <p>Once your offer is accepted (exciting!), the next big step is the home inspection. This is where we find out what's really going on with the house.</p>
+                <p><strong>What happens during an inspection?</strong><br>
+                A professional inspector will spend 2-4 hours checking everything from the roof to the foundation. They'll look at:</p>
+                <p>• Roof, attic, and exterior<br>
+                • Foundation and structure<br>
+                • Plumbing and electrical<br>
+                • HVAC systems<br>
+                • Appliances<br>
+                • Windows and doors<br>
+                • Basically everything!</p>
+                <div class="highlight-box">
+                    <strong>Should you attend the inspection?</strong><br><br>
+                    YES! I always recommend being there for at least the last hour. The inspector will walk you through their findings, and you can ask questions. Plus, you'll learn a ton about your new home.
+                </div>
+                <p><strong>After the inspection:</strong><br>
+                You'll get a detailed report (usually 30-50 pages). Don't freak out if there are issues - almost every home has something. The question is: what's a big deal and what isn't?</p>
+                <p><strong>Your options if issues are found:</strong><br>
+                1. Ask the seller to fix it<br>
+                2. Ask for a credit at closing<br>
+                3. Negotiate a lower price<br>
+                4. Walk away if it's really bad<br>
+                5. Accept it and move forward</p>
+                <p>I'll help you decide what's worth negotiating and what's not. Remember - you're looking for major issues (roof, foundation, electrical, plumbing), not minor cosmetic stuff.</p>
+                <p>I work with great inspectors who are thorough but fair. When you're ready, I'll get you connected!</p>
+                <p>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 11 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">11</div>
+                <div class="email-info">
+                    <div class="email-title">Final Steps Before Closing</div>
+                    <div class="email-day">Day 26</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Almost there! Your pre-closing checklist
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name]!</p>
+                <p>You're in the home stretch! Here's what happens in the final weeks before you get those keys:</p>
+                <p><strong>Week 1-2: Under Contract</strong><br>
+                ☐ Order home inspection<br>
+                ☐ Send inspection report to lender<br>
+                ☐ Lender orders appraisal<br>
+                ☐ Get homeowners insurance quotes<br>
+                ☐ Review HOA documents (if applicable)</p>
+                <p><strong>Week 2-3: Due Diligence</strong><br>
+                ☐ Review inspection report<br>
+                ☐ Negotiate repairs/credits if needed<br>
+                ☐ Finalize homeowners insurance<br>
+                ☐ Stay in touch with lender (they may need more docs)<br>
+                ☐ Don't make any big purchases or change jobs!</p>
+                <p><strong>Week 3-4: Final Prep</strong><br>
+                ☐ Get closing disclosure (3 days before closing)<br>
+                ☐ Schedule final walk-through<br>
+                ☐ Arrange for utilities to be transferred<br>
+                ☐ Get cashier's check for closing costs<br>
+                ☐ Pack your bags (you're moving soon!)</p>
+                <div class="highlight-box">
+                    <strong>IMPORTANT - Don't do these things before closing:</strong><br><br>
+                    ❌ Don't buy a car or make other big purchases<br>
+                    ❌ Don't change jobs<br>
+                    ❌ Don't open new credit cards<br>
+                    ❌ Don't make large deposits/withdrawals<br>
+                    ❌ Don't co-sign any loans<br><br>
+                    Any of these could mess up your mortgage approval!
+                </div>
+                <p><strong>What is a "closing disclosure"?</strong><br>
+                It's the final document that shows exactly what you're paying. Review it carefully with me - we want to make sure there are no surprises!</p>
+                <p>I'll be with you every step of the way. Any questions, day or night, just reach out!</p>
+                <p>So close now!<br>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 12 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">12</div>
+                <div class="email-info">
+                    <div class="email-title">Closing Day & Beyond</div>
+                    <div class="email-day">Day 30</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> It's closing day! Here's what to expect 🎉
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name]!</p>
+                <p>THIS IS IT! Today's the day you become a homeowner! I'm so excited for you. 🎉</p>
+                <p>I know you might be feeling a mix of excitement and nerves right now - that's totally normal! Let me walk you through exactly what's going to happen so there are zero surprises.</p>
+                <p><strong>What to bring to closing:</strong><br>
+                • Photo ID (driver's license)<br>
+                • Cashier's check for closing costs<br>
+                • Proof of homeowners insurance<br>
+                • Your excitement (seriously, enjoy this moment!)</p>
+                <p><strong>What happens at closing:</strong><br>
+                You'll sit at a table with the title company, sign about a million papers (okay, more like 50-100), and then... you get the keys! The whole thing usually takes 1-2 hours.</p>
+                <p><strong>Documents you'll sign:</strong><br>
+                • The mortgage/promissory note<br>
+                • The deed of trust<br>
+                • Closing disclosure (you've already seen this)<br>
+                • Various other disclosures and forms</p>
+                <p>Don't worry - I'll be there with you, and the title officer will explain everything. Ask questions if anything doesn't make sense!</p>
+                <div class="highlight-box">
+                    <strong>After closing - your first-week checklist:</strong><br><br>
+                    ☐ Change the locks (you don't know who has keys!)<br>
+                    ☐ Set up utilities in your name<br>
+                    ☐ Update your address (USPS, bank, DMV, etc.)<br>
+                    ☐ Locate shut-off valves (water, gas, electric)<br>
+                    ☐ Test smoke detectors and CO detectors<br>
+                    ☐ Meet your neighbors<br>
+                    ☐ Take a million photos!
+                </div>
+                <p><strong>For your records, keep these documents:</strong><br>
+                • Closing disclosure<br>
+                • Deed<br>
+                • Title insurance policy<br>
+                • Survey<br>
+                • Home inspection report<br>
+                • Appraisal<br>
+                • All receipts for improvements (for taxes later)</p>
+                <p><strong>And now... some real talk:</strong></p>
+                <p>Being a homeowner is amazing, but it's also a responsibility. Things will break. You'll need to budget for maintenance and repairs. But you know what? You've got this!</p>
+                <p>Some unsolicited advice from someone who's seen a lot:</p>
+                <p>• Start an emergency home fund (aim for $500-1000 to start)<br>
+                • Get to know a good handyman, plumber, and electrician<br>
+                • Don't try to do everything at once - you have time to make it perfect<br>
+                • Actually read your homeowners insurance policy<br>
+                • Take care of small issues before they become big ones</p>
+                <p><strong>Most importantly:</strong> Enjoy your home! This is YOUR space. Make it reflect you. Have people over. Create memories.</p>
+                <p>I'm incredibly proud of you for making this happen. Buying your first home is a huge accomplishment, and you did it!</p>
+                <div class="highlight-box">
+                    <strong>I'm still here for you!</strong><br><br>
+                    Even though the buying process is done, I'm always available if you have questions about homeownership, need referrals for contractors, or when you're ready to sell and upgrade in a few years.<br><br>
+                    And hey - if you loved working together (which I hope you did!), I'd be so grateful if you'd refer any friends or family who are thinking about buying or selling. It's the highest compliment I can receive!
+                </div>
+                <p>Congratulations, homeowner! 🏡🎊</p>
+                <p>Now go celebrate!</p>
+                <p>[Your Name]<br>
+                [Phone]<br>
+                [Email]</p>
+                <a href="#" class="cta-button">Leave a Review</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

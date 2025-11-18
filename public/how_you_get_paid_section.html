@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How You Get Paid - Payout Information</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f7fafc;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .payout-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 2px solid #e2e8f0;
+        }
+
+        .payout-header {
+            background: linear-gradient(135deg, #0A1B2A 0%, #1ABC9C 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .payout-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .payout-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .payout-content {
+            padding: 2rem;
+        }
+
+        .payout-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .payout-card {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .payout-card:hover {
+            border-color: #1ABC9C;
+            transform: translateY(-2px);
+        }
+
+        .payout-card h4 {
+            color: #0A1B2A;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .payout-icon {
+            background: #1ABC9C;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .payout-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1ABC9C;
+            margin-bottom: 0.5rem;
+        }
+
+        .payout-description {
+            color: #4a5568;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .payout-detail {
+            color: #2d3748;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .payout-schedule {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+            border: 2px solid #1ABC9C;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .payout-schedule h4 {
+            color: #0A1B2A;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .schedule-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .schedule-step {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #1ABC9C;
+            text-align: center;
+        }
+
+        .step-number {
+            background: #1ABC9C;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .step-title {
+            color: #0A1B2A;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .important-note {
+            background: #fffaf0;
+            border: 2px solid #fbd38d;
+            border-left: 4px solid #ed8936;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .important-note h4 {
+            color: #c05621;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .important-note p {
+            color: #744210;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-methods {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .payment-methods h4 {
+            color: #0A1B2A;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .method-list {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .payment-method {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            text-align: center;
+            font-weight: 600;
+            color: #2d3748;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            border-color: #1ABC9C;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .payout-header {
+                padding: 1.5rem;
+            }
+
+            .payout-title {
+                font-size: 1.5rem;
+            }
+
+            .payout-content {
+                padding: 1.5rem;
+            }
+
+            .payout-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .schedule-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .method-list {
+                flex-direction: column;
+            }
+
+            .payment-method {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="payout-container">
+        <div class="payout-header">
+            <h3 class="payout-title">How You Get Paid</h3>
+            <p class="payout-subtitle">Minimum payout threshold, schedule, and payment methods</p>
+        </div>
+
+        <div class="payout-content">
+            <div class="payout-grid">
+                <div class="payout-card">
+                    <h4>
+                        <span class="payout-icon">$</span>
+                        Minimum Threshold
+                    </h4>
+                    <div class="payout-amount">$150</div>
+                    <div class="payout-description">You must have at least $150 in approved commissions to receive a payout for that month</div>
+                    <div class="payout-detail">Sub-minimum amounts do not roll over to the next month</div>
+                </div>
+
+                <div class="payout-card">
+                    <h4>
+                        <span class="payout-icon">📅</span>
+                        Payment Schedule
+                    </h4>
+                    <div class="payout-amount">Monthly</div>
+                    <div class="payout-description">Payments processed by the 15th of each month for the previous month's approved commissions</div>
+                    <div class="payout-detail">14-day hold period after customer payment clears</div>
+                </div>
+
+                <div class="payout-card">
+                    <h4>
+                        <span class="payout-icon">⏱️</span>
+                        Hold Period
+                    </h4>
+                    <div class="payout-amount">14 Days</div>
+                    <div class="payout-description">Commission eligibility begins 14 days after each customer charge processes</div>
+                    <div class="payout-detail">Protects against refunds and chargebacks</div>
+                </div>
+            </div>
+
+            <div class="payout-schedule">
+                <h4>Payout Timeline Example</h4>
+                <div class="schedule-steps">
+                    <div class="schedule-step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Customer Pays</div>
+                        <div class="step-description">Your referral makes their first payment on January 1st</div>
+                    </div>
+                    
+                    <div class="schedule-step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Hold Period</div>
+                        <div class="step-description">14-day hold period ends on January 15th - commission becomes "approved"</div>
+                    </div>
+                    
+                    <div class="schedule-step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Monthly Payout</div>
+                        <div class="step-description">Payment sent by February 15th (if you meet $150 minimum)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-methods">
+                <h4>Payment Method</h4>
+                <div class="method-list">
+                    <div class="payment-method">Direct Deposit (ACH)</div>
+                </div>
+                <p style="text-align: center; color: #4a5568; margin-top: 1rem; font-size: 0.9rem;">
+                    Bank account details required during affiliate setup
+                </p>
+            </div>
+
+            <div class="important-note">
+                <h4>Important Payout Requirements</h4>
+                <p><strong>Monthly Activity:</strong> Must refer 2+ new paying customers each calendar month to maintain recurring commission eligibility</p>
+                <p><strong>Tax Forms:</strong> W-9 form required before first payout (US affiliates only)</p>
+                <p><strong>Clawbacks:</strong> Refunds, chargebacks, and payment reversals are deducted from future commissions</p>
+                <p><strong>Account Name:</strong> Payment account name must match your tax form name exactly</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

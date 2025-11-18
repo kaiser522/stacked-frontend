@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacked Technologies - Email Swipe Files</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f7fafc;
+            min-height: 100vh;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 40px rgba(0,0,0,0.08);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0A1B2A 0%, #0A1B2A 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            color: #7D7D7D;
+            margin-bottom: 2rem;
+        }
+
+        .format-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            color: #7D7D7D;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(26, 188, 156, 0.2);
+            color: #1ABC9C;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(26, 188, 156, 0.3);
+            display: inline-block;
+            margin: 4px;
+        }
+
+        .bulk-download {
+            background: #1ABC9C;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .bulk-download:hover {
+            background: #16a085;
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 3rem 2rem;
+        }
+
+        .intro-section {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+            border-left: 4px solid #1ABC9C;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .intro-section h2 {
+            color: #0A1B2A;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .intro-section p {
+            color: #0A1B2A;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .sequence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .sequence-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .sequence-card:hover {
+            border-color: #1ABC9C;
+            box-shadow: 0 8px 25px rgba(26, 188, 156, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .sequence-header {
+            background: #0A1B2A;
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .sequence-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1ABC9C;
+            margin-bottom: 0.5rem;
+        }
+
+        .sequence-description {
+            color: #7D7D7D;
+            font-size: 1rem;
+        }
+
+        .sequence-info {
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .sequence-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .email-count {
+            background: #1ABC9C;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .sequence-timing {
+            color: #7D7D7D;
+            font-size: 0.9rem;
+        }
+
+        .sequence-purpose {
+            color: #0A1B2A;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .emails-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .email-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .email-item:hover {
+            background-color: #f8fafc;
+        }
+
+        .email-item:last-child {
+            border-bottom: none;
+        }
+
+        .email-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .email-number {
+            background: #e2e8f0;
+            color: #0A1B2A;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+
+        .email-timing {
+            color: #7D7D7D;
+            font-size: 0.85rem;
+            margin-left: auto;
+        }
+
+        .email-subject {
+            font-weight: 600;
+            color: #0A1B2A;
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .email-preview {
+            color: #7D7D7D;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+
+        .email-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .email-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .email-btn.primary {
+            background: #1ABC9C;
+            color: white;
+        }
+
+        .email-btn.primary:hover {
+            background: #16a085;
+        }
+
+        .email-btn.secondary {
+            background: #e2e8f0;
+            color: #0A1B2A;
+        }
+
+        .email-btn.secondary:hover {
+            background: #cbd5e0;
+        }
+
+        .sequence-actions {
+            padding: 1.5rem;
+            background: #f8fafc;
+        }
+
+        .sequence-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .sequence-btn.primary {
+            background: #1ABC9C;
+            color: white;
+        }
+
+        .sequence-btn.primary:hover {
+            background: #16a085;
+        }
+
+        .sequence-btn.secondary {
+            background: #0A1B2A;
+            color: white;
+        }
+
+        .sequence-btn.secondary:hover {
+            background: #2d3748;
+        }
+
+        .email-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 800px;
+            margin: 2rem auto;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .modal-header {
+            background: #0A1B2A;
+            color: white;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .modal-title {
+            color: #1ABC9C;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            color: #7D7D7D;
+            font-size: 1rem;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .email-full-content {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            font-family: Georgia, serif;
+            line-height: 1.6;
+        }
+
+        .email-subject-line {
+            background: #0A1B2A;
+            color: #1ABC9C;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 2rem 1rem;
+            }
+
+            .sequence-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .format-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .modal-content {
+                margin: 1rem;
+                max-width: none;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Email Swipe Files</h1>
+            <p>Done-for-you email sequences that convert prospects into customers</p>
+            <div class="format-info">
+                <span>📧 Intro Sequences</span>
+                <span>🔄 Follow-up Series</span>
+                <span>💰 Conversion Pushes</span>
+                <span>🎯 Ready-to-Send</span>
+            </div>
+            <div style="margin-top: 20px;">
+                <span class="tag">proven-converting</span>
+                <span class="tag">customizable</span>
+                <span class="tag">copy-paste ready</span>
+            </div>
+            <button class="bulk-download" onclick="downloadAllSequences()">Download All Sequences</button>
+        </div>
+
+        <div class="content">
+            <div class="intro-section">
+                <h2>Professional Email Sequences</h2>
+                <p>Complete email sequences designed to nurture prospects and drive conversions. Each sequence includes subject lines, timing, and full copy that you can customize with your affiliate link.</p>
+            </div>
+
+            <div class="sequence-grid">
+                <!-- Intro Sequence -->
+                <div class="sequence-card">
+                    <div class="sequence-header">
+                        <h3 class="sequence-title">New Subscriber Introduction</h3>
+                        <p class="sequence-description">Welcome series that builds trust and introduces Stacked Technologies</p>
+                    </div>
+                    <div class="sequence-info">
+                        <div class="sequence-meta">
+                            <span class="email-count">5 Emails</span>
+                            <span class="sequence-timing">Over 7 days</span>
+                        </div>
+                        <p class="sequence-purpose">Perfect for: New email subscribers, lead magnets, opt-in follow-up</p>
+                    </div>
+                    <div class="emails-container">
+                        <div class="email-item">
+                            <div class="email-header">
+                                <span class="email-number">Email 1</span>
+                                <span class="email-timing">Immediate</span>
+                            </div>
+                            <div class="email-subject" onclick="showEmailModal('intro1')">
+                                Welcome! Here's what you can expect...
+                                <span style="font-size: 0.8rem; color: #1ABC9C;">↗</span>
+                            </div>
+                            <div class="email-preview">Warm welcome email that sets expectations and delivers immediate value with a free resource.</div>
+                            <div class="email-actions">
+                                <button class="email-btn primary" onclick="copyEmailSubject('Welcome! Here\\'s what you can expect...')">Copy Subject</button>
+                                <button class="email-btn secondary" onclick="showEmailModal('intro1')">View Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-item">
+                            <div class="email-header">
+                                <span class="email-number">Email 2</span>
+                                <span class="email-timing">Day 1</span>
+                            </div>
+                            <div class="email-subject" onclick="showEmailModal('intro2')">
+                                The #1 mistake killing your lead conversion
+                                <span style="font-size: 0.8rem; color: #1ABC9C;">↗</span>
+                            </div>
+                            <div class="email-preview">Identifies common problem and positions Stacked as the solution with social proof.</div>
+                            <div class="email-actions">
+                                <button class="email-btn primary" onclick="copyEmailSubject('The #1 mistake killing your lead conversion')">Copy Subject</button>
+                                <button class="email-btn secondary" onclick="showEmailModal('intro2')">View Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-item">
+                            <div class="email-header">
+                                <span class="email-number">Email 3</span>
+                                <span class="email-timing">Day 3</span>
+                            </div>
+                            <div class="email-subject" onclick="showEmailModal('intro3')">
+                                How I went from 10 to 100+ deals per year
+                                <span style="font-size: 0.8rem; color: #1ABC9C;">↗</span>
+                            </div>
+                            <div class="email-preview">Personal success story that demonstrates the transformation possible with better systems.</div>
+                            <div class="email-actions">
+                                <button class="email-btn primary" onclick="copyEmailSubject('How I went from 10 to 100+ deals per year')">Copy Subject</button>
+                                <button class="email-btn secondary" onclick="showEmailModal('intro3')">View Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-item">
+                            <div class="email-header">
+                                <span class="email-number">Email 4</span>
+                                <span class="email-timing">Day 5</span>
+                            </div>
+                            <div class="email-subject" onclick="showEmailModal('intro4')">
+                                See Stacked in action (2-minute demo)
+                                <span style="font-size: 0.8rem; color: #1ABC9C;">↗</span>
+                            </div>
+                            <div class="email-preview">Soft introduction to the product with value-focused demo and no-pressure approach.</div>
+                            <div class="email-actions">
+                                <button class="email-btn primary" onclick="copyEmailSubject('See Stacked in action (2-minute demo)')">Copy Subject</button>
+                                <button class="email-btn secondary" onclick="showEmailModal('intro4')">View Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-item">
+                            <div class="email-header">
+                                <span class="email-number">Email 5</span>
+                                <span class="email-timing">Day 7</span>
+                            </div>
+                            <div class="email-subject" onclick="showEmailModal('intro5')">
+                                Ready to transform your business?
+                                <span style="font-size: 0.8rem; color: #1ABC9C;">↗</span>
+                            </div>
+                            <div class="email-preview">Clear call-to-action with trial offer and risk-free guarantee positioning.</div>
+                            <div class="email-actions">
+                                <button class="email-btn primary" onclick="copyEmailSubject('Ready to transform your business?')">Copy Subject</button>
+                                <button class="email-btn secondary" onclick="showEmailModal('intro5')">View Full Email</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sequence-actions">
+                        <button class="sequence-btn primary" onclick="downloadSequence('intro')">Download Full Sequence</button>
+                        <button class="sequence-btn secondary" onclick="customizeSequence('intro')">Customize Sequence</button>
+                    </div>
+                </div>
+
+                <!-- Follow-up Sequence -->
+                <div class="sequence-card">
+                    <div class="sequence-header">
+                        <h3 class="sequence-title">Nurture & Follow-up Series</h3>
+                        <p class="sequence-description">Ongoing relationship building for prospects who haven't converted yet</p>
+                    </div>
+                    <div class="sequence-info">
+                        <div class="sequence-meta">
+                            <span class="email-count">6 Emails</span>
+                            <span class="sequence-timing">Over 3 weeks</span>
+                        </div>
+                        <p class="sequence-purpose">Perfect for: Warm prospects, trial users, engaged subscribers</p>
+                    </div>
+                    <div class="emails-container">
+                        <div class="email-item">
+                            <div class="email-header">
+                                <span class="email-number">Email 1</span>
+                                <span class="email-timing">Day 1</span>
+                            </div>
+                            <div class="email-subject" onclick="showEmailModal('followup1')">
+                                Still struggling with lead management?
+                                <span style="font-size: 0.8rem; color: #1ABC9C;">↗</span>
+                            </div>
+                            <div class="email-preview">Empathetic check-in that acknowledges their challenges and offers helpful resources.</div>
+                            <div class="email-actions">
+                                <button class="email-btn primary" onclick="copyEmailSubject('Still struggling with lead management?')">Copy Subject</button>
+                                <button class="email-btn secondary" onclick="showEmailModal('followup1')">View Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-item">
+                            <div class="email-header">
+                                <span class="email-number">Email 2</span>
+                                <span class="email-timing">Day 4</span>
+                            </div>
+                            <div class="email-subject" onclick="showEmailModal('followup2')">
+                                What top 1% agents do differently
+                                <span style="font-size: 0.8rem; color: #1ABC9C;">↗</span>
+                            </div>
+                            <div class="email-preview">Educational content about successful agent habits with subtle product positioning.</div>
+                            <div class="email-actions">
+                                <button class="email-btn primary" onclick="copyEmailSubject('What top 1% agents do differently')">Copy Subject</button>
+                                <button class="email-btn secondary" onclick="showEmailModal('followup2')">View Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-item">
+                            <div class="email-header">
+                                <span class="email-number">Email 3</span>
+                                <span class="email-timing">Day 7</span>
+                            </div>
+                            <div class="email-subject" onclick="showEmailModal('followup3')">
+                                5-minute Friday: Quick CRM wins
+                                <span style="font-size: 0.8rem; color: #1ABC9C;">↗</span>
+                            </div>
+                            <div class="email-preview">Valuable tips and tricks that can be implemented immediately to see results.</div>
+                            <div class="email-actions">
+                                <button class="email-btn primary" onclick="copyEmailSubject('5-minute Friday: Quick CRM wins')">Copy Subject</button>
+                                <button class="email-btn secondary" onclick="showEmailModal('followup3')">View Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-item">
+                            <div class="email-header">
+                                <span class="email-number">Email 4</span>
+                                <span class="email-timing">Day 11</span>
+                            </div>
+                            <div class="email-subject" onclick="showEmailModal('followup4')">
+                                Real results from real agents
+                                <span style="font-size: 0.8rem; color: #1ABC9C;">↗</span>
+                            </div>
+                            <div class="email-preview">Customer success stories and testimonials that build credibility and trust.</div>
+                            <div class="email-actions">
+                                <button class="email-btn primary" onclick="copyEmailSubject('Real results from real agents')">Copy Subject</button>
+                                <button class="email-btn secondary" onclick="showEmailModal('followup4')">View Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-item">
+                            <div class="email-header">
+                                <span class="email-number">Email 5</span>
+                                <span class="email-timing">Day 14</span>
+                            </div>
+                            <div class="email-subject" onclick="showEmailModal('followup5')">
+                                The cost of doing nothing
+                                <span style="font-size: 0.8rem; color: #1ABC9C;">↗</span>
+                            </div>
+                            <div class="email-preview">Urgency-building content about opportunity cost and competitive disadvantage.</div>
+                            <div class="email-actions">
+                                <button class="email-btn primary" onclick="copyEmailSubject('The cost of doing nothing')">Copy Subject</button>
+                                <button class="email-btn secondary" onclick="showEmailModal('followup5')">View Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-item">
+                            <div class="email-header">
+                                <span class="email-number">Email 6</span>
+                                <span class="email-timing">Day 21</span>
+                            </div>
+                            <div class="email-subject" onclick="showEmailModal('followup6')">
+                                Last chance: Special trial extension
+                                <span style="font-size: 0.8rem; color: #1ABC9C;">↗</span>
+                            </div>
+                            <div class="email-preview">Final push with special offer and clear next steps for interested prospects.</div>
+                            <div class="email-actions">
+                                <button class="email-btn primary" onclick="copyEmailSubject('Last chance: Special trial extension')">Copy Subject</button>
+                                <button class="email-btn secondary" onclick="showEmailModal('followup6')">View Full Email</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sequence-actions">
+                        <button class="sequence-btn primary" onclick="downloadSequence('followup')">Download Full Sequence</button>
+                        <button class="sequence-btn secondary" onclick="customizeSequence('followup')">Customize Sequence</button>
+                    </div>
+                </div>
+
+                <!-- Conversion Push Sequence -->
+                <div class="sequence-card">
+                    <div class="sequence-header">
+                        <h3 class="sequence-title">Conversion Push Campaign</h3>
+                        <p class="sequence-description">High-converting sequence for warm prospects ready to buy</p>
+                    </div>
+                    <div class="sequence-info">
+                        <div class="sequence-meta">
+                            <span class="email-count">4 Emails</span>
+                            <span class="sequence-timing">Over 5 days</span>
+                        </div>
+                        <p class="sequence-purpose">Perfect for: Trial users, demo attendees, engaged prospects</p>
+                    </div>
+                    <div class="emails-container">
+                        <div class="email-item">
+                            <div class="email-header">
+                                <span class="email-number">Email 1</span>
+                                <span class="email-timing">Day 1</span>
+                            </div>
+                            <div class="email-subject" onclick="showEmailModal('conversion1')">
+                                Your trial ends tomorrow - here's what you've accomplished
+                                <span style="font-size: 0.8rem; color: #1ABC9C;">↗</span>
+                            </div>
+                            <div class="email-preview">Progress summary that reinforces value and creates momentum toward purchase.</div>
+                            <div class="email-actions">
+                                <button class="email-btn primary" onclick="copyEmailSubject('Your trial ends tomorrow - here\\'s what you\\'ve accomplished')">Copy Subject</button>
+                                <button class="email-btn secondary" onclick="showEmailModal('conversion1')">View Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-item">
+                            <div class="email-header">
+                                <span class="email-number">Email 2</span>
+                                <span class="email-timing">Day 2</span>
+                            </div>
+                            <div class="email-subject" onclick="showEmailModal('conversion2')">
+                                Don't lose your momentum (save 30%)
+                                <span style="font-size: 0.8rem; color: #1ABC9C;">↗</span>
+                            </div>
+                            <div class="email-preview">Urgency-driven offer with discount and risk of losing progress made during trial.</div>
+                            <div class="email-actions">
+                                <button class="email-btn primary" onclick="copyEmailSubject('Don\\'t lose your momentum (save 30%)')">Copy Subject</button>
+                                <button class="email-btn secondary" onclick="showEmailModal('conversion2')">View Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-item">
+                            <div class="email-header">
+                                <span class="email-number">Email 3</span>
+                                <span class="email-timing">Day 4</span>
+                            </div>
+                            <div class="email-subject" onclick="showEmailModal('conversion3')">
+                                What happens if you don't upgrade?
+                                <span style="font-size: 0.8rem; color: #1ABC9C;">↗</span>
+                            </div>
+                            <div class="email-preview">Loss aversion email highlighting what they'll miss without the full system.</div>
+                            <div class="email-actions">
+                                <button class="email-btn primary" onclick="copyEmailSubject('What happens if you don\\'t upgrade?')">Copy Subject</button>
+                                <button class="email-btn secondary" onclick="showEmailModal('conversion3')">View Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-item">
+                            <div class="email-header">
+                                <span class="email-number">Email 4</span>
+                                <span class="email-timing">Day 5</span>
+                            </div>
+                            <div class="email-subject" onclick="showEmailModal('conversion4')">
+                                Final hours: Keep everything you've built
+                                <span style="font-size: 0.8rem; color: #1ABC9C;">↗</span>
+                            </div>
+                            <div class="email-preview">Last chance email with clear deadline and easy upgrade process.</div>
+                            <div class="email-actions">
+                                <button class="email-btn primary" onclick="copyEmailSubject('Final hours: Keep everything you\\'ve built')">Copy Subject</button>
+                                <button class="email-btn secondary" onclick="showEmailModal('conversion4')">View Full Email</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sequence-actions">
+                        <button class="sequence-btn primary" onclick="downloadSequence('conversion')">Download Full Sequence</button>
+                        <button class="sequence-btn secondary" onclick="customizeSequence('conversion')">Customize Sequence</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Email Modal -->
+    <div class="email-modal" id="emailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-modal" onclick="closeEmailModal()">×</button>
+                <div class="modal-title" id="modalTitle">Email Preview</div>
+                <div class="modal-subtitle" id="modalSubtitle">Full email content ready to copy and customize</div>
+            </div>
+            <div class="modal-body">
+                <div class="email-subject-line" id="modalSubjectLine">Subject: Email Subject Here</div>
+                <div class="email-full-content" id="modalEmailContent">
+                    Email content will appear here...
+                </div>
+                <div class="modal-actions">
+                    <button class="sequence-btn primary" onclick="copyFullEmail()">Copy Full Email</button>
+                    <button class="sequence-btn secondary" onclick="customizeEmail()">Customize & Copy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Email content database
+        const emailContent = {
+            intro1: {
+                subject: "Welcome! Here's what you can expect...",
+                content: `Hi [First Name],
+
+Welcome to our community of successful real estate professionals!
+
+I'm excited you're here because I know firsthand how challenging it can be to manage leads, follow-ups, and client relationships while trying to close deals.
+
+Over the next few days, I'll be sharing some valuable insights that have helped me and thousands of other agents transform their businesses:
+
+→ Day 1: The #1 mistake that's killing your lead conversion
+→ Day 3: How I went from 10 to 100+ deals per year
+→ Day 5: A behind-the-scenes look at the system that changed everything
+
+As a welcome gift, I've put together a free guide: "5 Simple CRM Hacks That Double Your Follow-Up Success Rate"
+
+[Download Your Free Guide Here - INSERT YOUR AFFILIATE LINK]
+
+Talk soon,
+[Your Name]
+
+P.S. Hit reply and let me know your biggest challenge with lead management. I read every email and often share solutions in my upcoming messages.`
+            },
+            intro2: {
+                subject: "The #1 mistake killing your lead conversion",
+                content: `Hi [First Name],
+
+Yesterday I was talking to Sarah, a successful agent who was frustrated because she was generating plenty of leads but couldn't seem to convert them.
+
+Sound familiar?
+
+After digging deeper, I discovered she was making the same mistake that cost me over $200,000 in lost commissions my first few years...
+
+She was treating every lead the same.
+
+Here's the reality: A lead who downloaded your market report has completely different needs than someone who attended your first-time buyer seminar.
+
+Yet most agents send the same generic follow-up emails to everyone.
+
+The solution? Segmented follow-up sequences based on lead source and interest level.
+
+This one change increased my conversion rate from 3% to 12% in just 90 days.
+
+The best part? It's completely automated once you set it up correctly.
+
+I'll show you exactly how I did this (and how you can too) in tomorrow's email.
+
+Best,
+[Your Name]
+
+P.S. If you can't wait, here's a sneak peek at the system I use to manage all my lead segments automatically: [INSERT YOUR AFFILIATE LINK]`
+            },
+            intro3: {
+                subject: "How I went from 10 to 100+ deals per year",
+                content: `Hi [First Name],
+
+Three years ago, I closed 10 deals and thought I was doing pretty well.
+
+Last year? 127 deals.
+
+What changed wasn't my marketing budget, my team size, or even my market.
+
+It was my systems.
+
+Here's the embarrassing truth: I used to manage my leads in a combination of sticky notes, Excel spreadsheets, and my phone's contact list.
+
+Follow-ups happened when I remembered them (which wasn't often).
+
+I had no idea which marketing efforts were actually working.
+
+And I definitely couldn't tell you where each prospect was in my sales process.
+
+The turning point came when I realized that top-producing agents aren't necessarily better at sales - they're just better at systems.
+
+So I invested in a proper CRM designed specifically for real estate professionals.
+
+The results were immediate:
+• Never missed another follow-up
+• Could track exactly which marketing brought in deals
+• Automated my entire nurture sequence
+• Freed up 10+ hours per week for actual selling
+
+The system I chose was Stacked Technologies, and it literally transformed my business.
+
+Want to see how it works? I've arranged for you to get a free demo with no sales pressure:
+
+[Book Your Free Demo - INSERT YOUR AFFILIATE LINK]
+
+Success,
+[Your Name]
+
+P.S. The demo is only 15 minutes and you'll walk away with at least 3 actionable strategies you can implement immediately.`
+            },
+            intro4: {
+                subject: "See Stacked in action (2-minute demo)",
+                content: `Hi [First Name],
+
+I've been sharing some strategies that helped me scale my real estate business, and several people have asked to see the actual system I use.
+
+So I recorded a quick 2-minute demo showing exactly how Stacked Technologies works.
+
+You'll see:
+• How I track leads from first contact to closing
+• The automated follow-up sequences that convert 12% of my leads
+• How I manage 500+ active prospects without missing anything
+• The dashboard that gives me instant insight into my business
+
+This isn't a sales pitch - it's just me showing you the system that changed everything.
+
+[Watch the 2-Minute Demo - INSERT YOUR AFFILIATE LINK]
+
+The best part? You can try everything you see for free. No credit card required.
+
+Worth a look?
+
+[Your Name]
+
+P.S. Even if you decide Stacked isn't for you, you'll pick up some great ideas for organizing your current system.`
+            },
+            intro5: {
+                subject: "Ready to transform your business?",
+                content: `Hi [First Name],
+
+Over the past week, I've shared how proper systems transformed my real estate business:
+
+✓ Never missing follow-ups again
+✓ Converting 12% of leads instead of 3%
+✓ Growing from 10 to 127+ deals per year
+✓ Saving 10+ hours per week on administrative tasks
+
+The tool that made this possible is Stacked Technologies.
+
+If you're ready to stop losing leads and start scaling your business, here's what I recommend:
+
+Start with their free trial. No credit card required, no sales pressure.
+
+[Start Your Free Trial - INSERT YOUR AFFILIATE LINK]
+
+You'll get immediate access to:
+• Lead management system designed for real estate
+• Automated follow-up sequences
+• Deal pipeline tracking
+• Performance analytics
+• Mobile app for on-the-go access
+
+Try it for 14 days. If it doesn't transform how you manage your business, simply walk away.
+
+But if you're like the thousands of agents already using Stacked, you'll wonder how you ever managed without it.
+
+[Get Started Free - INSERT YOUR AFFILIATE LINK]
+
+To your success,
+[Your Name]
+
+P.S. Questions? Just hit reply. I personally answer every email and I'm happy to help you get set up for success.`
+            },
+            followup1: {
+                subject: "Still struggling with lead management?",
+                content: `Hi [First Name],
+
+I hope you've been able to implement some of the strategies I shared in my last few emails.
+
+But I know that reading about systems and actually implementing them are two very different things.
+
+Maybe you're still:
+• Losing track of leads in spreadsheets
+• Missing follow-ups because you forgot
+• Wondering which marketing efforts actually work
+• Feeling overwhelmed by all the manual work
+
+If so, you're not alone. This is exactly where I was three years ago.
+
+The good news? You don't have to figure this out on your own.
+
+I've put together a free resource that walks you through setting up proper lead management, even if you're starting from scratch:
+
+[Download the Step-by-Step Guide - INSERT YOUR AFFILIATE LINK]
+
+This isn't theory - it's the exact process I used to transform my business.
+
+Implementation beats intention every time.
+
+[Your Name]`
+            },
+            followup2: {
+                subject: "What top 1% agents do differently",
+                content: `Hi [First Name],
+
+I recently spoke at a real estate conference where I had the chance to interview several top 1% producers.
+
+I asked them all the same question: "What's the one thing you do that most agents don't?"
+
+Their answers might surprise you.
+
+It wasn't about having the best marketing or the most charisma.
+
+Every single one mentioned having systematic follow-up processes.
+
+Here's what Sarah (289 deals last year) told me:
+
+"Most agents think follow-up means sending a generic email every few months. I have 47 different follow-up sequences based on exactly where someone is in their buying or selling journey."
+
+John (312 deals) said: "I never rely on my memory for follow-ups. Everything is automated, so nothing falls through the cracks."
+
+The pattern was clear: Top producers treat follow-up as a system, not a task.
+
+They use tools that automatically nurture leads based on behavior, interests, and timeline.
+
+Want to see exactly how they do it?
+
+[See the System Top Producers Use - INSERT YOUR AFFILIATE LINK]
+
+Success,
+[Your Name]`
+            },
+            followup3: {
+                subject: "5-minute Friday: Quick CRM wins",
+                content: `Hi [First Name],
+
+Happy Friday! Here are 3 quick CRM wins you can implement today:
+
+1. **Lead Source Tracking**
+Set up unique phone numbers or landing pages for each marketing channel. This tells you exactly which efforts produce deals (vs. just leads).
+
+2. **The 5-Touch Rule**
+Create an automated sequence that touches every new lead 5 times in the first 2 weeks. Most agents give up after 1-2 attempts, but persistence pays.
+
+3. **Pipeline Velocity Reports**
+Track how long leads take to move between stages. If prospects sit in "Considering" for more than 30 days, they need a different approach.
+
+These might seem simple, but they're game-changers when consistently applied.
+
+If you want to see these concepts in action (plus dozens more), check out how Stacked Technologies makes this effortless:
+
+[See CRM Best Practices in Action - INSERT YOUR AFFILIATE LINK]
+
+Have a great weekend!
+[Your Name]`
+            },
+            followup4: {
+                subject: "Real results from real agents",
+                content: `Hi [First Name],
+
+Sometimes the best way to understand what's possible is to hear from people who've actually done it.
+
+Here are some recent results from agents using Stacked Technologies:
+
+**Maria (Phoenix, AZ):**
+"Went from 23 deals to 67 deals in one year. The automated follow-up sequences alone probably generated 15 extra closings."
+
+**David (Austin, TX):**
+"I was spending 2 hours every morning just figuring out who to call. Now I open my app and my priorities are already sorted. Saved me 10+ hours per week."
+
+**Jennifer (Tampa, FL):**
+"Never thought I'd hit 100 deals in a year. The lead scoring feature helped me focus on the prospects most likely to buy. Game changer."
+
+These aren't exceptional cases - they're typical results when you implement proper systems.
+
+Ready to write your own success story?
+
+[Start Your Free Trial - INSERT YOUR AFFILIATE LINK]
+
+[Your Name]
+
+P.S. Every agent above started their trial with skepticism. "Another CRM?" they thought. But proper systems change everything.`
+            },
+            followup5: {
+                subject: "The cost of doing nothing",
+                content: `Hi [First Name],
+
+Let me ask you a tough question:
+
+What's the cost of staying with your current lead management system for another year?
+
+I don't mean the subscription cost of whatever tool you're using (or not using).
+
+I mean the real cost:
+
+• Leads that slip through the cracks
+• Follow-ups that never happen
+• Deals that could have closed with better nurturing
+• Time wasted on manual tasks instead of selling
+
+For me, before I got serious about systems, that cost was about $200,000 per year in lost commissions.
+
+Even if your number is half that, can you afford to lose $100,000 because you didn't want to change your process?
+
+Meanwhile, agents using proper systems are:
+• Converting 2-3x more leads
+• Closing 50-100+ deals per year
+• Working fewer hours
+• Building sustainable, scalable businesses
+
+The gap between systematized and unsystematized agents grows every year.
+
+Which side do you want to be on?
+
+[Join the Systematized Agents - INSERT YOUR AFFILIATE LINK]
+
+[Your Name]`
+            },
+            followup6: {
+                subject: "Last chance: Special trial extension",
+                content: `Hi [First Name],
+
+I've been sharing strategies for scaling your real estate business through better systems.
+
+If you haven't taken action yet, I understand. Change is hard, even when we know it's necessary.
+
+But I don't want you to miss this opportunity.
+
+I've arranged with Stacked Technologies to extend their free trial period for my subscribers.
+
+Instead of 14 days, you get 30 days to try everything:
+• Automated lead nurturing
+• Deal pipeline management
+• Performance analytics
+• Mobile access
+• Unlimited support
+
+No credit card required. No risk.
+
+[Claim Your Extended 30-Day Trial - INSERT YOUR AFFILIATE LINK]
+
+This extended trial expires at midnight Sunday.
+
+After that, it's back to the standard 14-day trial.
+
+The question isn't whether you need better systems.
+
+The question is: Will you take action while the opportunity is right in front of you?
+
+[Get Your 30-Day Trial - INSERT YOUR AFFILIATE LINK]
+
+To your success,
+[Your Name]
+
+P.S. This is my final email about this opportunity. I know you're busy, but the most successful agents are the ones who act when they see a clear path forward.`
+            },
+            conversion1: {
+                subject: "Your trial ends tomorrow - here's what you've accomplished",
+                content: `Hi [First Name],
+
+Your Stacked Technologies trial ends tomorrow, and I wanted to take a moment to acknowledge what you've accomplished.
+
+In just the past two weeks, you've:
+• Organized your lead database
+• Set up automated follow-up sequences
+• Tracked your deal pipeline
+• Identified which marketing sources work best
+• Saved hours of manual administrative work
+
+That's significant progress.
+
+The question now is: Do you want to keep this momentum going?
+
+Without Stacked, you'll go back to:
+• Manual follow-ups (that you'll inevitably miss)
+• Scattered lead information
+• No clear picture of your pipeline
+• Guessing which marketing efforts work
+
+All the organization and automation you've built will be lost.
+
+But you don't have to lose it.
+
+[Continue Your Success - Upgrade Now - INSERT YOUR AFFILIATE LINK]
+
+Plus, if you upgrade before your trial ends, you'll save 30% on your first three months.
+
+Don't lose the progress you've made.
+
+[Secure Your Account - INSERT YOUR AFFILIATE LINK]
+
+[Your Name]`
+            },
+            conversion2: {
+                subject: "Don't lose your momentum (save 30%)",
+                content: `Hi [First Name],
+
+Your Stacked trial ends in 24 hours.
+
+I know you've put work into setting up your system over the past two weeks.
+
+• You've organized your leads
+• Created follow-up sequences  
+• Set up your deal pipeline
+• Customized your dashboard
+
+Here's what happens if you don't upgrade:
+
+Tomorrow, you lose access to everything you've built.
+
+Your follow-up sequences stop running.
+Your organized lead database becomes inaccessible.
+Your automated systems shut down.
+
+All that progress... gone.
+
+But it doesn't have to be.
+
+Upgrade before midnight tonight and save 30% on your first three months:
+
+[Upgrade Now & Save 30% - INSERT YOUR AFFILIATE LINK]
+
+This isn't just about saving money.
+
+It's about not losing the momentum you've built.
+
+[Keep Your Progress - Upgrade Now - INSERT YOUR AFFILIATE LINK]
+
+[Your Name]
+
+P.S. This 30% discount expires when your trial does. After that, it's gone forever.`
+            },
+            conversion3: {
+                subject: "What happens if you don't upgrade?",
+                content: `Hi [First Name],
+
+Your trial expires in a few hours.
+
+I want to be honest about what happens next if you don't upgrade:
+
+**Tomorrow morning:**
+• Your automated follow-ups stop
+• You lose access to your organized lead database
+• Your deal pipeline tracking disappears
+• All custom settings are erased
+
+**Next week:**
+• You're back to manual follow-ups (that you'll miss)
+• Leads start falling through the cracks again
+• You lose visibility into your pipeline
+• Administrative work piles up
+
+**Next month:**
+• You're wondering why your conversion rate dropped
+• Promising leads have gone cold
+• You're spending hours on tasks that used to be automated
+• You're back where you started
+
+The agents who upgrade? They keep growing.
+
+Their systems keep running.
+Their leads keep converting.
+Their businesses keep scaling.
+
+Which path do you choose?
+
+[Keep Growing - Upgrade Now - INSERT YOUR AFFILIATE LINK]
+
+[Your Name]
+
+P.S. You've already done the hard work of setting everything up. Don't throw it away now.`
+            },
+            conversion4: {
+                subject: "Final hours: Keep everything you've built",
+                content: `Hi [First Name],
+
+This is it. Your trial expires in less than 6 hours.
+
+After that, everything you've built in Stacked Technologies will be gone:
+
+✗ Your organized lead database
+✗ Your automated follow-up sequences  
+✗ Your deal pipeline tracking
+✗ Your performance analytics
+✗ All your custom settings
+
+Gone.
+
+Or you can keep it all with one click:
+
+[Upgrade Now - Keep Everything - INSERT YOUR AFFILIATE LINK]
+
+I've seen too many agents lose momentum because they didn't want to commit.
+
+Don't be one of them.
+
+You've already invested the time to set up your system.
+You've seen how much easier it makes your business.
+You know the results it can produce.
+
+The only question is: Will you keep it?
+
+[Yes, Keep My System - INSERT YOUR AFFILIATE LINK]
+
+This is your last chance.
+
+[Your Name]
+
+P.S. In 6 hours, this opportunity is gone forever. Everything you've built will be deleted. Don't let that happen.`
+            }
+        };
+
+        function showEmailModal(emailId) {
+            const modal = document.getElementById('emailModal');
+            const email = emailContent[emailId];
+            
+            document.getElementById('modalTitle').textContent = 'Email Preview';
+            document.getElementById('modalSubtitle').textContent = 'Full email content ready to copy and customize';
+            document.getElementById('modalSubjectLine').textContent = 'Subject: ' + email.subject;
+            document.getElementById('modalEmailContent').textContent = email.content;
+            
+            modal.style.display = 'block';
+            modal.setAttribute('data-current-email', emailId);
+        }
+
+        function closeEmailModal() {
+            document.getElementById('emailModal').style.display = 'none';
+        }
+
+        function copyEmailSubject(subject) {
+            navigator.clipboard.writeText(subject).then(function() {
+                event.target.textContent = 'Copied!';
+                event.target.style.background = '#16a085';
+                
+                setTimeout(() => {
+                    event.target.textContent = 'Copy Subject';
+                    event.target.style.background = '#1ABC9C';
+                }, 2000);
+            });
+        }
+
+        function copyFullEmail() {
+            const modal = document.getElementById('emailModal');
+            const emailId = modal.getAttribute('data-current-email');
+            const email = emailContent[emailId];
+            const fullContent = `Subject: ${email.subject}\n\n${email.content}`;
+            
+            navigator.clipboard.writeText(fullContent).then(function() {
+                event.target.textContent = 'Copied!';
+                event.target.style.background = '#16a085';
+                
+                setTimeout(() => {
+                    event.target.textContent = 'Copy Full Email';
+                    event.target.style.background = '#1ABC9C';
+                }, 2000);
+            });
+        }
+
+        function customizeEmail() {
+            const modal = document.getElementById('emailModal');
+            const emailId = modal.getAttribute('data-current-email');
+            const email = emailContent[emailId];
+            
+            const customSubject = prompt('Customize subject line:', email.subject);
+            const customContent = prompt('Customize email content (tip: add your affiliate link):', email.content);
+            
+            if (customSubject && customContent) {
+                const fullContent = `Subject: ${customSubject}\n\n${customContent}`;
+                navigator.clipboard.writeText(fullContent);
+                alert('Customized email copied to clipboard!');
+            }
+        }
+
+        function downloadSequence(sequenceType) {
+            let sequenceEmails = [];
+            
+            if (sequenceType === 'intro') {
+                sequenceEmails = ['intro1', 'intro2', 'intro3', 'intro4', 'intro5'];
+            } else if (sequenceType === 'followup') {
+                sequenceEmails = ['followup1', 'followup2', 'followup3', 'followup4', 'followup5', 'followup6'];
+            } else if (sequenceType === 'conversion') {
+                sequenceEmails = ['conversion1', 'conversion2', 'conversion3', 'conversion4'];
+            }
+            
+            let content = `STACKED TECHNOLOGIES - ${sequenceType.toUpperCase()} EMAIL SEQUENCE\n`;
+            content += `Generated: ${new Date().toLocaleDateString()}\n\n`;
+            content += `Instructions: Replace [INSERT YOUR AFFILIATE LINK] with your actual affiliate link\n`;
+            content += `Replace [Your Name] with your name\n`;
+            content += `Replace [First Name] with merge tags from your email platform\n\n`;
+            content += '='.repeat(60) + '\n\n';
+            
+            sequenceEmails.forEach((emailId, index) => {
+                const email = emailContent[emailId];
+                content += `EMAIL ${index + 1}\n`;
+                content += `Subject: ${email.subject}\n\n`;
+                content += `${email.content}\n\n`;
+                content += '='.repeat(60) + '\n\n';
+            });
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `stacked-${sequenceType}-email-sequence.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function customizeSequence(sequenceType) {
+            alert(`Sequence customization feature coming soon! For now, download the sequence and edit in your preferred text editor.`);
+        }
+
+        function downloadAllSequences() {
+            setTimeout(() => downloadSequence('intro'), 100);
+            setTimeout(() => downloadSequence('followup'), 300);
+            setTimeout(() => downloadSequence('conversion'), 500);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('emailModal');
+            if (event.target === modal) {
+                closeEmailModal();
+            }
+        }
+    </script>
+</body>
+</html>

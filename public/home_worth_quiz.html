@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's Your Home Worth? Quiz Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            border: 2px solid #764ba2;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .quiz-icon {
+            width: 60px;
+            height: 60px;
+            background: #764ba2;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .quiz-preview {
+            background: white;
+            border-radius: 15px;
+            padding: 0;
+            color: #333;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            min-height: 600px;
+        }
+
+        .controls-panel {
+            background: rgba(58, 74, 92, 0.8);
+            border: 2px solid #764ba2;
+            border-radius: 20px;
+            padding: 25px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+            max-height: 800px;
+            overflow-y: auto;
+        }
+
+        .panel-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #764ba2;
+            text-align: center;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #a0b4c3;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .control-group input, 
+        .control-group textarea, 
+        .control-group select {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #5a6a7c;
+            border-radius: 5px;
+            background: #2c3e50;
+            color: white;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .control-group input:focus, 
+        .control-group textarea:focus, 
+        .control-group select:focus {
+            outline: none;
+            border-color: #764ba2;
+        }
+
+        .control-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .download-btn {
+            width: 100%;
+            padding: 12px;
+            background: #764ba2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .download-btn:hover {
+            background: #667eea;
+            transform: translateY(-2px);
+        }
+
+        /* Quiz Styles */
+        .quiz-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .quiz-title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .quiz-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .quiz-body {
+            padding: 30px;
+        }
+
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #764ba2;
+        }
+
+        .question-number {
+            color: #764ba2;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            padding: 12px 15px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .quiz-option:hover {
+            border-color: #764ba2;
+            background: #f0f0ff;
+        }
+
+        .quiz-option.selected {
+            border-color: #764ba2;
+            background: #e8e5ff;
+            color: #764ba2;
+            font-weight: 600;
+        }
+
+        .quiz-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .quiz-input:focus {
+            outline: none;
+            border-color: #764ba2;
+        }
+
+        .quiz-footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .submit-btn {
+            background: #764ba2;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .lead-form {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #764ba2;
+        }
+
+        .lead-form h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-field {
+            flex: 1;
+        }
+
+        .form-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+
+        .form-field input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.95rem;
+        }
+
+        .disclaimer {
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .controls-panel {
+                position: static;
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .quiz-title {
+                font-size: 1.8rem;
+            }
+            
+            .quiz-body {
+                padding: 20px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>
+            <div class="quiz-icon">💰</div>
+            What's Your Home Worth? Quiz Builder
+        </h1>
+        <p>Interactive lead generation quiz that captures homeowner information while providing value.</p>
+    </div>
+
+    <div class="main-container">
+        <div class="quiz-preview" id="quizPreview">
+            <div class="quiz-header">
+                <h1 class="quiz-title" id="quizTitle">What's Your Home Worth?</h1>
+                <p class="quiz-subtitle" id="quizSubtitle">Get an instant estimate with our quick 5-question quiz</p>
+            </div>
+
+            <div class="quiz-body">
+                <div class="question">
+                    <div class="question-number">Question 1 of 5</div>
+                    <div class="question-text">What type of property do you own?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this)">Single Family Home</div>
+                        <div class="quiz-option" onclick="selectOption(this)">Condominium</div>
+                        <div class="quiz-option" onclick="selectOption(this)">Townhouse</div>
+                        <div class="quiz-option" onclick="selectOption(this)">Multi-Family Property</div>
+                        <div class="quiz-option" onclick="selectOption(this)">Other</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">Question 2 of 5</div>
+                    <div class="question-text">How many bedrooms does your home have?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this)">1 Bedroom</div>
+                        <div class="quiz-option" onclick="selectOption(this)">2 Bedrooms</div>
+                        <div class="quiz-option" onclick="selectOption(this)">3 Bedrooms</div>
+                        <div class="quiz-option" onclick="selectOption(this)">4 Bedrooms</div>
+                        <div class="quiz-option" onclick="selectOption(this)">5+ Bedrooms</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">Question 3 of 5</div>
+                    <div class="question-text">What is the approximate square footage of your home?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this)">Under 1,000 sq ft</div>
+                        <div class="quiz-option" onclick="selectOption(this)">1,000 - 1,500 sq ft</div>
+                        <div class="quiz-option" onclick="selectOption(this)">1,500 - 2,000 sq ft</div>
+                        <div class="quiz-option" onclick="selectOption(this)">2,000 - 3,000 sq ft</div>
+                        <div class="quiz-option" onclick="selectOption(this)">3,000+ sq ft</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">Question 4 of 5</div>
+                    <div class="question-text">What is the condition of your home?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this)">Move-in ready</div>
+                        <div class="quiz-option" onclick="selectOption(this)">Some updates needed</div>
+                        <div class="quiz-option" onclick="selectOption(this)">Major renovations needed</div>
+                        <div class="quiz-option" onclick="selectOption(this)">Recently renovated</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">Question 5 of 5</div>
+                    <div class="question-text">What is your property address?</div>
+                    <input type="text" class="quiz-input" placeholder="Enter your full address for accurate valuation">
+                </div>
+
+                <div class="lead-form">
+                    <h4>Get Your FREE Home Valuation Report</h4>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>First Name</label>
+                            <input type="text" id="firstName" placeholder="Enter first name">
+                        </div>
+                        <div class="form-field">
+                            <label>Last Name</label>
+                            <input type="text" id="lastName" placeholder="Enter last name">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Email Address</label>
+                            <input type="email" id="email" placeholder="Enter email address">
+                        </div>
+                        <div class="form-field">
+                            <label>Phone Number</label>
+                            <input type="tel" id="phone" placeholder="Enter phone number">
+                        </div>
+                    </div>
+                    <div class="disclaimer">
+                        By submitting this form, you agree to receive marketing communications from us. 
+                        Your information will never be shared with third parties.
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-footer">
+                <button class="submit-btn" onclick="submitQuiz()">Get My Home Value Estimate</button>
+                <div style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">
+                    <p><strong id="agentName">Your Name</strong> • Licensed Real Estate Professional</p>
+                    <p>📞 <span id="agentPhone">(555) 123-4567</span> • ✉️ <span id="agentEmail">your@email.com</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls-panel">
+            <h3 class="panel-title">Customize Quiz</h3>
+            
+            <div class="control-group">
+                <label>Quiz Title</label>
+                <input type="text" id="quizTitleInput" value="What's Your Home Worth?" oninput="updateQuiz()">
+            </div>
+            
+            <div class="control-group">
+                <label>Quiz Subtitle</label>
+                <input type="text" id="quizSubtitleInput" value="Get an instant estimate with our quick 5-question quiz" oninput="updateQuiz()">
+            </div>
+            
+            <div class="control-group">
+                <label>Call-to-Action Button</label>
+                <input type="text" id="ctaButtonInput" value="Get My Home Value Estimate" oninput="updateQuiz()">
+            </div>
+            
+            <div class="control-group">
+                <label>Agent Name</label>
+                <input type="text" id="agentNameInput" value="Your Name" oninput="updateQuiz()">
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <div class="control-group" style="flex: 1;">
+                    <label>Phone</label>
+                    <input type="text" id="agentPhoneInput" value="(555) 123-4567" oninput="updateQuiz()">
+                </div>
+                <div class="control-group" style="flex: 1;">
+                    <label>Email</label>
+                    <input type="text" id="agentEmailInput" value="your@email.com" oninput="updateQuiz()">
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label>Target Market Area</label>
+                <input type="text" id="marketAreaInput" value="Your City" oninput="updateQuiz()">
+            </div>
+            
+            <div class="control-group">
+                <label>Quiz Instructions</label>
+                <textarea readonly style="min-height: 100px;">This quiz can be:
+• Embedded on your website
+• Shared on social media
+• Used in email campaigns
+• Added to Facebook ads
+• Sent via text message links</textarea>
+            </div>
+            
+            <div class="control-group">
+                <label>Lead Follow-up Strategy</label>
+                <textarea readonly style="min-height: 120px;">Recommended follow-up:
+1. Immediate: Send automated thank you email with preliminary estimate
+2. Within 1 hour: Personal call to discuss results
+3. Day 1: Email detailed CMA report
+4. Day 3: Text check-in message
+5. Week 1: Call to schedule in-home consultation</textarea>
+            </div>
+            
+            <button class="download-btn" onclick="downloadQuiz()">Download Quiz HTML</button>
+            <button class="download-btn" style="background: #27ae60; margin-top: 10px;" onclick="generateLeadScript()">Download Follow-up Scripts</button>
+        </div>
+    </div>
+
+    <script>
+        function selectOption(option) {
+            // Remove selected class from siblings
+            const siblings = option.parentNode.querySelectorAll('.quiz-option');
+            siblings.forEach(sibling => sibling.classList.remove('selected'));
+            
+            // Add selected class to clicked option
+            option.classList.add('selected');
+        }
+
+        function updateQuiz() {
+            document.getElementById('quizTitle').textContent = document.getElementById('quizTitleInput').value;
+            document.getElementById('quizSubtitle').textContent = document.getElementById('quizSubtitleInput').value;
+            document.querySelector('.submit-btn').textContent = document.getElementById('ctaButtonInput').value;
+            document.getElementById('agentName').textContent = document.getElementById('agentNameInput').value;
+            document.getElementById('agentPhone').textContent = document.getElementById('agentPhoneInput').value;
+            document.getElementById('agentEmail').textContent = document.getElementById('agentEmailInput').value;
+        }
+
+        function submitQuiz() {
+            // Collect form data
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            
+            if (!firstName || !lastName || !email) {
+                alert('Please fill in all required fields to get your home valuation.');
+                return;
+            }
+            
+            // Simulate submission
+            alert('Thank you! Your home valuation report will be emailed to you within 24 hours. We\'ll also call you soon to discuss your results.');
+        }
+
+        function downloadQuiz() {
+            const quizContent = document.getElementById('quizPreview').innerHTML;
+            
+            const fullHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's Your Home Worth? - Interactive Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f5f5f5; }
+        .quiz-container { max-width: 800px; margin: 0 auto; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .quiz-header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 40px 30px; text-align: center; }
+        .quiz-title { font-size: 2.2rem; font-weight: bold; margin-bottom: 10px; }
+        .quiz-subtitle { font-size: 1.1rem; opacity: 0.9; }
+        .quiz-body { padding: 30px; }
+        .question { margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 5px solid #764ba2; }
+        .question-number { color: #764ba2; font-weight: bold; font-size: 0.9rem; margin-bottom: 8px; }
+        .question-text { font-size: 1.1rem; font-weight: 600; color: #2c3e50; margin-bottom: 15px; }
+        .quiz-options { display: grid; gap: 10px; }
+        .quiz-option { padding: 12px 15px; background: white; border: 2px solid #e9ecef; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; font-size: 0.95rem; }
+        .quiz-option:hover { border-color: #764ba2; background: #f0f0ff; }
+        .quiz-option.selected { border-color: #764ba2; background: #e8e5ff; color: #764ba2; font-weight: 600; }
+        .quiz-input { width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 1rem; }
+        .quiz-input:focus { outline: none; border-color: #764ba2; }
+        .quiz-footer { background: #2c3e50; color: white; padding: 30px; text-align: center; }
+        .submit-btn { background: #764ba2; color: white; padding: 15px 40px; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 600; cursor: pointer; }
+        .submit-btn:hover { background: #667eea; }
+        .lead-form { background: #f8f9fa; padding: 25px; border-radius: 10px; margin: 20px 0; border: 2px solid #764ba2; }
+        .lead-form h4 { color: #2c3e50; margin-bottom: 15px; text-align: center; }
+        .form-row { display: flex; gap: 15px; margin-bottom: 15px; }
+        .form-field { flex: 1; }
+        .form-field label { display: block; margin-bottom: 5px; font-weight: 600; color: #2c3e50; font-size: 0.9rem; }
+        .form-field input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 0.95rem; }
+        .disclaimer { font-size: 0.8rem; color: #666; text-align: center; margin-top: 15px; font-style: italic; }
+        @media (max-width: 768px) { 
+            .quiz-title { font-size: 1.8rem; } 
+            .quiz-body { padding: 20px; } 
+            .form-row { flex-direction: column; gap: 10px; } 
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        ${quizContent}
+    </div>
+    <script>
+        function selectOption(option) {
+            const siblings = option.parentNode.querySelectorAll('.quiz-option');
+            siblings.forEach(sibling => sibling.classList.remove('selected'));
+            option.classList.add('selected');
+        }
+        function submitQuiz() {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            if (!firstName || !lastName || !email) {
+                alert('Please fill in all required fields to get your home valuation.');
+                return;
+            }
+            alert('Thank you! Your home valuation report will be emailed to you within 24 hours.');
+        }
+    </script>
+</body>
+</html>`;
+
+            const blob = new Blob([fullHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'home-worth-quiz.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function generateLeadScript() {
+            const scriptContent = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Home Valuation Quiz Follow-up Scripts</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        .script-section { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #764ba2; }
+        .script-title { color: #2c3e50; font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; }
+        .script-content { color: #555; }
+        .timing { background: #fff3cd; padding: 10px; border-radius: 5px; margin: 10px 0; font-style: italic; }
+    </style>
+</head>
+<body>
+    <h1>Home Valuation Quiz Follow-up Scripts</h1>
+    
+    <div class="script-section">
+        <div class="script-title">Phone Call Script (within 1 hour)</div>
+        <div class="timing">Call within 60 minutes of quiz completion for best conversion</div>
+        <div class="script-content">
+            "Hi [First Name], this is [Your Name] from [Company]. You just completed our home valuation quiz for your property at [Address]. I wanted to personally follow up and discuss your results. Do you have a quick minute?<br><br>
+            
+            Based on your answers, I'm seeing an estimated value range of [Range]. However, to give you a precise valuation, I'd need to see the property in person and look at recent comparable sales. Would you be interested in a complimentary, no-obligation market analysis?"
+        </div>
+    </div>
+    
+    <div class="script-section">
+        <div class="script-title">Thank You Email (immediate auto-response)</div>
+        <div class="script-content">
+            <strong>Subject:</strong> Your Home Valuation Results - [Address]<br><br>
+            
+            "Hi [First Name],<br><br>
+            
+            Thank you for using our home valuation quiz! Based on your responses, here's what we found:<br><br>
+            
+            🏠 Property Type: [Property Type]<br>
+            📊 Estimated Value Range: $[Range]<br>
+            📈 Market Trend: [Up/Down/Stable]<br><br>
+            
+            This is a preliminary estimate based on general market data. For a precise valuation, I'll need to prepare a detailed Comparative Market Analysis (CMA) that looks at recent sales of similar homes in your specific neighborhood.<br><br>
+            
+            I'll be calling you within the next hour to discuss these results and answer any questions you might have.<br><br>
+            
+            Best regards,<br>
+            [Your Name]"
+        </div>
+    </div>
+    
+    <div class="script-section">
+        <div class="script-title">Text Message Follow-up (Day 3)</div>
+        <div class="script-content">
+            "Hi [First Name], it's [Your Name]. Just wanted to check if you had any questions about your home valuation report. The market is really active right now - would love to chat about your options. Reply STOP to opt out."
+        </div>
+    </div>
+    
+    <div class="script-section">
+        <div class="script-title">Week 1 Follow-up Call</div>
+        <div class="script-content">
+            "Hi [First Name], it's [Your Name] following up on your home valuation. I've been tracking the market in your area and noticed [specific market insight]. I'd love to schedule a time to walk through your home and provide you with an updated, detailed market analysis. When would be a good time this week?"
+        </div>
+    </div>
+</body>
+</html>`;
+
+            const blob = new Blob([scriptContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'quiz-follow-up-scripts.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize quiz on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateQuiz();
+        });
+    </script>
+</body>
+</html>

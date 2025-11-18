@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documents - Help Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #e1e5e9;
+            background-color: #2c3e50;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid #00d4aa;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #00d4aa;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content-section {
+            background: #34495e;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #485e73;
+        }
+        
+        .content-section h2 {
+            color: #00d4aa;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #00d4aa;
+            padding-bottom: 10px;
+        }
+        
+        .content-section h3 {
+            color: #00d4aa;
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+        }
+        
+        .content-section p {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: #e1e5e9;
+        }
+        
+        .document-tabs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .tab-card {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #485e73;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .tab-card:hover {
+            border-color: #00d4aa;
+            transform: translateY(-2px);
+        }
+        
+        .tab-card h4 {
+            color: #00d4aa;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .tab-card p {
+            color: #b8c5d1;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .action-card {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #485e73;
+            transition: all 0.3s ease;
+        }
+        
+        .action-card:hover {
+            border-color: #00d4aa;
+            transform: translateY(-2px);
+        }
+        
+        .action-card h4 {
+            color: #00d4aa;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .action-card p {
+            color: #b8c5d1;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .template-item {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #485e73;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .template-item:hover {
+            border-color: #00d4aa;
+            background: #34495e;
+        }
+        
+        .template-item h5 {
+            color: #00d4aa;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .form-fields {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .field-item {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #00d4aa;
+            border: 1px solid #485e73;
+        }
+        
+        .field-item h5 {
+            color: #00d4aa;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .field-item p {
+            color: #b8c5d1;
+            font-size: 0.8rem;
+            margin: 0;
+        }
+        
+        .required {
+            color: #ff6b6b;
+        }
+        
+        .step-list {
+            counter-reset: step-counter;
+        }
+        
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #00d4aa;
+            color: #2c3e50;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .tip-box {
+            background: #1e3d59;
+            border-left: 4px solid #00d4aa;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #e1e5e9;
+        }
+        
+        .tip-box strong {
+            color: #00d4aa;
+        }
+        
+        .warning-box {
+            background: #d2691e;
+            border-left: 4px solid #ff6b35;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: white;
+        }
+        
+        .warning-box strong {
+            color: white;
+        }
+        
+        .document-example {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #f39c12;
+        }
+        
+        .document-example h6 {
+            color: #f39c12;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .document-example p {
+            color: #b8c5d1;
+            font-size: 0.8rem;
+            margin: 0;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            color: #e1e5e9;
+        }
+        
+        .file-types {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        
+        .file-type {
+            background: #3498db;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .file-type.pdf { background: #e74c3c; }
+        .file-type.doc { background: #3498db; }
+        .file-type.img { background: #f39c12; }
+        .file-type.zip { background: #95a5a6; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📄 Documents</h1>
+            <p>Manage and link your cloud files</p>
+        </div>
+
+        <div class="content-section">
+            <h2>What is the Documents Section?</h2>
+            <p>The Documents section is your centralized file management hub where you can store, organize, and access all your real estate documents. This section combines document templates, file uploads, and client-specific document organization to streamline your paperwork workflow.</p>
+            
+            <p>Documents uploaded here automatically appear in the appropriate categories and are linked to clients when assigned, making them accessible from both the Documents section and individual client profiles in the Clients section.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Document Categories</h2>
+            <p>The Documents section is organized into four main categories to help you find files quickly:</p>
+            
+            <div class="document-tabs">
+                <div class="tab-card">
+                    <h4>All Documents</h4>
+                    <p>Complete list of all uploaded files</p>
+                </div>
+                <div class="tab-card">
+                    <h4>Contracts</h4>
+                    <p>Purchase agreements and legal contracts</p>
+                </div>
+                <div class="tab-card">
+                    <h4>Photos</h4>
+                    <p>Property images and visual content</p>
+                </div>
+                <div class="tab-card">
+                    <h4>Inspection Reports</h4>
+                    <p>Property inspection documents</p>
+                </div>
+            </div>
+
+            <h3>How Categorization Works</h3>
+            <p>When you upload a document, it automatically appears in the "All Documents" tab. Based on the document type you select during upload, it will also appear in the appropriate category tab. This dual organization system ensures you can find documents both by browsing all files or by searching within specific categories.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Document Actions</h2>
+            <p>The Documents section offers two primary actions for managing your files:</p>
+
+            <div class="action-buttons">
+                <div class="action-card">
+                    <h4>Email Templates</h4>
+                    <p>Access professional email templates and document templates</p>
+                </div>
+                <div class="action-card">
+                    <h4>Upload File</h4>
+                    <p>Upload documents and assign them to clients</p>
+                </div>
+            </div>
+
+            <h3>Email Templates Access</h3>
+            <p>Click "Email Templates" to access pre-built professional templates for common real estate communications and legal documents. These templates help maintain consistency and professionalism in your client communications.</p>
+
+            <h3>File Upload Process</h3>
+            <p>Use "Upload File" to add new documents to your system. Each upload can be categorized and assigned to specific clients for better organization.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Available Document Templates</h2>
+            <p>The system includes professional templates for common real estate documents:</p>
+
+            <div class="template-grid">
+                <div class="template-item">
+                    <h5>Purchase Agreement</h5>
+                </div>
+                <div class="template-item">
+                    <h5>Commission Agreement</h5>
+                </div>
+                <div class="template-item">
+                    <h5>Exclusive Right to Sell</h5>
+                </div>
+                <div class="template-item">
+                    <h5>Comparative Market Analysis</h5>
+                </div>
+                <div class="template-item">
+                    <h5>Lead Intake Form</h5>
+                </div>
+                <div class="template-item">
+                    <h5>Home Valuation Form</h5>
+                </div>
+                <div class="template-item">
+                    <h5>Referral Request Form</h5>
+                </div>
+                <div class="template-item">
+                    <h5>Property Disclosure Statement</h5>
+                </div>
+                <div class="template-item">
+                    <h5>Buyer Consultation Agreement</h5>
+                </div>
+                <div class="template-item">
+                    <h5>Client Satisfaction Survey</h5>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>IMPORTANT LEGAL DISCLAIMER:</strong> These templates are for informational purposes only and do not constitute legal advice. Consult with a qualified real estate attorney before use.
+            </div>
+
+            <h3>Using Document Templates</h3>
+            <p>Templates include fillable fields for property information, client details, signatures, and other relevant data. Once completed, you can:</p>
+            <ul>
+                <li>Print the document for physical signatures</li>
+                <li>Download as HTML for digital use</li>
+                <li>Save and upload to client files</li>
+                <li>Email directly to clients</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Uploading Documents</h2>
+            <p>When you click "Upload File," a form opens with the following fields:</p>
+
+            <div class="form-fields">
+                <div class="field-item">
+                    <h5>File <span class="required">*</span></h5>
+                    <p>Select the document from your computer</p>
+                </div>
+                <div class="field-item">
+                    <h5>Document Type <span class="required">*</span></h5>
+                    <p>Choose category for automatic organization</p>
+                </div>
+                <div class="field-item">
+                    <h5>Address <span class="required">*</span></h5>
+                    <p>Property address related to the document</p>
+                </div>
+                <div class="field-item">
+                    <h5>Source</h5>
+                    <p>Origin of the document (e.g., County Records, MLS)</p>
+                </div>
+                <div class="field-item">
+                    <h5>Assign to Client</h5>
+                    <p>Link document to a specific client (optional)</p>
+                </div>
+            </div>
+
+            <h3>Supported File Types</h3>
+            <p>You can upload various file types:</p>
+            
+            <div class="file-types">
+                <span class="file-type pdf">PDF</span>
+                <span class="file-type doc">DOC/DOCX</span>
+                <span class="file-type img">JPG/PNG</span>
+                <span class="file-type zip">ZIP</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Step-by-Step: Uploading a Document</h2>
+            
+            <ol class="step-list">
+                <li>Click the "Upload File" button in the top-right corner</li>
+                <li>Click "Choose File" and select your document from your computer</li>
+                <li>Select the appropriate document type from the dropdown menu</li>
+                <li>Enter the property address associated with the document</li>
+                <li>Add source information if applicable (County Records, MLS, etc.)</li>
+                <li>Optionally assign the document to a specific client</li>
+                <li>Click "Upload" to save the document to your system</li>
+            </ol>
+
+            <div class="tip-box">
+                <strong>Organization Tip:</strong> Always fill out the address and assign documents to clients when possible. This makes documents appear in the client's profile under the Clients section for easy access.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Document Organization and Access</h2>
+            
+            <h3>Property Documents List</h3>
+            <p>Your uploaded documents appear in a organized list showing:</p>
+            <ul>
+                <li><strong>File Name:</strong> Original document name with file extension</li>
+                <li><strong>Upload Date:</strong> When the document was added to the system</li>
+                <li><strong>File Size:</strong> Document size for reference</li>
+                <li><strong>Property Address:</strong> Associated property location</li>
+                <li><strong>Assigned Client:</strong> Client name with colored badge</li>
+                <li><strong>Document Actions:</strong> Options menu for additional actions</li>
+            </ul>
+
+            <h3>Document Examples</h3>
+            <div class="document-example">
+                <h6>Wedding Planning Images</h6>
+                <p>Added 9/24/2025 • 123,abc • Assigned to New client 2</p>
+            </div>
+            
+            <div class="document-example">
+                <h6>neighborhood-expert-door-hanger.pdf</h6>
+                <p>Added 9/15/2025 • testing • Assigned to New client 2</p>
+            </div>
+
+            <h3>Client Integration</h3>
+            <p>When you assign a document to a client, it automatically appears:</p>
+            <ul>
+                <li>In the main Documents section under the appropriate category</li>
+                <li>On the individual client's profile in the Clients section</li>
+                <li>Searchable by client name across the system</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Email Templates System</h2>
+            <p>The Email Templates feature provides professional templates for various real estate scenarios:</p>
+
+            <h3>Lead Response Sequence</h3>
+            <p>Example template for responding to new inquiries:</p>
+            
+            <div class="tip-box">
+                <strong>Subject:</strong> Thanks for reaching out about [Property/Area]!
+                <br><br>
+                <strong>Template includes:</strong>
+                <ul style="margin-top: 10px;">
+                    <li>Personalized greeting with placeholder fields</li>
+                    <li>Professional response to initial inquiry</li>
+                    <li>Call-to-action for scheduling consultation</li>
+                    <li>Contact information and availability</li>
+                </ul>
+            </div>
+
+            <h3>Template Features</h3>
+            <ul>
+                <li><strong>Placeholder Fields:</strong> [First_Name], [Property/Area] for easy customization</li>
+                <li><strong>Professional Tone:</strong> Maintains consistent brand voice</li>
+                <li><strong>Call-to-Action:</strong> Includes next steps for client engagement</li>
+                <li><strong>Customizable:</strong> Edit templates to match your personal style</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Template Completion and Download</h2>
+            
+            <h3>Filling Out Templates</h3>
+            <p>Document templates include various input fields:</p>
+            <ul>
+                <li><strong>Property Information:</strong> Address, purchase price, earnest money</li>
+                <li><strong>Client Details:</strong> Names, contact information</li>
+                <li><strong>Signature Fields:</strong> Digital signature areas for buyers and sellers</li>
+                <li><strong>Date Fields:</strong> Automatic date population with manual override</li>
+            </ul>
+
+            <h3>Signature Process</h3>
+            <p>Templates include signature sections with:</p>
+            <ul>
+                <li>Buyer and seller name fields</li>
+                <li>Click-to-sign buttons for digital signatures</li>
+                <li>Date fields that auto-populate</li>
+                <li>Professional signature lines</li>
+            </ul>
+
+            <h3>Download Options</h3>
+            <p>Once completed, templates can be:</p>
+            <ul>
+                <li><strong>Printed:</strong> Generate PDF for physical signatures</li>
+                <li><strong>Downloaded as HTML:</strong> Save web-formatted version</li>
+                <li><strong>Saved to Documents:</strong> Add completed form to your document library</li>
+                <li><strong>Emailed:</strong> Send directly to clients</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Best Practices for Document Management</h2>
+            
+            <h3>File Naming Conventions</h3>
+            <ul>
+                <li>Use descriptive names that include property address or client name</li>
+                <li>Include dates for version control (e.g., "Contract_123Main_v2_2025-09-24")</li>
+                <li>Avoid special characters that might cause upload issues</li>
+                <li>Keep names concise but informative</li>
+            </ul>
+
+            <h3>Organization Strategies</h3>
+            <ul>
+                <li><strong>Consistent Addressing:</strong> Use the same address format for related documents</li>
+                <li><strong>Client Assignment:</strong> Always assign documents to clients when applicable</li>
+                <li><strong>Source Documentation:</strong> Note where documents came from for reference</li>
+                <li><strong>Regular Review:</strong> Periodically review and organize older documents</li>
+            </ul>
+
+            <h3>Template Customization</h3>
+            <ul>
+                <li>Review all template fields before finalizing</li>
+                <li>Ensure all legal disclaimers are appropriate for your area</li>
+                <li>Test signature functionality before client use</li>
+                <li>Keep copies of completed templates for your records</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Integration with Other Sections</h2>
+            
+            <h3>Client Profile Integration</h3>
+            <p>Documents assigned to clients appear in their profiles within the Clients section. This creates a comprehensive client file that includes:</p>
+            <ul>
+                <li>All documents related to their transactions</li>
+                <li>Contract history and agreements</li>
+                <li>Property photos and inspection reports</li>
+                <li>Communication history and templates used</li>
+            </ul>
+
+            <h3>Property Documentation</h3>
+            <p>Documents linked to property addresses help create complete property files containing:</p>
+            <ul>
+                <li>Listing photos and marketing materials</li>
+                <li>Inspection reports and disclosures</li>
+                <li>Purchase agreements and contracts</li>
+                <li>Communication with all parties involved</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Troubleshooting Common Issues</h2>
+            
+            <h3>Upload Problems</h3>
+            <ul>
+                <li><strong>File too large:</strong> Compress files or split large documents</li>
+                <li><strong>Unsupported format:</strong> Convert to PDF, DOC, or image format</li>
+                <li><strong>Upload fails:</strong> Check internet connection and try again</li>
+                <li><strong>Missing required fields:</strong> Ensure file, type, and address are filled</li>
+            </ul>
+
+            <h3>Document Not Appearing</h3>
+            <ul>
+                <li>Verify the document type was selected correctly</li>
+                <li>Check if the document was assigned to the correct client</li>
+                <li>Refresh the page to see newly uploaded files</li>
+                <li>Look in the "All Documents" tab if not appearing in category tabs</li>
+            </ul>
+
+            <h3>Template Issues</h3>
+            <ul>
+                <li><strong>Signature not working:</strong> Clear browser cache and try again</li>
+                <li><strong>Download fails:</strong> Ensure all required fields are completed</li>
+                <li><strong>Printing problems:</strong> Use the "Print" button rather than browser print</li>
+                <li><strong>Missing information:</strong> Double-check all form fields before downloading</li>
+            </ul>
+
+            <h3>Client Assignment Problems</h3>
+            <ul>
+                <li>Ensure the client exists in your Clients section before assigning</li>
+                <li>Check spelling of client names in assignments</li>
+                <li>Verify documents appear in both Documents and Clients sections</li>
+                <li>Contact support if client integration is not working properly</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

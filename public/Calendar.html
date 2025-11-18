@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar - Help Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #e1e5e9;
+            background-color: #2c3e50;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid #00d4aa;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #00d4aa;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content-section {
+            background: #34495e;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #485e73;
+        }
+        
+        .content-section h2 {
+            color: #00d4aa;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #00d4aa;
+            padding-bottom: 10px;
+        }
+        
+        .content-section h3 {
+            color: #00d4aa;
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+        }
+        
+        .content-section p {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: #e1e5e9;
+        }
+        
+        .calendar-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .feature-card {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #485e73;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            border-color: #00d4aa;
+            transform: translateY(-2px);
+        }
+        
+        .feature-card h4 {
+            color: #00d4aa;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .feature-card p {
+            color: #b8c5d1;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .sync-status {
+            background: #2c3e50;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #485e73;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sync-status.connected {
+            border-left: 4px solid #10b981;
+        }
+        
+        .sync-status.disconnected {
+            border-left: 4px solid #ef4444;
+        }
+        
+        .sync-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .sync-button {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            border: 1px solid #485e73;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .sync-button.google {
+            background: #4285f4;
+            color: white;
+        }
+        
+        .sync-button.apple {
+            background: #000;
+            color: white;
+        }
+        
+        .sync-button.active {
+            background: #10b981;
+            color: white;
+        }
+        
+        .form-fields {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .field-item {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #00d4aa;
+            border: 1px solid #485e73;
+        }
+        
+        .field-item h5 {
+            color: #00d4aa;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .field-item p {
+            color: #b8c5d1;
+            font-size: 0.8rem;
+            margin: 0;
+        }
+        
+        .required {
+            color: #ff6b6b;
+        }
+        
+        .color-palette {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+            align-items: center;
+        }
+        
+        .color-dot {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 2px solid #485e73;
+        }
+        
+        .color-blue { background-color: #3b82f6; }
+        .color-green { background-color: #10b981; }
+        .color-purple { background-color: #8b5cf6; }
+        .color-red { background-color: #ef4444; }
+        .color-yellow { background-color: #f59e0b; }
+        .color-pink { background-color: #ec4899; }
+        .color-light-blue { background-color: #6366f1; }
+        .color-gray { background-color: #6b7280; }
+        
+        .step-list {
+            counter-reset: step-counter;
+        }
+        
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #00d4aa;
+            color: #2c3e50;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .tip-box {
+            background: #1e3d59;
+            border-left: 4px solid #00d4aa;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #e1e5e9;
+        }
+        
+        .tip-box strong {
+            color: #00d4aa;
+        }
+        
+        .warning-box {
+            background: #3d2f2f;
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #e1e5e9;
+        }
+        
+        .warning-box strong {
+            color: #ff6b6b;
+        }
+        
+        .success-box {
+            background: #1e3d2f;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #e1e5e9;
+        }
+        
+        .success-box strong {
+            color: #10b981;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            color: #e1e5e9;
+        }
+        
+        .event-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .event-type {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #485e73;
+            text-align: center;
+        }
+        
+        .event-type h5 {
+            color: #00d4aa;
+            margin-bottom: 8px;
+        }
+        
+        .event-sample {
+            background: #3b82f6;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        
+        .event-sample.yellow {
+            background: #f59e0b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📅 Calendar</h1>
+            <p>Schedule and manage your appointments with seamless calendar sync</p>
+        </div>
+
+        <div class="content-section">
+            <h2>What is the Calendar?</h2>
+            <p>The Calendar section is your unified scheduling hub that syncs seamlessly with Apple Calendar and Google Calendar. Create, view, and manage all your appointments and events in one place, with automatic two-way synchronization ensuring your schedule is always up-to-date across all your devices.</p>
+            
+            <p>The calendar displays events in a monthly view and provides search functionality to quickly find specific events or filter by person's name. Events created in your CRM automatically appear in your connected calendar apps, and events created in Apple Calendar or Google Calendar sync back to your CRM.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Calendar Sync Integration</h2>
+            
+            <div class="success-box">
+                <strong>✓ Two-Way Sync Enabled:</strong> Your calendar automatically syncs with Apple Calendar and Google Calendar. Events created in any calendar appear in all connected calendars within minutes.
+            </div>
+
+            <h3>Supported Calendar Systems</h3>
+            <div class="sync-buttons">
+                <div class="sync-button google">Google Calendar</div>
+                <div class="sync-button apple">Apple Calendar</div>
+            </div>
+
+            <h3>How Sync Works</h3>
+            <ul>
+                <li><strong>Automatic Two-Way Sync:</strong> Events sync in both directions between your CRM and connected calendars</li>
+                <li><strong>Real-Time Updates:</strong> Changes made in any calendar appear across all synced calendars within 5-10 minutes</li>
+                <li><strong>Event Details Preserved:</strong> Title, date, time, description, and location sync across all platforms</li>
+                <li><strong>Multiple Calendars:</strong> You can connect both Google and Apple calendars simultaneously</li>
+                <li><strong>Conflict Prevention:</strong> The system prevents duplicate events across synced calendars</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>💡 Pro Tip:</strong> Once synced, you can use your preferred calendar app on any device—phone, tablet, or computer—and all your real estate appointments will stay synchronized automatically.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Connecting Your Calendar</h2>
+            
+            <h3>Connecting Google Calendar</h3>
+            <ol class="step-list">
+                <li>Click the "Google" button in the calendar toolbar</li>
+                <li>Sign in to your Google account when prompted</li>
+                <li>Grant calendar access permissions to the CRM</li>
+                <li>Select which Google calendar to sync (if you have multiple)</li>
+                <li>Wait for the initial sync to complete (usually 1-2 minutes)</li>
+                <li>Look for "Connected to Google Calendar" status indicator</li>
+            </ol>
+
+            <h3>Connecting Apple Calendar</h3>
+            <ol class="step-list">
+                <li>Click the "Apple" button in the calendar toolbar</li>
+                <li>Sign in with your Apple ID when prompted</li>
+                <li>Authorize calendar access for the CRM application</li>
+                <li>Choose which Apple calendar to sync</li>
+                <li>Allow the initial synchronization to finish</li>
+                <li>Confirm "Connected to Apple Calendar" appears in the status bar</li>
+            </ol>
+
+            <h3>Sync Status Indicator</h3>
+            <div class="sync-status connected">
+                <strong>Calendar Sync Status:</strong> <span style="color: #10b981;">Connected to Apple Calendar</span>
+            </div>
+            <p>The sync status bar shows your current connection state and which calendar system is active. Green text indicates successful connection and active syncing.</p>
+
+            <div class="warning-box">
+                <strong>⚠️ Important:</strong> You need to remain signed in to your Google or Apple account for continuous syncing. If you sign out, automatic synchronization will stop until you reconnect.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Calendar Features</h2>
+            
+            <div class="calendar-features">
+                <div class="feature-card">
+                    <h4>Monthly View</h4>
+                    <p>View all events in a clear monthly calendar layout</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Two-Way Sync</h4>
+                    <p>Automatic synchronization with Google and Apple calendars</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Event Search</h4>
+                    <p>Search for events by name, person, or keywords</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Color Coding</h4>
+                    <p>Organize events with different colors for easy identification</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Quick Navigation</h4>
+                    <p>Jump to today's date or navigate between months</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Agent Assignment</h4>
+                    <p>Assign events to specific agents for team coordination</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Cross-Device Access</h4>
+                    <p>View and edit events from any device with your calendar apps</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Event Details</h4>
+                    <p>Add descriptions and relevant information to events</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Calendar Navigation</h2>
+            
+            <h3>Monthly Navigation</h3>
+            <ul>
+                <li><strong>Today Button:</strong> Click to quickly return to the current date</li>
+                <li><strong>Month/Year Header:</strong> Shows the current month and year being viewed</li>
+                <li><strong>Arrow Buttons:</strong> Use left and right arrows to navigate between months</li>
+                <li><strong>Current Day Highlight:</strong> Today's date is highlighted with a teal border</li>
+                <li><strong>Sync Buttons:</strong> Google and Apple buttons show connection status and allow reconnection</li>
+                <li><strong>Sync Status Bar:</strong> Displays which calendar system is currently connected</li>
+            </ul>
+
+            <h3>Event Display</h3>
+            <p>Events appear as colored rectangles on their scheduled dates, showing:</p>
+            <ul>
+                <li>Event time (e.g., "8:39 PM")</li>
+                <li>Event title (e.g., "Client Meeting", "Property Showing")</li>
+                <li>Color coding for different event types or categories</li>
+                <li>Events from synced calendars display with their original colors</li>
+            </ul>
+
+            <div class="event-types">
+                <div class="event-type">
+                    <h5>Sample Events</h5>
+                    <div class="event-sample">2:00 PM Client Meeting</div>
+                    <div class="event-sample yellow">3:30 PM Property Showing</div>
+                    <div class="event-sample">6:00 PM Team Meeting</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Adding New Events</h2>
+            <p>Click the "Add Event" button to create a new calendar entry. Events created here will automatically sync to your connected Google or Apple calendar.</p>
+
+            <div class="form-fields">
+                <div class="field-item">
+                    <h5>Event Title <span class="required">*</span></h5>
+                    <p>Name of your event or appointment</p>
+                </div>
+                <div class="field-item">
+                    <h5>Date</h5>
+                    <p>Automatically set to the selected date</p>
+                </div>
+                <div class="field-item">
+                    <h5>Time</h5>
+                    <p>Start time for your event</p>
+                </div>
+                <div class="field-item">
+                    <h5>Color</h5>
+                    <p>Choose from available color options</p>
+                </div>
+                <div class="field-item">
+                    <h5>Agent</h5>
+                    <p>Assign event to a specific agent</p>
+                </div>
+                <div class="field-item">
+                    <h5>Description</h5>
+                    <p>Additional details about the event</p>
+                </div>
+            </div>
+
+            <h3>Event Color Options</h3>
+            <p>Choose from the following color palette to organize your events:</p>
+            
+            <div class="color-palette">
+                <div class="color-dot color-blue"></div>
+                <div class="color-dot color-green"></div>
+                <div class="color-dot color-purple"></div>
+                <div class="color-dot color-red"></div>
+                <div class="color-dot color-yellow"></div>
+                <div class="color-dot color-pink"></div>
+                <div class="color-dot color-light-blue"></div>
+                <div class="color-dot color-gray"></div>
+            </div>
+
+            <div class="tip-box">
+                <strong>🎨 Color Coding Tip:</strong> Use consistent colors for different types of events. For example, use blue for client meetings, green for property showings, yellow for team meetings, and red for personal appointments.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Step-by-Step: Creating an Event</h2>
+            
+            <ol class="step-list">
+                <li>Click the "Add Event" button in the top-right corner of the calendar</li>
+                <li>Enter a descriptive event title (required field)</li>
+                <li>Confirm or adjust the date - it defaults to the currently selected date</li>
+                <li>Set the event time using the time picker</li>
+                <li>Select a color from the palette to categorize your event</li>
+                <li>Choose an agent from the dropdown if applicable</li>
+                <li>Add any relevant details in the description field</li>
+                <li>Click "Add Event" to save your entry</li>
+                <li>The event automatically syncs to your connected calendar within minutes</li>
+            </ol>
+
+            <div class="success-box">
+                <strong>✓ Sync Confirmation:</strong> After creating an event, check your Google or Apple calendar app on your phone—the event should appear there automatically within 5-10 minutes.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Editing and Deleting Events</h2>
+            
+            <h3>Editing Events</h3>
+            <ul>
+                <li>Click on any event in the calendar to open its details</li>
+                <li>Modify the event information as needed</li>
+                <li>Save your changes</li>
+                <li>Updates automatically sync to connected calendars</li>
+                <li>Events edited in Google or Apple Calendar sync back to the CRM</li>
+            </ul>
+
+            <h3>Deleting Events</h3>
+            <ul>
+                <li>Open the event you want to delete</li>
+                <li>Click the delete button</li>
+                <li>Confirm the deletion</li>
+                <li>The event is removed from all synced calendars</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>⚠️ Sync Behavior:</strong> If you delete an event in Google or Apple Calendar, it will also be removed from your CRM calendar during the next sync cycle. Deletions are permanent and cannot be undone.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Search and Filter Events</h2>
+            
+            <h3>Using Event Search</h3>
+            <p>The search functionality helps you quickly locate specific events across all synced calendars:</p>
+            
+            <ul>
+                <li><strong>Search by Event Title:</strong> Enter keywords from event names</li>
+                <li><strong>Search by Person:</strong> Type a person's name to see all events related to them</li>
+                <li><strong>Search by Keywords:</strong> Use any relevant terms from event descriptions</li>
+                <li><strong>Real-time Filtering:</strong> Results appear as you type</li>
+                <li><strong>Search Synced Events:</strong> Search includes events from connected calendars</li>
+            </ul>
+
+            <h3>Search Examples</h3>
+            <ul>
+                <li>Type "showing" to find all property showing appointments</li>
+                <li>Search "meeting" to locate all meeting-related events</li>
+                <li>Enter a client's name to see all appointments with that person</li>
+                <li>Use property addresses to find showing appointments</li>
+                <li>Search for "closing" to find all closing appointments</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>🔍 Search Tip:</strong> Be consistent with how you name events and include relevant keywords to make searching more effective. Events synced from Google or Apple Calendar are also searchable.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Managing Calendar Sync</h2>
+            
+            <h3>Sync Frequency</h3>
+            <ul>
+                <li>Calendar sync occurs automatically every 5-10 minutes</li>
+                <li>Manual sync can be triggered by clicking the "Sync" button</li>
+                <li>Changes in any calendar are detected and synced within minutes</li>
+                <li>The system maintains sync even when you're not actively viewing the calendar</li>
+            </ul>
+
+            <h3>Manual Sync</h3>
+            <p>Click the green "Sync" button to force an immediate synchronization:</p>
+            <ul>
+                <li>Useful after making multiple changes</li>
+                <li>Helpful if you need to see recent changes immediately</li>
+                <li>Can resolve temporary sync issues</li>
+                <li>Provides instant confirmation of connection status</li>
+            </ul>
+
+            <h3>Disconnecting a Calendar</h3>
+            <ol class="step-list">
+                <li>Click on the connected calendar button (Google or Apple)</li>
+                <li>Select "Disconnect" from the menu</li>
+                <li>Confirm you want to stop syncing</li>
+                <li>Events remain in your CRM but will no longer sync</li>
+                <li>You can reconnect anytime by clicking the button again</li>
+            </ol>
+
+            <div class="warning-box">
+                <strong>⚠️ Disconnection Notice:</strong> Disconnecting a calendar stops automatic syncing but does not delete any events. Your CRM will keep all existing events, but new events won't sync until you reconnect.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Calendar Sync Best Practices</h2>
+            
+            <h3>Creating Events for Optimal Sync</h3>
+            <ul>
+                <li><strong>Use Descriptive Titles:</strong> Include key information like client names and meeting types</li>
+                <li><strong>Add Descriptions:</strong> Important details in descriptions sync across calendars</li>
+                <li><strong>Include Locations:</strong> Property addresses and meeting locations sync to all calendars</li>
+                <li><strong>Set Correct Times:</strong> Ensure time zones are properly configured for accurate scheduling</li>
+                <li><strong>Use Consistent Naming:</strong> Maintain naming conventions for easier searching and filtering</li>
+            </ul>
+
+            <h3>Recommended Color System</h3>
+            <ul>
+                <li><strong>Blue:</strong> Client meetings and consultations</li>
+                <li><strong>Green:</strong> Property showings and open houses</li>
+                <li><strong>Yellow:</strong> Team meetings and training</li>
+                <li><strong>Red:</strong> Deadlines and urgent tasks</li>
+                <li><strong>Purple:</strong> Marketing events and networking</li>
+                <li><strong>Pink:</strong> Personal appointments</li>
+                <li><strong>Gray:</strong> Administrative tasks</li>
+            </ul>
+
+            <h3>Event Title Best Practices</h3>
+            <ul>
+                <li>"Client Meeting - John Smith (Buyer Consultation)"</li>
+                <li>"Property Showing - 123 Main St - Sarah Johnson"</li>
+                <li>"Team Meeting - Weekly Sales Review"</li>
+                <li>"Open House - 456 Oak Ave (2-4 PM)"</li>
+                <li>"Closing - 789 Elm St - Martinez Family"</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>💡 Consistency Tip:</strong> Using consistent event titles and descriptions helps maintain clarity across all your synced calendars and makes events easier to find later.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Working Across Multiple Devices</h2>
+            
+            <h3>Desktop, Mobile, and Tablet Sync</h3>
+            <p>With calendar sync enabled, you can access and manage your schedule from anywhere:</p>
+            <ul>
+                <li><strong>Desktop CRM:</strong> Full calendar interface with all features</li>
+                <li><strong>iPhone/iPad:</strong> Use Apple Calendar app to view and edit events</li>
+                <li><strong>Android Phone/Tablet:</strong> Use Google Calendar app for access</li>
+                <li><strong>Mac Computer:</strong> Apple Calendar application stays in sync</li>
+                <li><strong>Web Browser:</strong> Access through Google Calendar web interface</li>
+            </ul>
+
+            <h3>Creating Events from Mobile</h3>
+            <ul>
+                <li>Open your Google Calendar or Apple Calendar app</li>
+                <li>Create a new event as you normally would</li>
+                <li>Add all relevant details (title, time, description, location)</li>
+                <li>Save the event</li>
+                <li>Within 5-10 minutes, the event appears in your CRM calendar</li>
+            </ul>
+
+            <div class="success-box">
+                <strong>✓ Mobile Advantage:</strong> You can quickly add appointments while on the go using your phone's calendar app, and they'll automatically appear in your CRM without any manual entry.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Agent Assignment</h2>
+            
+            <h3>Assigning Events to Agents</h3>
+            <p>Use the Agent dropdown to assign events to specific team members. This feature helps with:</p>
+            <ul>
+                <li><strong>Team Coordination:</strong> Know who is handling which appointments</li>
+                <li><strong>Workload Management:</strong> Distribute events evenly among agents</li>
+                <li><strong>Client Continuity:</strong> Ensure the same agent handles related events</li>
+                <li><strong>Coverage Planning:</strong> Identify scheduling conflicts and arrange coverage</li>
+            </ul>
+
+            <h3>Agent Assignment Benefits</h3>
+            <ul>
+                <li>Clear accountability for each event</li>
+                <li>Easy filtering to see one agent's schedule</li>
+                <li>Better client service through consistent agent assignment</li>
+                <li>Improved team communication and coordination</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>👥 Team Tip:</strong> Agent assignments are internal to your CRM and don't affect how events appear in personal Google or Apple calendars. Each agent sees all team events in the CRM but only their assigned events in personal calendars.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Troubleshooting Sync Issues</h2>
+            
+            <h3>Events Not Syncing</h3>
+            <ul>
+                <li>Check the sync status bar—ensure it shows "Connected"</li>
+                <li>Click the manual "Sync" button to force an immediate sync</li>
+                <li>Verify you're still signed in to your Google or Apple account</li>
+                <li>Check your internet connection</li>
+                <li>Wait 10-15 minutes—some syncs take time</li>
+                <li>Try disconnecting and reconnecting your calendar</li>
+            </ul>
+
+            <h3>Events Appearing Incorrectly</h3>
+            <ul>
+                <li>Verify time zone settings in both the CRM and your calendar app</li>
+                <li>Check that dates and times were entered correctly</li>
+                <li>Ensure you're viewing the correct calendar in your calendar app</li>
+                <li>Refresh your calendar view in both applications</li>
+            </ul>
+
+            <h3>Duplicate Events</h3>
+            <ul>
+                <li>The system prevents duplicates, but manual imports can cause issues</li>
+                <li>Delete duplicate events from either calendar—don't delete from both</li>
+                <li>After deleting duplicates, wait for sync to complete</li>
+                <li>Avoid manually importing events that are already synced</li>
+            </ul>
+
+            <h3>Connection Lost</h3>
+            <ul>
+                <li>Check if you've changed your Google or Apple account password</li>
+                <li>Click the calendar button to re-authenticate</li>
+                <li>Ensure you're still logged into your Google or Apple account</li>
+                <li>Check if calendar permissions were accidentally revoked</li>
+                <li>Try signing out and signing back in to reconnect</li>
+            </ul>
+
+            <h3>Events Not Appearing in Calendar App</h3>
+            <ul>
+                <li>Open your calendar app and refresh/sync manually</li>
+                <li>Check that you're viewing the correct synced calendar</li>
+                <li>Verify the event date is within the visible time range</li>
+                <li>Some calendar apps cache data—force close and reopen the app</li>
+                <li>Check your calendar app's sync settings</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>Sync Troubleshooting:</strong> Most sync issues resolve themselves within 15 minutes. If problems persist beyond 30 minutes, try disconnecting and reconnecting your calendar or contact support.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Calendar Permissions and Privacy</h2>
+            
+            <h3>Required Permissions</h3>
+            <p>To enable calendar sync, you'll need to grant these permissions:</p>
+            <ul>
+                <li><strong>Read Calendar Events:</strong> Allows the CRM to see your existing events</li>
+                <li><strong>Write Calendar Events:</strong> Enables creating and editing events from the CRM</li>
+                <li><strong>Delete Calendar Events:</strong> Allows removing events when deleted from the CRM</li>
+                <li><strong>Account Access:</strong> Required to maintain sync connection</li>
+            </ul>
+
+            <h3>Data Privacy</h3>
+            <ul>
+                <li>Only calendar event data is accessed—no emails or other account information</li>
+                <li>Event data is encrypted during transmission and storage</li>
+                <li>You can disconnect calendar sync at any time</li>
+                <li>Disconnecting removes access but preserves existing events in both calendars</li>
+                <li>Your calendar credentials are never stored—only secure authentication tokens</li>
+            </ul>
+
+            <h3>Team Calendar Visibility</h3>
+            <ul>
+                <li>Events you create are visible to your team members in the CRM</li>
+                <li>Your personal Google/Apple calendar events remain private unless explicitly shared</li>
+                <li>Only events created in or synced to the CRM are visible to your team</li>
+                <li>Agent assignments are internal to the CRM and don't appear in personal calendars</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Advanced Calendar Features</h2>
+            
+            <h3>Time Zone Management</h3>
+            <ul>
+                <li>The CRM automatically detects your time zone</li>
+                <li>Events display in your local time zone</li>
+                <li>Synced events respect time zone settings across all calendars</li>
+                <li>When traveling, your calendar adjusts to your current time zone</li>
+                <li>Include time zone notes in descriptions for client clarity</li>
+            </ul>
+
+            <h3>Recurring Events</h3>
+            <ul>
+                <li>Create recurring events in Google or Apple Calendar</li>
+                <li>Recurring patterns sync to the CRM automatically</li>
+                <li>Edit one instance or the entire series from either calendar</li>
+                <li>Useful for weekly team meetings or regular client check-ins</li>
+            </ul>
+
+            <h3>Event Reminders</h3>
+            <ul>
+                <li>Set reminders in your Google or Apple Calendar app</li>
+                <li>Reminder settings sync to all connected calendars</li>
+                <li>Get notifications on all your devices</li>
+                <li>Customize reminder timing for different event types</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>Reminder Strategy:</strong> Set a 1-hour reminder for client meetings, 24-hour reminder for property showings, and 1-week reminder for closing dates to ensure you're always prepared.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Calendar Sync Benefits</h2>
+            
+            <h3>Productivity Improvements</h3>
+            <ul>
+                <li><strong>No Double Entry:</strong> Create events once, available everywhere</li>
+                <li><strong>Mobile Convenience:</strong> Add appointments from your phone on the go</li>
+                <li><strong>Always Current:</strong> Your schedule updates automatically across all devices</li>
+                <li><strong>Fewer Missed Appointments:</strong> Get notifications on all devices</li>
+                <li><strong>Professional Image:</strong> Never double-book or miss a meeting</li>
+            </ul>
+
+            <h3>Team Coordination</h3>
+            <ul>
+                <li>See team availability when scheduling</li>
+                <li>Coordinate client handoffs with agent assignments</li>
+                <li>Share showing schedules with colleagues</li>
+                <li>Avoid scheduling conflicts across the team</li>
+            </ul>
+
+            <h3>Client Service Excellence</h3>
+            <ul>
+                <li>Quick appointment scheduling from any device</li>
+                <li>Instant confirmation of availability</li>
+                <li>Reduced scheduling errors and conflicts</li>
+                <li>Timely reminders ensure punctuality</li>
+                <li>Professional calendar management demonstrates reliability</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Comparison: With vs Without Sync</h2>
+            
+            <h3>Without Calendar Sync</h3>
+            <ul>
+                <li>Must manually enter events in multiple calendars</li>
+                <li>Risk of forgetting to add events to one calendar</li>
+                <li>Potential double-booking across calendar systems</li>
+                <li>Changes must be updated in multiple places</li>
+                <li>Phone calendar doesn't reflect CRM appointments</li>
+            </ul>
+
+            <h3>With Calendar Sync</h3>
+            <ul>
+                <li>One-time event creation syncs everywhere</li>
+                <li>All calendars stay automatically updated</li>
+                <li>Impossible to double-book with synced calendars</li>
+                <li>Edit once, updated everywhere</li>
+                <li>Complete schedule visibility on all devices</li>
+            </ul>
+
+            <div class="success-box">
+                <strong>Time Saved:</strong> Real estate agents report saving 2-3 hours per week with calendar sync enabled, eliminating duplicate data entry and reducing scheduling conflicts.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+            
+            <h3>Can I connect both Google and Apple Calendar?</h3>
+            <p>Yes, but you should typically connect one primary calendar. If you use both, they should already be synced with each other through your devices. Connecting both to the CRM could cause duplicate events.</p>
+
+            <h3>What happens to my existing events when I connect?</h3>
+            <p>During the initial sync, existing events from your connected calendar will be imported into the CRM. This is a one-time import and may take a few minutes depending on how many events you have.</p>
+
+            <h3>Can I choose which events sync?</h3>
+            <p>Currently, all events in the connected calendar sync automatically. If you want to keep some events private, create them in a different calendar that's not connected to the CRM.</p>
+
+            <h3>How far back and forward does sync work?</h3>
+            <p>The system syncs events from 30 days in the past to 365 days in the future. Older or far-future events are not synced to improve performance.</p>
+
+            <h3>Will sync drain my phone battery?</h3>
+            <p>No. Calendar sync happens through cloud services, not directly on your phone. Battery usage is equivalent to normal calendar app usage.</p>
+
+            <h3>What if I don't want to sync my calendar?</h3>
+            <p>Calendar sync is optional. You can use the CRM calendar as a standalone system without connecting to Google or Apple Calendar. Simply don't click the sync buttons.</p>
+
+            <h3>Can I sync with Outlook?</h3>
+            <p>Not directly, but you can sync Outlook with Google Calendar, then connect Google Calendar to the CRM for indirect Outlook integration.</p>
+
+            <h3>Does sync work internationally?</h3>
+            <p>Yes, calendar sync works globally and handles different time zones automatically. Events display in your local time zone wherever you are.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Getting Started with Calendar Sync</h2>
+            
+            <ol class="step-list">
+                <li>Decide whether to use Google Calendar or Apple Calendar (choose your primary calendar app)</li>
+                <li>Click the corresponding sync button in the calendar toolbar</li>
+                <li>Sign in and grant necessary permissions</li>
+                <li>Wait for initial sync to complete (1-5 minutes)</li>
+                <li>Verify the sync status shows "Connected"</li>
+                <li>Create a test event in the CRM and check your phone's calendar app</li>
+                <li>Create a test event in your calendar app and verify it appears in the CRM</li>
+                <li>Once confirmed working, begin using the synced calendar normally</li>
+            </ol>
+
+            <div class="success-box">
+                <strong>Quick Start:</strong> Most users complete calendar sync setup in under 5 minutes. Once connected, you'll never need to manually sync again—everything happens automatically.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Support and Additional Help</h2>
+            
+            <h3>Need Technical Support?</h3>
+            <p>If you experience technical issues with calendar sync:</p>
+            <ul>
+                <li>Check the Troubleshooting section above for common solutions</li>
+                <li>Verify your calendar account permissions haven't been revoked</li>
+                <li>Try disconnecting and reconnecting your calendar</li>
+                <li>Clear browser cache and refresh the page</li>
+                <li>Contact CRM support with specific sync error messages</li>
+            </ul>
+
+            <h3>Calendar Integration Resources</h3>
+            <ul>
+                <li>Google Calendar Help Center for Google-specific issues</li>
+                <li>Apple Support for iCloud Calendar questions</li>
+                <li>CRM documentation for feature updates and tips</li>
+                <li>Team training sessions on calendar best practices</li>
+            </ul>
+
+            <h3>Feedback and Suggestions</h3>
+            <p>We're constantly improving calendar sync functionality. If you have suggestions for new features, integration improvements, or encounter issues, please share them with our product team. Your feedback helps us build better tools for real estate professionals.</p>
+        </div>
+    </div>
+</body>
+</html>

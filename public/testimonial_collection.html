@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Testimonial Collection Templates</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            border: 2px solid #2ecc71;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .testimonial-icon {
+            width: 60px;
+            height: 60px;
+            background: #2ecc71;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #a0b4c3;
+            margin-bottom: 20px;
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .template-card {
+            background: rgba(58, 74, 92, 0.8);
+            border: 2px solid #2ecc71;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(46, 204, 113, 0.3);
+        }
+
+        .template-preview {
+            background: white;
+            margin: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex: 1;
+            padding: 25px;
+            color: #333;
+            min-height: 400px;
+        }
+
+        .template-controls {
+            padding: 25px;
+            background: rgba(58, 74, 92, 1);
+        }
+
+        .template-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2ecc71;
+            text-align: center;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #a0b4c3;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .control-group input, 
+        .control-group textarea, 
+        .control-group select {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #5a6a7c;
+            border-radius: 5px;
+            background: #2c3e50;
+            color: white;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .control-group input:focus, 
+        .control-group textarea:focus, 
+        .control-group select:focus {
+            outline: none;
+            border-color: #2ecc71;
+        }
+
+        .control-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .download-btn {
+            width: 100%;
+            padding: 12px;
+            background: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .download-btn:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+
+        .bulk-download {
+            background: #2ecc71;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .bulk-download:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+
+        .tag {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            display: inline-block;
+            margin: 2px;
+        }
+
+        /* Email Template Styles */
+        .email-subject {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #2ecc71;
+        }
+
+        .email-body {
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .email-signature {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .questions-list {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .questions-list h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .questions-list ol {
+            margin-left: 20px;
+        }
+
+        .questions-list li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .form-preview {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            background: #fafafa;
+        }
+
+        .form-field {
+            margin-bottom: 15px;
+        }
+
+        .form-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            color: #333;
+        }
+
+        .form-field textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .star {
+            font-size: 20px;
+            color: #ffd700;
+        }
+
+        .social-proof {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>
+            <div class="testimonial-icon">⭐</div>
+            Client Testimonial Collection Templates
+        </h1>
+        <p>Professional templates to gather authentic client reviews and testimonials.</p>
+        <div style="margin-top: 20px;">
+            <span class="tag">testimonials</span>
+            <span class="tag">client reviews</span>
+            <span class="tag">social proof</span>
+        </div>
+        <button class="bulk-download" onclick="downloadAllTemplates()">Download All Templates</button>
+    </div>
+
+    <div class="templates-grid">
+        <!-- Post-Closing Thank You Email -->
+        <div class="template-card">
+            <div class="template-preview">
+                <div class="email-subject" id="thankYouSubject">Thank you for trusting me with your home sale!</div>
+                <div class="email-body" id="thankYouBody">
+                    <p>Dear <span id="thankYouClientName">John and Sarah</span>,</p>
+                    
+                    <p>Congratulations on the successful <span id="thankYouTransactionType">sale</span> of your home! It was such a pleasure working with you throughout this process, and I'm thrilled we achieved <span id="thankYouResult">a great outcome</span>.</p>
+
+                    <p>Your satisfaction is my top priority, and I hope I exceeded your expectations. If you have a few minutes, I would be incredibly grateful if you could share your experience by leaving a review. Your feedback helps other families find the right agent for their real estate needs.</p>
+
+                    <p><strong>Here are a few easy ways to leave a review:</strong></p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li><a href="#" style="color: #2ecc71;">Google Reviews</a></li>
+                        <li><a href="#" style="color: #2ecc71;">Facebook</a></li>
+                        <li><a href="#" style="color: #2ecc71;">Zillow</a></li>
+                    </ul>
+
+                    <p>Thank you again for your trust and confidence. Please don't hesitate to reach out if you need anything in the future, and remember - I'm always here for any real estate questions you or your friends and family might have.</p>
+
+                    <p>Wishing you happiness in your new chapter!</p>
+                </div>
+                <div class="email-signature">
+                    <p><strong id="thankYouAgentName">Your Name</strong><br>
+                    Licensed Real Estate Professional<br>
+                    📞 <span id="thankYouPhone">(555) 123-4567</span><br>
+                    ✉️ <span id="thankYouEmail">your@email.com</span></p>
+                </div>
+            </div>
+            <div class="template-controls">
+                <h3 class="template-title">Post-Closing Thank You Email</h3>
+                
+                <div class="control-group">
+                    <label>Email Subject</label>
+                    <input type="text" id="thankYouSubjectInput" value="Thank you for trusting me with your home sale!" oninput="updateThankYou()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Client Name(s)</label>
+                    <input type="text" id="thankYouClientNameInput" value="John and Sarah" oninput="updateThankYou()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Transaction Type</label>
+                    <select id="thankYouTransactionTypeInput" onchange="updateThankYou()">
+                        <option value="sale">Sale</option>
+                        <option value="purchase">Purchase</option>
+                        <option value="sale and purchase">Sale and Purchase</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label>Specific Result/Achievement</label>
+                    <input type="text" id="thankYouResultInput" value="a great outcome" oninput="updateThankYou()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Agent Name</label>
+                    <input type="text" id="thankYouAgentNameInput" value="Your Name" oninput="updateThankYou()">
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <div class="control-group" style="flex: 1;">
+                        <label>Phone</label>
+                        <input type="text" id="thankYouPhoneInput" value="(555) 123-4567" oninput="updateThankYou()">
+                    </div>
+                    <div class="control-group" style="flex: 1;">
+                        <label>Email</label>
+                        <input type="text" id="thankYouEmailInput" value="your@email.com" oninput="updateThankYou()">
+                    </div>
+                </div>
+                
+                <button class="download-btn" onclick="downloadTemplate('thankYou')">Download Email Template</button>
+            </div>
+        </div>
+
+        <!-- Testimonial Request Form -->
+        <div class="template-card">
+            <div class="template-preview">
+                <h3 style="color: #2c3e50; margin-bottom: 20px; text-align: center;">Client Experience Survey</h3>
+                <p style="margin-bottom: 20px; color: #666; text-align: center;">Your feedback helps us serve you better and helps other families find quality real estate service.</p>
+                
+                <div class="form-preview">
+                    <div class="form-field">
+                        <label>Your Name</label>
+                        <input type="text" placeholder="Enter your full name">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label>Property Address</label>
+                        <input type="text" placeholder="Address of property we helped you with">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label>Overall Experience Rating</label>
+                        <div class="rating-stars">
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label>What was the best part of working with us?</label>
+                        <textarea placeholder="Tell us what stood out most about your experience..."></textarea>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label>Would you recommend our services to friends and family?</label>
+                        <select>
+                            <option>Absolutely!</option>
+                            <option>Yes, with some reservations</option>
+                            <option>Not sure</option>
+                            <option>Probably not</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label>May we use your comments in our marketing materials?</label>
+                        <select>
+                            <option>Yes, with my full name</option>
+                            <option>Yes, with first name and last initial only</option>
+                            <option>Yes, but anonymously</option>
+                            <option>No, for internal use only</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label>Additional Comments</label>
+                        <textarea placeholder="Is there anything else you'd like to share about your experience?"></textarea>
+                    </div>
+                </div>
+                
+                <div class="social-proof">
+                    <strong>Thank you for taking the time to share your feedback!</strong><br>
+                    Your testimonial helps other families find quality real estate service.
+                </div>
+            </div>
+            <div class="template-controls">
+                <h3 class="template-title">Online Review Form</h3>
+                
+                <div class="control-group">
+                    <label>Form Title</label>
+                    <input type="text" value="Client Experience Survey" readonly>
+                </div>
+                
+                <div class="control-group">
+                    <label>Form Description</label>
+                    <textarea readonly>Your feedback helps us serve you better and helps other families find quality real estate service.</textarea>
+                </div>
+                
+                <div class="control-group">
+                    <label>Usage Instructions</label>
+                    <textarea readonly style="min-height: 100px;">This form can be:
+• Sent via email link after closing
+• Embedded on your website
+• Shared via text message
+• Used as a PDF printout for in-person meetings</textarea>
+                </div>
+                
+                <button class="download-btn" onclick="downloadTemplate('form')">Download Form Template</button>
+            </div>
+        </div>
+
+        <!-- Phone Script for Testimonial Collection -->
+        <div class="template-card">
+            <div class="template-preview">
+                <h3 style="color: #2c3e50; margin-bottom: 20px;">Phone Script: Testimonial Collection</h3>
+                
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <strong style="color: #2c3e50;">Call Timing:</strong> 1-2 weeks after closing, when the excitement is still fresh but the stress has settled.
+                </div>
+                
+                <div style="line-height: 1.8; font-size: 16px;">
+                    <p><strong>Opening:</strong></p>
+                    <p style="margin: 10px 0; padding: 10px; background: #e8f5e8; border-radius: 5px;">
+                        "Hi <span id="scriptClientName">[Client Name]</span>! This is <span id="scriptAgentName">[Your Name]</span>. I hope you're settling into your new home well! I'm calling because I wanted to thank you again for trusting me with your <span id="scriptTransactionType">[sale/purchase]</span>, and I have a quick favor to ask if you have just a minute."
+                    </p>
+                    
+                    <p><strong>The Ask:</strong></p>
+                    <p style="margin: 10px 0; padding: 10px; background: #e8f5e8; border-radius: 5px;">
+                        "As you know, most of my business comes from referrals from wonderful clients like you. Would you be comfortable sharing a quick testimonial about your experience? It really helps other families understand what it's like to work with me."
+                    </p>
+                    
+                    <p><strong>If they agree:</strong></p>
+                    <p style="margin: 10px 0; padding: 10px; background: #e8f5e8; border-radius: 5px;">
+                        "That's wonderful, thank you! I can either send you a quick online form to fill out, or if you prefer, I can ask you a few questions right now and write it up for you to approve. What would work better for you?"
+                    </p>
+                    
+                    <p><strong>If they prefer phone interview:</strong></p>
+                    <div class="questions-list">
+                        <h4>Key Questions to Ask:</h4>
+                        <ol>
+                            <li>"What was the best part of working with me?"</li>
+                            <li>"How did I help make the process easier for you?"</li>
+                            <li>"What would you tell other families considering working with me?"</li>
+                            <li>"Is there anything specific you'd want people to know about my service?"</li>
+                            <li>"Would you recommend me to your friends and family?"</li>
+                        </ol>
+                    </div>
+                    
+                    <p><strong>Closing:</strong></p>
+                    <p style="margin: 10px 0; padding: 10px; background: #e8f5e8; border-radius: 5px;">
+                        "Thank you so much for taking the time to share that. I'll write this up and send it to you for approval before I use it anywhere. And remember, I'm always here if you or anyone you know has real estate questions!"
+                    </p>
+                </div>
+            </div>
+            <div class="template-controls">
+                <h3 class="template-title">Phone Script Template</h3>
+                
+                <div class="control-group">
+                    <label>Client Name Placeholder</label>
+                    <input type="text" id="scriptClientNameInput" value="[Client Name]" oninput="updateScript()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Agent Name Placeholder</label>
+                    <input type="text" id="scriptAgentNameInput" value="[Your Name]" oninput="updateScript()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Transaction Type Placeholder</label>
+                    <input type="text" id="scriptTransactionTypeInput" value="[sale/purchase]" oninput="updateScript()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Script Notes</label>
+                    <textarea readonly style="min-height: 80px;">• Practice this script until it feels natural
+• Be prepared to pivot if they seem hesitant
+• Always offer to send the form instead of phone interview
+• Thank them regardless of their response</textarea>
+                </div>
+                
+                <button class="download-btn" onclick="downloadTemplate('script')">Download Phone Script</button>
+            </div>
+        </div>
+
+        <!-- Follow-up Email Template -->
+        <div class="template-card">
+            <div class="template-preview">
+                <div class="email-subject" id="followUpSubject">Quick favor - 2 minutes to help other families?</div>
+                <div class="email-body" id="followUpBody">
+                    <p>Hi <span id="followUpClientName">Jennifer</span>,</p>
+                    
+                    <p>I hope you're loving your new home! It's been <span id="followUpTimeframe">three weeks</span> since we closed, and I wanted to reach out with a small favor.</p>
+
+                    <p>As you know, referrals from happy clients like you are the foundation of my business. Your experience and feedback mean the world to me, and they also help other families understand what it's like to work with me.</p>
+
+                    <p><strong>Would you mind taking 2 minutes to leave a quick review?</strong></p>
+
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <p style="margin-bottom: 10px;"><strong>Option 1: Online Reviews (Most Helpful)</strong></p>
+                        <ul style="margin-left: 20px;">
+                            <li><a href="#" style="color: #2ecc71;">Google Reviews</a> - Helps local families find me</li>
+                            <li><a href="#" style="color: #2ecc71;">Facebook</a> - Great for social recommendations</li>
+                            <li><a href="#" style="color: #2ecc71;">Zillow</a> - Where many people search for agents</li>
+                        </ul>
+                        
+                        <p style="margin: 15px 0 10px 0;"><strong>Option 2: Quick Survey</strong></p>
+                        <p><a href="#" style="color: #2ecc71;">Fill out this 2-minute form</a> and I'll handle posting it for you</p>
+                    </div>
+
+                    <p>Your honest feedback - whether it's about my communication, market knowledge, negotiation skills, or just the overall experience - helps other families make informed decisions about their real estate agent.</p>
+
+                    <p>Thanks so much for considering this! And as always, I'm here if you need anything or if you know anyone looking to buy or sell.</p>
+                </div>
+                <div class="email-signature">
+                    <p><strong id="followUpAgentName">Your Name</strong><br>
+                    Licensed Real Estate Professional<br>
+                    📞 <span id="followUpPhone">(555) 123-4567</span><br>
+                    ✉️ <span id="followUpEmail">your@email.com</span></p>
+                </div>
+            </div>
+            <div class="template-controls">
+                <h3 class="template-title">Follow-up Review Request</h3>
+                
+                <div class="control-group">
+                    <label>Email Subject</label>
+                    <input type="text" id="followUpSubjectInput" value="Quick favor - 2 minutes to help other families?" oninput="updateFollowUp()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Client Name</label>
+                    <input type="text" id="followUpClientNameInput" value="Jennifer" oninput="updateFollowUp()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Time Since Closing</label>
+                    <input type="text" id="followUpTimeframeInput" value="three weeks" oninput="updateFollowUp()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Agent Name</label>
+                    <input type="text" id="followUpAgentNameInput" value="Your Name" oninput="updateFollowUp()">
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <div class="control-group" style="flex: 1;">
+                        <label>Phone</label>
+                        <input type="text" id="followUpPhoneInput" value="(555) 123-4567" oninput="updateFollowUp()">
+                    </div>
+                    <div class="control-group" style="flex: 1;">
+                        <label>Email</label>
+                        <input type="text" id="followUpEmailInput" value="your@email.com" oninput="updateFollowUp()">
+                    </div>
+                </div>
+                
+                <button class="download-btn" onclick="downloadTemplate('followUp')">Download Follow-up Email</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateThankYou() {
+            document.getElementById('thankYouSubject').textContent = document.getElementById('thankYouSubjectInput').value;
+            document.getElementById('thankYouClientName').textContent = document.getElementById('thankYouClientNameInput').value;
+            document.getElementById('thankYouTransactionType').textContent = document.getElementById('thankYouTransactionTypeInput').value;
+            document.getElementById('thankYouResult').textContent = document.getElementById('thankYouResultInput').value;
+            document.getElementById('thankYouAgentName').textContent = document.getElementById('thankYouAgentNameInput').value;
+            document.getElementById('thankYouPhone').textContent = document.getElementById('thankYouPhoneInput').value;
+            document.getElementById('thankYouEmail').textContent = document.getElementById('thankYouEmailInput').value;
+        }
+
+        function updateScript() {
+            document.getElementById('scriptClientName').textContent = document.getElementById('scriptClientNameInput').value;
+            document.getElementById('scriptAgentName').textContent = document.getElementById('scriptAgentNameInput').value;
+            document.getElementById('scriptTransactionType').textContent = document.getElementById('scriptTransactionTypeInput').value;
+        }
+
+        function updateFollowUp() {
+            document.getElementById('followUpSubject').textContent = document.getElementById('followUpSubjectInput').value;
+            document.getElementById('followUpClientName').textContent = document.getElementById('followUpClientNameInput').value;
+            document.getElementById('followUpTimeframe').textContent = document.getElementById('followUpTimeframeInput').value;
+            document.getElementById('followUpAgentName').textContent = document.getElementById('followUpAgentNameInput').value;
+            document.getElementById('followUpPhone').textContent = document.getElementById('followUpPhoneInput').value;
+            document.getElementById('followUpEmail').textContent = document.getElementById('followUpEmailInput').value;
+        }
+
+        function downloadTemplate(templateType) {
+            let content = '';
+            let filename = '';
+            
+            switch(templateType) {
+                case 'thankYou':
+                    content = createEmailTemplate('thankYou');
+                    filename = 'post-closing-thank-you-email.html';
+                    break;
+                case 'form':
+                    content = createFormTemplate();
+                    filename = 'testimonial-collection-form.html';
+                    break;
+                case 'script':
+                    content = createScriptTemplate();
+                    filename = 'phone-script-testimonials.html';
+                    break;
+                case 'followUp':
+                    content = createEmailTemplate('followUp');
+                    filename = 'follow-up-review-request.html';
+                    break;
+            }
+            
+            const blob = new Blob([content], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function createEmailTemplate(type) {
+            let subject, body, signature;
+            
+            if (type === 'thankYou') {
+                subject = document.getElementById('thankYouSubject').textContent;
+                body = document.getElementById('thankYouBody').innerHTML;
+                signature = document.getElementById('thankYouAgentName').textContent;
+            } else if (type === 'followUp') {
+                subject = document.getElementById('followUpSubject').textContent;
+                body = document.getElementById('followUpBody').innerHTML;
+                signature = document.getElementById('followUpAgentName').textContent;
+            }
+            
+            return `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>${subject}</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        .email-subject { font-weight: bold; color: #2c3e50; margin-bottom: 15px; padding: 10px; background: #f8f9fa; border-radius: 5px; border-left: 4px solid #2ecc71; }
+        .email-body { font-size: 16px; }
+        .email-signature { margin-top: 20px; padding-top: 15px; border-top: 1px solid #ddd; font-size: 14px; color: #666; }
+        a { color: #2ecc71; text-decoration: none; }
+        ul { margin: 15px 0; padding-left: 20px; }
+    </style>
+</head>
+<body>
+    <div class="email-subject">${subject}</div>
+    <div class="email-body">${body}</div>
+    <div class="email-signature">
+        <p><strong>${signature}</strong><br>
+        Licensed Real Estate Professional<br>
+        📞 ${document.getElementById(type + 'Phone').textContent}<br>
+        ✉️ ${document.getElementById(type + 'Email').textContent}</p>
+    </div>
+</body>
+</html>`;
+        }
+
+        function createFormTemplate() {
+            return `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Client Experience Survey</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        .form-container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h3 { color: #2c3e50; margin-bottom: 20px; text-align: center; }
+        .form-field { margin-bottom: 20px; }
+        .form-field label { display: block; margin-bottom: 8px; font-weight: 600; color: #2c3e50; }
+        .form-field input, .form-field textarea, .form-field select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; }
+        .form-field textarea { min-height: 100px; resize: vertical; }
+        .rating-stars { display: flex; gap: 5px; margin: 10px 0; }
+        .star { font-size: 24px; color: #ffd700; cursor: pointer; }
+        .submit-btn { background: #2ecc71; color: white; padding: 15px 30px; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%; }
+        .submit-btn:hover { background: #27ae60; }
+        .thank-you { background: linear-gradient(135deg, #2ecc71, #27ae60); color: white; padding: 20px; border-radius: 8px; text-align: center; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h3>Client Experience Survey</h3>
+        <p style="margin-bottom: 30px; color: #666; text-align: center;">Your feedback helps us serve you better and helps other families find quality real estate service.</p>
+        
+        <form>
+            <div class="form-field">
+                <label for="clientName">Your Name *</label>
+                <input type="text" id="clientName" name="clientName" required>
+            </div>
+            
+            <div class="form-field">
+                <label for="propertyAddress">Property Address</label>
+                <input type="text" id="propertyAddress" name="propertyAddress">
+            </div>
+            
+            <div class="form-field">
+                <label>Overall Experience Rating *</label>
+                <div class="rating-stars">
+                    <span class="star" onclick="setRating(1)">⭐</span>
+                    <span class="star" onclick="setRating(2)">⭐</span>
+                    <span class="star" onclick="setRating(3)">⭐</span>
+                    <span class="star" onclick="setRating(4)">⭐</span>
+                    <span class="star" onclick="setRating(5)">⭐</span>
+                </div>
+                <input type="hidden" id="rating" name="rating">
+            </div>
+            
+            <div class="form-field">
+                <label for="bestPart">What was the best part of working with us? *</label>
+                <textarea id="bestPart" name="bestPart" placeholder="Tell us what stood out most about your experience..." required></textarea>
+            </div>
+            
+            <div class="form-field">
+                <label for="recommend">Would you recommend our services to friends and family? *</label>
+                <select id="recommend" name="recommend" required>
+                    <option value="">Please select...</option>
+                    <option value="absolutely">Absolutely!</option>
+                    <option value="yes-reservations">Yes, with some reservations</option>
+                    <option value="not-sure">Not sure</option>
+                    <option value="probably-not">Probably not</option>
+                </select>
+            </div>
+            
+            <div class="form-field">
+                <label for="permission">May we use your comments in our marketing materials?</label>
+                <select id="permission" name="permission">
+                    <option value="full-name">Yes, with my full name</option>
+                    <option value="first-initial">Yes, with first name and last initial only</option>
+                    <option value="anonymous">Yes, but anonymously</option>
+                    <option value="internal-only">No, for internal use only</option>
+                </select>
+            </div>
+            
+            <div class="form-field">
+                <label for="additional">Additional Comments</label>
+                <textarea id="additional" name="additional" placeholder="Is there anything else you'd like to share about your experience?"></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Submit Feedback</button>
+        </form>
+        
+        <div class="thank-you">
+            <strong>Thank you for taking the time to share your feedback!</strong><br>
+            Your testimonial helps other families find quality real estate service.
+        </div>
+    </div>
+    
+    <script>
+        function setRating(stars) {
+            document.getElementById('rating').value = stars;
+            const starElements = document.querySelectorAll('.star');
+            starElements.forEach((star, index) => {
+                star.style.opacity = index < stars ? '1' : '0.3';
+            });
+        }
+    </script>
+</body>
+</html>`;
+        }
+
+        function createScriptTemplate() {
+            const scriptElement = document.querySelector('.template-preview');
+            return `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Phone Script: Testimonial Collection</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h3 { color: #2c3e50; margin-bottom: 20px; }
+        .script-section { margin-bottom: 25px; }
+        .script-section strong { color: #2c3e50; }
+        .script-text { margin: 10px 0; padding: 15px; background: #e8f5e8; border-radius: 8px; border-left: 4px solid #2ecc71; }
+        .questions-list { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 15px 0; }
+        .questions-list h4 { color: #2c3e50; margin-bottom: 15px; }
+        .questions-list ol { margin-left: 20px; }
+        .timing-note { background: #fff3cd; padding: 15px; border-radius: 8px; border-left: 4px solid #ffc107; margin: 15px 0; }
+    </style>
+</head>
+<body>
+    ${scriptElement.innerHTML}
+</body>
+</html>`;
+        }
+
+        function downloadAllTemplates() {
+            setTimeout(() => downloadTemplate('thankYou'), 100);
+            setTimeout(() => downloadTemplate('form'), 300);
+            setTimeout(() => downloadTemplate('script'), 500);
+            setTimeout(() => downloadTemplate('followUp'), 700);
+        }
+
+        // Initialize all templates on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateThankYou();
+            updateScript();
+            updateFollowUp();
+        });

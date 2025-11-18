@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Closing Process Checklist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #FF6B35;
+            border-radius: 8px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        h1 {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .framework-badge {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #B0C4DE;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .read-time {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #00D4AA;
+        }
+
+        h3 {
+            font-size: 1.8em;
+            margin: 40px 0 20px 0;
+            color: #FFD700;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #E6F3FF;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #FF6B35, #E55533);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 40px 0;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #00D4AA, #00B894);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 40px 0;
+        }
+
+        .interactive-checklist {
+            background: rgba(0, 212, 170, 0.2);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .checklist-item {
+            display: grid;
+            grid-template-columns: auto 1fr 120px 150px;
+            gap: 15px;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .checklist-item:has(input:checked) {
+            background: rgba(0, 212, 170, 0.3) !important;
+            border-left: 4px solid #00D4AA;
+            transform: translateX(10px);
+        }
+
+        .checklist-item input[type="checkbox"] {
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+
+        .checklist-text {
+            color: #E6F3FF;
+            font-size: 1.05em;
+        }
+
+        .owner-select {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 8px;
+            color: white;
+            font-size: 0.9em;
+        }
+
+        .owner-select option {
+            background: #1e3a5f;
+            color: white;
+        }
+
+        .due-date input {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 8px;
+            color: white;
+            font-size: 0.9em;
+            width: 100%;
+        }
+
+        .due-date input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .progress-bar {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 5px;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #00D4AA, #00B894);
+            height: 20px;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .documents-checklist {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .document-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .document-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .document-item:has(input:checked) {
+            background: rgba(255, 215, 0, 0.3) !important;
+            border-left: 4px solid #FFD700;
+            transform: translateX(10px);
+        }
+
+        .document-item input[type="checkbox"] {
+            margin-right: 15px;
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+
+        .document-text {
+            flex: 1;
+            color: #E6F3FF;
+        }
+
+        .contacts-section {
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #FF6B35;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 100px 1fr 1fr 1fr 1fr;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .contacts-header {
+            font-weight: bold;
+            color: #FF6B35;
+            text-align: center;
+        }
+
+        .contacts-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 8px;
+            color: white;
+            width: 100%;
+            font-size: 0.9em;
+        }
+
+        .contacts-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .tip-box {
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #FF6B35;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .tip-box h3 {
+            color: #FF6B35;
+            margin-top: 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .section {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            .checklist-item {
+                grid-template-columns: auto 1fr;
+                gap: 10px;
+            }
+
+            .contacts-grid {
+                grid-template-columns: 1fr;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo">🏠</div>
+            <h1>Closing Process Checklist</h1>
+            <div class="framework-badge">Checklist</div>
+            <p class="subtitle">Step-by-step checklist for managing the closing process from contract to keys, ensuring
+                nothing is missed.</p>
+            <div class="read-time">Contract to keys</div>
+        </div>
+
+        <!-- How to Use -->
+        <div class="section">
+            <div class="tip-box">
+                <h3>📝 How to Use This Checklist</h3>
+                <p>Check off each task and note who owns it (Buyer, Agent, Lender, Title) and the due date.</p>
+                <div class="warning-box" style="margin: 20px 0;">
+                    🚨 Wire Safety: Always verify wire instructions by calling a known number for the title company. Do
+                    not rely on email alone.
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Tracker -->
+        <div class="section">
+            <h2>Your Closing Progress</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar">0% Complete</div>
+            </div>
+            <p style="text-align: center; margin-top: 10px;">Track your progress through the closing process</p>
+        </div>
+
+        <!-- Main Checklist -->
+        <div class="section">
+            <h2>Contract-to-Close Checklist</h2>
+            <p>Complete these tasks to ensure a smooth closing process:</p>
+
+            <div class="interactive-checklist">
+                <h3 style="color: #00D4AA; margin-top: 0;">📋 Essential Tasks</h3>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Deliver signed contract to lender and title; open escrow.</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent" selected>Agent</option>
+                        <option value="Buyer">Buyer</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Deposit earnest money.</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent">Agent</option>
+                        <option value="Buyer" selected>Buyer</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Schedule inspections; provide access.</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent">Agent</option>
+                        <option value="Buyer" selected>Buyer/Agent</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Review inspection report; negotiate repairs or credits.</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent">Agent</option>
+                        <option value="Buyer" selected>Buyer/Agent</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Choose homeowner's insurance; send binder to lender.</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent">Agent</option>
+                        <option value="Buyer" selected>Buyer</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Lender orders appraisal.</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent">Agent</option>
+                        <option value="Buyer">Buyer</option>
+                        <option value="Lender" selected>Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Provide lender any requested documents for underwriting.</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent">Agent</option>
+                        <option value="Buyer" selected>Buyer</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Order title search; clear liens/issues if any.</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent">Agent</option>
+                        <option value="Buyer">Buyer</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title" selected>Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Confirm HOA/condo docs delivered and reviewed (if applicable).</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent" selected>Agent/Buyer</option>
+                        <option value="Buyer">Buyer</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Lock interest rate (if not already).</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent">Agent</option>
+                        <option value="Buyer" selected>Buyer/Lender</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Receive appraisal; address value gap if needed.</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent" selected>Lender/Agent</option>
+                        <option value="Buyer">Buyer</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Obtain final loan approval (clear conditions).</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent">Agent</option>
+                        <option value="Buyer" selected>Lender/Buyer</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Review Closing Disclosure (CD) at least 3 business days before close.</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent">Agent</option>
+                        <option value="Buyer" selected>Buyer/Lender</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Arrange certified funds/wire; verify instructions by phone.</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent">Agent</option>
+                        <option value="Buyer" selected>Buyer</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Schedule final walk-through.</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent" selected>Agent/Buyer</option>
+                        <option value="Buyer">Buyer</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Transfer/activate utilities for move-in.</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent">Agent</option>
+                        <option value="Buyer" selected>Buyer</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Bring IDs and any required docs to closing.</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent">Agent</option>
+                        <option value="Buyer" selected>Buyer</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Sign closing documents.</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent">Agent</option>
+                        <option value="Buyer" selected>All</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" class="progress-checkbox">
+                    <div class="checklist-text">
+                        <strong>Funding & recording confirmed; keys/possession per contract.</strong>
+                    </div>
+                    <select class="owner-select">
+                        <option value="">Owner</option>
+                        <option value="Agent" selected>Title/Agent</option>
+                        <option value="Buyer">Buyer</option>
+                        <option value="Lender">Lender</option>
+                        <option value="Title">Title</option>
+                    </select>
+                    <div class="due-date">
+                        <input type="text" placeholder="Due date / Notes">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Common Documents -->
+        <div class="section">
+            <h2>Common Closing Documents</h2>
+            <p>Track which documents you've received or reviewed:</p>
+
+            <div class="documents-checklist">
+                <h3 style="color: #FFD700; margin-top: 0;">📄 Document Checklist</h3>
+
+                <label class="document-item">
+                    <input type="checkbox">
+                    <div class="document-text">
+                        <strong>Closing Disclosure (CD)</strong>
+                    </div>
+                </label>
+
+                <label class="document-item">
+                    <input type="checkbox">
+                    <div class="document-text">
+                        <strong>Loan Note and Deed of Trust/Mortgage</strong>
+                    </div>
+                </label>
+
+                <label class="document-item">
+                    <input type="checkbox">
+                    <div class="document-text">
+                        <strong>Escrow/Impound disclosures</strong>
+                    </div>
+                </label>
+
+                <label class="document-item">
+                    <input type="checkbox">
+                    <div class="document-text">
+                        <strong>Title Commitment and Owner's Title Policy</strong>
+                    </div>
+                </label>
+
+                <label class="document-item">
+                    <input type="checkbox">
+                    <div class="document-text">
+                        <strong>Wire instructions from title company</strong>
+                    </div>
+                </label>
+
+                <label class="document-item">
+                    <input type="checkbox">
+                    <div class="document-text">
+                        <strong>Government-issued ID(s)</strong>
+                    </div>
+                </label>
+
+                <label class="document-item">
+                    <input type="checkbox">
+                    <div class="document-text">
+                        <strong>Homeowner's insurance binder</strong>
+                    </div>
+                </label>
+
+                <label class="document-item">
+                    <input type="checkbox">
+                    <div class="document-text">
+                        <strong>Final walk-through form</strong>
+                    </div>
+                </label>
+
+                <label class="document-item">
+                    <input type="checkbox">
+                    <div class="document-text">
+                        <strong>Bill of sale / personal property addendum (if applicable)</strong>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Key Contacts -->
+        <div class="section">
+            <h2>Key Contacts</h2>
+            <p>Keep all important contact information in one place:</p>
+
+            <div class="contacts-section">
+                <h3 style="color: #FF6B35; margin-top: 0;">📞 Contact Information</h3>
+
+                <div class="contacts-grid">
+                    <div class="contacts-header">Role</div>
+                    <div class="contacts-header">Name</div>
+                    <div class="contacts-header">Company</div>
+                    <div class="contacts-header">Phone</div>
+                    <div class="contacts-header">Email</div>
+                </div>
+
+                <div class="contacts-grid">
+                    <div style="color: #FF6B35; font-weight: bold;">Agent</div>
+                    <input type="text" class="contacts-input" placeholder="Agent name">
+                    <input type="text" class="contacts-input" placeholder="Brokerage">
+                    <input type="text" class="contacts-input" placeholder="Phone number">
+                    <input type="text" class="contacts-input" placeholder="Email address">
+                </div>
+
+                <div class="contacts-grid">
+                    <div style="color: #FF6B35; font-weight: bold;">Lender</div>
+                    <input type="text" class="contacts-input" placeholder="Loan officer">
+                    <input type="text" class="contacts-input" placeholder="Bank/Lender">
+                    <input type="text" class="contacts-input" placeholder="Phone number">
+                    <input type="text" class="contacts-input" placeholder="Email address">
+                </div>
+
+                <div class="contacts-grid">
+                    <div style="color: #FF6B35; font-weight: bold;">Title</div>
+                    <input type="text" class="contacts-input" placeholder="Title officer">
+                    <input type="text" class="contacts-input" placeholder="Title company">
+                    <input type="text" class="contacts-input" placeholder="Phone number">
+                    <input type="text" class="contacts-input" placeholder="Email address">
+                </div>
+
+                <div class="contacts-grid">
+                    <div style="color: #FF6B35; font-weight: bold;">Inspector</div>
+                    <input type="text" class="contacts-input" placeholder="Inspector name">
+                    <input type="text" class="contacts-input" placeholder="Company">
+                    <input type="text" class="contacts-input" placeholder="Phone number">
+                    <input type="text" class="contacts-input" placeholder="Email address">
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div class="section">
+            <div class="success-box">
+                Stay on track = Smooth closing + Dream home keys! 🏡
+            </div>
+        </div>
+    </div>
+
+    <div style="background:#1E2A38; border-top:1px solid #334155; padding:16px 24px; width: 100%;">
+        <p style="font-size:12px; color:#9CA3AF; text-align:center; line-height:1.6;">
+            <strong style="color:#D1D5DB;">Disclaimer:</strong> This template is for business use only and does not
+            constitute legal advice. Stacked Technologies, LLC is not a law firm. Users are responsible for
+            confirming compliance with all applicable local, state, and federal laws.
+        </p>
+    </div>
+    </div>
+
+    <script>
+        // Progress tracking functionality
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.progress-checkbox');
+            const checkedBoxes = document.querySelectorAll('.progress-checkbox:checked');
+            const progress = (checkedBoxes.length / checkboxes.length) * 100;
+            
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = progress + '%';
+            progressBar.textContent = Math.round(progress) + '% Complete';
+        }
+
+        // Add event listeners to all checkboxes
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.progress-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+            
+            // Initialize progress
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

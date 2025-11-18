@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Onboarding Checklist & Process</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .form-header {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #FF6B35;
+            border-radius: 8px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #00D4AA;
+        }
+        
+        .disclaimer {
+            background: linear-gradient(135deg, #FF6B35, #E55533);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .form-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-label {
+            color: #FFD700;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .form-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+            font-size: 1em;
+        }
+        
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .form-select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+            font-size: 1em;
+        }
+        
+        .form-select option {
+            background: #1e3a5f;
+            color: white;
+        }
+        
+        .form-textarea {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+            font-size: 1em;
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .section-title {
+            color: #00D4AA;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00D4AA;
+            padding-bottom: 5px;
+        }
+        
+        .checklist-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #FFD700;
+        }
+        
+        .checklist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .checklist-title {
+            color: #FFD700;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .progress-indicator {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 10px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .checklist-item.completed {
+            background: rgba(0, 212, 170, 0.1);
+            border-left: 3px solid #00D4AA;
+        }
+        
+        .checklist-checkbox {
+            margin-right: 15px;
+            transform: scale(1.3);
+            margin-top: 5px;
+        }
+        
+        .checklist-content {
+            flex: 1;
+        }
+        
+        .item-title {
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 5px;
+        }
+        
+        .item-description {
+            font-size: 0.9em;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .item-due-date {
+            font-size: 0.8em;
+            color: #00D4AA;
+            margin-top: 5px;
+        }
+        
+        .timeline-view {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .timeline-step {
+            text-align: center;
+            flex: 1;
+            position: relative;
+        }
+        
+        .timeline-step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            top: 25px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: #FFD700;
+        }
+        
+        .timeline-circle {
+            width: 50px;
+            height: 50px;
+            background: #FFD700;
+            color: #1e3a5f;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 10px;
+        }
+        
+        .timeline-circle.completed {
+            background: #00D4AA;
+        }
+        
+        .timeline-circle.current {
+            background: #FF6B35;
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+        }
+        
+        .timeline-label {
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .print-button {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 170, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .form-header {
+                padding: 20px;
+            }
+            
+            .form-section {
+                padding: 20px;
+            }
+            
+            .timeline-view {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .timeline-step:after {
+                display: none;
+            }
+            
+            .checklist-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <div class="logo">🎯</div>
+            <h1>Client Onboarding Checklist</h1>
+        </div>
+
+        <div class="disclaimer">
+            <strong>SYSTEMATIC CLIENT SUCCESS:</strong> Comprehensive onboarding process to ensure every client receives consistent, professional service from day one through closing and beyond.
+        </div>
+
+        <form id="onboardingForm">
+            <div class="form-section">
+                <div class="section-title">Client Information</div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Client Name(s):</label>
+                        <input type="text" class="form-input" id="clientName" placeholder="Full name(s)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Client Type:</label>
+                        <select class="form-select" id="clientType" onchange="updateChecklistSections()">
+                            <option value="buyer">Buyer</option>
+                            <option value="seller">Seller</option>
+                            <option value="both">Both Buyer & Seller</option>
+                            <option value="investor">Investor</option>
+                            <option value="relocation">Relocation Client</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Onboarding Date:</label>
+                        <input type="date" class="form-input" id="onboardingDate">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Assigned Agent:</label>
+                        <input type="text" class="form-input" id="assignedAgent" placeholder="Primary agent name">
+                    </div>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Lead Source:</label>
+                        <select class="form-select" id="leadSource">
+                            <option value="referral">Referral</option>
+                            <option value="website">Website</option>
+                            <option value="social-media">Social Media</option>
+                            <option value="open-house">Open House</option>
+                            <option value="zillow">Zillow</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Preferred Communication:</label>
+                        <select class="form-select" id="preferredComm">
+                            <option value="phone">Phone</option>
+                            <option value="email">Email</option>
+                            <option value="text">Text</option>
+                            <option value="mixed">Mixed</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">Onboarding Timeline</div>
+                
+                <div class="timeline-view">
+                    <div class="timeline-step">
+                        <div class="timeline-circle current" id="step1">1</div>
+                        <div class="timeline-label">Initial Contact<br><small>(Day 0)</small></div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-circle" id="step2">2</div>
+                        <div class="timeline-label">Welcome Package<br><small>(Day 1)</small></div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-circle" id="step3">3</div>
+                        <div class="timeline-label">Consultation<br><small>(Day 2-3)</small></div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-circle" id="step4">4</div>
+                        <div class="timeline-label">Documentation<br><small>(Day 3-5)</small></div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-circle" id="step5">5</div>
+                        <div class="timeline-label">Active Service<br><small>(Ongoing)</small></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checklist-section" id="day0Tasks">
+                <div class="checklist-header">
+                    <div class="checklist-title">Day 0: Initial Contact & Setup</div>
+                    <div class="progress-indicator" id="day0Progress">0/6 Complete</div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('day0')">
+                    <div class="checklist-content">
+                        <div class="item-title">Send immediate response acknowledgment</div>
+                        <div class="item-description">Send automated or personal response within 15 minutes acknowledging their inquiry</div>
+                        <div class="item-due-date">Due: Within 15 minutes</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('day0')">
+                    <div class="checklist-content">
+                        <div class="item-title">Create client profile in CRM</div>
+                        <div class="item-description">Enter all contact information, preferences, and initial notes from first conversation</div>
+                        <div class="item-due-date">Due: Same day</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('day0')">
+                    <div class="checklist-content">
+                        <div class="item-title">Schedule consultation call/meeting</div>
+                        <div class="item-description">Book formal consultation within 24-48 hours of initial contact</div>
+                        <div class="item-due-date">Due: Same day</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('day0')">
+                    <div class="checklist-content">
+                        <div class="item-title">Send calendar invitation</div>
+                        <div class="item-description">Include meeting details, location/link, and what to prepare</div>
+                        <div class="item-due-date">Due: Same day</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('day0')">
+                    <div class="checklist-content">
+                        <div class="item-title">Set up automated follow-up sequence</div>
+                        <div class="item-description">Activate email nurture campaign appropriate for client type</div>
+                        <div class="item-due-date">Due: Same day</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('day0')">
+                    <div class="checklist-content">
+                        <div class="item-title">Internal team notification</div>
+                        <div class="item-description">Notify support team, transaction coordinator, and relevant staff</div>
+                        <div class="item-due-date">Due: Same day</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checklist-section" id="day1Tasks">
+                <div class="checklist-header">
+                    <div class="checklist-title">Day 1: Welcome Package & Resources</div>
+                    <div class="progress-indicator" id="day1Progress">0/5 Complete</div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('day1')">
+                    <div class="checklist-content">
+                        <div class="item-title">Send comprehensive welcome email</div>
+                        <div class="item-description">Include team introduction, process overview, and what to expect</div>
+                        <div class="item-due-date">Due: Within 24 hours</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('day1')">
+                    <div class="checklist-content">
+                        <div class="item-title">Provide digital resource package</div>
+                        <div class="item-description">Buyer/seller guide, local market report, timeline, FAQ documents</div>
+                        <div class="item-due-date">Due: Within 24 hours</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('day1')">
+                    <div class="checklist-content">
+                        <div class="item-title">Share team contact information</div>
+                        <div class="item-description">Business cards, phone numbers, best times to reach, emergency contacts</div>
+                        <div class="item-due-date">Due: Within 24 hours</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('day1')">
+                    <div class="checklist-content">
+                        <div class="item-title">Set up client portal access</div>
+                        <div class="item-description">Provide login credentials for document sharing and communication platform</div>
+                        <div class="item-due-date">Due: Within 24 hours</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('day1')">
+                    <div class="checklist-content">
+                        <div class="item-title">Send consultation preparation checklist</div>
+                        <div class="item-description">List of documents to gather and questions to consider before meeting</div>
+                        <div class="item-due-date">Due: Within 24 hours</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checklist-section" id="consultationTasks">
+                <div class="checklist-header">
+                    <div class="checklist-title">Day 2-3: Consultation Meeting</div>
+                    <div class="progress-indicator" id="consultationProgress">0/7 Complete</div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('consultation')">
+                    <div class="checklist-content">
+                        <div class="item-title">Conduct needs assessment interview</div>
+                        <div class="item-description">Deep-dive questionnaire covering goals, timeline, budget, preferences</div>
+                        <div class="item-due-date">Due: During consultation</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('consultation')">
+                    <div class="checklist-content">
+                        <div class="item-title">Present market analysis</div>
+                        <div class="item-description">Customized market report relevant to their area/price range/property type</div>
+                        <div class="item-due-date">Due: During consultation</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('consultation')">
+                    <div class="checklist-content">
+                        <div class="item-title">Explain service process and timeline</div>
+                        <div class="item-description">Step-by-step walkthrough of what happens next and when</div>
+                        <div class="item-due-date">Due: During consultation</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('consultation')">
+                    <div class="checklist-content">
+                        <div class="item-title">Review fee structure and agreements</div>
+                        <div class="item-description">Transparent discussion of all costs, commissions, and contractual obligations</div>
+                        <div class="item-due-date">Due: During consultation</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('consultation')">
+                    <div class="checklist-content">
+                        <div class="item-title">Set communication expectations</div>
+                        <div class="item-description">Agree on update frequency, preferred methods, and response times</div>
+                        <div class="item-due-date">Due: During consultation</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('consultation')">
+                    <div class="checklist-content">
+                        <div class="item-title">Establish next steps and deadlines</div>
+                        <div class="item-description">Create action plan with specific dates for upcoming milestones</div>
+                        <div class="item-due-date">Due: During consultation</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('consultation')">
+                    <div class="checklist-content">
+                        <div class="item-title">Schedule follow-up meeting</div>
+                        <div class="item-description">Book next appointment before client leaves current meeting</div>
+                        <div class="item-due-date">Due: During consultation</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checklist-section" id="documentationTasks">
+                <div class="checklist-header">
+                    <div class="checklist-title">Day 3-5: Documentation & Agreements</div>
+                    <div class="progress-indicator" id="documentationProgress">0/6 Complete</div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('documentation')">
+                    <div class="checklist-content">
+                        <div class="item-title">Prepare representation agreements</div>
+                        <div class="item-description">Draft and review buyer/seller representation agreements</div>
+                        <div class="item-due-date">Due: Within 48 hours of consultation</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('documentation')">
+                    <div class="checklist-content">
+                        <div class="item-title">Obtain signed agreements</div>
+                        <div class="item-description">Execute all necessary legal documents and disclosures</div>
+                        <div class="item-due-date">Due: Within 72 hours of consultation</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('documentation')">
+                    <div class="checklist-content">
+                        <div class="item-title">Complete vendor referral setup</div>
+                        <div class="item-description">Connect client with preferred lenders, inspectors, contractors</div>
+                        <div class="item-due-date">Due: Within 72 hours of consultation</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('documentation')">
+                    <div class="checklist-content">
+                        <div class="item-title">Set up MLS/property alerts</div>
+                        <div class="item-description">Configure automated property notifications based on client criteria</div>
+                        <div class="item-due-date">Due: Within 72 hours of consultation</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('documentation')">
+                    <div class="checklist-content">
+                        <div class="item-title">Create project management timeline</div>
+                        <div class="item-description">Establish milestones and deadlines in shared project management tool</div>
+                        <div class="item-due-date">Due: Within 72 hours of consultation</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <input type="checkbox" class="checklist-checkbox" onchange="updateProgress('documentation')">
+                    <div class="checklist-content">
+                        <div class="item-title">Send onboarding completion summary</div>
+                        <div class="item-description">Email recap of everything completed and next steps</div>
+                        <div class="item-due-date">Due: Within 5 days of initial contact</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">Ongoing Service Protocol</div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Regular Check-in Frequency:</label>
+                        <select class="form-select" id="checkinFrequency">
+                            <option value="weekly">Weekly</option>
+                            <option value="bi-weekly">Bi-weekly</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="as-needed">As needed</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Preferred Check-in Method:</label>
+                        <select class="form-select" id="checkinMethod">
+                            <option value="phone">Phone call</option>
+                            <option value="email">Email update</option>
+                            <option value="text">Text message</option>
+                            <option value="video">Video call</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Key Performance Indicators to Track:</label>
+                        <input type="text" class="form-input" id="kpiTracking" placeholder="Response time, satisfaction, milestones">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Client Success Manager:</label>
+                        <input type="text" class="form-input" id="successManager" placeholder="Ongoing relationship manager">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Special Notes & Preferences:</label>
+                    <textarea class="form-textarea" id="specialNotes" placeholder="Any unique client preferences, special circumstances, or important reminders..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Onboarding Feedback Received:</label>
+                    <textarea class="form-textarea" id="onboardingFeedback" placeholder="Client feedback about the onboarding process and suggestions for improvement..."></textarea>
+                </div>
+            </div>
+        </form>
+
+        <button class="print-button" onclick="window.print()">Print Onboarding Checklist</button>
+    </div>
+
+    <script>
+        // Set today's date as default
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('onboardingDate').value = today;
+        });
+
+        function updateProgress(section) {
+            const checkboxes = document.querySelectorAll(`#${section}Tasks .checklist-checkbox`);
+            const progressElement = document.getElementById(`${section}Progress`);
+            
+            let completed = 0;
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    completed++;
+                    checkbox.closest('.checklist-item').classList.add('completed');
+                } else {
+                    checkbox.closest('.checklist-item').classList.remove('completed');
+                }
+            });
+            
+            progressElement.textContent = `${completed}/${checkboxes.length} Complete`;
+            
+            // Update timeline
+            updateTimeline();
+        }
+
+        function updateTimeline() {
+            const sections = ['day0', 'day1', 'consultation', 'documentation'];
+            let currentStep = 1;
+            
+            sections.forEach((section, index) => {
+                const checkboxes = document.querySelectorAll(`#${section}Tasks .checklist-checkbox`);
+                const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+                const total = checkboxes.length;
+                
+                const stepElement = document.getElementById(`step${index + 1}`);
+                
+                if (completed === total && total > 0) {
+                    stepElement.classList.add('completed');
+                    stepElement.classList.remove('current');
+                    currentStep = Math.max(currentStep, index + 2);
+                } else if (completed > 0) {
+                    stepElement.classList.add('current');
+                    stepElement.classList.remove('completed');
+                    currentStep = Math.max(currentStep, index + 1);
+                } else {
+                    stepElement.classList.remove('completed', 'current');
+                }
+            });
+            
+            // Set current step
+            if (currentStep <= 5) {
+                document.getElementById(`step${currentStep}`).classList.add('current');
+            }
+        }
+
+        function updateChecklistSections() {
+            const clientType = document.getElementById('clientType').value;
+            // This function can be expanded to show/hide sections based on client type
+            // For now, it shows all sections for all client types
+        }
+
+        // Print styling
+        const printStyles = `
+            <style>
+                @media print {
+                    body {
+                        background: white !important;
+                        color: black !important;
+                    }
+                    .print-button { display: none !important; }
+                    .form-section, .checklist-section, .checklist-item, .timeline-view {
+                        background: white !important;
+                        border: 1px solid #ccc !important;
+                    }
+                    .disclaimer {
+                        background: #f0f0f0 !important;
+                        color: black !important;
+                        border: 2px solid #000 !important;
+                    }
+                    .form-input, .form-textarea, .form-select {
+                        background: white !important;
+                        color: black !important;
+                        border: 1px solid #000 !important;
+                    }
+                    .checklist-section {
+                        border-left: 4px solid #000 !important;
+                    }
+                    .checklist-item.completed {
+                        border-left: 3px solid #000 !important;
+                        background: #f0f0f0 !important;
+                    }
+                    .timeline-circle {
+                        border: 2px solid #000 !important;
+                    }
+                    .timeline-circle.completed {
+                        background: #d0d0d0 !important;
+                        color: #000 !important;
+                    }
+                    .timeline-circle.current {
+                        background: #999 !important;
+                        color: #fff !important;
+                    }
+                }
+            </style>
+        `;
+        
+        document.head.insertAdjacentHTML('beforeend', printStyles);
+    </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Affiliate Program — Balanced Rules (Final)</title>
+  <style>
+    :root{
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --brand:#2563eb;
+      --bg:#ffffff;
+      --card:#f8fafc;
+      --ok:#d1fae5;
+      --warn:#fef3c7;
+      --bad:#fee2e2;
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;line-height:1.6}
+    .wrap{max-width:860px;margin:0 auto;padding:28px}
+    h1{font-size:28px;margin:0 0 18px}
+    h2{font-size:18px;margin:22px 0 10px;color:#0f172a}
+    .card{background:var(--card);border-left:4px solid var(--brand);padding:18px 18px;margin:16px 0;border-radius:8px}
+    .row{display:flex;gap:16px;flex-wrap:wrap}
+    .col{flex:1 1 260px}
+    ul{margin:8px 0 8px 22px}
+    li{margin:6px 0}
+    .hl{background:#e0ecff;padding:2px 6px;border-radius:4px;font-weight:600}
+    .ok{background:var(--ok);border-left:4px solid #10b981}
+    .warn{background:var(--warn);border-left:4px solid #f59e0b}
+    .bad{background:var(--bad);border-left:4px solid #ef4444}
+    .muted{color:var(--muted)}
+    code{background:#f3f4f6;padding:2px 5px;border-radius:4px}
+    .small{font-size:13px}
+    .section-title{margin-top:26px}
+    hr{border:none;border-top:1px solid #e5e7eb;margin:22px 0}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Affiliate Program — Balanced Rules (Final)</h1>
+
+    <div class="card">
+      <h2>Commission Structure</h2>
+      <ul>
+        <li><span class="hl">Month&nbsp;1:</span> 30% commission</li>
+        <li><span class="hl">Months&nbsp;2–12:</span> 10% commission</li>
+        <li><span class="hl">Cap:</span> 12 paid months per referred customer (no commissions after month 12)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Activity Target</h2>
+      <p><strong>Requirement:</strong> Refer <span class="hl">2+ new paid customers</span> each <strong>calendar month</strong>.</p>
+      <div class="ok">
+        <strong>1st Miss (< 2 in a month):</strong>
+        <ul>
+          <li>No penalty</li>
+          <li>Send automated heads‑up to the affiliate</li>
+        </ul>
+      </div>
+      <div class="warn">
+        <strong>2nd Consecutive Miss:</strong>
+        <ul>
+          <li><span class="hl">Recurring commissions pause</span> for the <strong>next month</strong></li>
+          <li>No back‑pay for the paused month</li>
+          <li>Once the affiliate hits <strong>&ge; 2</strong> in any later month, recurring <strong>resumes the following month</strong></li>
+        </ul>
+      </div>
+      <div class="bad">
+        <strong>3rd Consecutive Miss:</strong>
+        <ul>
+          <li><span class="hl">Recurring commissions end permanently</span> <strong>starting the next month</strong></li>
+          <li>Account is <strong>subject to termination</strong></li>
+          <li>Month‑1 bounties already cleared still pay</li>
+          <li>Affiliate may reapply later; acceptance not guaranteed; prior streams do not resume</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col card">
+        <h2>Payouts</h2>
+        <ul>
+          <li><span class="hl">Hold:</span> Net‑14 — eligibility begins <strong>14 days after each charge</strong></li>
+          <li><span class="hl">Schedule:</span> Paid by the <strong>15th</strong> of each month for approved amounts</li>
+          <li><span class="hl">Minimum:</span> <strong>$150</strong> in <em>approved</em> commissions required to receive a payout for that month (sub‑minimum amounts roll forward)</li>
+        </ul>
+      </div>
+      <div class="col card">
+        <h2>Attribution &amp; Anti‑Abuse</h2>
+        <ul>
+          <li><span class="hl">Attribution:</span> 30‑day <strong>last‑click</strong></li>
+          <li><span class="hl">Referral links only</span> (hide public coupon field)</li>
+          <li><span class="hl">New customers only</span> (block by email, phone, and card fingerprint)</li>
+          <li>No self‑referrals, spam, coupon‑site posting, or brand‑bidding</li>
+          <li><span class="hl">Clawbacks</span> on refunds, chargebacks, fraud, or payment reversal</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="card">
+      <h2 class="section-title">Example Timeline (for clarity)</h2>
+      <ul class="small">
+        <li><strong>Jan:</strong> 1 new (Miss #1) → No penalty; send heads‑up.</li>
+        <li><strong>Feb:</strong> 1 new (Miss #2) → <em>March</em> recurring is paused (no back‑pay).</li>
+        <li><strong>Mar:</strong> 0 new (Miss #3) → <em>April</em> onward, recurring ends permanently; possible termination.</li>
+      </ul>
+      <p class="small muted">“New paid” = a brand‑new customer whose first charge clears the 14‑day hold and is not refunded/charged back.</p>
+    </div>
+  </div>
+</body>
+</html>

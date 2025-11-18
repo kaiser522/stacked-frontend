@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Processing Pipeline - CRM System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #94a3b8;
+            font-size: 1.1em;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .pipeline-steps {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 25px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+        
+        .step.active {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .step.completed {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .step-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #374151;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+        
+        .step.active .step-number {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+        
+        .step.completed .step-number {
+            background: linear-gradient(135deg, #10b981, #047857);
+            color: white;
+        }
+        
+        .step-text {
+            font-weight: 600;
+            color: #94a3b8;
+        }
+        
+        .step.active .step-text, .step.completed .step-text {
+            color: white;
+        }
+        
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .content-section {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.05);
+        }
+        
+        .upload-area.dragover {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .upload-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: #60a5fa;
+        }
+        
+        .upload-text {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .upload-subtext {
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95em;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #10b981, #047857);
+            color: white;
+        }
+        
+        .btn-info {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
+        
+        .valid-count {
+            color: #10b981;
+        }
+        
+        .invalid-count {
+            color: #ef4444;
+        }
+        
+        .total-count {
+            color: #60a5fa;
+        }
+        
+        .qualified-count {
+            color: #3b82f6;
+        }
+        
+        .validation-table {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 20px 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .table-header {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
+            display: grid;
+            grid-template-columns: 30px 2.5fr 1.5fr 1fr 1fr 1fr;
+            gap: 15px;
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #94a3b8;
+            position: sticky;
+            top: 0;
+        }
+        
+        .table-row {
+            padding: 15px 20px;
+            display: grid;
+            grid-template-columns: 30px 2.5fr 1.5fr 1fr 1fr 1fr;
+            gap: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .table-row:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .checkbox-input {
+            width: 16px;
+            height: 16px;
+            accent-color: #3b82f6;
+        }
+        
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .status-valid {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .status-invalid {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .selected-info {
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
+        
+        .file-preview {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .file-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .file-name {
+            font-weight: 600;
+            color: #3b82f6;
+        }
+        
+        .file-size {
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
+        
+        .column-mapping {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .mapping-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .mapping-label {
+            color: #94a3b8;
+            font-size: 0.9em;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        
+        .mapping-select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            color: white;
+            font-size: 0.95em;
+        }
+        
+        .mapping-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+        
+        select.mapping-select option {
+            background: #1e293b;
+            color: white;
+        }
+        
+        .preview-data {
+            max-height: 200px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8em;
+        }
+        
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .success-message {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #34d399;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            margin: 2% auto;
+            padding: 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            color: white;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            text-align: center;
+            padding: 30px 30px 20px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+        }
+        
+        .modal-body {
+            padding: 20px 30px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        
+        .modal-footer {
+            padding: 20px 30px 30px 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+        }
+        
+        .modal-title {
+            font-size: 1.8em;
+            color: #3b82f6;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .modal-subtitle {
+            color: #94a3b8;
+            font-size: 1.1em;
+        }
+        
+        .compliance-text {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+        
+        .compliance-text h4 {
+            color: #ef4444;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .compliance-list {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+        
+        .compliance-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .compliance-list li:before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #3b82f6;
+            margin-top: 2px;
+        }
+        
+        .checkbox-label {
+            font-size: 1.05em;
+            line-height: 1.5;
+            color: #e2e8f0;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        
+        .btn-modal-cancel {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+            color: white;
+        }
+        
+        .btn-modal-proceed {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+        
+        .btn-modal-proceed:disabled {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        @media (max-width: 768px) {
+            .pipeline-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .table-header, .table-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📞 Lead Processing Pipeline</h1>
+        <p>Upload contact data → Validate records → Auto-dial → Qualify interested leads → Schedule appointments</p>
+    </div>
+    
+    <div class="pipeline-steps">
+        <div class="step active" id="step1">
+            <div class="step-number">1</div>
+            <div class="step-text">Upload Data</div>
+        </div>
+        <div class="step" id="step2">
+            <div class="step-number">2</div>
+            <div class="step-text">Validate Records</div>
+        </div>
+        <div class="step" id="step3">
+            <div class="step-number">3</div>
+            <div class="step-text">Auto Dialer</div>
+        </div>
+        <div class="step" id="step4">
+            <div class="step-number">4</div>
+            <div class="step-text">Qualified Leads</div>
+        </div>
+        <div class="step" id="step5">
+            <div class="step-number">5</div>
+            <div class="step-text">Schedule Appointments</div>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <!-- Step 1: Upload Section -->
+        <div class="content-section" id="uploadSection">
+            <h2 class="section-title">
+                📤 Upload Contact Data
+            </h2>
+            
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()" id="uploadArea">
+                <div class="upload-icon">📊</div>
+                <div class="upload-text">Drop your CSV file here or click to browse</div>
+                <div class="upload-subtext">Supports CSV files with contact information</div>
+            </div>
+            
+            <input type="file" id="fileInput" class="file-input" accept=".csv" onchange="handleFileUpload(event)">
+            
+            <div id="filePreview" class="file-preview" style="display: none;">
+                <div class="file-info">
+                    <div class="file-name" id="fileName"></div>
+                    <div class="file-size" id="fileSize"></div>
+                </div>
+                <div class="preview-data" id="previewData"></div>
+            </div>
+            
+            <div id="columnMapping" style="display: none;">
+                <h3 style="color: #3b82f6; margin-bottom: 15px;">Map Your Columns</h3>
+                <div class="column-mapping">
+                    <div class="mapping-group">
+                        <label class="mapping-label">First Name Column:</label>
+                        <select class="mapping-select" id="firstNameMapping">
+                            <option value="">Select column...</option>
+                        </select>
+                    </div>
+                    <div class="mapping-group">
+                        <label class="mapping-label">Last Name Column:</label>
+                        <select class="mapping-select" id="lastNameMapping">
+                            <option value="">Select column...</option>
+                        </select>
+                    </div>
+                    <div class="mapping-group">
+                        <label class="mapping-label">Phone Column:</label>
+                        <select class="mapping-select" id="phoneMapping">
+                            <option value="">Select column...</option>
+                        </select>
+                    </div>
+                    <div class="mapping-group">
+                        <label class="mapping-label">Email Column:</label>
+                        <select class="mapping-select" id="emailMapping">
+                            <option value="">Select column...</option>
+                        </select>
+                    </div>
+                    <div class="mapping-group">
+                        <label class="mapping-label">Address Column:</label>
+                        <select class="mapping-select" id="addressMapping">
+                            <option value="">Select column...</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+                    <button class="btn btn-secondary" onclick="resetUpload()">
+                        🔄 Upload Different File
+                    </button>
+                    <button class="btn btn-primary" onclick="processUploadedData()">
+                        ✅ Process Data
+                    </button>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;" id="initialButtons">
+                <button class="btn btn-secondary" onclick="loadSampleData()">
+                    📋 Load Sample Data
+                </button>
+                <button class="btn btn-info" onclick="showDataRequirements()">
+                    ❓ Data Requirements
+                </button>
+            </div>
+        </div>
+        
+        <!-- Step 2: Validation Section -->
+        <div class="content-section" id="validationSection" style="display: none;">
+            <h2 class="section-title">
+                ✅ Validate Contact Records
+            </h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number total-count" id="totalCount">0</div>
+                    <div class="stat-label">Total Records</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number valid-count" id="validCount">0</div>
+                    <div class="stat-label">Valid Records</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number invalid-count" id="invalidCount">0</div>
+                    <div class="stat-label">Invalid Records</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="completionRate">0%</div>
+                    <div class="stat-label">Data Quality</div>
+                </div>
+            </div>
+            
+            <div class="validation-table">
+                <div class="table-header">
+                    <div><input type="checkbox" class="checkbox-input" onchange="selectAll(this)" id="selectAllCheckbox"></div>
+                    <div>Contact Information</div>
+                    <div>Phone</div>
+                    <div>Email</div>
+                    <div>Address</div>
+                    <div>Status</div>
+                </div>
+                <div id="validationTableBody">
+                    <!-- Records will be populated here -->
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <div class="selected-info">
+                    <span id="selectedCount">0</span> records selected • <span id="validSelectedCount">0</span> valid for calling
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-info" onclick="exportInvalidRecords()">
+                        💾 Export Invalid Records
+                    </button>
+                    <button class="btn btn-primary" onclick="proceedToDialer()">
+                        📞 Send Valid to Auto Dialer
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 3: Auto Dialer Section -->
+        <div class="content-section" id="dialerSection" style="display: none;">
+            <h2 class="section-title">
+                📞 Auto Dialer Ready
+            </h2>
+            
+            <div class="success-message">
+                <strong>🎯 Campaign Ready!</strong><br>
+                Your valid leads have been processed and are ready for the auto dialer. In a production system, these would be automatically imported into your dialer platform with the configured settings.
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number total-count" id="dialerLeadCount">0</div>
+                    <div class="stat-label">Valid Leads</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number qualified-count" id="estimatedCalls">0</div>
+                    <div class="stat-label">Estimated Calls</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number valid-count" id="estimatedTime">0</div>
+                    <div class="stat-label">Hours Campaign</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="estimatedContacts">0</div>
+                    <div class="stat-label">Expected Answers</div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <div class="selected-info">
+                    Ready to start calling <span id="finalLeadCount">0</span> valid leads
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-secondary" onclick="exportValidLeads()">
+                        💾 Export Valid Leads
+                    </button>
+                    <button class="btn btn-primary" onclick="showComplianceModal()">
+                        🎮 Start Auto Dialer
+                    </button>
+                    <button class="btn btn-info" onclick="startNewCampaign()">
+                        🔄 Start New Campaign
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Compliance Modal -->
+        <div id="complianceModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">
+                        ⚖️ Legal Compliance Required
+                    </h2>
+                    <p class="modal-subtitle">Before using the auto dialer, you must confirm legal compliance</p>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="compliance-text">
+                        <h4>🚨 IMPORTANT LEGAL NOTICE</h4>
+                        <p><strong>By using this auto dialer tool, you acknowledge and agree that:</strong></p>
+                        
+                        <ul class="compliance-list">
+                            <li>You are responsible for compliance with all applicable federal, state, and local calling laws</li>
+                            <li>You will obtain proper consent before calling any numbers (TCPA compliance)</li>
+                            <li>You will honor Do Not Call (DNC) registry requirements</li>
+                            <li>You will implement proper call time restrictions (8 AM - 9 PM local time)</li>
+                            <li>You will maintain required records and provide opt-out mechanisms</li>
+                            <li>You understand violations can result in fines up to $1,500 per illegal call</li>
+                        </ul>
+                        
+                        <p><strong style="color: #ef4444;">This tool provider assumes NO LIABILITY for your use of this system. You are solely responsible for ensuring legal compliance.</strong></p>
+                    </div>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="complianceCheckbox" onchange="toggleProceedButton()">
+                        <label for="complianceCheckbox" class="checkbox-label">
+                            <strong>I confirm that I understand and will comply with all applicable calling laws and regulations. I acknowledge that I am solely responsible for legal compliance and that the tool provider assumes no liability for my use of this system.</strong>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="modal-buttons">
+                        <button class="btn btn-modal-cancel" onclick="closeComplianceModal()">
+                            ❌ Cancel
+                        </button>
+                        <button class="btn btn-modal-proceed" id="proceedButton" onclick="proceedWithDialer()" disabled>
+                            ✅ I Agree - Proceed to Dialer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 4: Results Section -->
+        <div class="content-section" id="resultsSection" style="display: none;">
+            <h2 class="section-title">
+                📈 Campaign Results
+            </h2>
+            
+            <div class="success-message">
+                <strong>🎉 Auto Dialer Campaign Complete!</strong><br>
+                Your calling campaign has finished. <span id="interestedLeadsCount">0</span> leads expressed interest and want to schedule appointments!
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number total-count" id="simulatedCalls">0</div>
+                    <div class="stat-label">Calls Made</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number qualified-count" id="simulatedAnswers">0</div>
+                    <div class="stat-label">Answered</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number valid-count" id="simulatedInterested">0</div>
+                    <div class="stat-label">Interested</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="simulatedScheduled">0</div>
+                    <div class="stat-label">Want Appointments</div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <div class="selected-info">
+                    <span id="interestedLeadsCount2">0</span> hot leads ready for appointment scheduling!
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-info" onclick="exportCallResults()">
+                        💾 Export Call Results
+                    </button>
+                    <button class="btn btn-primary" onclick="showQualifiedLeads()" id="viewQualifiedBtn">
+                        📅 View Qualified Leads →
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 5: Qualified Leads Section -->
+        <div class="content-section" id="qualifiedSection" style="display: none;">
+            <h2 class="section-title">
+                📅 Qualified Leads - Ready to Schedule
+            </h2>
+            
+            <div class="success-message">
+                <strong>🎯 Hot Leads Identified!</strong><br>
+                These leads expressed interest and want to schedule appointments. Reach out to them promptly for best conversion rates.
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number qualified-count" id="qualifiedCount">0</div>
+                    <div class="stat-label">Qualified Leads</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number valid-count" id="highPriorityCount">0</div>
+                    <div class="stat-label">High Priority</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number total-count" id="mediumPriorityCount">0</div>
+                    <div class="stat-label">Medium Priority</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="avgCallbackTime">24h</div>
+                    <div class="stat-label">Avg Callback Time</div>
+                </div>
+            </div>
+            
+            <div class="validation-table">
+                <div class="table-header">
+                    <div><input type="checkbox" class="checkbox-input" onchange="selectAllQualified(this)" id="selectAllQualifiedCheckbox"></div>
+                    <div>Contact Information</div>
+                    <div>Phone</div>
+                    <div>Interest Level</div>
+                    <div>Best Time to Call</div>
+                    <div>Priority</div>
+                </div>
+                <div id="qualifiedTableBody">
+                    <!-- Qualified leads will be populated here -->
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <div class="selected-info">
+                    <span id="selectedQualifiedCount">0</span> leads selected for scheduling
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-info" onclick="exportQualifiedLeads()">
+                        💾 Export Qualified Leads
+                    </button>
+                    <button class="btn btn-secondary" onclick="sendToCalendar()">
+                        📅 Send to Calendar System
+                    </button>
+                    <button class="btn btn-primary" onclick="proceedToScheduling()">
+                        📞 Start Scheduling Calls
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 6: Final Results Section -->
+        <div class="content-section" id="finalResultsSection" style="display: none;">
+            <h2 class="section-title">
+                🎯 Scheduling Complete
+            </h2>
+            
+            <div class="success-message">
+                <strong>🎉 Campaign Pipeline Complete!</strong><br>
+                Your lead processing pipeline has successfully identified qualified prospects and initiated the scheduling process. This demonstrates the full workflow from raw data to scheduled appointments.
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number total-count" id="finalProcessedCount">0</div>
+                    <div class="stat-label">Total Processed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number qualified-count" id="finalQualifiedCount">0</div>
+                    <div class="stat-label">Qualified</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number valid-count" id="finalScheduledCount">0</div>
+                    <div class="stat-label">Ready to Schedule</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="conversionRate">0%</div>
+                    <div class="stat-label">Conversion Rate</div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <div class="selected-info">
+                    Pipeline demonstrates end-to-end lead processing and qualification
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-primary" onclick="startNewCampaign()">
+                        🔄 Process New File
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let csvData = [];
+        let processedLeads = [];
+        let validLeads = [];
+        let qualifiedLeads = [];
+        let columnHeaders = [];
+        
+        // Setup drag and drop functionality
+        const uploadArea = document.getElementById('uploadArea');
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+        
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                handleFile(file);
+            }
+        }
+        
+        function handleFile(file) {
+            if (!file.name.toLowerCase().endsWith('.csv')) {
+                showError('Please upload a CSV file only.');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    parseCSVContent(e.target.result, file);
+                } catch (error) {
+                    showError('Error reading file: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+        
+        function parseCSVContent(content, file) {
+            const lines = content.split('\n').filter(line => line.trim());
+            
+            if (lines.length < 2) {
+                showError('CSV file must have at least a header row and one data row.');
+                return;
+            }
+            
+            // Parse headers
+            columnHeaders = parseCSVLine(lines[0]);
+            
+            // Parse data
+            csvData = [];
+            for (let i = 1; i < lines.length; i++) {
+                const values = parseCSVLine(lines[i]);
+                if (values.length > 0 && values.some(v => v.trim())) {
+                    const row = {};
+                    columnHeaders.forEach((header, index) => {
+                        row[header] = values[index] || '';
+                    });
+                    csvData.push(row);
+                }
+            }
+            
+            showFilePreview(file, content.slice(0, 500));
+            populateColumnMappings();
+            
+            document.getElementById('initialButtons').style.display = 'none';
+            document.getElementById('columnMapping').style.display = 'block';
+        }
+        
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                
+                if (char === '"' && (i === 0 || line[i-1] === ',')) {
+                    inQuotes = true;
+                } else if (char === '"' && inQuotes && (i === line.length - 1 || line[i+1] === ',')) {
+                    inQuotes = false;
+                } else if (char === ',' && !inQuotes) {
+                    result.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            
+            result.push(current.trim());
+            return result;
+        }
+        
+        function showFilePreview(file, preview) {
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = formatFileSize(file.size);
+            document.getElementById('previewData').textContent = preview + '...';
+            document.getElementById('filePreview').style.display = 'block';
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+        
+        function populateColumnMappings() {
+            const mappingSelects = [
+                'firstNameMapping', 'lastNameMapping', 'phoneMapping', 
+                'emailMapping', 'addressMapping'
+            ];
+            
+            mappingSelects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                select.innerHTML = '<option value="">Select column...</option>';
+                
+                columnHeaders.forEach(header => {
+                    const option = document.createElement('option');
+                    option.value = header;
+                    option.textContent = header;
+                    select.appendChild(option);
+                    
+                    // Auto-select likely matches
+                    const headerLower = header.toLowerCase();
+                    if (selectId === 'firstNameMapping' && (headerLower.includes('first') || headerLower === 'fname')) {
+                        option.selected = true;
+                    } else if (selectId === 'lastNameMapping' && (headerLower.includes('last') || headerLower === 'lname')) {
+                        option.selected = true;
+                    } else if (selectId === 'phoneMapping' && headerLower.includes('phone')) {
+                        option.selected = true;
+                    } else if (selectId === 'emailMapping' && headerLower.includes('email')) {
+                        option.selected = true;
+                    } else if (selectId === 'addressMapping' && (headerLower.includes('address') || headerLower.includes('street'))) {
+                        option.selected = true;
+                    }
+                });
+            });
+        }
+        
+        function processUploadedData() {
+            const mappings = {
+                firstName: document.getElementById('firstNameMapping').value,
+                lastName: document.getElementById('lastNameMapping').value,
+                phone: document.getElementById('phoneMapping').value,
+                email: document.getElementById('emailMapping').value,
+                address: document.getElementById('addressMapping').value
+            };
+            
+            // Validate mappings
+            const requiredMappings = ['firstName', 'lastName', 'phone'];
+            const missingMappings = requiredMappings.filter(key => !mappings[key]);
+            
+            if (missingMappings.length > 0) {
+                showError('Please map at least First Name, Last Name, and Phone columns');
+                return;
+            }
+            
+            // Process data with mappings
+            processedLeads = csvData.map((row, index) => ({
+                id: index + 1,
+                firstName: row[mappings.firstName] || '',
+                lastName: row[mappings.lastName] || '',
+                phone: row[mappings.phone] || '',
+                email: row[mappings.email] || '',
+                address: row[mappings.address] || '',
+                selected: true,
+                isValid: validateLead(row, mappings)
+            }));
+            
+            // Move to validation step
+            updatePipelineStep(2);
+            showValidationSection();
+        }
+        
+        function validateLead(row, mappings) {
+            const phone = row[mappings.phone] || '';
+            const email = row[mappings.email] || '';
+            const firstName = row[mappings.firstName] || '';
+            const lastName = row[mappings.lastName] || '';
+            
+            // Phone validation (basic US format)
+            const phoneValid = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(phone.replace(/\D/g, '').slice(-10));
+            
+            // Email validation (basic)
+            const emailValid = !email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            
+            // Name validation
+            const nameValid = firstName.trim().length > 0 && lastName.trim().length > 0;
+            
+            return phoneValid && emailValid && nameValid;
+        }
+        
+        function showValidationSection() {
+            document.getElementById('uploadSection').style.display = 'none';
+            document.getElementById('validationSection').style.display = 'block';
+            
+            populateValidationTable();
+            updateValidationStats();
+        }
+        
+        function populateValidationTable() {
+            const tableBody = document.getElementById('validationTableBody');
+            tableBody.innerHTML = '';
+            
+            processedLeads.forEach(lead => {
+                const row = document.createElement('div');
+                row.className = 'table-row';
+                row.innerHTML = `
+                    <div><input type="checkbox" class="checkbox-input" ${lead.selected ? 'checked' : ''} onchange="toggleLeadSelection(${lead.id})"></div>
+                    <div>${lead.firstName} ${lead.lastName}</div>
+                    <div>${lead.phone}</div>
+                    <div>${lead.email || 'N/A'}</div>
+                    <div>${lead.address || 'N/A'}</div>
+                    <div><span class="status-badge ${lead.isValid ? 'status-valid' : 'status-invalid'}">${lead.isValid ? 'Valid' : 'Invalid'}</span></div>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
+        function updateValidationStats() {
+            const total = processedLeads.length;
+            const valid = processedLeads.filter(lead => lead.isValid).length;
+            const invalid = total - valid;
+            const quality = total > 0 ? Math.round((valid / total) * 100) : 0;
+            
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('validCount').textContent = valid;
+            document.getElementById('invalidCount').textContent = invalid;
+            document.getElementById('completionRate').textContent = quality + '%';
+            
+            updateSelectionCounts();
+        }
+        
+        function updateSelectionCounts() {
+            const selected = processedLeads.filter(lead => lead.selected).length;
+            const validSelected = processedLeads.filter(lead => lead.selected && lead.isValid).length;
+            
+            document.getElementById('selectedCount').textContent = selected;
+            document.getElementById('validSelectedCount').textContent = validSelected;
+        }
+        
+        function toggleLeadSelection(leadId) {
+            const lead = processedLeads.find(l => l.id === leadId);
+            if (lead) {
+                lead.selected = !lead.selected;
+                updateSelectionCounts();
+            }
+        }
+        
+        function selectAll(checkbox) {
+            processedLeads.forEach(lead => {
+                lead.selected = checkbox.checked;
+            });
+            
+            const checkboxes = document.querySelectorAll('.table-row input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = checkbox.checked);
+            
+            updateSelectionCounts();
+        }
+        
+        function proceedToDialer() {
+            validLeads = processedLeads.filter(lead => lead.selected && lead.isValid);
+            
+            if (validLeads.length === 0) {
+                showError('No valid leads selected. Please select some valid leads to proceed.');
+                return;
+            }
+            
+            updatePipelineStep(3);
+            showDialerSection();
+        }
+        
+        function showDialerSection() {
+            document.getElementById('validationSection').style.display = 'none';
+            document.getElementById('dialerSection').style.display = 'block';
+            
+            const leadCount = validLeads.length;
+            const estimatedCalls = leadCount * 3; // Assume 3 call attempts per lead
+            const estimatedHours = Math.ceil(leadCount / 100); // Assume 100 calls per hour
+            const expectedAnswers = Math.round(leadCount * 0.3); // 30% answer rate
+            
+            document.getElementById('dialerLeadCount').textContent = leadCount;
+            document.getElementById('estimatedCalls').textContent = estimatedCalls;
+            document.getElementById('estimatedTime').textContent = estimatedHours;
+            document.getElementById('estimatedContacts').textContent = expectedAnswers;
+            document.getElementById('finalLeadCount').textContent = leadCount;
+        }
+        
+        function simulateDialer() {
+            updatePipelineStep(4);
+            showResultsSection();
+        }
+        
+        function showResultsSection() {
+            document.getElementById('dialerSection').style.display = 'none';
+            document.getElementById('resultsSection').style.display = 'block';
+            
+            const leadCount = validLeads.length;
+            const calls = leadCount * 2.5; // Average calls made
+            const answers = Math.round(calls * 0.25); // 25% answer rate
+            const interested = Math.round(answers * 0.15); // 15% interest rate
+            const wantAppointments = Math.round(interested * 0.6); // 60% want appointments
+            
+            // Generate qualified leads data
+            generateQualifiedLeads(wantAppointments);
+            
+            document.getElementById('simulatedCalls').textContent = Math.round(calls);
+            document.getElementById('simulatedAnswers').textContent = answers;
+            document.getElementById('simulatedInterested').textContent = interested;
+            document.getElementById('simulatedScheduled').textContent = wantAppointments;
+            document.getElementById('interestedLeadsCount').textContent = wantAppointments;
+            document.getElementById('interestedLeadsCount2').textContent = wantAppointments;
+        }
+        
+        function generateQualifiedLeads(count) {
+            // Randomly select leads to be "interested"
+            const shuffled = [...validLeads].sort(() => 0.5 - Math.random());
+            qualifiedLeads = shuffled.slice(0, count).map((lead, index) => ({
+                ...lead,
+                interestLevel: Math.random() > 0.5 ? 'High' : 'Medium',
+                bestCallTime: ['Morning', 'Afternoon', 'Evening'][Math.floor(Math.random() * 3)],
+                priority: Math.random() > 0.6 ? 'High' : 'Medium',
+                notes: ['Requested more info', 'Interested in pricing', 'Ready to schedule', 'Follow up needed'][Math.floor(Math.random() * 4)],
+                selectedForScheduling: true
+            }));
+        }
+        
+        function showQualifiedLeads() {
+            updatePipelineStep(5);
+            document.getElementById('resultsSection').style.display = 'none';
+            document.getElementById('qualifiedSection').style.display = 'block';
+            
+            populateQualifiedTable();
+            updateQualifiedStats();
+        }
+        
+        function populateQualifiedTable() {
+            const tableBody = document.getElementById('qualifiedTableBody');
+            tableBody.innerHTML = '';
+            
+            qualifiedLeads.forEach(lead => {
+                const row = document.createElement('div');
+                row.className = 'table-row';
+                row.innerHTML = `
+                    <div><input type="checkbox" class="checkbox-input" ${lead.selectedForScheduling ? 'checked' : ''} onchange="toggleQualifiedSelection(${lead.id})"></div>
+                    <div>${lead.firstName} ${lead.lastName}<br><small style="color: #94a3b8;">${lead.notes}</small></div>
+                    <div>${lead.phone}</div>
+                    <div><span class="status-badge ${lead.interestLevel === 'High' ? 'status-valid' : 'status-invalid'}">${lead.interestLevel}</span></div>
+                    <div>${lead.bestCallTime}</div>
+                    <div><span class="status-badge ${lead.priority === 'High' ? 'status-valid' : 'status-invalid'}">${lead.priority}</span></div>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
+        function updateQualifiedStats() {
+            const total = qualifiedLeads.length;
+            const highPriority = qualifiedLeads.filter(lead => lead.priority === 'High').length;
+            const mediumPriority = total - highPriority;
+            
+            document.getElementById('qualifiedCount').textContent = total;
+            document.getElementById('highPriorityCount').textContent = highPriority;
+            document.getElementById('mediumPriorityCount').textContent = mediumPriority;
+            
+            updateQualifiedSelectionCounts();
+        }
+        
+        function updateQualifiedSelectionCounts() {
+            const selected = qualifiedLeads.filter(lead => lead.selectedForScheduling).length;
+            document.getElementById('selectedQualifiedCount').textContent = selected;
+        }
+        
+        function toggleQualifiedSelection(leadId) {
+            const lead = qualifiedLeads.find(l => l.id === leadId);
+            if (lead) {
+                lead.selectedForScheduling = !lead.selectedForScheduling;
+                updateQualifiedSelectionCounts();
+            }
+        }
+        
+        function selectAllQualified(checkbox) {
+            qualifiedLeads.forEach(lead => {
+                lead.selectedForScheduling = checkbox.checked;
+            });
+            
+            const checkboxes = document.querySelectorAll('#qualifiedTableBody input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = checkbox.checked);
+            
+            updateQualifiedSelectionCounts();
+        }
+        
+        function proceedToScheduling() {
+            const selectedLeads = qualifiedLeads.filter(lead => lead.selectedForScheduling);
+            
+            if (selectedLeads.length === 0) {
+                showError('Please select at least one qualified lead to proceed with scheduling.');
+                return;
+            }
+            
+            showFinalResults();
+        }
+        
+        function showFinalResults() {
+            document.getElementById('qualifiedSection').style.display = 'none';
+            document.getElementById('finalResultsSection').style.display = 'block';
+            
+            const totalProcessed = processedLeads.length;
+            const finalQualified = qualifiedLeads.length;
+            const readyToSchedule = qualifiedLeads.filter(lead => lead.selectedForScheduling).length;
+            const conversionRate = totalProcessed > 0 ? Math.round((readyToSchedule / totalProcessed) * 100) : 0;
+            
+            document.getElementById('finalProcessedCount').textContent = totalProcessed;
+            document.getElementById('finalQualifiedCount').textContent = finalQualified;
+            document.getElementById('finalScheduledCount').textContent = readyToSchedule;
+            document.getElementById('conversionRate').textContent = conversionRate + '%';
+        }
+        
+        function exportCallResults() {
+            // Create call results data
+            const callResults = validLeads.map(lead => ({
+                ...lead,
+                callStatus: Math.random() > 0.75 ? 'Answered' : 'No Answer',
+                interested: qualifiedLeads.some(q => q.id === lead.id) ? 'Yes' : 'No'
+            }));
+            
+            const csvContent = generateCallResultsCSV(callResults);
+            downloadCSV(csvContent, 'call_results.csv');
+        }
+        
+        function exportQualifiedLeads() {
+            if (qualifiedLeads.length === 0) {
+                showError('No qualified leads to export.');
+                return;
+            }
+            
+            const csvContent = generateQualifiedCSV(qualifiedLeads);
+            downloadCSV(csvContent, 'qualified_leads.csv');
+        }
+        
+        function sendToCalendar() {
+            const selectedLeads = qualifiedLeads.filter(lead => lead.selectedForScheduling);
+            
+            if (selectedLeads.length === 0) {
+                showError('Please select qualified leads to send to calendar system.');
+                return;
+            }
+            
+            alert(`✅ Success! ${selectedLeads.length} qualified leads have been sent to your calendar system for appointment scheduling.\n\nIn a production system, these would be automatically integrated with your calendar platform (Calendly, Acuity, etc.) with pre-filled contact information.`);
+        }
+        
+        function generateCallResultsCSV(data) {
+            const headers = ['First Name', 'Last Name', 'Phone', 'Email', 'Call Status', 'Interested'];
+            const rows = data.map(lead => [
+                lead.firstName,
+                lead.lastName,
+                lead.phone,
+                lead.email,
+                lead.callStatus,
+                lead.interested
+            ]);
+            
+            return [headers, ...rows]
+                .map(row => row.map(field => `"${field}"`).join(','))
+                .join('\n');
+        }
+        
+        function generateQualifiedCSV(data) {
+            const headers = ['First Name', 'Last Name', 'Phone', 'Email', 'Interest Level', 'Best Call Time', 'Priority', 'Notes'];
+            const rows = data.map(lead => [
+                lead.firstName,
+                lead.lastName,
+                lead.phone,
+                lead.email,
+                lead.interestLevel,
+                lead.bestCallTime,
+                lead.priority,
+                lead.notes
+            ]);
+            
+            return [headers, ...rows]
+                .map(row => row.map(field => `"${field}"`).join(','))
+                .join('\n');
+        }
+        
+        // Compliance Modal Functions
+        function showComplianceModal() {
+            document.getElementById('complianceModal').style.display = 'block';
+            document.getElementById('complianceCheckbox').checked = false;
+            document.getElementById('proceedButton').disabled = true;
+        }
+        
+        function closeComplianceModal() {
+            document.getElementById('complianceModal').style.display = 'none';
+        }
+        
+        function toggleProceedButton() {
+            const checkbox = document.getElementById('complianceCheckbox');
+            const button = document.getElementById('proceedButton');
+            button.disabled = !checkbox.checked;
+        }
+        
+        function proceedWithDialer() {
+            closeComplianceModal();
+            simulateDialer();
+        }
+        
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('complianceModal');
+            if (event.target === modal) {
+                closeComplianceModal();
+            }
+        }
+        
+        function loadSampleData() {
+            const sampleCSV = `First Name,Last Name,Phone,Email,Address
+John,Smith,555-123-4567,john.smith@email.com,123 Main St
+Jane,Doe,555-987-6543,jane.doe@email.com,456 Oak Ave
+Bob,Johnson,555-111-2222,bob.johnson@email.com,789 Pine Rd
+Alice,Williams,555-333-4444,alice.williams@email.com,321 Elm St
+Charlie,Brown,555-555-5555,charlie.brown@email.com,654 Maple Dr
+David,Davis,555-777-8888,david.davis@email.com,987 Cedar Ln
+Emma,Wilson,555-999-0000,emma.wilson@email.com,147 Birch Way
+Frank,Miller,555-222-3333,frank.miller@email.com,258 Spruce St
+Grace,Taylor,555-444-5555,grace.taylor@email.com,369 Willow Ave
+Henry,Anderson,555-666-7777,henry.anderson@email.com,741 Poplar Rd`;
+            
+            // Create a fake file object
+            const fakeFile = {
+                name: 'sample_leads.csv',
+                size: sampleCSV.length
+            };
+            
+            parseCSVContent(sampleCSV, fakeFile);
+        }
+        
+        function showDataRequirements() {
+            alert(`Data Requirements:
+
+Required Columns:
+• First Name - Contact's first name
+• Last Name - Contact's last name  
+• Phone - Valid US phone number
+
+Optional Columns:
+• Email - Contact's email address
+• Address - Contact's mailing address
+
+Supported Format:
+• CSV files only
+• Headers in first row
+• One contact per row
+
+Phone Format Examples:
+• (555) 123-4567
+• 555-123-4567
+• 5551234567`);
+        }
+        
+        function resetUpload() {
+            csvData = [];
+            processedLeads = [];
+            validLeads = [];
+            columnHeaders = [];
+            
+            document.getElementById('filePreview').style.display = 'none';
+            document.getElementById('columnMapping').style.display = 'none';
+            document.getElementById('initialButtons').style.display = 'flex';
+            document.getElementById('fileInput').value = '';
+            
+            updatePipelineStep(1);
+            showUploadSection();
+        }
+        
+        function startNewCampaign() {
+            resetUpload();
+        }
+        
+        function showUploadSection() {
+            document.getElementById('uploadSection').style.display = 'block';
+            document.getElementById('validationSection').style.display = 'none';
+            document.getElementById('dialerSection').style.display = 'none';
+            document.getElementById('resultsSection').style.display = 'none';
+            document.getElementById('qualifiedSection').style.display = 'none';
+            document.getElementById('finalResultsSection').style.display = 'none';
+        }
+        
+        function updatePipelineStep(step) {
+            // Reset all steps
+            for (let i = 1; i <= 5; i++) {
+                const stepEl = document.getElementById(`step${i}`);
+                if (stepEl) {
+                    stepEl.classList.remove('active', 'completed');
+                    
+                    if (i < step) {
+                        stepEl.classList.add('completed');
+                    } else if (i === step) {
+                        stepEl.classList.add('active');
+                    }
+                }
+            }
+        }
+        
+        function exportValidLeads() {
+            if (validLeads.length === 0) {
+                showError('No valid leads to export.');
+                return;
+            }
+            
+            const csvContent = generateCSV(validLeads);
+            downloadCSV(csvContent, 'valid_leads.csv');
+        }
+        
+        function exportInvalidRecords() {
+            const invalidLeads = processedLeads.filter(lead => !lead.isValid);
+            
+            if (invalidLeads.length === 0) {
+                showError('No invalid records to export.');
+                return;
+            }
+            
+            const csvContent = generateCSV(invalidLeads);
+            downloadCSV(csvContent, 'invalid_records.csv');
+        }
+        
+        function generateCSV(data) {
+            const headers = ['First Name', 'Last Name', 'Phone', 'Email', 'Address'];
+            const rows = data.map(lead => [
+                lead.firstName,
+                lead.lastName,
+                lead.phone,
+                lead.email,
+                lead.address
+            ]);
+            
+            const csvContent = [headers, ...rows]
+                .map(row => row.map(field => `"${field}"`).join(','))
+                .join('\n');
+                
+            return csvContent;
+        }
+        
+        function downloadCSV(content, filename) {
+            const blob = new Blob([content], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        
+        function showError(message) {
+            // Remove existing error messages
+            const existingErrors = document.querySelectorAll('.error-message');
+            existingErrors.forEach(error => error.remove());
+            
+            // Create new error message
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.innerHTML = `<strong>Error:</strong> ${message}`;
+            
+            // Insert after the upload area
+            const uploadArea = document.getElementById('uploadArea');
+            uploadArea.parentNode.insertBefore(errorDiv, uploadArea.nextSibling);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (errorDiv.parentNode) {
+                    errorDiv.parentNode.removeChild(errorDiv);
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

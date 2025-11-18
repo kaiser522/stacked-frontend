@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacked Technologies - Video Script Templates</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f7fafc;
+            min-height: 100vh;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 40px rgba(0,0,0,0.08);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0A1B2A 0%, #0A1B2A 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            color: #7D7D7D;
+            margin-bottom: 2rem;
+        }
+
+        .format-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            color: #7D7D7D;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(26, 188, 156, 0.2);
+            color: #1ABC9C;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(26, 188, 156, 0.3);
+            display: inline-block;
+            margin: 4px;
+        }
+
+        .bulk-download {
+            background: #1ABC9C;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .bulk-download:hover {
+            background: #16a085;
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 3rem 2rem;
+        }
+
+        .intro-section {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+            border-left: 4px solid #1ABC9C;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .intro-section h2 {
+            color: #0A1B2A;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .intro-section p {
+            color: #0A1B2A;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .scripts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .script-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .script-card:hover {
+            border-color: #1ABC9C;
+            box-shadow: 0 8px 25px rgba(26, 188, 156, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .script-header {
+            background: #0A1B2A;
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .script-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1ABC9C;
+            margin-bottom: 0.5rem;
+        }
+
+        .script-description {
+            color: #7D7D7D;
+            font-size: 1rem;
+        }
+
+        .script-meta {
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .meta-label {
+            color: #7D7D7D;
+            font-size: 0.9rem;
+        }
+
+        .meta-value {
+            color: #0A1B2A;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .script-content {
+            padding: 2rem;
+        }
+
+        .script-text {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            white-space: pre-line;
+        }
+
+        .cue-text {
+            color: #1ABC9C;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .script-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .script-btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .script-btn.primary {
+            background: #1ABC9C;
+            color: white;
+        }
+
+        .script-btn.primary:hover {
+            background: #16a085;
+        }
+
+        .script-btn.secondary {
+            background: #e2e8f0;
+            color: #0A1B2A;
+        }
+
+        .script-btn.secondary:hover {
+            background: #cbd5e0;
+        }
+
+        .tips-section {
+            background: #0A1B2A;
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+        }
+
+        .tips-section h3 {
+            color: #1ABC9C;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tip-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(26, 188, 156, 0.3);
+        }
+
+        .tip-card h4 {
+            color: #1ABC9C;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .tip-card p {
+            color: #7D7D7D;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .script-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 700px;
+            margin: 2rem auto;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .modal-header {
+            background: #0A1B2A;
+            color: white;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .modal-title {
+            color: #1ABC9C;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            color: #7D7D7D;
+            font-size: 1rem;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .editable-script {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            color: #2d3748;
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        .editable-script:focus {
+            outline: none;
+            border-color: #1ABC9C;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 2rem 1rem;
+            }
+
+            .scripts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .format-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .modal-content {
+                margin: 1rem;
+                max-width: none;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+
+            .script-actions {
+                flex-direction: column;
+            }
+
+            .script-btn {
+                flex: none;
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Video Script Templates</h1>
+            <p>30-second TikTok & Instagram scripts ready to record</p>
+            <div class="format-info">
+                <span>📱 TikTok Ready</span>
+                <span>📸 Instagram Reels</span>
+                <span>⏱️ 30-Second Scripts</span>
+                <span>🎬 Action Prompts</span>
+            </div>
+            <div style="margin-top: 20px;">
+                <span class="tag">conversion-tested</span>
+                <span class="tag">beginner-friendly</span>
+                <span class="tag">customizable</span>
+                <span class="tag">viral-ready</span>
+            </div>
+            <button class="bulk-download" onclick="downloadAllScripts()">Download All Scripts</button>
+        </div>
+
+        <div class="content">
+            <div class="intro-section">
+                <h2>Ready-to-Record Video Scripts</h2>
+                <p>Professional scripts designed for maximum engagement and conversion. Each script includes timing cues, action prompts, and customization placeholders for your personal touch.</p>
+            </div>
+
+            <div class="scripts-grid">
+                <!-- Problem/Solution Hook -->
+                <div class="script-card">
+                    <div class="script-header">
+                        <h3 class="script-title">Problem/Solution Hook</h3>
+                        <p class="script-description">Classic pain point opener that draws viewers in</p>
+                    </div>
+                    <div class="script-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Duration:</span>
+                            <span class="meta-value">25-30 seconds</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Best for:</span>
+                            <span class="meta-value">Problem-aware audience</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Platform:</span>
+                            <span class="meta-value">TikTok, IG Reels</span>
+                        </div>
+                    </div>
+                    <div class="script-content">
+                        <div class="script-text" id="script1">
+<span class="cue-text">[Look directly at camera, frustrated expression]</span>
+
+"Struggling to keep track of all your leads? I used to lose deals because I couldn't stay organized.
+
+<span class="cue-text">[Hold up phone, show excitement]</span>
+
+Then I found Stacked Technologies. Look at this...
+
+<span class="cue-text">[Quick screen recording or point to features]</span>
+
+All my leads, follow-ups, and deals in one place. Automated follow-ups so nothing falls through the cracks.
+
+<span class="cue-text">[Point to camera with confidence]</span>
+
+I went from 10 deals to 50+ deals this year. Link in bio to get started – seriously, check it out."
+                        </div>
+                        <div class="script-actions">
+                            <button class="script-btn primary" onclick="copyScript('script1')">Copy Script</button>
+                            <button class="script-btn secondary" onclick="customizeScript('script1', 'Problem/Solution Hook')">Customize</button>
+                            <button class="script-btn secondary" onclick="showTips('problem-solution')">View Tips</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Success Story -->
+                <div class="script-card">
+                    <div class="script-header">
+                        <h3 class="script-title">Success Story Transformation</h3>
+                        <p class="script-description">Personal transformation story that builds credibility</p>
+                    </div>
+                    <div class="script-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Duration:</span>
+                            <span class="meta-value">28-30 seconds</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Best for:</span>
+                            <span class="meta-value">Building trust & authority</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Platform:</span>
+                            <span class="meta-value">TikTok, IG Reels</span>
+                        </div>
+                    </div>
+                    <div class="script-content">
+                        <div class="script-text" id="script2">
+<span class="cue-text">[Start with a before/after split screen or gesture]</span>
+
+"Last year: 12 deals, stressed out, working 70-hour weeks.
+
+<span class="cue-text">[Transition to confident, relaxed posture]</span>
+
+This year: 47 deals and I work less. What changed?
+
+<span class="cue-text">[Hold up phone or gesture to system]</span>
+
+I started using Stacked Technologies CRM. It automated my follow-ups, organized my pipeline, and helped me focus on the right leads.
+
+<span class="cue-text">[Lean into camera, authentic tone]</span>
+
+I'm not special – I just got better systems. Link in my bio to see how it works."
+                        </div>
+                        <div class="script-actions">
+                            <button class="script-btn primary" onclick="copyScript('script2')">Copy Script</button>
+                            <button class="script-btn secondary" onclick="customizeScript('script2', 'Success Story Transformation')">Customize</button>
+                            <button class="script-btn secondary" onclick="showTips('success-story')">View Tips</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Behind the Scenes -->
+                <div class="script-card">
+                    <div class="script-header">
+                        <h3 class="script-title">Behind the Scenes Process</h3>
+                        <p class="script-description">Show your actual workflow using the system</p>
+                    </div>
+                    <div class="script-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Duration:</span>
+                            <span class="meta-value">25-28 seconds</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Best for:</span>
+                            <span class="meta-value">Demonstrating value</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Platform:</span>
+                            <span class="meta-value">TikTok, IG Reels</span>
+                        </div>
+                    </div>
+                    <div class="script-content">
+                        <div class="script-text" id="script3">
+<span class="cue-text">[Film your screen or phone while using the system]</span>
+
+"Let me show you how I manage 200+ leads without losing my mind.
+
+<span class="cue-text">[Navigate through the dashboard]</span>
+
+This is my Stacked CRM dashboard. Every lead automatically gets sorted by priority. See this? Hot leads at the top.
+
+<span class="cue-text">[Show automated features]</span>
+
+Automated follow-ups mean I never forget to call someone back. And look – I can see exactly where every deal stands.
+
+<span class="cue-text">[Look at camera]</span>
+
+This system literally changed my business. Link in bio to learn more."
+                        </div>
+                        <div class="script-actions">
+                            <button class="script-btn primary" onclick="copyScript('script3')">Copy Script</button>
+                            <button class="script-btn secondary" onclick="customizeScript('script3', 'Behind the Scenes Process')">Customize</button>
+                            <button class="script-btn secondary" onclick="showTips('behind-scenes')">View Tips</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Tip Hook -->
+                <div class="script-card">
+                    <div class="script-header">
+                        <h3 class="script-title">Quick Tip Value Hook</h3>
+                        <p class="script-description">Lead with value, end with soft pitch</p>
+                    </div>
+                    <div class="script-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Duration:</span>
+                            <span class="meta-value">22-25 seconds</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Best for:</span>
+                            <span class="meta-value">Educational content</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Platform:</span>
+                            <span class="meta-value">TikTok, IG Reels</span>
+                        </div>
+                    </div>
+                    <div class="script-content">
+                        <div class="script-text" id="script4">
+<span class="cue-text">[Confident, direct to camera]</span>
+
+"The #1 reason agents lose deals? No follow-up system.
+
+<span class="cue-text">[Count on fingers or use gestures]</span>
+
+Here's what top producers do differently: They follow up 5-7 times minimum. Most agents give up after 2.
+
+<span class="cue-text">[Show phone or gesture to system]</span>
+
+I use Stacked Technologies to automate this. It sends perfectly-timed follow-ups so I never miss an opportunity.
+
+<span class="cue-text">[Lean in, personal tone]</span>
+
+Want to see how it works? Link in my bio to get started."
+                        </div>
+                        <div class="script-actions">
+                            <button class="script-btn primary" onclick="copyScript('script4')">Copy Script</button>
+                            <button class="script-btn secondary" onclick="customizeScript('script4', 'Quick Tip Value Hook')">Customize</button>
+                            <button class="script-btn secondary" onclick="showTips('quick-tip')">View Tips</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mistake/Solution -->
+                <div class="script-card">
+                    <div class="script-header">
+                        <h3 class="script-title">Common Mistake Reveal</h3>
+                        <p class="script-description">Call out common mistake, offer solution</p>
+                    </div>
+                    <div class="script-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Duration:</span>
+                            <span class="meta-value">26-30 seconds</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Best for:</span>
+                            <span class="meta-value">Pattern interrupt</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Platform:</span>
+                            <span class="meta-value">TikTok, IG Reels</span>
+                        </div>
+                    </div>
+                    <div class="script-content">
+                        <div class="script-text" id="script5">
+<span class="cue-text">[Serious, slightly frustrated expression]</span>
+
+"Stop using spreadsheets for your real estate leads. Seriously.
+
+<span class="cue-text">[Gesture dismissively]</span>
+
+I see agents with hundreds of leads in Excel, wondering why nothing converts. You're losing money every day.
+
+<span class="cue-text">[Show solution with energy]</span>
+
+Get a real CRM built for real estate. I use Stacked Technologies – it tracks everything, automates follow-ups, and actually helps me close deals.
+
+<span class="cue-text">[Direct, helpful tone]</span>
+
+14-day money-back guarantee. No excuse not to try it. Link in bio."
+                        </div>
+                        <div class="script-actions">
+                            <button class="script-btn primary" onclick="copyScript('script5')">Copy Script</button>
+                            <button class="script-btn secondary" onclick="customizeScript('script5', 'Common Mistake Reveal')">Customize</button>
+                            <button class="script-btn secondary" onclick="showTips('mistake-reveal')">View Tips</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day in the Life -->
+                <div class="script-card">
+                    <div class="script-header">
+                        <h3 class="script-title">Day in the Life</h3>
+                        <p class="script-description">Show how the system fits into daily routine</p>
+                    </div>
+                    <div class="script-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Duration:</span>
+                            <span class="meta-value">28-30 seconds</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Best for:</span>
+                            <span class="meta-value">Lifestyle content</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Platform:</span>
+                            <span class="meta-value">TikTok, IG Reels</span>
+                        </div>
+                    </div>
+                    <div class="script-content">
+                        <div class="script-text" id="script6">
+<span class="cue-text">[Morning routine setting, casual but professional]</span>
+
+"7 AM: Coffee and checking my Stacked dashboard. 12 new leads overnight.
+
+<span class="cue-text">[Show phone screen quickly]</span>
+
+9 AM: System already sent follow-ups to yesterday's leads. I'm focusing on the hot ones.
+
+<span class="cue-text">[Throughout day montage or time-lapse feel]</span>
+
+2 PM: Three showings scheduled automatically. No back-and-forth emails.
+
+<span class="cue-text">[End of day, satisfied]</span>
+
+6 PM: Home for dinner. System's still working. This is how you scale without burning out. Link in bio to get started."
+                        </div>
+                        <div class="script-actions">
+                            <button class="script-btn primary" onclick="copyScript('script6')">Copy Script</button>
+                            <button class="script-btn secondary" onclick="customizeScript('script6', 'Day in the Life')">Customize</button>
+                            <button class="script-btn secondary" onclick="showTips('day-in-life')">View Tips</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3>Video Recording Tips for Maximum Engagement</h3>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <h4>Hook in First 3 Seconds</h4>
+                        <p>Start with a bold statement, question, or visual that makes people stop scrolling. Your opening line is everything.</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4>Show, Don't Just Tell</h4>
+                        <p>Use screen recordings, point to your phone, or show the actual dashboard. Visual proof builds credibility.</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4>Speak to One Person</h4>
+                        <p>Look directly at the camera and speak like you're talking to a friend. Authentic conversation converts better than sales pitches.</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4>Include Your Numbers</h4>
+                        <p>Replace template numbers with your actual results. "I went from X to Y deals" is more powerful than generic claims.</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4>Clear Call-to-Action</h4>
+                        <p>Always end with a specific action: "Link in bio to get started" or "Comment 'LINK' for more info."</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4>Test Different Angles</h4>
+                        <p>Record the same script with different emotions, settings, or visual approaches to see what resonates with your audience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Customization Modal -->
+    <div class="script-modal" id="scriptModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-modal" onclick="closeModal()">×</button>
+                <div class="modal-title" id="modalTitle">Customize Your Script</div>
+                <div class="modal-subtitle">Edit the script to match your personal style and results</div>
+            </div>
+            <div class="modal-body">
+                <textarea class="editable-script" id="editableScript" placeholder="Your script will appear here for editing..."></textarea>
+                <div class="modal-actions">
+                    <button class="script-btn primary" onclick="copyCustomScript()">Copy Customized Script</button>
+                    <button class="script-btn secondary" onclick="resetScript()">Reset to Original</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentOriginalScript = '';
+        let currentScriptTitle = '';
+
+        function copyScript(scriptId) {
+            const scriptElement = document.getElementById(scriptId);
+            const scriptText = scriptElement.textContent.replace(/\[.*?\]/g, '').trim();
+            
+            navigator.clipboard.writeText(scriptText).then(function() {
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = '#16a085';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '#1ABC9C';
+                }, 2000);
+            });
+        }
+
+        function customizeScript(scriptId, title) {
+            const scriptElement = document.getElementById(scriptId);
+            const scriptText = scriptElement.innerHTML;
+            
+            currentOriginalScript = scriptText;
+            currentScriptTitle = title;
+            
+            document.getElementById('modalTitle').textContent = `Customize: ${title}`;
+            document.getElementById('editableScript').value = scriptElement.textContent;
+            document.getElementById('scriptModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('scriptModal').style.display = 'none';
+        }
+
+        function copyCustomScript() {
+            const customScript = document.getElementById('editableScript').value;
+            navigator.clipboard.writeText(customScript).then(function() {
+                const button = event.target;
+                button.textContent = 'Copied!';
+                button.style.background = '#16a085';
+                
+                setTimeout(() => {
+                    button.textContent = 'Copy Customized Script';
+                    button.style.background = '#1ABC9C';
+                }, 2000);
+            });
+        }
+
+        function resetScript() {
+            document.getElementById('editableScript').value = currentOriginalScript.replace(/<[^>]*>/g, '');
+        }
+
+        function showTips(tipType) {
+            // Scroll to tips section
+            document.querySelector('.tips-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function downloadAllScripts() {
+            const scripts = [
+                {
+                    title: 'Problem/Solution Hook',
+                    content: document.getElementById('script1').textContent
+                },
+                {
+                    title: 'Success Story Transformation',
+                    content: document.getElementById('script2').textContent
+                },
+                {
+                    title: 'Behind the Scenes Process',
+                    content: document.getElementById('script3').textContent
+                },
+                {
+                    title: 'Quick Tip Value Hook',
+                    content: document.getElementById('script4').textContent
+                },
+                {
+                    title: 'Common Mistake Reveal',
+                    content: document.getElementById('script5').textContent
+                },
+                {
+                    title: 'Day in the Life',
+                    content: document.getElementById('script6').textContent
+                }
+            ];
+            
+            let content = `STACKED TECHNOLOGIES - VIDEO SCRIPT TEMPLATES\n`;
+            content += `Generated: ${new Date().toLocaleDateString()}\n\n`;
+            content += `Instructions:\n`;
+            content += `• Replace [Action Cues] with your actual filming directions\n`;
+            content += `• Add your affiliate link to bio/profile\n`;
+            content += `• Customize numbers and examples with your real results\n`;
+            content += `• Record in vertical format (9:16) for TikTok/IG Reels\n`;
+            content += `• Keep each video 25-30 seconds maximum\n\n`;
+            content += '='.repeat(60) + '\n\n';
+            
+            scripts.forEach((script, index) => {
+                content += `SCRIPT ${index + 1}: ${script.title.toUpperCase()}\n`;
+                content += `Duration: 25-30 seconds\n\n`;
+                content += `${script.content}\n\n`;
+                content += '='.repeat(60) + '\n\n';
+            });
+            
+            content += `RECORDING TIPS:\n\n`;
+            content += `1. Hook in First 3 Seconds\n`;
+            content += `   Start with bold statement, question, or visual that stops scrolling\n\n`;
+            content += `2. Show, Don't Just Tell\n`;
+            content += `   Use screen recordings, point to phone, show actual dashboard\n\n`;
+            content += `3. Speak to One Person\n`;
+            content += `   Look directly at camera, speak like talking to a friend\n\n`;
+            content += `4. Include Your Numbers\n`;
+            content += `   Replace template numbers with your actual results\n\n`;
+            content += `5. Clear Call-to-Action\n`;
+            content += `   Always end with specific action: "Free trial link in bio"\n\n`;
+            content += `6. Test Different Angles\n`;
+            content += `   Record same script with different emotions, settings, approaches\n\n`;
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'stacked-video-script-templates.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('scriptModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

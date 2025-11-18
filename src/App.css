@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #1ec8c8;
+  --dark-bg: #1E2A38;
+  --lighter-dark: #2D3A48;
+  --medium-dark: #324250;
+  --white: #ffffff;
+  --gray: #eeeeee;
+}
+
+.container {
+  @apply max-w-[1200px] w-full mx-auto py-0 px-[20px] mb-[20px] sm:mb-18;
+}
+
+.heading-2 {
+  @apply text-[36px] text-center mb-[30px] sm:mb-[60px] text-[var(--white)] font-bold;
+}
+
+.heading-3 {
+  @apply text-[24px] mb-[15px] font-bold
+}
+
+.heading-4 {
+  @apply text-[20px] mb-[15px] font-bold text-center
+}
+
+.heading-5 {
+  @apply text-[18px] mb-[10px] font-semibold text-center
+}
+
+.sub-heading {
+  @apply text-left sm:text-center max-w-[800px] w-full mx-auto mb-[30px] sm:mb-[40px] text-[var(--white)] font-semibold;
+}
+
+.pricing-card {
+  @apply bg-[var(--lighter-dark)] rounded-[10px] p-[20px] sm:p-[40px] flex-1 min-w-[300px] max-w-[400px] text-center transition-all duration-300 ease-in hover:scale-105;
+}
+
+.pricing-card-highlight {
+  @apply scale-105 border-2 border-[var(--primary-color)];
+}
+
+.cta-button {
+  @apply bg-[var(--primary-color)] text-[var(--dark-bg)] font-bold text-[18px] py-[15px] px-[20px] sm:px-[40px] rounded-[5px] decoration-0 transition-all duration-300 ease-in hover:bg-[#34b8b3] hover:-translate-y-[2px];
+}
+
+
+[data-state='active'] {
+  background-color: var(--active-bg);
+  color: var(--active-text);
+}
+
+
+/* Make scrollbar always visible */
+ul::-webkit-scrollbar {
+  width: 8px;
+}
+
+ul::-webkit-scrollbar-thumb {
+  background-color: #1ec8c8;
+  /* Tailwind gray-500 */
+  border-radius: 4px;
+}
+
+ul::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* AddOnCard scrollbar style */
+div::-webkit-scrollbar {
+  width: 6px;
+}
+
+div::-webkit-scrollbar-thumb {
+  background-color: rgba(45, 212, 191, 0.5);
+  /* teal-400 */
+  border-radius: 4px;
+}
+
+div::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Always-visible scrollbar styling */
+.scrollbox::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbox::-webkit-scrollbar-thumb {
+  background-color: rgba(94, 234, 212, 0.5);
+  /* teal-300 */
+  border-radius: 4px;
+}
+
+.scrollbox::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Sidebar navigation scrollbar styling */
+nav::-webkit-scrollbar,
+div::-webkit-scrollbar {
+  width: 4px;
+}
+
+nav::-webkit-scrollbar-thumb,
+div::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 2px;
+}
+
+nav::-webkit-scrollbar-thumb:hover,
+div::-webkit-scrollbar-thumb:hover {
+  background-color: #34b8b3;
+}
+
+nav::-webkit-scrollbar-track,
+div::-webkit-scrollbar-track {
+  background: transparent;
+}

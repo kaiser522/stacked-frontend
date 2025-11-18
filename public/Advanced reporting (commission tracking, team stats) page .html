@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACKED CRM Pro - Advanced Analytics Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1e2a3a 50%, #2c3e50 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(78, 205, 196, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo::before {
+            content: "◆";
+            margin-right: 0.5rem;
+            color: #4ecdc4;
+            filter: drop-shadow(0 0 10px rgba(78, 205, 196, 0.5));
+        }
+
+        .pro-badge {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            color: #0f1419;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-left: 1rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 5px rgba(78, 205, 196, 0.5); }
+            to { box-shadow: 0 0 20px rgba(78, 205, 196, 0.8); }
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            color: #0f1419;
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(78, 205, 196, 0.1);
+            border-color: rgba(78, 205, 196, 0.5);
+        }
+
+        .main-content {
+            padding: 2.5rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #4ecdc4, #44a08d, #4ecdc4);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            color: #b0c4de;
+            margin-bottom: 2rem;
+        }
+
+        .advanced-filters {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .filter-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #4ecdc4;
+            margin-bottom: 1.5rem;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .filter-group {
+            position: relative;
+        }
+
+        .filter-label {
+            display: block;
+            font-size: 0.9rem;
+            color: #b0c4de;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .filter-select, .filter-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus, .filter-input:focus {
+            outline: none;
+            border-color: #4ecdc4;
+            box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4ecdc4, #44a08d);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(78, 205, 196, 0.3);
+            border-color: rgba(78, 205, 196, 0.5);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 10px rgba(78, 205, 196, 0.5));
+        }
+
+        .stat-trend {
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-weight: 600;
+        }
+
+        .trend-up {
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ecdc4;
+        }
+
+        .trend-down {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+
+        .stat-value {
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: #b0c4de;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .stat-details {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(78, 205, 196, 0.2);
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .detail-label {
+            color: #b0c4de;
+        }
+
+        .detail-value {
+            color: #4ecdc4;
+            font-weight: 600;
+        }
+
+        .analytics-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .chart-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4ecdc4;
+        }
+
+        .chart-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chart-btn {
+            padding: 0.4rem 0.8rem;
+            background: rgba(78, 205, 196, 0.1);
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            border-radius: 8px;
+            color: #4ecdc4;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chart-btn.active {
+            background: #4ecdc4;
+            color: #0f1419;
+        }
+
+        .advanced-chart {
+            height: 400px;
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(68, 160, 141, 0.05));
+            border-radius: 15px;
+            border: 2px dashed rgba(78, 205, 196, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-simulation {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to top, rgba(78, 205, 196, 0.2), transparent);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .property-rankings-advanced {
+            max-height: 400px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #4ecdc4 transparent;
+        }
+
+        .property-rankings-advanced::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .property-rankings-advanced::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .property-rankings-advanced::-webkit-scrollbar-thumb {
+            background: #4ecdc4;
+            border-radius: 3px;
+        }
+
+        .property-item-advanced {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .property-item-advanced:hover {
+            background: rgba(78, 205, 196, 0.1);
+            transform: translateX(10px);
+            border-color: rgba(78, 205, 196, 0.5);
+        }
+
+        .rank-badge-advanced {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            color: #0f1419;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            margin-right: 1rem;
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .property-details-advanced {
+            flex: 1;
+        }
+
+        .property-address-advanced {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
+
+        .property-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: #b0c4de;
+            margin-bottom: 0.3rem;
+        }
+
+        .property-metrics {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+        }
+
+        .metric-item {
+            background: rgba(78, 205, 196, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            color: #4ecdc4;
+        }
+
+        .property-price-advanced {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #4ecdc4;
+            text-align: right;
+        }
+
+        .property-commission {
+            font-size: 0.9rem;
+            color: #b0c4de;
+            text-align: right;
+        }
+
+        .advanced-analytics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .analytics-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .predictive-insights {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(68, 160, 141, 0.05));
+        }
+
+        .market-analysis {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 152, 0, 0.05));
+        }
+
+        .performance-matrix {
+            background: linear-gradient(135deg, rgba(156, 39, 176, 0.1), rgba(103, 58, 183, 0.05));
+        }
+
+        .roi-calculator {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(139, 195, 74, 0.05));
+        }
+
+        .insight-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .insight-icon {
+            font-size: 1.8rem;
+            margin-right: 1rem;
+        }
+
+        .insight-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #4ecdc4;
+        }
+
+        .insight-content {
+            margin-bottom: 1rem;
+        }
+
+        .insight-metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: #b0c4de;
+        }
+
+        .metric-value {
+            font-weight: 700;
+            color: #4ecdc4;
+        }
+
+        .commission-timeline {
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border-left: 4px solid #4ecdc4;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            background: rgba(78, 205, 196, 0.1);
+            transform: translateX(5px);
+        }
+
+        .timeline-date {
+            min-width: 120px;
+            font-weight: 600;
+            color: #4ecdc4;
+        }
+
+        .timeline-content {
+            flex: 1;
+            margin-left: 1rem;
+        }
+
+        .timeline-property {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-details {
+            font-size: 0.9rem;
+            color: #b0c4de;
+        }
+
+        .timeline-amount {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #4ecdc4;
+        }
+
+        .ai-insights {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(68, 160, 141, 0.05));
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .ai-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        .ai-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4ecdc4;
+        }
+
+        .insight-list {
+            list-style: none;
+        }
+
+        .insight-item {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
+            border-left: 3px solid #4ecdc4;
+        }
+
+        .export-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: flex-end;
+        }
+
+        @media (max-width: 1200px) {
+            .analytics-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .advanced-analytics {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div style="display: flex; align-items: center;">
+            <div class="logo">STACKED<span class="pro-badge">PRO</span></div>
+        </div>
+        <div class="nav-buttons">
+            <button class="btn btn-secondary">Dashboard</button>
+            <button class="btn btn-secondary">Leads</button>
+            <button class="btn btn-primary">Analytics</button>
+            <button class="btn btn-secondary">AI Tools</button>
+            <button class="btn btn-secondary">Settings</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Advanced Analytics Suite</h1>
+            <p class="page-subtitle">Professional-grade insights, predictive analytics, and performance optimization</p>
+        </div>
+
+        <div class="advanced-filters">
+            <h3 class="filter-title">🎯 Advanced Filtering & Analysis</h3>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label class="filter-label">Date Range</label>
+                    <select class="filter-select">
+                        <option>Last 30 Days</option>
+                        <option>Last Quarter</option>
+                        <option>Last 6 Months</option>
+                        <option>Last Year</option>
+                        <option>YTD</option>
+                        <option>Custom Range</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Property Type</label>
+                    <select class="filter-select">
+                        <option>All Properties</option>
+                        <option>Residential</option>
+                        <option>Commercial</option>
+                        <option>Luxury ($500K+)</option>
+                        <option>Condos/Townhomes</option>
+                        <option>New Construction</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Price Range</label>
+                    <input type="text" class="filter-input" placeholder="$100K - $2M">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Commission Type</label>
+                    <select class="filter-select">
+                        <option>All Commissions</option>
+                        <option>Listing Commission</option>
+                        <option>Buyer Commission</option>
+                        <option>Dual Agency</option>
+                        <option>Referral Commission</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Market Segment</label>
+                    <select class="filter-select">
+                        <option>All Markets</option>
+                        <option>First-Time Buyers</option>
+                        <option>Move-Up Buyers</option>
+                        <option>Luxury Market</option>
+                        <option>Investment Properties</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Lead Source</label>
+                    <select class="filter-select">
+                        <option>All Sources</option>
+                        <option>Referrals</option>
+                        <option>Online Marketing</option>
+                        <option>Social Media</option>
+                        <option>Open Houses</option>
+                        <option>Cold Outreach</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="export-controls">
+            <button class="btn btn-secondary">📊 Export Report</button>
+            <button class="btn btn-secondary">📈 Schedule Report</button>
+            <button class="btn btn-primary">🤖 AI Analysis</button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-trend trend-up">↗ +18.4%</div>
+                </div>
+                <div class="stat-value">$347,890</div>
+                <div class="stat-label">Total Commission Revenue</div>
+                <div class="stat-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Net After Splits:</span>
+                        <span class="detail-value">$243,523</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Pending Pipeline:</span>
+                        <span class="detail-value">$89,450</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Avg Per Transaction:</span>
+                        <span class="detail-value">$7,256</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">🏠</div>
+                    <div class="stat-trend trend-up">↗ +12.8%</div>
+                </div>
+                <div class="stat-value">48</div>
+                <div class="stat-label">Properties Transacted</div>
+                <div class="stat-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Listings Sold:</span>
+                        <span class="detail-value">28</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Buyer Transactions:</span>
+                        <span class="detail-value">20</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Days on Market Avg:</span>
+                        <span class="detail-value">23 days</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-trend trend-up">↗ +8.2%</div>
+                </div>
+                <div class="stat-value">73.5%</div>
+                <div class="stat-label">Conversion Rate</div>
+                <div class="stat-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Lead to Client:</span>
+                        <span class="detail-value">24.8%</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Client to Close:</span>
+                        <span class="detail-value">89.3%</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Listing Success:</span>
+                        <span class="detail-value">96.4%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-trend trend-up">↗ +24.1%</div>
+                </div>
+                <div class="stat-value">$2.8M</div>
+                <div class="stat-label">Total Sales Volume</div>
+                <div class="stat-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Avg Sale Price:</span>
+                        <span class="detail-value">$583,333</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Price per Sq Ft:</span>
+                        <span class="detail-value">$142</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Market Share:</span>
+                        <span class="detail-value">12.4%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ai-insights">
+            <div class="ai-header">
+                <div class="ai-icon">🤖</div>
+                <div class="ai-title">AI-Powered Insights</div>
+            </div>
+            <ul class="insight-list">
+                <li class="insight-item">
+                    <strong>Market Trend Alert:</strong> Luxury property demand is up 34% in your area. Consider focusing on listings above $750K for maximum commission potential.
+                </li>
+                <li class="insight-item">
+                    <strong>Seasonal Opportunity:</strong> Historical data shows a 28% spike in buyer activity in your market during Q2. Optimize your lead generation now.
+                </li>
+                <li class="insight-item">
+                    <strong>Performance Optimization:</strong> Your conversion rate is 15% above market average. Your strongest lead source is referrals (89% conversion).
+                </li>
+                <li class="insight-item">
+                    <strong>Commission Forecast:</strong> Based on your current pipeline, projected Q3 commission is $127K (+22% vs Q2). Focus on closing 3 pending luxury listings.
+                </li>
+            </ul>
+        </div>
+
+        <div class="analytics-section">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">📊 Commission Performance Analytics</h3>
+                    <div class="chart-controls">
+                        <button class="chart-btn active">Monthly</button>
+                        <button class="chart-btn">Quarterly</button>
+                        <button class="chart-btn">YTD</button>
+                        <button class="chart-btn">Forecast</button>
+                    </div>
+                </div>
+                <div class="advanced-chart">
+                    <div style="position: absolute; top: 20px; left: 20px; right: 20px;">
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1rem;">
+                            <div style="text-align: center; padding: 0.5rem; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                                <div style="font-size: 0.8rem; color: #b0c4de;">This Month</div>
+                                <div style="font-size: 1.2rem; font-weight: bold; color: #4ecdc4;">$42,890</div>
+                            </div>
+                            <div style="text-align: center; padding: 0.5rem; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                                <div style="font-size: 0.8rem; color: #b0c4de;">Last Month</div>
+                                <div style="font-size: 1.2rem; font-weight: bold; color: #4ecdc4;">$38,250</div>
+                            </div>
+                            <div style="text-align: center; padding: 0.5rem; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                                <div style="font-size: 0.8rem; color: #b0c4de;">Growth Rate</div>
+                                <div style="font-size: 1.2rem; font-weight: bold; color: #4ecdc4;">+12.1%</div>
+                            </div>
+                            <div style="text-align: center; padding: 0.5rem; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                                <div style="font-size: 0.8rem; color: #b0c4de;">Projected</div>
+                                <div style="font-size: 1.2rem; font-weight: bold; color: #4ecdc4;">$48,200</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-simulation"></div>
+                    <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); text-align: center;">
+                        <div style="font-size: 1.1rem; color: #4ecdc4; font-weight: 600;">Interactive Commission Trend Analysis</div>
+                        <div style="font-size: 0.9rem; color: #b0c4de;">Monthly performance with predictive modeling</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">🏆 Property Value Rankings</h3>
+                    <div class="chart-controls">
+                        <button class="chart-btn active">Price</button>
+                        <button class="chart-btn">Commission</button>
+                        <button class="chart-btn">ROI</button>
+                    </div>
+                </div>
+                <div class="property-rankings-advanced">
+                    <div class="property-item-advanced">
+                        <div class="rank-badge-advanced">1</div>
+                        <div class="property-details-advanced">
+                            <div class="property-address-advanced">2847 Oceanview Estates</div>
+                            <div class="property-meta">
+                                <span>Waterfront Luxury</span>
+                                <span>5 bed, 4.5 bath</span>
+                                <span>4,200 sq ft</span>
+                            </div>
+                            <div class="property-metrics">
+                                <span class="metric-item">DOM: 18 days</span>
+                                <span class="metric-item">Above Ask: +$75K</span>
+                                <span class="metric-item">2.5% Commission</span>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="property-price-advanced">$1,850,000</div>
+                            <div class="property-commission">Commission: $46,250</div>
+                        </div>
+                    </div>
+                    
+                    <div class="property-item-advanced">
+                        <div class="rank-badge-advanced">2</div>
+                        <div class="property-details-advanced">
+                            <div class="property-address-advanced">1425 Highland Ridge Drive</div>
+                            <div class="property-meta">
+                                <span>Executive Home</span>
+                                <span>4 bed, 3.5 bath</span>
+                                <span>3,800 sq ft</span>
+                            </div>
+                            <div class="property-metrics">
+                                <span class="metric-item">DOM: 12 days</span>
+                                <span class="metric-item">At Ask</span>
+                                <span class="metric-item">2.5% Commission</span>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="property-price-advanced">$1,250,000</div>
+                            <div class="property-commission">Commission: $31,250</div>
+                        </div>
+                    </div>
+
+                    <div class="property-item-advanced">
+                        <div class="rank-badge-advanced">3</div>
+                        <div class="property-details-advanced">
+                            <div class="property-address-advanced">956 Maple Grove Court</div>
+                            <div class="property-meta">
+                                <span>Custom Build</span>
+                                <span>4 bed, 3 bath</span>
+                                <span>3,200 sq ft</span>
+                            </div>
+                            <div class="property-metrics">
+                                <span class="metric-item">DOM: 8 days</span>
+                                <span class="metric-item">Above Ask: +$25K</span>
+                                <span class="metric-item">3% Commission</span>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="property-price-advanced">$895,000</div>
+                            <div class="property-commission">Commission: $26,850</div>
+                        </div>
+                    </div>
+
+                    <div class="property-item-advanced">
+                        <div class="rank-badge-advanced">4</div>
+                        <div class="property-details-advanced">
+                            <div class="property-address-advanced">3742 Sunset Boulevard</div>
+                            <div class="property-meta">
+                                <span>Modern Townhome</span>
+                                <span>3 bed, 2.5 bath</span>
+                                <span>2,400 sq ft</span>
+                            </div>
+                            <div class="property-metrics">
+                                <span class="metric-item">DOM: 15 days</span>
+                                <span class="metric-item">Below Ask: -$10K</span>
+                                <span class="metric-item">2.5% Commission</span>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="property-price-advanced">$725,000</div>
+                            <div class="property-commission">Commission: $18,125</div>
+                        </div>
+                    </div>
+
+                    <div class="property-item-advanced">
+                        <div class="rank-badge-advanced">5</div>
+                        <div class="property-details-advanced">
+                            <div class="property-address-advanced">1089 Oak Street</div>
+                            <div class="property-meta">
+                                <span>Family Home</span>
+                                <span>3 bed, 2 bath</span>
+                                <span>1,850 sq ft</span>
+                            </div>
+                            <div class="property-metrics">
+                                <span class="metric-item">DOM: 22 days</span>
+                                <span class="metric-item">At Ask</span>
+                                <span class="metric-item">3% Commission</span>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="property-price-advanced">$485,000</div>
+                            <div class="property-commission">Commission: $14,550</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="advanced-analytics">
+            <div class="analytics-card predictive-insights">
+                <div class="insight-header">
+                    <div class="insight-icon">🔮</div>
+                    <div class="insight-title">Predictive Analytics</div>
+                </div>
+                <div class="insight-content">
+                    <div class="insight-metric">
+                        <span class="metric-label">Q3 Revenue Forecast:</span>
+                        <span class="metric-value">$127,450 ± $8,200</span>
+                    </div>
+                    <div class="insight-metric">
+                        <span class="metric-label">Pipeline Conversion Probability:</span>
+                        <span class="metric-value">78.4%</span>
+                    </div>
+                    <div class="insight-metric">
+                        <span class="metric-label">Optimal Listing Price Range:</span>
+                        <span class="metric-value">$450K - $850K</span>
+                    </div>
+                    <div class="insight-metric">
+                        <span class="metric-label">Best Lead Generation Channel:</span>
+                        <span class="metric-value">Social Media (34% ROI)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analytics-card market-analysis">
+                <div class="insight-header">
+                    <div class="insight-icon">📊</div>
+                    <div class="insight-title">Market Intelligence</div>
+                </div>
+                <div class="insight-content">
+                    <div class="insight-metric">
+                        <span class="metric-label">Market Absorption Rate:</span>
+                        <span class="metric-value">4.2 months</span>
+                    </div>
+                    <div class="insight-metric">
+                        <span class="metric-label">Avg. Days on Market:</span>
+                        <span class="metric-value">23 days (vs 31 market avg)</span>
+                    </div>
+                    <div class="insight-metric">
+                        <span class="metric-label">Price Appreciation (YoY):</span>
+                        <span class="metric-value">+8.4%</span>
+                    </div>
+                    <div class="insight-metric">
+                        <span class="metric-label">Competition Index:</span>
+                        <span class="metric-value">Medium (1.8 agents/listing)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analytics-card performance-matrix">
+                <div class="insight-header">
+                    <div class="insight-icon">⚡</div>
+                    <div class="insight-title">Performance Matrix</div>
+                </div>
+                <div class="insight-content">
+                    <div class="insight-metric">
+                        <span class="metric-label">Lead Response Time:</span>
+                        <span class="metric-value">4.2 minutes</span>
+                    </div>
+                    <div class="insight-metric">
+                        <span class="metric-label">Client Satisfaction Score:</span>
+                        <span class="metric-value">9.7/10</span>
+                    </div>
+                    <div class="insight-metric">
+                        <span class="metric-label">Referral Generation Rate:</span>
+                        <span class="metric-value">67% of clients</span>
+                    </div>
+                    <div class="insight-metric">
+                        <span class="metric-label">Marketing ROI:</span>
+                        <span class="metric-value">425%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analytics-card roi-calculator">
+                <div class="insight-header">
+                    <div class="insight-icon">💹</div>
+                    <div class="insight-title">ROI Calculator</div>
+                </div>
+                <div class="insight-content">
+                    <div class="insight-metric">
+                        <span class="metric-label">Marketing Investment:</span>
+                        <span class="metric-value">$12,450</span>
+                    </div>
+                    <div class="insight-metric">
+                        <span class="metric-label">Commission Generated:</span>
+                        <span class="metric-value">$89,780</span>
+                    </div>
+                    <div class="insight-metric">
+                        <span class="metric-label">Net ROI:</span>
+                        <span class="metric-value">621%</span>
+                    </div>
+                    <div class="insight-metric">
+                        <span class="metric-label">Cost per Lead:</span>
+                        <span class="metric-value">$47.50</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="commission-section">
+            <h2 class="section-title">💰 Detailed Commission Tracking</h2>
+            
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Commission Breakdown Analysis</h3>
+                        <div class="chart-controls">
+                            <button class="chart-btn active">By Source</button>
+                            <button class="chart-btn">By Type</button>
+                            <button class="chart-btn">By Month</button>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1rem;">
+                        <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+                            <div style="font-size: 0.9rem; color: #b0c4de; margin-bottom: 0.5rem;">Listing Commissions</div>
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #4ecdc4;">$198,450</div>
+                            <div style="font-size: 0.8rem; color: #4ecdc4;">↗ +15.3%</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+                            <div style="font-size: 0.9rem; color: #b0c4de; margin-bottom: 0.5rem;">Buyer Commissions</div>
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #4ecdc4;">$149,440</div>
+                            <div style="font-size: 0.8rem; color: #4ecdc4;">↗ +8.7%</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+                            <div style="font-size: 0.9rem; color: #b0c4de; margin-bottom: 0.5rem;">Referral Income</div>
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #4ecdc4;">$24,780</div>
+                            <div style="font-size: 0.8rem; color: #4ecdc4;">↗ +22.1%</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px;">
+                            <div style="font-size: 0.9rem; color: #b0c4de; margin-bottom: 0.5rem;">Dual Agency</div>
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #4ecdc4;">$45,220</div>
+                            <div style="font-size: 0.8rem; color: #4ecdc4;">↗ +34.2%</div>
+                        </div>
+                    </div>
+                    <div style="height: 200px; background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(68, 160, 141, 0.05)); border-radius: 10px; display: flex; align-items: center; justify-content: center; border: 1px dashed rgba(78, 205, 196, 0.3);">
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.1rem; color: #4ecdc4; font-weight: 600;">Interactive Commission Distribution Chart</div>
+                            <div style="font-size: 0.9rem; color: #b0c4de;">Pie chart with drill-down capabilities</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analytics-card">
+                    <div class="insight-header">
+                        <div class="insight-icon">📈</div>
+                        <div class="insight-title">Commission Trends</div>
+                    </div>
+                    <div class="insight-content">
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: #b0c4de;">January</span>
+                                <span style="color: #4ecdc4; font-weight: bold;">$28,450</span>
+                            </div>
+                            <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px;">
+                                <div style="width: 65%; height: 100%; background: linear-gradient(90deg, #4ecdc4, #44a08d); border-radius: 3px;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: #b0c4de;">February</span>
+                                <span style="color: #4ecdc4; font-weight: bold;">$34,220</span>
+                            </div>
+                            <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px;">
+                                <div style="width: 78%; height: 100%; background: linear-gradient(90deg, #4ecdc4, #44a08d); border-radius: 3px;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: #b0c4de;">March</span>
+                                <span style="color: #4ecdc4; font-weight: bold;">$42,890</span>
+                            </div>
+                            <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px;">
+                                <div style="width: 98%; height: 100%; background: linear-gradient(90deg, #4ecdc4, #44a08d); border-radius: 3px;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: #b0c4de;">April</span>
+                                <span style="color: #4ecdc4; font-weight: bold;">$38,750</span>
+                            </div>
+                            <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px;">
+                                <div style="width: 88%; height: 100%; background: linear-gradient(90deg, #4ecdc4, #44a08d); border-radius: 3px;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: #b0c4de;">May</span>
+                                <span style="color: #4ecdc4; font-weight: bold;">$45,120</span>
+                            </div>
+                            <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px;">
+                                <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #4ecdc4, #44a08d); border-radius: 3px;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: #b0c4de;">June (Projected)</span>
+                                <span style="color: #4ecdc4; font-weight: bold;">$48,200</span>
+                            </div>
+                            <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px;">
+                                <div style="width: 95%; height: 100%; background: linear-gradient(90deg, #4ecdc4, #44a08d); border-radius: 3px; opacity: 0.7; border: 1px dashed #4ecdc4;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="commission-timeline">
+                <h3 class="section-title">Recent Commission Activity</h3>
+                <div class="timeline-item">
+                    <div class="timeline-date">Jun 28, 2025</div>
+                    <div class="timeline-content">
+                        <div class="timeline-property">2847 Oceanview Estates - CLOSED</div>
+                        <div class="timeline-details">Luxury Waterfront • Sale Price: $1,850,000 • 2.5% Commission • Listing Agent</div>
+                    </div>
+                    <div class="timeline-amount">$46,250</div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Jun 26, 2025</div>
+                    <div class="timeline-content">
+                        <div class="timeline-property">1425 Highland Ridge Drive - CLOSED</div>
+                        <div class="timeline-details">Executive Home • Sale Price: $1,250,000 • 2.5% Commission • Listing Agent</div>
+                    </div>
+                    <div class="timeline-amount">$31,250</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Jun 24, 2025</div>
+                    <div class="timeline-content">
+                        <div class="timeline-property">956 Maple Grove Court - CLOSED</div>
+                        <div class="timeline-details">Custom Build • Sale Price: $895,000 • 3% Commission • Buyer Agent</div>
+                    </div>
+                    <div class="timeline-amount">$26,850</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Jun 22, 2025</div>
+                    <div class="timeline-content">
+                        <div class="timeline-property">3742 Sunset Boulevard - CLOSED</div>
+                        <div class="timeline-details">Modern Townhome • Sale Price: $725,000 • 2.5% Commission • Dual Agency</div>
+                    </div>
+                    <div class="timeline-amount">$18,125</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Jun 20, 2025</div>
+                    <div class="timeline-content">
+                        <div class="timeline-property">Referral Commission - Johnson Team</div>
+                        <div class="timeline-details">Referred client purchase • $890,000 transaction • 25% referral fee</div>
+                    </div>
+                    <div class="timeline-amount">$5,562</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+            <div class="analytics-card">
+                <div class="insight-header">
+                    <div class="insight-icon">🎯</div>
+                    <div class="insight-title">Goal Tracking</div>
+                </div>
+                <div class="insight-content">
+                    <div style="margin-bottom: 1rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="color: #b0c4de;">Annual Revenue Goal</span>
+                            <span style="color: #4ecdc4; font-weight: bold;">$500,000</span>
+                        </div>
+                        <div style="width: 100%; height: 12px; background: rgba(255,255,255,0.1); border-radius: 6px;">
+                            <div style="width: 69%; height: 100%; background: linear-gradient(90deg, #4ecdc4, #44a08d); border-radius: 6px;"></div>
+                        </div>
+                        <div style="font-size: 0.8rem; color: #4ecdc4; margin-top: 0.3rem;">$347,890 achieved (69.6%)</div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="color: #b0c4de;">Transactions Goal</span>
+                            <span style="color: #4ecdc4; font-weight: bold;">72</span>
+                        </div>
+                        <div style="width: 100%; height: 12px; background: rgba(255,255,255,0.1); border-radius: 6px;">
+                            <div style="width: 67%; height: 100%; background: linear-gradient(90deg, #4ecdc4, #44a08d); border-radius: 6px;"></div>
+                        </div>
+                        <div style="font-size: 0.8rem; color: #4ecdc4; margin-top: 0.3rem;">48 completed (66.7%)</div>
+                    </div>
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="color: #b0c4de;">Volume Goal</span>
+                            <span style="color: #4ecdc4; font-weight: bold;">$5M</span>
+                        </div>
+                        <div style="width: 100%; height: 12px; background: rgba(255,255,255,0.1); border-radius: 6px;">
+                            <div style="width: 56%; height: 100%; background: linear-gradient(90deg, #4ecdc4, #44a08d); border-radius: 6px;"></div>
+                        </div>
+                        <div style="font-size: 0.8rem; color: #4ecdc4; margin-top: 0.3rem;">$2.8M achieved (56%)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analytics-card">
+                <div class="insight-header">
+                    <div class="insight-icon">📱</div>
+                    <div class="insight-title">Lead Source Analysis</div>
+                </div>
+                <div class="insight-content">
+                    <div class="insight-metric">
+                        <span class="metric-label">Referrals:</span>
+                        <span class="metric-value">42% (89% conversion)</span>
+                    </div>
+                    <div class="insight-metric">
+                        <span class="metric-label">Social Media:</span>
+                        <span class="metric-value">28% (34% conversion)</span>
+                    </div>
+                    <div class="insight-metric">
+                        <span class="metric-label">Website/SEO:</span>
+                        <span class="metric-value">18% (28% conversion)</span>
+                    </div>
+                    <div class="insight-metric">
+                        <span class="metric-label">Open Houses:</span>
+                        <span class="metric-value">12% (22% conversion)</span>
+                    </div>
+                </div>
+            </div>
+        </div>

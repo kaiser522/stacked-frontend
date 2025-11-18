@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Lead Nurture Email Sequence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .email-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .email-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .email-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .email-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.3em;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .email-info {
+            flex-grow: 1;
+        }
+        
+        .email-title {
+            font-size: 1.4em;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        
+        .email-day {
+            color: #718096;
+            font-size: 0.9em;
+        }
+        
+        .email-subject {
+            background: #f7fafc;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .email-subject strong {
+            color: #4a5568;
+        }
+        
+        .email-body {
+            color: #4a5568;
+            font-size: 1em;
+        }
+        
+        .email-body p {
+            margin-bottom: 15px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: opacity 0.3s;
+        }
+        
+        .cta-button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏡 New Lead Nurture Sequence</h1>
+            <p>7-email sequence for converting new leads into qualified prospects</p>
+        </div>
+        
+        <!-- Email 1 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">1</div>
+                <div class="email-info">
+                    <div class="email-title">Welcome & Introduction</div>
+                    <div class="email-day">Day 1 - Immediate</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Welcome! Let's find your perfect home 🏠
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name]!</p>
+                <p>Thanks so much for reaching out! I'm really excited to help you with your home search.</p>
+                <p>I know looking for a home can feel overwhelming (trust me, I've been there!), but that's exactly why I'm here. Whether you're buying your first place, upgrading, or downsizing, I'll make sure this process is as smooth and stress-free as possible.</p>
+                <p>Here's what you can expect from me:</p>
+                <p>✨ Personalized property recommendations based on what YOU actually want<br>
+                📊 Market insights so you're always in the know<br>
+                💬 Quick responses (because I know your time is valuable)<br>
+                🎯 Honest advice - I'll tell it like it is</p>
+                <p>I'd love to learn more about what you're looking for. Got a few minutes for a quick chat this week?</p>
+                <p>Looking forward to working together!</p>
+                <p>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 2 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">2</div>
+                <div class="email-info">
+                    <div class="email-title">Market Insights & Value</div>
+                    <div class="email-day">Day 2</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Quick market update for [Area] you should see
+            </div>
+            <div class="email-body">
+                <p>Hi [First Name],</p>
+                <p>I was pulling together some market data this morning and thought you'd find this interesting!</p>
+                <p>Here's what's happening in [Area] right now:</p>
+                <p>📈 Average home prices: [Price Range]<br>
+                ⏱️ Homes are selling in about [X] days<br>
+                🏘️ [Number] new listings hit the market this week</p>
+                <p>What does this mean for you? [Brief insight about whether it's a buyer's/seller's market and what that means for their search].</p>
+                <p>I'm keeping an eye on some great properties that match what you mentioned. Want me to send over a few that caught my attention?</p>
+                <p>Just reply to this email or give me a call!</p>
+                <p>Cheers,<br>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 3 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">3</div>
+                <div class="email-info">
+                    <div class="email-title">Property Recommendations</div>
+                    <div class="email-day">Day 4</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Found 3 homes I think you'll love
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name]!</p>
+                <p>Okay, I've been doing some digging and found a few properties that seem like they could be perfect for you.</p>
+                <p>Check these out:</p>
+                <p><strong>🏡 Property 1: [Address]</strong><br>
+                [Brief description highlighting key features]<br>
+                [Link to listing]</p>
+                <p><strong>🏡 Property 2: [Address]</strong><br>
+                [Brief description highlighting key features]<br>
+                [Link to listing]</p>
+                <p><strong>🏡 Property 3: [Address]</strong><br>
+                [Brief description highlighting key features]<br>
+                [Link to listing]</p>
+                <p>I picked these because they match your [budget/location/features] criteria, and honestly, I think they're great value for what you're getting.</p>
+                <p>Want to schedule some viewings? I can usually set things up within 24-48 hours.</p>
+                <p>Let me know what you think!</p>
+                <p>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 4 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">4</div>
+                <div class="email-info">
+                    <div class="email-title">Educational Content</div>
+                    <div class="email-day">Day 6</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> 5 things I wish every home buyer knew
+            </div>
+            <div class="email-body">
+                <p>Hi [First Name],</p>
+                <p>I've helped a lot of people buy homes over the years, and there are a few things I wish everyone knew before they started their search. So here's my quick list:</p>
+                <p><strong>1. Get pre-approved early</strong> - It's not just about knowing your budget; sellers take you way more seriously.</p>
+                <p><strong>2. Don't skip the inspection</strong> - Ever. Trust me on this one.</p>
+                <p><strong>3. Think about resale value</strong> - Even if this is your "forever home," life happens.</p>
+                <p><strong>4. The first offer isn't always the best offer</strong> - Sometimes patience pays off.</p>
+                <p><strong>5. It's okay to be picky</strong> - You're making a huge investment. Take your time.</p>
+                <p>Want to dive deeper into any of these? I'm always happy to chat and answer questions.</p>
+                <p>Also, if you haven't gotten pre-approved yet, I know some great lenders who can help. Just say the word!</p>
+                <p>Talk soon,<br>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 5 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">5</div>
+                <div class="email-info">
+                    <div class="email-title">Success Story & Social Proof</div>
+                    <div class="email-day">Day 8</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> How I helped [Client] find their dream home
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name],</p>
+                <p>I wanted to share a quick success story with you!</p>
+                <p>Last month, I worked with [Client Name] who was in a similar situation to yours. They were looking for [similar criteria] and were feeling pretty discouraged after a few months of searching.</p>
+                <p>Long story short - we found them an amazing place in [Area], and they closed last week! Here's what they said:</p>
+                <p><em>"[Your Name] was incredible. Patient, knowledgeable, and always had our best interests at heart. We couldn't have done this without them!"</em></p>
+                <p>What made the difference? We got really clear on their must-haves vs. nice-to-haves, expanded the search area just slightly, and moved quickly when the right property came along.</p>
+                <p>I'd love to create the same kind of experience for you. How's your search going so far? Anything I can help with?</p>
+                <p>Best,<br>[Your Name]</p>
+                <p>P.S. If you want to read more reviews from my clients, check out [link to reviews]</p>
+            </div>
+        </div>
+        
+        <!-- Email 6 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">6</div>
+                <div class="email-info">
+                    <div class="email-title">Personalized Neighborhood Guide</div>
+                    <div class="email-day">Day 11</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Your insider's guide to [Neighborhood]
+            </div>
+            <div class="email-body">
+                <p>Hi [First Name]!</p>
+                <p>Since you mentioned you're interested in [Neighborhood/Area], I put together a quick insider's guide for you:</p>
+                <p><strong>What makes [Neighborhood] special:</strong><br>
+                [2-3 unique selling points about the area]</p>
+                <p><strong>Best spots to check out:</strong><br>
+                ☕ Coffee: [Local favorite]<br>
+                🍕 Food: [Restaurant recommendation]<br>
+                🌳 Parks: [Local park or green space]<br>
+                🛍️ Shopping: [Shopping area]</p>
+                <p><strong>Schools in the area:</strong><br>
+                [Brief mention of school ratings or notable schools]</p>
+                <p><strong>Average commute times:</strong><br>
+                [Commute info to major employment centers]</p>
+                <p>The vibe here is [describe neighborhood character]. It's perfect if you're looking for [lifestyle fit].</p>
+                <p>Want to take a tour of the area? I can show you around and we can grab coffee while we're at it!</p>
+                <p>Let me know,<br>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 7 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">7</div>
+                <div class="email-info">
+                    <div class="email-title">Call to Action & Next Steps</div>
+                    <div class="email-day">Day 14</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Ready to take the next step?
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name],</p>
+                <p>I hope these emails have been helpful over the past couple of weeks! I've really enjoyed sharing market insights and property recommendations with you.</p>
+                <p>I'm curious - where are you at in your home search right now?</p>
+                <p>If you're ready to get more serious about finding the right place, here's what I suggest we do next:</p>
+                <p><strong>Step 1:</strong> Let's hop on a quick 15-minute call to nail down exactly what you're looking for<br>
+                <strong>Step 2:</strong> I'll set up a custom search that sends you properties the moment they hit the market<br>
+                <strong>Step 3:</strong> We schedule some viewings and find you the perfect home!</p>
+                <p>Sound good? Pick a time that works for you here: [Calendar link]</p>
+                <p>Or if you're still in research mode, that's totally fine too! I'm here whenever you're ready. Feel free to reply to any of these emails with questions.</p>
+                <p>Either way, I'm here to help make this process as easy as possible for you.</p>
+                <p>Looking forward to hearing from you!</p>
+                <p>[Your Name]<br>
+                [Phone Number]<br>
+                [Email]</p>
+                <a href="#" class="cta-button">Schedule a Call</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

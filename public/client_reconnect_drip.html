@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Reconnect Drip Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            border: 2px solid #764ba2;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .drip-icon {
+            width: 60px;
+            height: 60px;
+            background: #764ba2;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 30px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .setup-panel {
+            background: rgba(58, 74, 92, 0.9);
+            border: 2px solid #764ba2;
+            border-radius: 20px;
+            padding: 25px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .panel-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #764ba2;
+            text-align: center;
+        }
+
+        .setup-section {
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #764ba2;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f093fb;
+            margin-bottom: 15px;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #a0b4c3;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .control-group input, 
+        .control-group textarea, 
+        .control-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #5a6a7c;
+            border-radius: 5px;
+            background: #2c3e50;
+            color: white;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .control-group input:focus, 
+        .control-group textarea:focus, 
+        .control-group select:focus {
+            outline: none;
+            border-color: #764ba2;
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 12px;
+            background: #764ba2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .action-btn:hover {
+            background: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .action-btn.secondary {
+            background: #2ecc71;
+        }
+
+        .action-btn.secondary:hover {
+            background: #27ae60;
+        }
+
+        .action-btn.danger {
+            background: #e74c3c;
+        }
+
+        .action-btn.danger:hover {
+            background: #c0392b;
+        }
+
+        .preview-container {
+            background: white;
+            border-radius: 15px;
+            color: #333;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .preview-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .preview-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .client-info {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        .sequence-content {
+            padding: 30px;
+            max-height: 700px;
+            overflow-y: auto;
+        }
+
+        .email-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 5px solid #764ba2;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .email-header {
+            background: #764ba2;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .email-timing {
+            font-weight: 600;
+        }
+
+        .email-type {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .email-content {
+            padding: 20px;
+        }
+
+        .email-subject {
+            background: #e9ecef;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .email-body {
+            line-height: 1.6;
+            color: #555;
+            white-space: pre-line;
+        }
+
+        .placeholder-message {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 60px 20px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-ready {
+            background: #2ecc71;
+        }
+
+        .status-pending {
+            background: #f39c12;
+        }
+
+        .tag {
+            background: rgba(118, 75, 162, 0.2);
+            color: #764ba2;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(118, 75, 162, 0.3);
+            display: inline-block;
+            margin: 2px;
+        }
+
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .setup-panel {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>
+            <div class="drip-icon">💧</div>
+            Client Reconnect Drip Builder
+        </h1>
+        <p>Create personalized email sequences to nurture past clients and generate referrals.</p>
+        <div style="margin-top: 20px;">
+            <span class="tag">client retention</span>
+            <span class="tag">automated nurturing</span>
+            <span class="tag">referral generation</span>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="setup-panel">
+            <h3 class="panel-title">Setup Client Sequence</h3>
+            
+            <!-- Agent Information -->
+            <div class="setup-section">
+                <div class="section-title">Your Information</div>
+                
+                <div class="control-group">
+                    <label>Agent Name</label>
+                    <input type="text" id="agentName" value="Sarah Johnson">
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <div class="control-group" style="flex: 1;">
+                        <label>Phone</label>
+                        <input type="text" id="agentPhone" value="(555) 123-4567">
+                    </div>
+                    <div class="control-group" style="flex: 1;">
+                        <label>Email</label>
+                        <input type="email" id="agentEmail" value="sarah@realty.com">
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Brokerage</label>
+                    <input type="text" id="brokerage" value="Premium Real Estate">
+                </div>
+            </div>
+
+            <!-- Client Information -->
+            <div class="setup-section">
+                <div class="section-title">Client Details</div>
+                
+                <div class="control-group">
+                    <label>Client Name <span style="color: #e74c3c;">*</span></label>
+                    <input type="text" id="clientName" placeholder="John & Sarah Smith">
+                </div>
+                
+                <div class="control-group">
+                    <label>Client Email <span style="color: #e74c3c;">*</span></label>
+                    <input type="email" id="clientEmail" placeholder="client@email.com">
+                </div>
+                
+                <div class="control-group">
+                    <label>Property Address <span style="color: #e74c3c;">*</span></label>
+                    <input type="text" id="propertyAddress" placeholder="123 Oak Street, Beverly Hills, CA">
+                </div>
+                
+                <div class="control-group">
+                    <label>Closing Date <span style="color: #e74c3c;">*</span></label>
+                    <input type="date" id="closingDate">
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <div class="control-group" style="flex: 1;">
+                        <label>Property Type</label>
+                        <select id="propertyType">
+                            <option value="">Select...</option>
+                            <option value="Single Family Home">Single Family</option>
+                            <option value="Condominium">Condominium</option>
+                            <option value="Townhouse">Townhouse</option>
+                            <option value="Multi-Family">Multi-Family</option>
+                        </select>
+                    </div>
+                    <div class="control-group" style="flex: 1;">
+                        <label>Purchase Price</label>
+                        <input type="text" id="purchasePrice" placeholder="$485,000">
+                    </div>
+                </div>
+                
+                <button class="action-btn" onclick="generateSequence()">Generate Personalized Sequence</button>
+            </div>
+
+            <!-- Actions -->
+            <div class="setup-section">
+                <div class="section-title">Export Options</div>
+                
+                <button class="action-btn secondary" onclick="downloadSequence()" id="downloadBtn" disabled>Download Email Sequence</button>
+                <button class="action-btn secondary" onclick="downloadCalendar()" id="calendarBtn" disabled>Download Calendar Schedule</button>
+                <button class="action-btn danger" onclick="clearForm()">Clear Form</button>
+                
+                <div style="margin-top: 15px; font-size: 0.85rem; color: #a0b4c3;">
+                    <span class="status-indicator status-pending"></span>Fill in required fields and generate sequence to enable downloads
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-container">
+            <div class="preview-header">
+                <h2 class="preview-title">Email Sequence Preview</h2>
+                <p>12-month client nurturing campaign</p>
+                
+                <div class="client-info" id="clientInfoDisplay" style="display: none;">
+                    <div><strong>Client:</strong> <span id="displayClientName">-</span></div>
+                    <div><strong>Property:</strong> <span id="displayProperty">-</span></div>
+                    <div><strong>Closing Date:</strong> <span id="displayClosingDate">-</span></div>
+                </div>
+            </div>
+
+            <div class="sequence-content" id="sequenceContent">
+                <div class="placeholder-message">
+                    <h3>👆 Enter client information above to generate personalized emails</h3>
+                    <p>Fill in the required client details and click "Generate Personalized Sequence" to see custom email content with specific send dates.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSequence = null;
+
+        function generateSequence() {
+            // Validate required fields
+            const clientName = document.getElementById('clientName').value.trim();
+            const clientEmail = document.getElementById('clientEmail').value.trim();
+            const propertyAddress = document.getElementById('propertyAddress').value.trim();
+            const closingDate = document.getElementById('closingDate').value;
+
+            if (!clientName || !clientEmail || !propertyAddress || !closingDate) {
+                alert('Please fill in all required fields (marked with *)');
+                return;
+            }
+
+            // Get all form values
+            const clientData = {
+                agentName: document.getElementById('agentName').value,
+                agentPhone: document.getElementById('agentPhone').value,
+                agentEmail: document.getElementById('agentEmail').value,
+                brokerage: document.getElementById('brokerage').value,
+                clientName: clientName,
+                clientEmail: clientEmail,
+                propertyAddress: propertyAddress,
+                closingDate: closingDate,
+                propertyType: document.getElementById('propertyType').value,
+                purchasePrice: document.getElementById('purchasePrice').value
+            };
+
+            // Calculate send dates
+            const closingDateObj = new Date(closingDate);
+            const sendDates = [
+                new Date(closingDateObj.getTime() + (7 * 24 * 60 * 60 * 1000)),   // Week 1
+                new Date(closingDateObj.getTime() + (60 * 24 * 60 * 60 * 1000)),  // Month 2
+                new Date(closingDateObj.getTime() + (120 * 24 * 60 * 60 * 1000)), // Month 4
+                new Date(closingDateObj.getTime() + (180 * 24 * 60 * 60 * 1000)), // Month 6
+                new Date(closingDateObj.getTime() + (270 * 24 * 60 * 60 * 1000)), // Month 9
+                new Date(closingDateObj.getTime() + (365 * 24 * 60 * 60 * 1000))  // Month 12
+            ];
+
+            // Generate personalized emails
+            currentSequence = createEmailSequence(clientData, sendDates);
+            
+            // Update display
+            updateClientInfoDisplay(clientData);
+            renderSequence(currentSequence);
+            
+            // Enable download buttons
+            document.getElementById('downloadBtn').disabled = false;
+            document.getElementById('calendarBtn').disabled = false;
+            document.querySelector('.status-indicator').className = 'status-indicator status-ready';
+            document.querySelector('.status-indicator').nextSibling.textContent = 'Sequence ready for download';
+        }
+
+        function createEmailSequence(data, dates) {
+            const firstName = data.clientName.split(' ')[0];
+            const propertyShort = data.propertyAddress.split(',')[0];
+            
+            return [
+                {
+                    number: 1,
+                    timing: 'Week 1 - Welcome Check-in',
+                    date: dates[0].toLocaleDateString(),
+                    type: 'Relationship',
+                    subject: `How are you settling into ${propertyShort}?`,
+                    body: `Hi ${firstName},
+
+I hope you're loving your new ${data.propertyType.toLowerCase() || 'home'} at ${data.propertyAddress}! It's been about a week since we closed, and I wanted to check in to see how everything is going.
+
+Have you had a chance to explore the neighborhood yet? I'd love to hear about your first impressions and any discoveries you've made.
+
+If you have any questions about the area, need recommendations for local services, or just want to share how things are going, please don't hesitate to reach out. I'm here to help even after closing!
+
+Congratulations again on your new home!
+
+Best regards,
+${data.agentName}
+${data.agentPhone}
+${data.agentEmail}
+${data.brokerage}`
+                },
+                {
+                    number: 2,
+                    timing: 'Month 2 - Market Update',
+                    date: dates[1].toLocaleDateString(),
+                    type: 'Value',
+                    subject: `Market update for ${propertyShort}`,
+                    body: `Hi ${firstName},
+
+I wanted to share some great news about your area! The market continues to show strong performance since you purchased your ${data.propertyType.toLowerCase() || 'home'} at ${data.propertyAddress}.
+
+Here's what's happening in your neighborhood:
+• Home values are trending upward
+• Average days on market: 28 days
+• Inventory remains low, creating competitive conditions
+• ${data.purchasePrice ? `Your investment at ${data.purchasePrice} is performing well` : 'Your home investment is performing well'}
+
+This market strength means you made a smart decision! The fundamentals remain solid with continued buyer demand.
+
+If you know anyone thinking about buying or selling, this continues to be an excellent time in the market.
+
+Best regards,
+${data.agentName}
+${data.agentPhone}
+${data.agentEmail}
+${data.brokerage}`
+                },
+                {
+                    number: 3,
+                    timing: 'Month 4 - Home Maintenance',
+                    date: dates[2].toLocaleDateString(),
+                    type: 'Educational',
+                    subject: `Spring maintenance tips for ${propertyShort}`,
+                    body: `Hi ${firstName},
+
+Spring is the perfect time for some important home maintenance to protect your investment at ${data.propertyAddress}!
+
+Here's your seasonal maintenance checklist:
+🌱 Clean gutters and downspouts
+🌱 Service HVAC system
+🌱 Check exterior caulking and seals
+🌱 Test smoke and carbon monoxide detectors
+🌱 Inspect roof for winter damage
+🌱 Power wash deck and walkways
+${data.propertyType === 'Condominium' ? '🌱 Check with HOA about building maintenance schedules' : '🌱 Fertilize lawn and garden areas'}
+
+${data.propertyType === 'Condominium' ? 'Since you own a condo, focus on interior items and coordinate with your HOA for exterior maintenance.' : 'Taking care of these items now prevents costly repairs later.'}
+
+I have a trusted list of local contractors if you need recommendations for any of these tasks.
+
+Happy spring!
+
+Best regards,
+${data.agentName}
+${data.agentPhone}
+${data.agentEmail}
+${data.brokerage}`
+                },
+                {
+                    number: 4,
+                    timing: 'Month 6 - Community Connection',
+                    date: dates[3].toLocaleDateString(),
+                    type: 'Local',
+                    subject: `Summer events near ${data.propertyAddress.split(',')[1]?.trim() || 'your area'}`,
+                    body: `Hi ${firstName},
+
+Summer is here and your neighborhood is buzzing with great activities! Here are some events happening near ${data.propertyAddress}:
+
+🎪 Local farmers markets every Saturday
+🎵 Outdoor concert series at the community center
+🚴‍♀️ Neighborhood walking groups and bike rides
+📚 Summer reading programs at the library
+🎨 Art festivals and craft fairs
+
+These events are wonderful ways to meet neighbors and get more connected to your community. Summer is perfect for exploring everything your area has to offer!
+
+Have you found any favorite local spots yet? I'd love to hear about them!
+
+Enjoy the beautiful weather!
+
+Best regards,
+${data.agentName}
+${data.agentPhone}
+${data.agentEmail}
+${data.brokerage}`
+                },
+                {
+                    number: 5,
+                    timing: 'Month 9 - Check-in & Updates',
+                    date: dates[4].toLocaleDateString(),
+                    type: 'Relationship',
+                    subject: `How has your first year at ${propertyShort} been?`,
+                    body: `Hi ${firstName},
+
+I can't believe it's been 9 months since we got the keys to your ${data.propertyType.toLowerCase() || 'home'} at ${data.propertyAddress}! Time really flies.
+
+I'd love to hear how this year has been for you:
+• What's been your favorite thing about the neighborhood?
+• Have you completed any home projects or improvements?
+• Any favorite local restaurants or shops you've discovered?
+
+${data.purchasePrice ? `The good news is that your home has likely appreciated since your purchase at ${data.purchasePrice}, making it an even better investment!` : 'Your home has likely appreciated in value over this time, making it an even better investment!'}
+
+As we approach the holidays, I hope you're looking forward to hosting family and friends in your beautiful space.
+
+Best regards,
+${data.agentName}
+${data.agentPhone}
+${data.agentEmail}
+${data.brokerage}`
+                },
+                {
+                    number: 6,
+                    timing: 'Month 12 - Anniversary & Referrals',
+                    date: dates[5].toLocaleDateString(),
+                    type: 'Milestone',
+                    subject: `Happy one-year anniversary at ${propertyShort}!`,
+                    body: `Hi ${firstName},
+
+Happy anniversary! It's been exactly one year since we closed on your beautiful ${data.propertyType.toLowerCase() || 'home'} at ${data.propertyAddress}. What an incredible milestone!
+
+I hope this first year has brought you everything you hoped for and more. Your home has not only provided you with comfort and security, but it's also been a great investment in today's market.
+
+As we celebrate this anniversary, I wanted to ask a favor. The best compliment I can receive is when satisfied clients like you recommend my services to friends and family.
+
+If you know anyone considering buying or selling, I'd be honored to help them achieve their real estate goals just like we did together.
+
+My referral appreciation program includes:
+💰 $500 gift card for purchase referrals
+💰 $750 gift card for listing referrals
+🎁 Plus a special thank you gift just for the introduction
+
+Thank you again for trusting me with such an important decision. Here's to many more happy years in your home!
+
+Best regards,
+${data.agentName}
+${data.agentPhone}
+${data.agentEmail}
+${data.brokerage}`
+                }
+            ];
+        }
+
+        function updateClientInfoDisplay(data) {
+            document.getElementById('displayClientName').textContent = data.clientName;
+            document.getElementById('displayProperty').textContent = data.propertyAddress;
+            document.getElementById('displayClosingDate').textContent = new Date(data.closingDate).toLocaleDateString();
+            document.getElementById('clientInfoDisplay').style.display = 'block';
+        }
+
+        function renderSequence(sequence) {
+            const container = document.getElementById('sequenceContent');
+            
+            let html = '';
+            sequence.forEach(email => {
+                html += `
+                    <div class="email-card">
+                        <div class="email-header">
+                            <div class="email-timing">Email ${email.number} - ${email.timing}</div>
+                            <div class="email-type">${email.type}</div>
+                        </div>
+                        <div class="email-content">
+                            <div style="background: #d1ecf1; padding: 8px 12px; border-radius: 5px; font-size: 0.9rem; color: #0c5460; margin-bottom: 15px;">
+                                📅 Send on: ${email.date}
+                            </div>
+                            <div class="email-subject">Subject: ${email.subject}</div>
+                            <div class="email-body">${email.body}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function downloadSequence() {
+            if (!currentSequence) {
+                alert('Please generate a sequence first');
+                return;
+            }
+
+            const clientName = document.getElementById('clientName').value;
+            const html = generateDownloadHTML();
+            
+            const blob = new Blob([html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `client-drip-sequence-${clientName.replace(/\s+/g, '-').toLowerCase()}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadCalendar() {
+            if (!currentSequence) {
+                alert('Please generate a sequence first');
+                return;
+            }
+
+            let csvContent = "Subject,Start Date,Start Time,Description\n";
+            
+            currentSequence.forEach(email => {
+                const date = new Date(email.date);
+                const dateStr = date.toISOString().split('T')[0];
+                csvContent += `"Send Email ${email.number}: ${email.subject}","${dateStr}","09:00","${email.timing} - ${email.type} email to client"\n`;
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `drip-sequence-calendar.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function generateDownloadHTML() {
+            const clientData = {
+                name: document.getElementById('clientName').value,
+                email: document.getElementById('clientEmail').value,
+                property: document.getElementById('propertyAddress').value,
+                closingDate: document.getElementById('closingDate').value
+            };
+
+            let emailsHTML = '';
+            currentSequence.forEach(email => {
+                emailsHTML += `
+                    <div style="background: #f8f9fa; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #764ba2; overflow: hidden;">
+                        <div style="background: #764ba2; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+                            <div style="font-weight: 600;">Email ${email.number} - ${email.timing}</div>
+                            <div style="background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 15px; font-size: 0.8rem;">${email.type}</div>
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="background: #d1ecf1; padding: 8px 12px; border-radius: 5px; font-size: 0.9rem; color: #0c5460; margin-bottom: 15px;">
+                                📅 Send on: ${email.date}
+                            </div>
+                            <div style="background: #e9ecef; padding: 10px 15px; border-radius: 5px; font-weight: bold; color: #2c3e50; margin-bottom: 15px;">
+                                Subject: ${email.subject}
+                            </div>
+                            <div style="line-height: 1.6; color: #555; white-space: pre-line;">
+                                ${email.body}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            return `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Client Drip Sequence - ${clientData.name}</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        .header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 30px; text-align: center; border-radius: 15px; margin-bottom: 30px; }
+        .client-info { background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Client Reconnect Email Sequence</h1>
+        <p>Personalized for ${clientData.name}</p>
+    </div>
+    
+    <div class="client-info">
+        <h3>Client Information</h3>
+        <p><strong>Name:</strong> ${clientData.name}</p>
+        <p><strong>Email:</strong> ${clientData.email}</p>
+        <p><strong>Property:</strong> ${clientData.property}</p>
+        <p><strong>Closing Date:</strong> ${new Date(clientData.closingDate).toLocaleDateString()}</p>
+    </div>
+    
+    ${emailsHTML}
+    
+    <div style="margin-top: 30px; padding: 20px; background: #e9ecef; border-radius: 8px;">
+        <h3>Implementation Instructions</h3>
+        <p>Copy and paste each email into your email marketing platform (Mailchimp, Constant Contact, etc.) and schedule them for the dates shown.</p>
+        <p>All content is personalized and ready to send - no additional editing required!</p>
+    </div>
+</body>
+</html>`;
+        }
+
+        function clearForm() {
+            if (confirm('Are you sure you want to clear all form data?')) {
+                // Clear all inputs except agent info
+                document.getElementById('clientName').value = '';
+                document.getElementById('clientEmail').value = '';
+                document.getElementById('propertyAddress').value = '';
+                document.getElementById('closingDate').value = '';
+                document.getElementById('propertyType').value = '';
+                document.getElementById('purchasePrice').value = '';
+                
+                // Clear preview
+                document.getElementById('sequenceContent').innerHTML = `
+                    <div class="placeholder-message">
+                        <h3>👆 Enter client information above to generate personalized emails</h3>
+                        <p>Fill in the required client details and click "Generate Personalized Sequence" to see custom email content with specific send dates.</p>
+                    </div>
+                `;
+                
+                // Hide client info display
+                document.getElementById('clientInfoDisplay').style.display = 'none';
+                
+                // Disable download buttons
+                document.getElementById('downloadBtn').disabled = true;
+                document.getElementById('calendarBtn').disabled = true;
+                document.querySelector('.status-indicator').className = 'status-indicator status-pending';
+                document.querySelector('.status-indicator').nextSibling.textContent = 'Fill in required fields and generate sequence to enable downloads';
+                
+                // Clear current sequence
+                currentSequence = null;
+            }
+        }
+
+        // Set today's date as default closing date when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const thirtyDaysAgo = new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000));
+            document.getElementById('closingDate').value = thirtyDaysAgo.toISOString().split('T')[0];
+        });
+    </script>
+</body>
+</html>

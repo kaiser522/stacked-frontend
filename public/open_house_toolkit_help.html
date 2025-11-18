@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open House Toolkit - Help Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #e1e5e9;
+            background-color: #2c3e50;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid #00d4aa;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #00d4aa;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content-section {
+            background: #34495e;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #485e73;
+        }
+        
+        .content-section h2 {
+            color: #00d4aa;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #00d4aa;
+            padding-bottom: 10px;
+        }
+        
+        .content-section h3 {
+            color: #00d4aa;
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+        }
+        
+        .content-section p {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: #e1e5e9;
+        }
+        
+        .toolkit-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature-card {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #485e73;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            border-color: #00d4aa;
+            transform: translateY(-2px);
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: #00d4aa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.5rem;
+            color: #2c3e50;
+        }
+        
+        .feature-card h4 {
+            color: #00d4aa;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .feature-card p {
+            color: #b8c5d1;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .step-list {
+            counter-reset: step-counter;
+        }
+        
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #00d4aa;
+            color: #2c3e50;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .form-fields {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .field-item {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #00d4aa;
+            border: 1px solid #485e73;
+        }
+        
+        .field-item h5 {
+            color: #00d4aa;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .field-item p {
+            color: #b8c5d1;
+            font-size: 0.8rem;
+            margin: 0;
+        }
+        
+        .required {
+            color: #ff6b6b;
+        }
+        
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .checklist-item {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #485e73;
+            display: flex;
+            align-items: center;
+        }
+        
+        .checklist-item.completed {
+            border-color: #00d4aa;
+        }
+        
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            background: #00d4aa;
+            border-radius: 3px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        
+        .checkbox.unchecked {
+            background: #485e73;
+            color: transparent;
+        }
+        
+        .event-example {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #485e73;
+        }
+        
+        .event-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .event-icon {
+            width: 40px;
+            height: 40px;
+            background: #00d4aa;
+            border-radius: 8px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2c3e50;
+        }
+        
+        .event-info {
+            flex: 1;
+        }
+        
+        .event-title {
+            color: #e1e5e9;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        
+        .event-details {
+            color: #b8c5d1;
+            font-size: 0.9rem;
+        }
+        
+        .visitor-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #485e73;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-number.blue { color: #3498db; }
+        .stat-number.green { color: #27ae60; }
+        .stat-number.red { color: #e74c3c; }
+        
+        .stat-label {
+            color: #b8c5d1;
+            font-size: 0.9rem;
+        }
+        
+        .visitor-card {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #485e73;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .visitor-info {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .visitor-avatar {
+            width: 40px;
+            height: 40px;
+            background: #00d4aa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        
+        .visitor-details {
+            flex: 1;
+        }
+        
+        .visitor-name {
+            color: #e1e5e9;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        
+        .visitor-contact {
+            color: #b8c5d1;
+            font-size: 0.9rem;
+        }
+        
+        .interest-dropdown {
+            background: #34495e;
+            border: 1px solid #00d4aa;
+            color: #e1e5e9;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .tip-box {
+            background: #1e3d59;
+            border-left: 4px solid #00d4aa;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #e1e5e9;
+        }
+        
+        .tip-box strong {
+            color: #00d4aa;
+        }
+        
+        .warning-box {
+            background: #3d2f2f;
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #e1e5e9;
+        }
+        
+        .warning-box strong {
+            color: #ff6b6b;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            color: #e1e5e9;
+        }
+        
+        .workflow-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .workflow-step {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #485e73;
+            position: relative;
+        }
+        
+        .workflow-number {
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #00d4aa;
+            color: #2c3e50;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .workflow-title {
+            color: #00d4aa;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+        
+        .workflow-description {
+            color: #b8c5d1;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏠 Open House Toolkit</h1>
+            <p>Streamline your open house events from setup to lead follow-up</p>
+        </div>
+
+        <div class="content-section">
+            <h2>What is the Open House Toolkit?</h2>
+            <p>The Open House Toolkit is a comprehensive three-step system designed to streamline your entire open house process. From initial event setup and preparation through visitor sign-in and final lead management, this toolkit ensures no detail is missed and every visitor becomes a valuable prospect for your business.</p>
+            
+            <p>The toolkit provides a professional, organized approach to managing open house events while maximizing lead generation and follow-up opportunities.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Toolkit Overview</h2>
+            <p>The Open House Toolkit consists of three integrated components that work together to create a seamless experience:</p>
+            
+            <div class="toolkit-features">
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h4>Event Setup</h4>
+                    <p>Configure property details, schedule your event, and manage pre-event checklists</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h4>Digital Sign-In</h4>
+                    <p>Capture visitor information with professional digital forms and lead qualification</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h4>Lead Capture</h4>
+                    <p>Manage prospects, track interest levels, and schedule follow-up activities</p>
+                </div>
+            </div>
+
+            <div class="workflow-section">
+                <div class="workflow-step">
+                    <div class="workflow-number">1</div>
+                    <div class="workflow-title">Setup & Preparation</div>
+                    <div class="workflow-description">Create your event, set property details, complete pre-event checklist, and prepare marketing materials</div>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-number">2</div>
+                    <div class="workflow-title">Event Execution</div>
+                    <div class="workflow-description">Visitors sign in digitally, providing contact information and indicating interest levels</div>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-number">3</div>
+                    <div class="workflow-title">Lead Management</div>
+                    <div class="workflow-description">Review visitors, set interest levels, export contact data, and schedule follow-ups</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Step 1: Event Setup</h2>
+            <p>The Event Setup section allows you to configure all aspects of your open house event. This foundational step ensures everything is properly planned and organized before the event begins.</p>
+
+            <h3>Required Event Information</h3>
+            <div class="form-fields">
+                <div class="field-item">
+                    <h5>Property Address <span class="required">*</span></h5>
+                    <p>Complete street address including city, state, and ZIP code</p>
+                </div>
+                <div class="field-item">
+                    <h5>Property Type</h5>
+                    <p>Select from dropdown (Single Family Home, Condo, Townhouse, etc.)</p>
+                </div>
+                <div class="field-item">
+                    <h5>Open House Date <span class="required">*</span></h5>
+                    <p>Date picker for scheduling your event</p>
+                </div>
+                <div class="field-item">
+                    <h5>Time Range <span class="required">*</span></h5>
+                    <p>Start and end times for your open house</p>
+                </div>
+                <div class="field-item">
+                    <h5>Price Range</h5>
+                    <p>Listed price or price range for the property</p>
+                </div>
+                <div class="field-item">
+                    <h5>Expected Visitors</h5>
+                    <p>Estimated number of expected attendees</p>
+                </div>
+            </div>
+
+            <h3>Property Highlights</h3>
+            <p>Use the Property Highlights text area to describe key features and selling points:</p>
+            <ul>
+                <li>Recent renovations or upgrades</li>
+                <li>Unique architectural features</li>
+                <li>Neighborhood amenities</li>
+                <li>Special property features (pool, garage, deck, etc.)</li>
+                <li>Number of bedrooms and bathrooms</li>
+            </ul>
+
+            <div class="event-example">
+                <div class="event-header">
+                    <div class="event-icon">🏠</div>
+                    <div class="event-info">
+                        <div class="event-title">456 Oak Avenue, Lapeer, MI 48446</div>
+                        <div class="event-details">Single Family Home • $285,000 • Expected: 15 visitors</div>
+                    </div>
+                </div>
+                <p style="color: #b8c5d1; margin: 0;">Recently renovated kitchen with granite countertops, hardwood floors throughout, 3 bedrooms, 2 full baths, large backyard with deck, attached 2-car garage.</p>
+            </div>
+
+            <h3>Pre-Event Checklist</h3>
+            <p>The built-in checklist helps ensure you're fully prepared before the event begins:</p>
+            
+            <div class="checklist-grid">
+                <div class="checklist-item completed">
+                    <div class="checkbox">✓</div>
+                    <span>Property cleaned and staged</span>
+                </div>
+                <div class="checklist-item completed">
+                    <div class="checkbox">✓</div>
+                    <span>Signs and directional markers placed</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox unchecked">□</div>
+                    <span>Marketing materials prepared</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox unchecked">□</div>
+                    <span>Digital sign-in form tested</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox unchecked">□</div>
+                    <span>Property information sheets printed</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox unchecked">□</div>
+                    <span>Device charged and WiFi tested</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox unchecked">□</div>
+                    <span>Business cards and contact materials ready</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox unchecked">□</div>
+                    <span>Refreshments and amenities prepared</span>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Pro Tip:</strong> Complete all checklist items before your event starts. The system tracks your preparation progress and helps ensure nothing is forgotten.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Step 2: Digital Sign-In Form</h2>
+            <p>The Digital Sign-In section provides a professional, user-friendly form for capturing visitor information during your open house. This digital approach is more efficient than traditional paper sign-in sheets and ensures better data quality.</p>
+
+            <h3>Form Fields and Information Collected</h3>
+            <div class="form-fields">
+                <div class="field-item">
+                    <h5>First Name <span class="required">*</span></h5>
+                    <p>Visitor's first name (required field)</p>
+                </div>
+                <div class="field-item">
+                    <h5>Last Name <span class="required">*</span></h5>
+                    <p>Visitor's last name (required field)</p>
+                </div>
+                <div class="field-item">
+                    <h5>Email Address <span class="required">*</span></h5>
+                    <p>Primary email for follow-up communications</p>
+                </div>
+                <div class="field-item">
+                    <h5>Phone Number</h5>
+                    <p>Contact phone number (optional but recommended)</p>
+                </div>
+                <div class="field-item">
+                    <h5>How did you hear about this property?</h5>
+                    <p>Marketing source tracking (dropdown selection)</p>
+                </div>
+                <div class="field-item">
+                    <h5>Timeline to Purchase</h5>
+                    <p>Buyer timeline qualification (dropdown selection)</p>
+                </div>
+            </div>
+
+            <h3>Lead Qualification Questions</h3>
+            <p>The form includes key qualifying questions to help prioritize your follow-up efforts:</p>
+            <ul>
+                <li><strong>Source Attribution:</strong> Online listing, social media, referral, drive-by, etc.</li>
+                <li><strong>Purchase Timeline:</strong> 1-3 months, 3-6 months, 6+ months, just looking</li>
+                <li><strong>Marketing Opt-in:</strong> Checkbox for receiving updates about similar properties</li>
+            </ul>
+
+            <h3>Digital Form Benefits</h3>
+            <ul>
+                <li><strong>Professional Appearance:</strong> Clean, branded interface that reflects well on your business</li>
+                <li><strong>Data Accuracy:</strong> Digital entry reduces transcription errors common with handwritten forms</li>
+                <li><strong>Instant Capture:</strong> Information is immediately saved and available in Lead Capture</li>
+                <li><strong>Required Field Validation:</strong> Ensures essential contact information is collected</li>
+                <li><strong>Lead Qualification:</strong> Built-in questions help prioritize follow-up efforts</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>⚠️ Setup Requirement:</strong> Test your digital sign-in form before the event begins. Ensure tablets or devices are charged, connected to WiFi, and the form displays correctly.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Step 3: Lead Capture and Management</h2>
+            <p>The Lead Capture section is where all visitor information is compiled and managed. This section provides comprehensive tools for reviewing prospects, setting interest levels, and planning follow-up activities.</p>
+
+            <h3>Dashboard Overview</h3>
+            <div class="visitor-stats">
+                <div class="stat-card">
+                    <div class="stat-number blue">2</div>
+                    <div class="stat-label">Total Visitors</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number green">0</div>
+                    <div class="stat-label">Hot Prospects</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number red">0</div>
+                    <div class="stat-label">Follow-ups Due</div>
+                </div>
+            </div>
+
+            <h3>Visitor Information Display</h3>
+            <p>Each visitor entry shows comprehensive information collected during sign-in:</p>
+
+            <div class="visitor-card">
+                <div class="visitor-info">
+                    <div class="visitor-avatar">JS</div>
+                    <div class="visitor-details">
+                        <div class="visitor-name">John Smith</div>
+                        <div class="visitor-contact">john@example.com • (555) 123-4567 • Timeline: 1-3 months</div>
+                        <div style="color: #7f8c8d; font-size: 0.8rem;">Signed in at 09:03 PM • Source: Online listing</div>
+                    </div>
+                </div>
+                <div class="interest-dropdown">Set Interest ▼</div>
+            </div>
+
+            <h3>Interest Level Management</h3>
+            <p>Set interest levels for each visitor to prioritize your follow-up efforts:</p>
+            <ul>
+                <li><strong>Very Interested:</strong> High-priority prospects showing strong buying signals</li>
+                <li><strong>Somewhat Interested:</strong> Moderate interest, good for nurture campaigns</li>
+                <li><strong>Not Interested:</strong> Low priority but keep in general database</li>
+                <li><strong>Not Set:</strong> Default status requiring follow-up to determine interest</li>
+            </ul>
+
+            <h3>Action Tools</h3>
+            <p>The Lead Capture section provides essential tools for managing your prospects:</p>
+            <ul>
+                <li><strong>Export CSV:</strong> Download all visitor data for import into your CRM or email marketing system</li>
+                <li><strong>Schedule Follow-ups:</strong> Create tasks and reminders for contacting prospects</li>
+                <li><strong>Interest Filtering:</strong> Sort and view prospects by interest level</li>
+                <li><strong>Contact Management:</strong> Access full visitor profiles and communication history</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Complete Workflow: From Setup to Follow-Up</h2>
+            
+            <h3>Pre-Event Preparation (Day Before)</h3>
+            <ol class="step-list">
+                <li>Create your event in the Event Setup section with all property details</li>
+                <li>Set your open house date, time, and expected visitor count</li>
+                <li>Write compelling property highlights focusing on key selling points</li>
+                <li>Complete the pre-event checklist to ensure you're fully prepared</li>
+                <li>Test the digital sign-in form on your tablet or device</li>
+                <li>Prepare any physical marketing materials and property information sheets</li>
+            </ol>
+
+            <h3>Event Day Setup (Day Of)</h3>
+            <ol class="step-list">
+                <li>Arrive early to prepare the property and stage any final touches</li>
+                <li>Set up directional signage and place open house signs</li>
+                <li>Position your tablet or device with the digital sign-in form prominently</li>
+                <li>Ensure WiFi connectivity and device battery levels are adequate</li>
+                <li>Review property highlights and prepare to discuss key features</li>
+                <li>Mark remaining checklist items as complete in the system</li>
+            </ol>
+
+            <h3>During the Open House</h3>
+            <ol class="step-list">
+                <li>Greet each visitor warmly and direct them to the digital sign-in form</li>
+                <li>Assist visitors with the form if needed, emphasizing the value of staying connected</li>
+                <li>Engage visitors in conversation about their needs and timeline</li>
+                <li>Take mental notes about each visitor's level of interest and specific questions</li>
+                <li>Provide property information and answer questions about neighborhood and features</li>
+                <li>Thank visitors and mention you'll follow up with additional information</li>
+            </ol>
+
+            <h3>Post-Event Follow-Up (Same Day/Next Day)</h3>
+            <ol class="step-list">
+                <li>Review all visitor entries in the Lead Capture section</li>
+                <li>Set interest levels for each visitor based on your interactions</li>
+                <li>Export visitor data to your main CRM or contact management system</li>
+                <li>Schedule immediate follow-up calls or emails for "Very Interested" prospects</li>
+                <li>Plan nurture sequences for "Somewhat Interested" visitors</li>
+                <li>Send thank you emails to all visitors with additional property information</li>
+            </ol>
+        </div>
+
+        <div class="content-section">
+            <h2>Troubleshooting Common Issues</h2>
+            
+            <h3>Event Setup Problems</h3>
+            <ul>
+                <li><strong>Can't Save Event Details:</strong> Ensure all required fields (marked with *) are completed before clicking "Save Event Setup"</li>
+                <li><strong>Date Picker Not Working:</strong> Try clicking directly on the calendar icon or refresh the page if the date picker won't open</li>
+                <li><strong>Time Fields Showing Incorrectly:</strong> Verify your browser's time zone settings and use 12-hour format with AM/PM</li>
+                <li><strong>Property Type Dropdown Issues:</strong> If dropdown won't open, try clicking on the arrow or refresh the Event Setup section</li>
+                <li><strong>Checklist Items Won't Check:</strong> Click directly on the checkbox or text. If issues persist, refresh the page and try again</li>
+            </ul>
+
+            <h3>Digital Sign-In Form Issues</h3>
+            <ul>
+                <li><strong>Form Won't Load on Device:</strong> Check internet connection and refresh the Digital Sign-In tab. Ensure device has stable WiFi</li>
+                <li><strong>Required Field Validation Errors:</strong> Make sure First Name, Last Name, and Email Address are all completed</li>
+                <li><strong>Email Format Not Accepted:</strong> Ensure email includes @ symbol and valid domain (e.g., user@example.com)</li>
+                <li><strong>Dropdown Menus Not Working:</strong> Try tapping/clicking directly on the dropdown arrow. Clear browser cache if problems persist</li>
+                <li><strong>Form Submission Fails:</strong> Verify all required fields are completed and internet connection is stable before clicking "Sign In to Open House"</li>
+                <li><strong>Duplicate Entries:</strong> If someone signs in twice, the system should show both entries. You can merge duplicate contacts during follow-up</li>
+            </ul>
+
+            <h3>Lead Capture and Management Issues</h3>
+            <ul>
+                <li><strong>Visitors Not Appearing in Lead Capture:</strong> Refresh the Lead Capture section or check that form submissions completed successfully</li>
+                <li><strong>Interest Level Dropdown Won't Work:</strong> Click directly on the dropdown arrow. If unresponsive, refresh the page</li>
+                <li><strong>Export CSV Not Working:</strong> Ensure you have visitors in your system and try using a different browser if download fails</li>
+                <li><strong>Visitor Statistics Showing Zero:</strong> Check that visitors have successfully submitted the digital sign-in form</li>
+                <li><strong>Contact Information Displaying Incorrectly:</strong> Verify that visitors entered information correctly in the sign-in form</li>
+            </ul>
+
+            <h3>Device and Technical Issues</h3>
+            <ul>
+                <li><strong>Tablet/Device Battery Drain:</strong> Keep devices plugged in during events and test battery life beforehand</li>
+                <li><strong>WiFi Connection Problems:</strong> Test internet connectivity at the property before the event. Have a mobile hotspot backup</li>
+                <li><strong>Screen Timeout Issues:</strong> Adjust device settings to prevent screen from timing out during the event</li>
+                <li><strong>Browser Compatibility:</strong> Use updated versions of Chrome, Safari, or Edge for best compatibility</li>
+                <li><strong>Touch Screen Responsiveness:</strong> Clean device screens and ensure visitors can easily tap form fields</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>Emergency Backup Plan:</strong> If technical issues prevent use of the digital system, keep a paper backup sign-in sheet with essential fields: Name, Email, Phone, and Interest Level. Manually enter data after the event.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Best Practices for Open House Success</h2>
+            
+            <h3>Event Setup Best Practices</h3>
+            <ul>
+                <li><strong>Detailed Descriptions:</strong> Write comprehensive property highlights that address common buyer concerns</li>
+                <li><strong>Realistic Expectations:</strong> Set visitor expectations based on marketing reach and property appeal</li>
+                <li><strong>Time Optimization:</strong> Schedule 2-3 hour windows for optimal visitor flow</li>
+                <li><strong>Checklist Discipline:</strong> Always complete the full pre-event checklist to avoid missing critical steps</li>
+            </ul>
+
+            <h3>Digital Sign-In Optimization</h3>
+            <ul>
+                <li><strong>Device Positioning:</strong> Place sign-in tablet in a prominent, well-lit location near the entrance</li>
+                <li><strong>Visitor Assistance:</strong> Be available to help visitors who may be uncomfortable with digital forms</li>
+                <li><strong>Value Proposition:</strong> Explain the benefits of signing in (property updates, market information, etc.)</li>
+                <li><strong>Privacy Assurance:</strong> Assure visitors that their information will be used professionally</li>
+            </ul>
+
+            <h3>Lead Management Excellence</h3>
+            <ul>
+                <li><strong>Same-Day Review:</strong> Process all visitor information within 24 hours while interactions are fresh</li>
+                <li><strong>Interest Assessment:</strong> Use conversation quality and engagement level to set accurate interest ratings</li>
+                <li><strong>Prompt Follow-up:</strong> Contact "Very Interested" prospects within 24-48 hours</li>
+                <li><strong>Systematic Approach:</strong> Develop consistent follow-up sequences for different interest levels</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>Success Metric:</strong> Aim for at least 70% of visitors to complete the digital sign-in form. High completion rates indicate effective positioning and visitor engagement.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Integration with Other CRM Sections</h2>
+            
+            <h3>Client Section Integration</h3>
+            <p>Open house visitors automatically become prospects in your client management system:</p>
+            <ul>
+                <li>Visitor data exports seamlessly into your main client database</li>
+                <li>Interest levels help prioritize client outreach and engagement</li>
+                <li>Source tracking provides valuable marketing attribution data</li>
+                <li>Timeline information assists with client categorization and follow-up scheduling</li>
+            </ul>
+
+            <h3>Calendar and Task Management</h3>
+            <p>Schedule follow-up activities directly from the Lead Capture section:</p>
+            <ul>
+                <li>Create calendar appointments for promising prospects</li>
+                <li>Set task reminders for email follow-ups and phone calls</li>
+                <li>Track follow-up completion rates and response metrics</li>
+                <li>Coordinate team assignments for visitor follow-up</li>
+            </ul>
+
+            <h3>Marketing and Analytics</h3>
+            <p>Open house data provides valuable insights for future marketing efforts:</p>
+            <ul>
+                <li>Source attribution helps identify most effective marketing channels</li>
+                <li>Visitor patterns inform optimal open house timing and frequency</li>
+                <li>Interest level data guides property positioning and marketing messaging</li>
+                <li>Conversion rates from visitors to clients help measure open house ROI</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Advanced Tips for Power Users</h2>
+            
+            <h3>Multiple Event Management</h3>
+            <ul>
+                <li><strong>Event Templates:</strong> Use your "Your Events" list to copy successful event setups for similar properties</li>
+                <li><strong>Bulk Operations:</strong> Schedule multiple open houses for the same weekend to maximize efficiency</li>
+                <li><strong>Team Coordination:</strong> Assign different team members to manage different aspects of large events</li>
+                <li><strong>Historical Data:</strong> Review past event performance to optimize future open house strategies</li>
+            </ul>
+
+            <h3>Lead Qualification Strategies</h3>
+            <ul>
+                <li><strong>Conversation Mapping:</strong> Use visitor interactions during the event to set accurate interest levels</li>
+                <li><strong>Source Analysis:</strong> Track which marketing channels bring the highest-quality prospects</li>
+                <li><strong>Timeline Prioritization:</strong> Focus immediate follow-up on visitors with 1-3 month timelines</li>
+                <li><strong>Geographic Targeting:</strong> Note visitor locations to understand your marketing reach</li>
+            </ul>
+
+            <h3>Follow-Up Automation</h3>
+            <ul>
+                <li><strong>Segmented Campaigns:</strong> Create different email sequences based on interest levels</li>
+                <li><strong>Behavioral Triggers:</strong> Set up automated responses based on visitor source and timeline</li>
+                <li><strong>CRM Integration:</strong> Use exported data to trigger automated workflows in your main CRM</li>
+                <li><strong>Performance Tracking:</strong> Monitor conversion rates from visitors to appointments to closed deals</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Legal and Privacy Considerations</h2>
+            
+            <h3>Data Collection Compliance</h3>
+            <ul>
+                <li><strong>Consent:</strong> Ensure visitors understand how their information will be used</li>
+                <li><strong>Opt-in Marketing:</strong> Use the checkbox for marketing consent to comply with email regulations</li>
+                <li><strong>Data Security:</strong> Protect visitor information and only share with authorized team members</li>
+                <li><strong>Retention Policies:</strong> Follow appropriate data retention guidelines for your area</li>
+            </ul>
+
+            <h3>Professional Standards</h3>
+            <ul>
+                <li><strong>Truth in Marketing:</strong> Ensure all property information is accurate and up-to-date</li>
+                <li><strong>Fair Housing:</strong> Treat all visitors equally regardless of demographics</li>
+                <li><strong>Professional Communication:</strong> Use visitor information only for legitimate real estate purposes</li>
+                <li><strong>Privacy Protection:</strong> Don't share visitor lists with other agents or outside parties without consent</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>Compliance Tip:</strong> Include a brief privacy statement near your sign-in form explaining how visitor information will be used and protected.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Measuring Open House Success</h2>
+            
+            <h3>Key Performance Indicators</h3>
+            <ul>
+                <li><strong>Sign-in Rate:</strong> Percentage of visitors who complete the digital form</li>
+                <li><strong>Lead Quality:</strong> Ratio of "Very Interested" to total visitors</li>
+                <li><strong>Source Effectiveness:</strong> Which marketing channels drive the most qualified prospects</li>
+                <li><strong>Follow-up Conversion:</strong> How many visitors become active clients</li>
+                <li><strong>Timeline Accuracy:</strong> Whether visitor timelines match actual purchase behavior</li>
+            </ul>
+
+            <h3>Optimization Strategies</h3>
+            <ul>
+                <li><strong>A/B Testing:</strong> Try different property descriptions and see which generate more interest</li>
+                <li><strong>Time Analysis:</strong> Track which time slots attract the highest-quality visitors</li>
+                <li><strong>Marketing Attribution:</strong> Double down on channels that bring serious buyers</li>
+                <li><strong>Seasonal Patterns:</strong> Identify optimal times of year for your market</li>
+            </ul>
+
+            <h3>ROI Calculation</h3>
+            <p>Calculate your open house return on investment by tracking:</p>
+            <ul>
+                <li>Marketing costs (advertising, signage, materials)</li>
+                <li>Time investment (preparation, event, follow-up)</li>
+                <li>Leads generated and their quality scores</li>
+                <li>Conversion rates from leads to appointments</li>
+                <li>Final commissions earned from open house leads</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>Success Benchmark:</strong> Aim for at least 15-20% of your visitors to show "Very Interested" or "Somewhat Interested" levels for a successful event.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Team Collaboration Features</h2>
+            
+            <h3>Multi-Agent Events</h3>
+            <p>When working with team members on large events:</p>
+            <ul>
+                <li><strong>Role Assignment:</strong> Designate one person to manage the digital system</li>
+                <li><strong>Visitor Distribution:</strong> Ensure all team members can access visitor information</li>
+                <li><strong>Follow-up Coordination:</strong> Assign specific visitors to appropriate team members</li>
+                <li><strong>Data Sharing:</strong> Export and distribute visitor lists to relevant team members</li>
+            </ul>
+
+            <h3>Brokerage Integration</h3>
+            <ul>
+                <li><strong>Lead Distribution:</strong> Share qualified prospects with appropriate specialists</li>
+                <li><strong>Market Intelligence:</strong> Aggregate visitor data for market analysis</li>
+                <li><strong>Training Tool:</strong> Use successful events as training examples for new agents</li>
+                <li><strong>Brand Consistency:</strong> Ensure all team members follow the same professional standards</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>Team Success Tip:</strong> Hold brief post-event debriefs with team members to discuss visitor interactions and refine your qualification process.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Seasonal and Market Adaptations</h2>
+            
+            <h3>Peak Season Optimization (Spring/Summer)</h3>
+            <ul>
+                <li><strong>Higher Expectations:</strong> Increase expected visitor counts during peak buying seasons</li>
+                <li><strong>Competitive Positioning:</strong> Use more detailed property highlights to stand out</li>
+                <li><strong>Extended Hours:</strong> Consider longer open house windows during busy periods</li>
+                <li><strong>Multiple Sessions:</strong> Run back-to-back events to accommodate higher demand</li>
+            </ul>
+
+            <h3>Off-Season Strategies (Fall/Winter)</h3>
+            <ul>
+                <li><strong>Quality Focus:</strong> Fewer visitors but potentially more serious buyers</li>
+                <li><strong>Virtual Integration:</strong> Combine in-person events with virtual tour options</li>
+                <li><strong>Incentive Messaging:</strong> Highlight advantages of off-season buying</li>
+                <li><strong>Cozy Presentation:</strong> Emphasize comfort features during colder months</li>
+            </ul>
+
+            <h3>Market Condition Adjustments</h3>
+            <ul>
+                <li><strong>Seller's Market:</strong> Focus on qualifying serious buyers and managing crowds</li>
+                <li><strong>Buyer's Market:</strong> Emphasize unique property features and competitive advantages</li>
+                <li><strong>Price-Sensitive Markets:</strong> Highlight value propositions and cost-saving features</li>
+                <li><strong>Luxury Markets:</strong> Ensure high-end presentation and detailed amenity descriptions</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

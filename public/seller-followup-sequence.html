@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Follow-up Email Sequence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .sequence-info {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .email-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .email-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .email-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .email-number {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.3em;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .email-info {
+            flex-grow: 1;
+        }
+        
+        .email-title {
+            font-size: 1.4em;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        
+        .email-day {
+            color: #718096;
+            font-size: 0.9em;
+        }
+        
+        .email-subject {
+            background: #fffbeb;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .email-subject strong {
+            color: #4a5568;
+        }
+        
+        .email-body {
+            color: #4a5568;
+            font-size: 1em;
+        }
+        
+        .email-body p {
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .stat-box {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #d97706;
+        }
+        
+        .stat-label {
+            color: #92400e;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: opacity 0.3s;
+        }
+        
+        .cta-button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💰 Seller Follow-up Sequence</h1>
+            <p>Automated follow-up campaign for potential sellers with market updates and pricing insights</p>
+        </div>
+        
+        <div class="sequence-info">
+            📧 5 emails over 21 days
+        </div>
+        
+        <!-- Email 1 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">1</div>
+                <div class="email-info">
+                    <div class="email-title">Initial Follow-up & Value Prop</div>
+                    <div class="email-day">Day 1 - Immediate</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Thanks for reaching out! Here's what your home could be worth
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name]!</p>
+                <p>Thanks so much for getting in touch about possibly selling your home at [Address]. I'm excited to help you explore your options!</p>
+                <p>I know selling a home is a big decision, so I wanted to start by giving you some helpful info right away.</p>
+                <div class="highlight-box">
+                    <strong>📊 Quick Estimate for Your Home:</strong><br><br>
+                    Based on recent sales in your area, I estimate your home could sell for:<br>
+                    <div style="font-size: 1.8em; color: #d97706; font-weight: bold; margin: 10px 0;">
+                        $[Price Range]
+                    </div>
+                    <em>(This is a preliminary estimate - I'll need to see your home in person to give you an accurate number!)</em>
+                </div>
+                <p><strong>Here's what I'd like to do next:</strong></p>
+                <p>📅 Schedule a no-pressure consultation where I can:<br>
+                • Tour your home and see all its amazing features<br>
+                • Provide a detailed market analysis<br>
+                • Show you what similar homes have sold for<br>
+                • Answer all your questions about the selling process<br>
+                • Give you a strategic pricing recommendation</p>
+                <p>This consultation is completely free, and there's zero obligation. Even if you're just curious about your home's value or thinking about selling down the road, I'm happy to chat!</p>
+                <p><strong>I have some availability this week:</strong><br>
+                [Day/Time Option 1]<br>
+                [Day/Time Option 2]<br>
+                [Day/Time Option 3]</p>
+                <p>Do any of those work for you? Or just let me know what's convenient and I'll make it happen!</p>
+                <p>Looking forward to meeting you,<br>[Your Name]<br>[Phone Number]</p>
+                <a href="#" class="cta-button">Schedule Your Free Consultation</a>
+            </div>
+        </div>
+        
+        <!-- Email 2 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">2</div>
+                <div class="email-info">
+                    <div class="email-title">Market Update & Timing</div>
+                    <div class="email-day">Day 4</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Is now a good time to sell? (Here's what the data says)
+            </div>
+            <div class="email-body">
+                <p>Hi [First Name],</p>
+                <p>I wanted to follow up and share some insights about the current market - because timing can make a huge difference when selling your home!</p>
+                <p><strong>Current Market Conditions in [Area]:</strong></p>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-number">[X] days</div>
+                        <div class="stat-label">Average time on market</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">[X]%</div>
+                        <div class="stat-label">Of list price received</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">[X]</div>
+                        <div class="stat-label">Homes sold this month</div>
+                    </div>
+                </div>
+                <p><strong>What this means for you:</strong><br>
+                [Brief interpretation - is it a seller's market? Are prices up? Is inventory low? Give them context]</p>
+                <div class="highlight-box">
+                    <strong>Recent Sales in Your Neighborhood:</strong><br><br>
+                    🏡 [Address 1]: Sold for $[Amount] ([X]% over asking)<br>
+                    🏡 [Address 2]: Sold for $[Amount] in [X] days<br>
+                    🏡 [Address 3]: Sold for $[Amount] with multiple offers<br><br>
+                    Your home has similar features, which is why I think you could see excellent results!
+                </div>
+                <p><strong>Why timing matters:</strong><br>
+                Right now we're seeing [describe current market trend]. If you've been thinking about selling, [give your recommendation about timing based on market conditions].</p>
+                <p>I'd love to show you a detailed analysis specific to your property. It only takes about 30 minutes, and you'll walk away with a clear understanding of what you could get for your home.</p>
+                <p>Have you had a chance to think about those consultation times I mentioned? I'm still happy to work around your schedule!</p>
+                <p>Talk soon,<br>[Your Name]</p>
+            </div>
+        </div>
+        
+        <!-- Email 3 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">3</div>
+                <div class="email-info">
+                    <div class="email-title">Success Story & Social Proof</div>
+                    <div class="email-day">Day 8</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> How I helped [Client] sell for $[X] over asking
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name],</p>
+                <p>I wanted to share a quick success story with you because it reminds me a lot of your situation!</p>
+                <p>Last month, I worked with [Client Name] who also lives in [similar neighborhood/area]. They were unsure about selling and didn't know if they could get the price they needed.</p>
+                <p><strong>Here's what happened:</strong></p>
+                <p>✅ We listed their home for $[Amount]<br>
+                ✅ Got [X] offers in the first [X] days<br>
+                ✅ Sold for $[Amount] - that's $[X] OVER asking!<br>
+                ✅ Closed in just [X] days</p>
+                <div class="highlight-box">
+                    <strong>What [Client Name] said:</strong><br><br>
+                    <em>"[Your Name] made the whole process so easy. The photos were amazing, the marketing was everywhere, and we had multiple offers right away. We honestly couldn't believe how much we got for our home!"</em>
+                </div>
+                <p><strong>How did we do it?</strong></p>
+                <p>🎯 <strong>Strategic Pricing:</strong> Used market data to price it competitively<br>
+                📸 <strong>Professional Marketing:</strong> High-quality photos, video tour, and targeted online ads<br>
+                🏡 <strong>Staging Advice:</strong> Simple updates that made a huge impact<br>
+                ⚡ <strong>Smart Timing:</strong> Listed when buyer demand was high</p>
+                <p>I can do the same thing for your home at [Address]. Your property has some great features that buyers are looking for right now, and I think we could see similar results!</p>
+                <p>Want to hear more about my marketing strategy? Let's set up that consultation - I'll walk you through exactly how I'd sell your home.</p>
+                <p>Ready when you are!</p>
+                <p>[Your Name]<br>[Phone Number]</p>
+                <a href="#" class="cta-button">Let's Talk Strategy</a>
+            </div>
+        </div>
+        
+        <!-- Email 4 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">4</div>
+                <div class="email-info">
+                    <div class="email-title">Detailed Market Analysis Offer</div>
+                    <div class="email-day">Day 14</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Your free home valuation report is ready
+            </div>
+            <div class="email-body">
+                <p>Hi [First Name],</p>
+                <p>I've put together a comprehensive market analysis for your home at [Address], and I think you're going to want to see this!</p>
+                <p><strong>📊 What's included in your custom report:</strong></p>
+                <p>✓ Detailed pricing analysis based on [X] comparable sales<br>
+                ✓ Current market trends in your neighborhood<br>
+                ✓ Estimated selling price range<br>
+                ✓ Projected timeline for sale<br>
+                ✓ Renovation recommendations (if applicable)<br>
+                ✓ Marketing strategy specifically for your property</p>
+                <div class="highlight-box">
+                    <strong>Here's a sneak peek at what I found:</strong><br><br>
+                    🏘️ <strong>Your Neighborhood Activity:</strong><br>
+                    [X] homes sold in the last 90 days with an average sale price of $[Amount]<br><br>
+                    📈 <strong>Appreciation:</strong><br>
+                    Home values in your area have increased by [X]% in the past year<br><br>
+                    ⏱️ <strong>Days on Market:</strong><br>
+                    Similar homes are selling in an average of [X] days<br><br>
+                    💰 <strong>Your Estimated Value:</strong><br>
+                    Based on my analysis, I believe your home could sell for $[Range]
+                </div>
+                <p><strong>But here's the thing:</strong> Online estimates and automated valuations can't capture what makes YOUR home special. Things like updates you've made, the condition of your home, and unique features all impact value.</p>
+                <p>That's why I'd love to come see your property in person. I can give you a much more accurate number and explain exactly how I arrived at it.</p>
+                <p><strong>I can usually do these consultations:</strong><br>
+                • Mornings (before 10am)<br>
+                • Lunch time (12-1pm)<br>
+                • Evenings (after 5pm)<br>
+                • Weekends</p>
+                <p>What works best for you? Just reply with a day and time, and I'll be there!</p>
+                <p>Looking forward to it,<br>[Your Name]</p>
+                <a href="#" class="cta-button">Download Your Free Report</a>
+            </div>
+        </div>
+        
+        <!-- Email 5 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">5</div>
+                <div class="email-info">
+                    <div class="email-title">Final Follow-up & Clear CTA</div>
+                    <div class="email-day">Day 21</div>
+                </div>
+            </div>
+            <div class="email-subject">
+                <strong>Subject:</strong> Still thinking about selling? I'm here to help (no pressure!)
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name],</p>
+                <p>I wanted to check in one more time because I don't want you to miss out on what's happening in the market right now!</p>
+                <p>I know selling your home is a big decision, and you might still be in the "thinking about it" phase. That's totally okay - I'm not here to pressure you, just to help when you're ready.</p>
+                <p><strong>Here's what I want you to know:</strong></p>
+                <p>🏡 Your home at [Address] is in a great location that buyers are actively searching for<br>
+                💰 Current market conditions are [favorable/strong] for sellers<br>
+                📈 I believe we could get you [specific price range or value]<br>
+                ⏱️ The consultation is quick (30-45 min) and there's zero obligation</p>
+                <div class="highlight-box">
+                    <strong>Common concerns I hear from sellers:</strong><br><br>
+                    <strong>"I don't know if I'm ready to sell yet"</strong><br>
+                    → That's fine! Let's just talk about your options. You can make a decision after you have all the info.<br><br>
+                    <strong>"I'm not sure I can get the price I need"</strong><br>
+                    → You might be surprised! The market has changed a lot recently. Let me show you the numbers.<br><br>
+                    <strong>"I don't want to deal with the hassle"</strong><br>
+                    → I handle everything for you. Seriously, I'll make this as easy as possible.<br><br>
+                    <strong>"What if it doesn't sell?"</strong><br>
+                    → With the right pricing and marketing strategy (which I'll create for you), I'm confident we'll get it sold.
+                </div>
+                <p><strong>Here's my promise to you:</strong></p>
+                <p>If we meet and you decide not to sell, that's completely fine. No hard feelings whatsoever. You'll still walk away with valuable information about your home's worth and market conditions.</p>
+                <p>But if you decide you ARE ready? I'll create a customized plan to get you the best possible price in the shortest amount of time.</p>
+                <p><strong>So what do you say?</strong></p>
+                <p>Can we find 30 minutes for a quick consultation? I promise it'll be worth your time!</p>
+                <p>Just reply to this email or give me a call at [Phone Number]. I'm usually pretty flexible with my schedule.</p>
+                <p>And if you're not interested right now, no worries at all! Feel free to reach out whenever you're ready - whether that's next month or next year. I'm always here to help.</p>
+                <p>Take care,<br>[Your Name]</p>
+                <p><strong>P.S.</strong> Even if you're just curious about your home's value with no plans to sell, I'm happy to provide that info. Knowledge is power! 💪</p>
+                <a href="#" class="cta-button">Schedule My Free Consultation</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library - Help Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #e1e5e9;
+            background-color: #2c3e50;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid #00d4aa;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #00d4aa;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content-section {
+            background: #34495e;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #485e73;
+        }
+        
+        .content-section h2 {
+            color: #00d4aa;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #00d4aa;
+            padding-bottom: 10px;
+        }
+        
+        .content-section h3 {
+            color: #00d4aa;
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+        }
+        
+        .content-section p {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: #e1e5e9;
+        }
+        
+        .library-tabs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .tab-card {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #485e73;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-card:hover {
+            border-color: #00d4aa;
+            transform: translateY(-2px);
+        }
+        
+        .tab-card h4 {
+            color: #00d4aa;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+        
+        .tab-card.active {
+            border-color: #00d4aa;
+            background: #1e3d59;
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .resource-card {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #485e73;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-card:hover {
+            border-color: #00d4aa;
+            transform: translateY(-2px);
+        }
+        
+        .resource-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .resource-icon {
+            width: 40px;
+            height: 40px;
+            background: #00d4aa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .resource-info {
+            flex: 1;
+        }
+        
+        .resource-title {
+            color: #e1e5e9;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .resource-badges {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .badge {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .badge-guide {
+            background: #3498db;
+            color: white;
+        }
+        
+        .badge-checklist {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .badge-process {
+            background: #8e44ad;
+            color: white;
+        }
+        
+        .badge-popular {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .badge-updated {
+            background: #e67e22;
+            color: white;
+        }
+        
+        .badge-new {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .resource-description {
+            color: #b8c5d1;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .resource-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: #00d4aa;
+            color: #2c3e50;
+        }
+        
+        .btn-primary:hover {
+            background: #00c399;
+        }
+        
+        .btn-secondary {
+            background: #485e73;
+            color: #e1e5e9;
+        }
+        
+        .btn-secondary:hover {
+            background: #576f85;
+        }
+        
+        .search-section {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #485e73;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: #34495e;
+            border: 1px solid #485e73;
+            border-radius: 6px;
+            color: #e1e5e9;
+            font-size: 1rem;
+        }
+        
+        .search-input::placeholder {
+            color: #7f8c8d;
+        }
+        
+        .share-modal {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #485e73;
+        }
+        
+        .share-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .share-option {
+            color: #00d4aa;
+            text-decoration: none;
+            padding: 8px 0;
+            border-bottom: 1px solid #485e73;
+        }
+        
+        .share-option:hover {
+            color: #00c399;
+        }
+        
+        .process-steps {
+            margin: 20px 0;
+        }
+        
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #2c3e50;
+            border-radius: 8px;
+            border: 1px solid #485e73;
+        }
+        
+        .step-icon {
+            width: 30px;
+            height: 30px;
+            background: #00d4aa;
+            border-radius: 50%;
+            margin-right: 15px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            color: #e1e5e9;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .step-description {
+            color: #b8c5d1;
+            font-size: 0.9rem;
+        }
+        
+        .tip-box {
+            background: #1e3d59;
+            border-left: 4px solid #00d4aa;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #e1e5e9;
+        }
+        
+        .tip-box strong {
+            color: #00d4aa;
+        }
+        
+        .warning-box {
+            background: #d2691e;
+            border-left: 4px solid #ff6b35;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: white;
+        }
+        
+        .warning-box strong {
+            color: white;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            color: #e1e5e9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Library</h1>
+            <p>Guides & Checklists for Real Estate Success</p>
+        </div>
+
+        <div class="content-section">
+            <h2>What is the Library?</h2>
+            <p>The Library is your comprehensive resource center containing professional guides, checklists, process documents, and market analysis tools designed specifically for real estate professionals. This collection includes everything from first-time buyer guides to complex market analysis templates, helping you provide expert service to your clients while streamlining your own processes.</p>
+            
+            <p>Each resource can be downloaded, viewed online, or shared with clients and colleagues, making it easy to access the information you need when you need it.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Library Categories</h2>
+            <p>The Library is organized into six main categories to help you find the right resources quickly:</p>
+            
+            <div class="library-tabs">
+                <div class="tab-card active">
+                    <h4>All Resources</h4>
+                </div>
+                <div class="tab-card">
+                    <h4>Buyer Guides</h4>
+                </div>
+                <div class="tab-card">
+                    <h4>Seller Guides</h4>
+                </div>
+                <div class="tab-card">
+                    <h4>Checklists</h4>
+                </div>
+                <div class="tab-card">
+                    <h4>Process Guides</h4>
+                </div>
+                <div class="tab-card">
+                    <h4>Market Reports</h4>
+                </div>
+            </div>
+
+            <h3>Category Descriptions</h3>
+            <ul>
+                <li><strong>All Resources:</strong> Complete view of all available materials across all categories</li>
+                <li><strong>Buyer Guides:</strong> Educational materials and timelines for homebuyers</li>
+                <li><strong>Seller Guides:</strong> Resources for sellers including preparation and marketing strategies</li>
+                <li><strong>Checklists:</strong> Step-by-step checklists for various real estate processes</li>
+                <li><strong>Process Guides:</strong> Timeline trackers and procedural documentation</li>
+                <li><strong>Market Reports:</strong> Analysis tools and market research templates</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Search Functionality</h2>
+            <p>Use the search bar to quickly find specific resources by keyword, topic, or content type:</p>
+            
+            <div class="search-section">
+                <input type="text" class="search-input" placeholder="Search library..." readonly>
+            </div>
+
+            <h3>Search Tips</h3>
+            <ul>
+                <li>Use specific keywords like "closing," "pre-approval," or "marketing"</li>
+                <li>Search by client type: "buyer," "seller," "first-time"</li>
+                <li>Look for resource types: "checklist," "guide," "tracker"</li>
+                <li>Search results update in real-time as you type</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Available Resources</h2>
+            <p>The Library contains professional-grade resources designed for real estate success:</p>
+
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon">📋</div>
+                        <div class="resource-info">
+                            <div class="resource-title">First-Time Buyer Guide</div>
+                            <div class="resource-badges">
+                                <span class="badge badge-guide">GUIDE</span>
+                                <span class="badge badge-popular">popular</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resource-description">
+                        Comprehensive step-by-step guide for first-time homebuyers covering pre-approval, house hunting, making offers, and closing process.
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon">✅</div>
+                        <div class="resource-info">
+                            <div class="resource-title">Home Selling Checklist</div>
+                            <div class="resource-badges">
+                                <span class="badge badge-checklist">CHECKLIST</span>
+                                <span class="badge badge-updated">updated</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resource-description">
+                        Complete checklist for sellers covering preparation, staging, pricing, marketing, and closing requirements.
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon">📊</div>
+                        <div class="resource-info">
+                            <div class="resource-title">Market Analysis Guide</div>
+                            <div class="resource-badges">
+                                <span class="badge badge-guide">GUIDE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resource-description">
+                        Learn how to conduct comparative market analysis (CMA) and provide accurate pricing recommendations to clients.
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon">✅</div>
+                        <div class="resource-info">
+                            <div class="resource-title">Closing Process Checklist</div>
+                            <div class="resource-badges">
+                                <span class="badge badge-checklist">CHECKLIST</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resource-description">
+                        Step-by-step checklist for managing the closing process from contract to keys, ensuring nothing is missed.
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon">📅</div>
+                        <div class="resource-info">
+                            <div class="resource-title">Buyer Timeline Tracker</div>
+                            <div class="resource-badges">
+                                <span class="badge badge-process">PROCESS</span>
+                                <span class="badge badge-new">new</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resource-description">
+                        Visual timeline tracker showing each stage of the buying process with expected timeframes and milestones.
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon">📅</div>
+                        <div class="resource-info">
+                            <div class="resource-title">Seller Timeline Tracker</div>
+                            <div class="resource-badges">
+                                <span class="badge badge-process">PROCESS</span>
+                                <span class="badge badge-new">new</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resource-description">
+                        Timeline guide for sellers showing preparation, listing, marketing, and closing phases with key milestones.
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon">✅</div>
+                        <div class="resource-info">
+                            <div class="resource-title">Pre-Approval Checklist</div>
+                            <div class="resource-badges">
+                                <span class="badge badge-checklist">CHECKLIST</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resource-description">
+                        Essential documents and steps for mortgage pre-approval to help buyers prepare for financing.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Resource Actions</h2>
+            <p>Each resource offers three main actions to help you use and distribute the materials effectively:</p>
+
+            <h3>Download</h3>
+            <p>Downloads the resource as a PDF file to your device. Downloaded files can be:</p>
+            <ul>
+                <li>Printed for physical distribution to clients</li>
+                <li>Saved to your local files for offline access</li>
+                <li>Customized with your branding (where applicable)</li>
+                <li>Shared via email or other file-sharing methods</li>
+            </ul>
+
+            <h3>View</h3>
+            <p>Opens the resource in your browser for online viewing. This allows you to:</p>
+            <ul>
+                <li>Preview content before downloading or sharing</li>
+                <li>Access resources on any device without storage requirements</li>
+                <li>Navigate through multi-page documents easily</li>
+                <li>View the most up-to-date version of the resource</li>
+            </ul>
+
+            <h3>Share</h3>
+            <p>Provides multiple sharing options for distributing resources to clients and colleagues:</p>
+            
+            <div class="share-modal">
+                <h4>Share Options</h4>
+                <div class="share-options">
+                    <a href="#" class="share-option">Open Link</a>
+                    <a href="#" class="share-option">Share on Facebook</a>
+                    <a href="#" class="share-option">Share on WhatsApp</a>
+                    <a href="#" class="share-option">Share on Twitter</a>
+                </div>
+            </div>
+
+            <ul>
+                <li><strong>Open Link:</strong> Opens the resource URL for copying and sharing</li>
+                <li><strong>Social Media:</strong> Direct sharing to Facebook, WhatsApp, and Twitter</li>
+                <li><strong>Link Sharing:</strong> Generate shareable links for email or messaging</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>How to Use Library Resources</h2>
+            
+            <h3>Finding the Right Resource</h3>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-icon">1</div>
+                    <div class="step-content">
+                        <div class="step-title">Use the category tabs to browse by resource type</div>
+                        <div class="step-description">Navigate through Buyer Guides, Seller Guides, Checklists, Process Guides, and Market Reports</div>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">2</div>
+                    <div class="step-content">
+                        <div class="step-title">Search for specific topics using the search bar</div>
+                        <div class="step-description">Enter keywords related to your client's needs or specific processes</div>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">3</div>
+                    <div class="step-content">
+                        <div class="step-title">Look for badges indicating popularity, recent updates, or new additions</div>
+                        <div class="step-description">These indicators help you identify the most useful and current resources</div>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">4</div>
+                    <div class="step-content">
+                        <div class="step-title">Read resource descriptions to understand content and purpose</div>
+                        <div class="step-description">Ensure the resource matches your specific client needs and transaction stage</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Sharing with Clients</h3>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-icon">1</div>
+                    <div class="step-content">
+                        <div class="step-title">Click the "Share" button on the desired resource</div>
+                        <div class="step-description">This opens the sharing options modal with multiple distribution methods</div>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">2</div>
+                    <div class="step-content">
+                        <div class="step-title">Choose your preferred sharing method from the modal</div>
+                        <div class="step-description">Options include direct links, Facebook, WhatsApp, and Twitter</div>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">3</div>
+                    <div class="step-content">
+                        <div class="step-title">For "Open Link," copy the URL and paste it in your communication</div>
+                        <div class="step-description">This provides a direct link to the resource that clients can access immediately</div>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">4</div>
+                    <div class="step-content">
+                        <div class="step-title">Include a personal message explaining why the resource is valuable</div>
+                        <div class="step-description">Context helps clients understand how the resource applies to their situation</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Building Client Resource Packages</h3>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-icon">1</div>
+                    <div class="step-content">
+                        <div class="step-title">Identify your client's specific needs</div>
+                        <div class="step-description">Consider whether they're buyers or sellers, their experience level, and transaction complexity</div>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">2</div>
+                    <div class="step-content">
+                        <div class="step-title">Download relevant guides, checklists, and trackers</div>
+                        <div class="step-description">Select resources that address their specific situation and concerns</div>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">3</div>
+                    <div class="step-content">
+                        <div class="step-title">Organize materials in a logical sequence</div>
+                        <div class="step-description">Arrange resources in the order clients will need them throughout the transaction</div>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">4</div>
+                    <div class="step-content">
+                        <div class="step-title">Create a personalized cover email explaining each resource</div>
+                        <div class="step-description">Help clients understand when and how to use each material</div>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">5</div>
+                    <div class="step-content">
+                        <div class="step-title">Send as a welcome packet or at key transaction milestones</div>
+                        <div class="step-description">Timing delivery appropriately enhances the value and usefulness of the resources</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Resource Categories Explained</h2>
+            
+            <h3>Buyer Guides</h3>
+            <p>Comprehensive educational materials for homebuyers, including:</p>
+            <ul>
+                <li>First-time buyer comprehensive guides</li>
+                <li>Process overviews and expectations</li>
+                <li>Financial preparation advice</li>
+                <li>Market navigation strategies</li>
+            </ul>
+
+            <h3>Seller Guides</h3>
+            <p>Resources to help sellers maximize their property value and sale success:</p>
+            <ul>
+                <li>Home preparation and staging advice</li>
+                <li>Market positioning strategies</li>
+                <li>Pricing guidance and expectations</li>
+                <li>Transaction process education</li>
+            </ul>
+
+            <h3>Checklists</h3>
+            <p>Actionable step-by-step checklists for key processes:</p>
+            <ul>
+                <li>Pre-approval document preparation</li>
+                <li>Home selling preparation tasks</li>
+                <li>Closing process management</li>
+                <li>Post-closing follow-up items</li>
+            </ul>
+
+            <h3>Process Guides</h3>
+            <p>Timeline trackers and procedural guides for complex processes:</p>
+            <ul>
+                <li>Visual timeline representations</li>
+                <li>Milestone tracking tools</li>
+                <li>Process flow documentation</li>
+                <li>Expectation management guides</li>
+            </ul>
+
+            <h3>Market Reports</h3>
+            <p>Analysis tools and market research templates:</p>
+            <ul>
+                <li>Comparative market analysis guides</li>
+                <li>Market trend interpretation</li>
+                <li>Pricing strategy templates</li>
+                <li>Investment analysis tools</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Best Practices for Using the Library</h2>
+            
+            <h3>Client Education Strategy</h3>
+            <ul>
+                <li><strong>Staged Delivery:</strong> Provide resources at appropriate transaction stages rather than overwhelming clients upfront</li>
+                <li><strong>Personalized Selection:</strong> Choose resources that match your client's specific situation and experience level</li>
+                <li><strong>Follow-up Discussions:</strong> Use resources as conversation starters and reference materials during meetings</li>
+                <li><strong>Value Positioning:</strong> Explain how each resource benefits the client's specific transaction goals</li>
+            </ul>
+
+            <h3>Professional Development</h3>
+            <ul>
+                <li><strong>Stay Current:</strong> Regularly review updated resources to maintain current market knowledge</li>
+                <li><strong>Process Standardization:</strong> Use checklists and guides to ensure consistent service delivery</li>
+                <li><strong>Client Confidence:</strong> Well-informed agents using professional resources build greater client trust</li>
+                <li><strong>Competitive Advantage:</strong> Comprehensive resources differentiate your service from competitors</li>
+            </ul>
+
+            <h3>Resource Organization</h3>
+            <ul>
+                <li><strong>Create Collections:</strong> Group related resources for different client types or transaction stages</li>
+                <li><strong>Bookmark Favorites:</strong> Identify your most-used resources for quick access</li>
+                <li><strong>Regular Review:</strong> Periodically review available resources to discover new additions</li>
+                <li><strong>Feedback Integration:</strong> Note which resources clients find most helpful for future reference</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Customizing Resources for Your Business</h2>
+            
+            <h3>Branding Considerations</h3>
+            <p>While resources come professionally designed, consider these customization approaches:</p>
+            <ul>
+                <li><strong>Cover Letters:</strong> Create personalized introductions explaining each resource's relevance</li>
+                <li><strong>Contact Information:</strong> Include your contact details when sharing resources</li>
+                <li><strong>Local Market Data:</strong> Supplement generic guides with local market statistics and insights</li>
+                <li><strong>Success Stories:</strong> Add relevant client testimonials or case studies where appropriate</li>
+            </ul>
+
+            <h3>Creating Resource Packages</h3>
+            <p>Combine multiple resources into comprehensive packages for different scenarios:</p>
+            <ul>
+                <li><strong>New Buyer Package:</strong> First-time guide + Pre-approval checklist + Timeline tracker</li>
+                <li><strong>Seller Preparation Package:</strong> Home selling checklist + Market analysis + Timeline tracker</li>
+                <li><strong>Closing Package:</strong> Closing process checklist + Timeline + Post-closing guide</li>
+                <li><strong>Investment Buyer Package:</strong> Market analysis + Investment guides + Financial checklists</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Legal Disclaimers and Usage</h2>
+            
+            <div class="warning-box">
+                <strong>IMPORTANT LEGAL DISCLAIMER:</strong> These resources are for business use only and do not constitute legal advice. Stacked Technologies, LLC is not a law firm. Users are responsible for confirming compliance with all applicable local, state, and federal laws.
+            </div>
+
+            <h3>Professional Use Guidelines</h3>
+            <ul>
+                <li><strong>Educational Purpose:</strong> Resources are designed for client education and process guidance</li>
+                <li><strong>Local Law Compliance:</strong> Always verify information aligns with local real estate laws and regulations</li>
+                <li><strong>Professional Review:</strong> Consider having legal or compliance professionals review resources before client distribution</li>
+                <li><strong>Market Specificity:</strong> Supplement generic information with local market conditions and practices</li>
+            </ul>
+
+            <h3>Liability Considerations</h3>
+            <ul>
+                <li>Resources provide general guidance but do not replace professional legal advice</li>
+                <li>Market conditions and regulations vary by location and may change over time</li>
+                <li>Users should independently verify all information before relying on it</li>
+                <li>Professional consultation is recommended for complex transactions</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Troubleshooting Common Issues</h2>
+            
+            <h3>Download Problems</h3>
+            <ul>
+                <li><strong>File Won't Download:</strong> Clear browser cache and try again, or try a different browser</li>
+                <li><strong>Download Appears Corrupt:</strong> Re-download the file and ensure stable internet connection</li>
+                <li><strong>PDF Won't Open:</strong> Update your PDF reader or try opening in a different PDF application</li>
+                <li><strong>Mobile Download Issues:</strong> Try downloading on desktop or use a mobile PDF app</li>
+            </ul>
+
+            <h3>Viewing Issues</h3>
+            <ul>
+                <li><strong>Resource Won't Load:</strong> Refresh the page or check internet connection</li>
+                <li><strong>Slow Loading:</strong> Large files may take time to load; wait for complete loading</li>
+                <li><strong>Display Problems:</strong> Try zooming in/out or adjusting browser window size</li>
+                <li><strong>Mobile Viewing:</strong> Some resources may be optimized for desktop viewing</li>
+            </ul>
+
+            <h3>Sharing Problems</h3>
+            <ul>
+                <li><strong>Share Modal Won't Open:</strong> Disable browser popup blockers and try again</li>
+                <li><strong>Social Media Links Not Working:</strong> Ensure you're logged into the respective social media platforms</li>
+                <li><strong>Link Copying Issues:</strong> Right-click on "Open Link" and select "Copy Link Address"</li>
+                <li><strong>Recipients Can't Access Shared Links:</strong> Verify the link was copied completely and try sharing again</li>
+            </ul>
+
+            <h3>Search and Navigation Issues</h3>
+            <ul>
+                <li><strong>Search Not Working:</strong> Clear search terms and try again, or browse by categories</li>
+                <li><strong>No Search Results:</strong> Try broader search terms or check spelling</li>
+                <li><strong>Category Filters Not Working:</strong> Refresh the page and try selecting categories again</li>
+                <li><strong>Resources Not Loading:</strong> Check internet connection and refresh the Library section</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Resource Updates and New Additions</h2>
+            
+            <h3>Staying Current</h3>
+            <p>The Library is regularly updated with new resources and improvements to existing materials:</p>
+            <ul>
+                <li><strong>New Badge:</strong> Recently added resources are marked with a "new" badge</li>
+                <li><strong>Updated Badge:</strong> Revised resources show an "updated" badge</li>
+                <li><strong>Popular Badge:</strong> Frequently accessed resources are marked as "popular"</li>
+                <li><strong>Regular Reviews:</strong> Check the Library periodically to discover new additions</li>
+            </ul>
+
+            <h3>Resource Lifecycle</h3>
+            <ul>
+                <li><strong>Initial Release:</strong> New resources appear with detailed descriptions and "new" badges</li>
+                <li><strong>Updates and Revisions:</strong> Existing resources are updated based on market changes and user feedback</li>
+                <li><strong>Popularity Tracking:</strong> Frequently used resources gain "popular" status</li>
+                <li><strong>Continuous Improvement:</strong> Resources evolve based on industry best practices and user needs</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>Pro Tip:</strong> Bookmark the Library section and check for new resources monthly to ensure you're always offering clients the most current and comprehensive materials available.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Integration with Other CRM Sections</h2>
+            
+            <h3>Client Section Integration</h3>
+            <p>Library resources complement your client management activities:</p>
+            <ul>
+                <li><strong>Client Onboarding:</strong> Share relevant guides during initial client meetings</li>
+                <li><strong>Process Education:</strong> Use timeline trackers to set client expectations</li>
+                <li><strong>Follow-up Materials:</strong> Send appropriate checklists at key transaction stages</li>
+                <li><strong>Value Demonstration:</strong> Professional resources showcase your expertise and service quality</li>
+            </ul>
+
+            <h3>Documents Section Synergy</h3>
+            <p>Library resources work alongside your document management:</p>
+            <ul>
+                <li><strong>Template Complement:</strong> Library guides explain how to use document templates effectively</li>
+                <li><strong>Process Support:</strong> Checklists help ensure all required documents are collected</li>
+                <li><strong>Client Education:</strong> Guides prepare clients for document signing and review processes</li>
+                <li><strong>Reference Materials:</strong> Resources provide context for legal documents and contracts</li>
+            </ul>
+
+            <h3>Marketing Tools Enhancement</h3>
+            <p>Library resources enhance your marketing and lead generation efforts:</p>
+            <ul>
+                <li><strong>Lead Magnets:</strong> Offer valuable guides in exchange for contact information</li>
+                <li><strong>Social Media Content:</strong> Share educational resources to demonstrate expertise</li>
+                <li><strong>Email Campaigns:</strong> Include helpful guides in nurture sequences</li>
+                <li><strong>Website Resources:</strong> Feature popular guides on your website for SEO and value</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

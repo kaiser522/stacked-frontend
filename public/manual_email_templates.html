@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Plan - Manual Email Templates</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .form-header {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #FF6B35;
+            border-radius: 8px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .plan-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #667eea;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #00D4AA;
+        }
+        
+        .template-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .template-title {
+            color: #00D4AA;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00D4AA;
+            padding-bottom: 5px;
+        }
+        
+        .email-template {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #FFD700;
+        }
+        
+        .subject-line {
+            color: #FFD700;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .email-body {
+            color: white;
+            line-height: 1.8;
+            font-size: 1em;
+        }
+        
+        .template-notes {
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid #00D4AA;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #00D4AA;
+        }
+        
+        .manual-tag {
+            display: inline-block;
+            background: rgba(255, 107, 53, 0.8);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+        
+        .print-button {
+            background: #00D4AA;
+            color: #667eea;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 170, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .form-header {
+                padding: 20px;
+            }
+            
+            .template-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <div class="logo">📧</div>
+            <div class="plan-badge">POWER PLAN</div>
+            <div class="section-badge">SECTION 1: MANUAL TEMPLATES</div>
+            <h1>One-Off Email Templates</h1>
+            <p style="color: rgba(255,255,255,0.8);">Send these individually as needed</p>
+        </div>
+
+        <div class="template-section">
+            <div class="template-title">Immediate Response Templates</div>
+            
+            <div class="email-template">
+                <div class="manual-tag">MANUAL SEND</div>
+                <div class="subject-line">Got 15 minutes for a market reality check?</div>
+                <div class="email-body">
+                    Hey [First Name],<br><br>
+                    
+                    I just got back from a listing appointment where the seller said something that made me think of our conversation.<br><br>
+                    
+                    They asked: "Should we wait for the market to improve before selling?"<br><br>
+                    
+                    <strong>Here's what I told them (and what I wish every buyer/seller knew):</strong><br><br>
+                    
+                    The "perfect" market doesn't exist. But smart opportunities happen every single month if you know what to look for.<br><br>
+                    
+                    I've got 15 minutes this week to give you an honest assessment of what's happening in your price range and area. No sales pitch - just straight talk about what I'm seeing.<br><br>
+                    
+                    Worth a quick call?<br><br>
+                    
+                    [Your Name]<br>
+                    [Phone Number]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> Lead has gone cold or seems hesitant<br>
+                    <strong>Purpose:</strong> Re-engage with value and market insight
+                </div>
+            </div>
+
+            <div class="email-template">
+                <div class="manual-tag">MANUAL SEND</div>
+                <div class="subject-line">[First Name] - found something you need to see</div>
+                <div class="email-body">
+                    Hi [First Name],<br><br>
+                    
+                    I know you said you wanted to take your time, but I just saw something come on the market that's exactly what you described.<br><br>
+                    
+                    <strong>The property:</strong> [Brief description matching their criteria]<br>
+                    <strong>The catch:</strong> It's priced $20K under what I'd expect, and I think that's intentional<br>
+                    <strong>My guess:</strong> The sellers want a quick, clean sale<br><br>
+                    
+                    I'm showing it to another client tomorrow, but I could squeeze you in today at 4pm or 6pm if you want to see it first.<br><br>
+                    
+                    Even if this isn't "the one," it would give us a good baseline for what's possible in your budget.<br><br>
+                    
+                    Interested?<br><br>
+                    
+                    [Your Name]<br>
+                    [Phone Number]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> Perfect property match becomes available<br>
+                    <strong>Purpose:</strong> Create urgency for qualified buyers
+                </div>
+            </div>
+        </div>
+
+        <div class="template-section">
+            <div class="template-title">Market Update Templates</div>
+            
+            <div class="email-template">
+                <div class="manual-tag">MANUAL SEND</div>
+                <div class="subject-line">Weird thing happening in [Area] - thought you should know</div>
+                <div class="email-body">
+                    Hi [First Name],<br><br>
+                    
+                    Something interesting is happening in [Area] that I thought you'd want to know about.<br><br>
+                    
+                    <strong>What I'm seeing:</strong> [Specific market trend - could be inventory, prices, days on market, etc.]<br><br>
+                    
+                    <strong>What this means:</strong> [Plain English explanation]<br><br>
+                    
+                    <strong>For you specifically:</strong> [How this impacts their situation]<br><br>
+                    
+                    I've been doing this for [X years] and this kind of shift usually leads to [predicted outcome] within the next few months.<br><br>
+                    
+                    Not trying to pressure you at all - just want to make sure you have the full picture when you're making your decision.<br><br>
+                    
+                    Questions about what this means for your timeline?<br><br>
+                    
+                    [Your Name]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> Significant market shift occurs in their area of interest<br>
+                    <strong>Purpose:</strong> Position as market expert, create urgency
+                </div>
+            </div>
+
+            <div class="email-template">
+                <div class="manual-tag">MANUAL SEND</div>
+                <div class="subject-line">Quick question about your home buying budget</div>
+                <div class="email-body">
+                    Hey [First Name],<br><br>
+                    
+                    I was reviewing what you told me about your budget, and I want to make sure I'm not missing any opportunities for you.<br><br>
+                    
+                    <strong>Quick question:</strong> When you said [Budget Amount], did that include everything (down payment, closing costs, moving expenses) or just the purchase price?<br><br>
+                    
+                    The reason I ask is that I see a lot of buyers accidentally limit themselves by not understanding all the financing options available.<br><br>
+                    
+                    For example, I just helped someone in a similar situation get into a $350K house with only $15K out of pocket by using [specific program/strategy].<br><br>
+                    
+                    Might be worth a quick conversation to make sure you're seeing everything that's actually within reach.<br><br>
+                    
+                    Free for a 10-minute call this week?<br><br>
+                    
+                    [Your Name]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> Want to expand budget conversation or re-qualify buyer<br>
+                    <strong>Purpose:</strong> Uncover higher budget, demonstrate financing expertise
+                </div>
+            </div>
+        </div>
+
+        <div class="template-section">
+            <div class="template-title">Seller-Specific Templates</div>
+            
+            <div class="email-template">
+                <div class="manual-tag">MANUAL SEND</div>
+                <div class="subject-line">The $30K mistake I see sellers make</div>
+                <div class="email-body">
+                    Hi [First Name],<br><br>
+                    
+                    I was just at a listing appointment where the seller said something I hear way too often:<br><br>
+                    
+                    <strong>"We'll just price it high and see what happens. We can always come down."</strong><br><br>
+                    
+                    Here's the problem with that strategy: the first 2 weeks on the market are everything. That's when you get the most views, the most showings, and the best offers.<br><br>
+                    
+                    <strong>Price it too high initially and you miss that window.</strong> Even if you drop the price later, buyers wonder "what's wrong with it?"<br><br>
+                    
+                    I've seen this cost sellers $20K-$30K in lost value.<br><br>
+                    
+                    <strong>The smarter approach:</strong> Price strategically from day one to create competition and drive up the final sale price.<br><br>
+                    
+                    I actually have examples of how this worked for 3 recent clients if you're curious.<br><br>
+                    
+                    Worth discussing your situation?<br><br>
+                    
+                    [Your Name]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> Following up with seller leads or past seller consultations<br>
+                    <strong>Purpose:</strong> Educate on pricing strategy, generate listing appointments
+                </div>
+            </div>
+
+            <div class="email-template">
+                <div class="manual-tag">MANUAL SEND</div>
+                <div class="subject-line">Your neighbors are asking about you</div>
+                <div class="email-body">
+                    Hey [First Name],<br><br>
+                    
+                    This might sound strange, but your neighbors have been asking about you!<br><br>
+                    
+                    I've been working with a few people who want to buy in your neighborhood, and when I mention [Your Street/Area], they always ask: <strong>"What about the house at [Their Address]? Are those people planning to sell?"</strong><br><br>
+                    
+                    Apparently your house has great curb appeal and everyone notices it when they drive through.<br><br>
+                    
+                    <strong>I always tell them you're not selling</strong> (because that's what you told me), but it got me thinking...<br><br>
+                    
+                    If you ever did want to test the waters, you'd probably have multiple buyers interested before we even put it on the market.<br><br>
+                    
+                    <strong>No pressure at all</strong> - just thought you'd want to know you're sitting on what appears to be a very desirable property.<br><br>
+                    
+                    Curious what it might be worth in today's market?<br><br>
+                    
+                    [Your Name]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> Have buyers interested in their neighborhood<br>
+                    <strong>Purpose:</strong> Create FOMO and generate listing interest
+                </div>
+            </div>
+        </div>
+
+        <div class="template-section">
+            <div class="template-title">Event-Based Templates</div>
+            
+            <div class="email-template">
+                <div class="manual-tag">MANUAL SEND</div>
+                <div class="subject-line">Open house this weekend - bringing clients through</div>
+                <div class="email-body">
+                    Hi [First Name],<br><br>
+                    
+                    Just wanted to give you a heads up - I'm bringing 2 clients to the open house at [Address] this Saturday.<br><br>
+                    
+                    I know you were interested in that area, so thought you might want to check it out too.<br><br>
+                    
+                    <strong>What I like about this one:</strong><br>
+                    • [Specific feature that matches their criteria]<br>
+                    • [Another appealing aspect]<br>
+                    • [Third selling point]<br><br>
+                    
+                    <strong>What gives me pause:</strong> [Honest concern or consideration]<br><br>
+                    
+                    <strong>Open house details:</strong><br>
+                    📍 [Address]<br>
+                    🕐 Saturday, [Time]<br>
+                    💰 Listed at $[Price]<br><br>
+                    
+                    Want to meet up there and walk through it together? Always helpful to have a second perspective.<br><br>
+                    
+                    [Your Name]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> Open house in their area of interest<br>
+                    <strong>Purpose:</strong> Provide value, encourage face-to-face meeting
+                </div>
+            </div>
+
+            <div class="email-template">
+                <div class="manual-tag">MANUAL SEND</div>
+                <div class="subject-line">Rate news - this could change things for you</div>
+                <div class="email-body">
+                    Hey [First Name],<br><br>
+                    
+                    Not sure if you saw the news, but mortgage rates just [increased/decreased] to [current rate]%.<br><br>
+                    
+                    <strong>Here's what this means for your situation:</strong><br><br>
+                    
+                    [If rates went down:]<br>
+                    Your buying power just increased by about $[amount] based on the budget you mentioned. That opens up [number] more properties in [area].<br><br>
+                    
+                    [If rates went up:]<br>
+                    If you were on the fence about timing, this might be the push to move sooner rather than later. Waiting could cost you $[amount] per month in payments.<br><br>
+                    
+                    <strong>Bottom line:</strong> [Specific recommendation based on their situation]<br><br>
+                    
+                    Want to run some quick numbers and see how this affects your search?<br><br>
+                    
+                    [Your Name]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> Significant interest rate changes occur<br>
+                    <strong>Purpose:</strong> Create urgency, demonstrate market awareness
+                </div>
+            </div>
+        </div>
+
+        <div class="template-section">
+            <div class="template-title">Relationship Building Templates</div>
+            
+            <div class="email-template">
+                <div class="manual-tag">MANUAL SEND</div>
+                <div class="subject-line">Saw this and thought of you</div>
+                <div class="email-body">
+                    Hi [First Name],<br><br>
+                    
+                    I was driving through [Neighborhood] yesterday and saw [specific thing - new restaurant, park, development, etc.] and immediately thought of you.<br><br>
+                    
+                    Remember when you mentioned wanting to be close to [specific preference they mentioned]? This would be perfect for that.<br><br>
+                    
+                    [Brief description of what you saw and why it's relevant]<br><br>
+                    
+                    <strong>Made me wonder:</strong> Are you still thinking about that area, or have your priorities shifted since we last talked?<br><br>
+                    
+                    Either way is totally fine - just want to make sure I'm focused on the right things when I'm out there keeping an eye on the market for you.<br><br>
+                    
+                    Hope you're doing well!<br><br>
+                    
+                    [Your Name]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> You notice something relevant to their preferences<br>
+                    <strong>Purpose:</strong> Show you're thinking of them, re-qualify current needs
+                </div>
+            </div>
+
+            <div class="email-template">
+                <div class="manual-tag">MANUAL SEND</div>
+                <div class="subject-line">Quick favor - need your opinion</div>
+                <div class="email-body">
+                    Hey [First Name],<br><br>
+                    
+                    Hope you don't mind me asking, but I could use your perspective on something.<br><br>
+                    
+                    I'm working with another client who's in a similar situation to what you described - [brief similarity]. They're trying to decide between [option A] and [option B].<br><br>
+                    
+                    <strong>Based on your experience looking in [area/price range], what would you prioritize?</strong><br><br>
+                    
+                    I know you put a lot of thought into what you were looking for, so I'd value your input.<br><br>
+                    
+                    No rush at all - just thought you might have some insight that would help them make a good decision.<br><br>
+                    
+                    <strong>PS:</strong> How are things going with your search? Anything new I should be keeping an eye out for?<br><br>
+                    
+                    Thanks!<br>
+                    [Your Name]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> Want to re-engage dormant lead while providing value<br>
+                    <strong>Purpose:</strong> Make them feel valued, naturally re-open conversation
+                </div>
+            </div>
+        </div>
+
+        <button class="print-button" onclick="window.print()">Print Manual Templates</button>
+    </div>
+
+    <script>
+        // Print styling
+        const printStyles = `
+            <style>
+                @media print {
+                    body {
+                        background: white !important;
+                        color: black !important;
+                    }
+                    .print-button { display: none !important; }
+                    .template-section, .email-template {
+                        background: white !important;
+                        border: 1px solid #ccc !important;
+                    }
+                    .email-template {
+                        border-left: 4px solid #000 !important;
+                    }
+                    .template-notes {
+                        background: #f0f0f0 !important;
+                        color: black !important;
+                        border: 1px solid #ccc !important;
+                    }
+                    .manual-tag {
+                        background: #ddd !important;
+                        color: black !important;
+                    }
+                }
+            </style>
+        `;
+        
+        document.head.insertAdjacentHTML('beforeend', printStyles);
+    </script>
+</body>
+</html>

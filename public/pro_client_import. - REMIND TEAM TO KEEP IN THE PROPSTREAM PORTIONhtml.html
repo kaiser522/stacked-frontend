@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Import - STACKED CRM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1f2e 0%, #16213e 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+
+        .tier-badge {
+            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .main-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-card {
+            background: rgba(71, 85, 105, 0.2);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .option-card:hover {
+            border-color: rgba(96, 165, 250, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .option-card.selected {
+            border-color: #60a5fa;
+            background: rgba(96, 165, 250, 0.1);
+        }
+
+        .option-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .option-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #e2e8f0;
+        }
+
+        .option-description {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .skipmatrix-section {
+            background: linear-gradient(45deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.1));
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .skipmatrix-section.show {
+            display: block;
+        }
+
+        .partnership-badge {
+            background: linear-gradient(45deg, #f59e0b, #d97706);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .code-highlight {
+            background: rgba(30, 41, 59, 0.8);
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .discount-code {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f59e0b;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        .upload-section {
+            background: rgba(71, 85, 105, 0.2);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .upload-section.show {
+            display: block;
+        }
+
+        .upload-zone {
+            border: 2px dashed rgba(96, 165, 250, 0.4);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 1.5rem 0;
+        }
+
+        .upload-zone:hover {
+            border-color: rgba(96, 165, 250, 0.6);
+            background: rgba(96, 165, 250, 0.05);
+        }
+
+        .upload-zone.dragover {
+            border-color: #60a5fa;
+            background: rgba(96, 165, 250, 0.1);
+        }
+
+        .upload-icon {
+            font-size: 2.5rem;
+            color: #60a5fa;
+            margin-bottom: 1rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #2563eb, #1e40af);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #f59e0b;
+            border: 2px solid #f59e0b;
+        }
+
+        .btn-outline:hover {
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(45deg, #059669, #047857);
+            transform: translateY(-2px);
+        }
+
+        .upgrade-banner {
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(99, 102, 241, 0.1));
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .upgrade-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .upgrade-feature {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .feature-icon {
+            color: #8b5cf6;
+            margin-right: 0.5rem;
+        }
+
+        .file-preview {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            display: none;
+        }
+
+        .file-preview.show {
+            display: block;
+        }
+
+        .success-message {
+            background: linear-gradient(45deg, rgba(52, 211, 153, 0.1), rgba(16, 185, 129, 0.1));
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Pro Plan Features */
+        .pro-email-section {
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(99, 102, 241, 0.1));
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .pro-email-section.show {
+            display: block;
+        }
+
+        .pro-badge {
+            background: linear-gradient(45deg, #8b5cf6, #6366f1);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .resources-section {
+            background: rgba(71, 85, 105, 0.2);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .resources-section.show {
+            display: block;
+        }
+
+        .resource-item {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid #60a5fa;
+        }
+
+        .resource-title {
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-description {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-link {
+            color: #60a5fa;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .resource-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .upgrade-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Client Import</h1>
+            <p>Import your contact lists and create client profiles</p>
+            <div class="tier-badge">Pro Plan</div>
+        </div>
+
+        <div class="main-card">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #60a5fa; font-size: 1.8rem;">
+                Choose Your Starting Point
+            </h2>
+
+            <div class="options-grid">
+                <div class="option-card" onclick="selectOption('skipTrace')">
+                    <div class="option-icon">🔍</div>
+                    <div class="option-title">I Need Contact Info</div>
+                    <div class="option-description">
+                        My list has names/addresses but I need phone numbers and emails
+                    </div>
+                </div>
+
+                <div class="option-card" onclick="selectOption('upload')">
+                    <div class="option-icon">📁</div>
+                    <div class="option-title">I Have Contact Info</div>
+                    <div class="option-description">
+                        My list already has phone numbers and emails - ready to import
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SkipMatrix Section -->
+        <div id="skipMatrixSection" class="skipmatrix-section">
+            <div class="partnership-badge">💰 Exclusive Access</div>
+            <h3 style="color: #f59e0b; margin-bottom: 1rem;">Get Contact Information with SkipMatrix</h3>
+            
+            <p style="color: #94a3b8; margin-bottom: 1.5rem; line-height: 1.5;">
+                SkipMatrix is a professional skip tracing service that finds phone numbers and email addresses for your leads. 
+                As a STACKED user, you get access to our exclusive discount code.
+            </p>
+
+            <div class="code-highlight">
+                <div style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 0.5rem;">Use Discount Code:</div>
+                <div class="discount-code">STACKED</div>
+                <div style="color: #94a3b8; font-size: 0.85rem;">Save on every lookup</div>
+            </div>
+
+            <div style="background: rgba(30, 41, 59, 0.6); border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0;">
+                <h4 style="color: #60a5fa; margin-bottom: 1rem;">Simple Process:</h4>
+                <ol style="color: #94a3b8; line-height: 1.6; margin-left: 1.5rem;">
+                    <li>Click the link below to visit SkipMatrix</li>
+                    <li>Sign up and use code "STACKED" for discount</li>
+                    <li>Upload your lead list</li>
+                    <li>Wait for results (typically 1 business day)</li>
+                    <li>Download the enhanced file</li>
+                    <li>Come back here and upload to STACKED</li>
+                </ol>
+            </div>
+            
+            <a href="https://skipmatrix.com/signup" target="_blank" class="btn btn-outline">
+                🔗 Visit SkipMatrix
+            </a>
+        </div>
+
+        <!-- Upload Section -->
+        <div id="uploadSection" class="upload-section">
+            <h3 style="color: #34d399; margin-bottom: 1rem; text-align: center;">📁 Upload Your Contact List</h3>
+            
+            <p style="color: #94a3b8; text-align: center; margin-bottom: 1.5rem;">
+                Upload your CSV or Excel file with contact information to create client profiles
+            </p>
+
+            <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+                <div class="upload-icon">📄</div>
+                <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">Click to Upload File</div>
+                <div style="color: #94a3b8; font-size: 0.9rem;">CSV or Excel files accepted</div>
+            </div>
+            
+            <input type="file" id="fileInput" class="file-input" accept=".csv,.xlsx,.xls" />
+            
+            <div id="filePreview" class="file-preview">
+                <div id="fileDetails"></div>
+                <button class="btn btn-success" id="uploadBtn" onclick="uploadFile()" style="margin-top: 1rem;" disabled>
+                    📋 Create Client Profiles
+                </button>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="success-message">
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">✅</div>
+            <h3 style="color: #34d399; margin-bottom: 1rem;">Import Complete!</h3>
+            <p style="color: #94a3b8; margin-bottom: 1.5rem;">
+                Your contacts have been imported as client profiles in STACKED CRM
+            </p>
+            <button class="btn btn-primary" onclick="showProFeatures()">
+                🚀 Configure Pro Features
+            </button>
+        </div>
+
+        <!-- Pro Email Auto-Enroll Section -->
+        <div id="proEmailSection" class="pro-email-section">
+            <div class="pro-badge">📧 Pro Feature</div>
+            <h3 style="color: #8b5cf6; margin-bottom: 1rem;">Auto-Enroll Email System</h3>
+            
+            <p style="color: #94a3b8; margin-bottom: 1.5rem; line-height: 1.5;">
+                Automatically enroll your imported leads into email nurture sequences. Your contacts will receive valuable market updates, property insights, and selling tips to keep you top-of-mind.
+            </p>
+
+            <div style="background: rgba(30, 41, 59, 0.6); border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0;">
+                <h4 style="color: #60a5fa; margin-bottom: 1rem;">Email Sequence Options:</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <label style="display: flex; align-items: center; color: #e2e8f0; cursor: pointer;">
+                        <input type="checkbox" checked style="margin-right: 0.5rem;"> Monthly Market Updates
+                    </label>
+                    <label style="display: flex; align-items: center; color: #e2e8f0; cursor: pointer;">
+                        <input type="checkbox" checked style="margin-right: 0.5rem;"> Property Value Insights
+                    </label>
+                    <label style="display: flex; align-items: center; color: #e2e8f0; cursor: pointer;">
+                        <input type="checkbox" checked style="margin-right: 0.5rem;"> Selling Tips & Guides
+                    </label>
+                    <label style="display: flex; align-items: center; color: #e2e8f0; cursor: pointer;">
+                        <input type="checkbox" style="margin-right: 0.5rem;"> Seasonal Home Care Tips
+                    </label>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="btn btn-success" onclick="enrollInEmails()" style="margin-right: 1rem; width: auto;">
+                    📧 Auto-Enroll Leads
+                </button>
+                <button class="btn btn-outline" onclick="showResources()" style="width: auto;">
+                    📚 View Resources
+                </button>
+            </div>
+        </div>
+
+        <!-- Recommended Resources Section -->
+        <div id="resourcesSection" class="resources-section">
+            <h3 style="color: #60a5fa; margin-bottom: 1rem; text-align: center;">📚 Recommended Resources</h3>
+            
+            <p style="color: #94a3b8; text-align: center; margin-bottom: 1.5rem;">
+                Tools and services to enhance your real estate business
+            </p>
+
+            <div class="resource-item">
+                <div class="resource-title">📊 PropStream - Property Data</div>
+                <div class="resource-description">
+                    Access comprehensive property data, owner information, and market analytics
+                </div>
+                <a href="https://propstream.com" target="_blank" class="resource-link">Visit PropStream →</a>
+            </div>
+
+            <div class="resource-item">
+                <div class="resource-title">🔍 SkipMatrix - Skip Tracing</div>
+                <div class="resource-description">
+                    Professional skip tracing service to find phone numbers and email addresses
+                </div>
+                <a href="https://skipmatrix.com" target="_blank" class="resource-link">Visit SkipMatrix →</a>
+            </div>
+
+            <div class="resource-item">
+                <div class="resource-title">📱 CallRail - Call Tracking</div>
+                <div class="resource-description">
+                    Track phone calls from your marketing campaigns and measure ROI
+                </div>
+                <a href="https://callrail.com" target="_blank" class="resource-link">Visit CallRail →</a>
+            </div>
+
+            <div class="resource-item">
+                <div class="resource-title">📧 Mailchimp - Email Marketing</div>
+                <div class="resource-description">
+                    Advanced email marketing platform for larger campaigns and automation
+                </div>
+                <a href="https://mailchimp.com" target="_blank" class="resource-link">Visit Mailchimp →</a>
+            </div>
+
+            <div class="resource-item">
+                <div class="resource-title">🏠 Zillow Premier Agent</div>
+                <div class="resource-description">
+                    Generate leads through Zillow's platform and property listings
+                </div>
+                <a href="https://zillow.com/agent-resources" target="_blank" class="resource-link">Learn More →</a>
+            </div>
+
+            <button class="btn btn-primary" onclick="viewClients()">
+                👥 View My Clients
+            </button>
+        </div>
+
+        <!-- Pro Plan Features -->
+        <div class="upgrade-banner">
+            <h3 style="color: #8b5cf6; margin-bottom: 1rem; font-size: 1.8rem;">Pro Plan Features</h3>
+            <p style="color: #94a3b8; margin-bottom: 2rem; font-size: 1.1rem;">
+                Premium tools for serious real estate professionals
+            </p>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 2rem;">
+                <div style="text-align: center; padding: 1.5rem;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔧</div>
+                    <h4 style="color: #e2e8f0; margin-bottom: 0.5rem; font-size: 1.1rem;">Data Cleaning</h4>
+                    <p style="color: #94a3b8; font-size: 0.9rem;">Remove bad numbers automatically</p>
+                </div>
+                <div style="text-align: center; padding: 1.5rem;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">📞</div>
+                    <h4 style="color: #e2e8f0; margin-bottom: 0.5rem; font-size: 1.1rem;">Phone Verification</h4>
+                    <p style="color: #94a3b8; font-size: 0.9rem;">Test numbers before importing</p>
+                </div>
+                <div style="text-align: center; padding: 1.5rem;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">⚡</div>
+                    <h4 style="color: #e2e8f0; margin-bottom: 0.5rem; font-size: 1.1rem;">Power Dialer</h4>
+                    <p style="color: #94a3b8; font-size: 0.9rem;">Triple-line dialer with local presence</p>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+                <div style="text-align: center; padding: 1.5rem;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">📧</div>
+                    <h4 style="color: #e2e8f0; margin-bottom: 0.5rem; font-size: 1.1rem;">Auto-Email System</h4>
+                    <p style="color: #94a3b8; font-size: 0.9rem;">Automatic lead nurture sequences</p>
+                </div>
+                <div style="text-align: center; padding: 1.5rem;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🤖</div>
+                    <h4 style="color: #e2e8f0; margin-bottom: 0.5rem; font-size: 1.1rem;">AI Lead Scoring</h4>
+                    <p style="color: #94a3b8; font-size: 0.9rem;">Intelligent priority ranking system</p>
+                </div>
+                <div style="text-align: center; padding: 1.5rem;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
+                    <h4 style="color: #e2e8f0; margin-bottom: 0.5rem; font-size: 1.1rem;">Advanced Analytics</h4>
+                    <p style="color: #94a3b8; font-size: 0.9rem;">Deep performance insights & reporting</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedOption = null;
+        let uploadedFile = null;
+
+        function selectOption(option) {
+            selectedOption = option;
+            
+            // Update visual selection
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            // Hide all sections first
+            document.getElementById('skipMatrixSection').classList.remove('show');
+            document.getElementById('uploadSection').classList.remove('show');
+            
+            // Show appropriate section
+            if (option === 'skipTrace') {
+                document.getElementById('skipMatrixSection').classList.add('show');
+            } else if (option === 'upload') {
+                document.getElementById('uploadSection').classList.add('show');
+            }
+        }
+
+        // File upload handling
+        const uploadZone = document.querySelector('.upload-zone');
+        const fileInput = document.getElementById('fileInput');
+        const filePreview = document.getElementById('filePreview');
+        const uploadBtn = document.getElementById('uploadBtn');
+
+        if (uploadZone) {
+            uploadZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadZone.classList.add('dragover');
+            });
+
+            uploadZone.addEventListener('dragleave', () => {
+                uploadZone.classList.remove('dragover');
+            });
+
+            uploadZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadZone.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFile(files[0]);
+                }
+            });
+        }
+
+        if (fileInput) {
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleFile(e.target.files[0]);
+                }
+            });
+        }
+
+        function handleFile(file) {
+            if (!file.name.match(/\.(csv|xlsx|xls)$/)) {
+                alert('Please upload a CSV or Excel file');
+                return;
+            }
+
+            uploadedFile = file;
+            
+            document.getElementById('fileDetails').innerHTML = `
+                <div style="font-weight: 600; color: #34d399; margin-bottom: 0.5rem;">
+                    📄 ${file.name}
+                </div>
+                <div style="color: #94a3b8; font-size: 0.9rem;">
+                    Size: ${(file.size / 1024 / 1024).toFixed(2)} MB
+                </div>
+            `;
+            
+            filePreview.classList.add('show');
+            uploadBtn.disabled = false;
+        }
+
+        function uploadFile() {
+            uploadBtn.textContent = '⏳ Importing...';
+            uploadBtn.disabled = true;
+            
+            // Simulate upload process
+            setTimeout(() => {
+                document.getElementById('uploadSection').classList.remove('show');
+                document.getElementById('successMessage').classList.add('show');
+            }, 2000);
+        }
+
+        function showProFeatures() {
+            document.getElementById('successMessage').classList.remove('show');
+            document.getElementById('proEmailSection').classList.add('show');
+        }
+
+        function enrollInEmails() {
+            alert('Your leads have been enrolled in the selected email sequences. They will receive regular market updates and valuable insights to keep you top-of-mind.');
+        }
+
+        function showResources() {
+            document.getElementById('proEmailSection').classList.remove('show');
+            document.getElementById('resourcesSection').classList.add('show');
+        }
+
+        function viewClients() {
+            alert('Redirecting to your clients with Pro features enabled...');
+            // In real app: window.location.href = '/clients';
+        }
+
+        function showUpgrade() {
+            alert('You already have the Pro plan with all features!');
+        }
+    </script>
+</body>
+</html>

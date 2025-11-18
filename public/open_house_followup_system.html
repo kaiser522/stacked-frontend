@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open House Follow-Up System & Lead Conversion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .form-header {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #FF6B35;
+            border-radius: 8px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #00D4AA;
+        }
+        
+        .disclaimer {
+            background: linear-gradient(135deg, #FF6B35, #E55533);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .form-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-label {
+            color: #FFD700;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .form-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+            font-size: 1em;
+        }
+        
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .form-select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+            font-size: 1em;
+        }
+        
+        .form-select option {
+            background: #1e3a5f;
+            color: white;
+        }
+        
+        .form-textarea {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+            font-size: 1em;
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .section-title {
+            color: #00D4AA;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00D4AA;
+            padding-bottom: 5px;
+        }
+        
+        .timeline-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #FFD700;
+        }
+        
+        .timeline-header {
+            color: #FFD700;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        
+        .followup-step {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 3px solid #00D4AA;
+        }
+        
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .step-title {
+            font-weight: bold;
+            color: #00D4AA;
+        }
+        
+        .step-timing {
+            background: #FFD700;
+            color: #1e3a5f;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .script-box {
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid #00D4AA;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .script-header {
+            color: #00D4AA;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .visitor-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .visitor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .visitor-name {
+            font-weight: bold;
+            color: #FFD700;
+        }
+        
+        .interest-level {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .high-interest { background: #00D4AA; color: #1e3a5f; }
+        .medium-interest { background: #FFD700; color: #1e3a5f; }
+        .low-interest { background: #6c757d; color: white; }
+        
+        .add-visitor-btn {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .add-visitor-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 212, 170, 0.3);
+        }
+        
+        .print-button {
+            background: #FFD700;
+            color: #1e3a5f;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .form-header {
+                padding: 20px;
+            }
+            
+            .form-section {
+                padding: 20px;
+            }
+            
+            .step-header, .visitor-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <div class="logo">🏠</div>
+            <h1>Open House Follow-Up System</h1>
+        </div>
+
+        <div class="disclaimer">
+            <strong>LEAD CONVERSION OPTIMIZATION:</strong> Systematic approach to following up with open house visitors and converting prospects into clients through strategic communication and relationship building.
+        </div>
+
+        <form id="openHouseFollowUpForm">
+            <div class="form-section">
+                <div class="section-title">Open House Information</div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Property Address:</label>
+                        <input type="text" class="form-input" id="propertyAddress" placeholder="Full property address">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Open House Date:</label>
+                        <input type="date" class="form-input" id="openHouseDate">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Open House Times:</label>
+                        <input type="text" class="form-input" id="openHouseTimes" placeholder="1:00 PM - 4:00 PM">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Hosting Agent:</label>
+                        <input type="text" class="form-input" id="hostingAgent" placeholder="Agent name">
+                    </div>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Total Visitors:</label>
+                        <input type="number" class="form-input" id="totalVisitors" placeholder="0" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Contact Information Collected:</label>
+                        <input type="number" class="form-input" id="contactsCollected" placeholder="0" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Property Price:</label>
+                        <input type="number" class="form-input" id="propertyPrice" placeholder="0" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Property Type:</label>
+                        <select class="form-select" id="propertyType">
+                            <option value="single-family">Single Family</option>
+                            <option value="condo">Condominium</option>
+                            <option value="townhouse">Townhouse</option>
+                            <option value="multi-family">Multi-Family</option>
+                            <option value="land">Land/Lot</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">Visitor Registration & Tracking</div>
+                
+                <div id="visitorsContainer">
+                    <div class="visitor-card">
+                        <div class="visitor-header">
+                            <div class="visitor-name">Sample Visitor</div>
+                            <div class="interest-level high-interest">High Interest</div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Name:</label>
+                                <input type="text" class="form-input" placeholder="Full name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone:</label>
+                                <input type="tel" class="form-input" placeholder="(000) 000-0000">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email:</label>
+                                <input type="email" class="form-input" placeholder="email@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Current Situation:</label>
+                                <select class="form-select">
+                                    <option value="first-time-buyer">First-Time Buyer</option>
+                                    <option value="moving-up">Moving Up</option>
+                                    <option value="downsizing">Downsizing</option>
+                                    <option value="investor">Investor</option>
+                                    <option value="relocating">Relocating</option>
+                                    <option value="just-looking">Just Looking</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Timeline:</label>
+                                <select class="form-select">
+                                    <option value="immediate">Immediate (0-30 days)</option>
+                                    <option value="short-term">1-3 months</option>
+                                    <option value="medium-term">3-6 months</option>
+                                    <option value="long-term">6+ months</option>
+                                    <option value="no-timeline">No specific timeline</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Price Range:</label>
+                                <input type="text" class="form-input" placeholder="$000,000 - $000,000">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Current Home Status:</label>
+                                <select class="form-select">
+                                    <option value="need-to-sell">Need to sell current home</option>
+                                    <option value="renting">Currently renting</option>
+                                    <option value="sold">Already sold</option>
+                                    <option value="no-current-home">No current home</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Interest Level:</label>
+                                <select class="form-select">
+                                    <option value="high">High - Very interested</option>
+                                    <option value="medium">Medium - Somewhat interested</option>
+                                    <option value="low">Low - Just browsing</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Notes & Preferences:</label>
+                            <textarea class="form-textarea" placeholder="Conversation highlights, specific needs, follow-up preferences..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="button" class="add-visitor-btn" onclick="addVisitor()">+ Add Visitor</button>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">Follow-Up Timeline & Strategy</div>
+                
+                <div class="timeline-section">
+                    <div class="timeline-header">Immediate Follow-Up (Same Day)</div>
+                    
+                    <div class="followup-step">
+                        <div class="step-header">
+                            <div class="step-title">Step 1: Thank You Text/Email</div>
+                            <div class="step-timing">Within 2 hours</div>
+                        </div>
+                        
+                        <div class="script-box">
+                            <div class="script-header">Sample Text Message:</div>
+                            <div>"Hi [Name], thank you for visiting the open house at [Address] today! I hope you enjoyed seeing the property. If you have any questions or would like to schedule a private showing, please let me know. Have a great rest of your weekend!"</div>
+                        </div>
+                        
+                        <div class="script-box">
+                            <div class="script-header">Sample Email Subject: "Thank you for visiting [Address] today"</div>
+                            <div>"Dear [Name], It was a pleasure meeting you at the open house today. I wanted to follow up and see if you have any questions about the property or the neighborhood. I've attached some additional information about the home and recent comparable sales in the area. Please don't hesitate to reach out if you'd like to schedule a private tour or discuss your home buying needs."</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-section">
+                    <div class="timeline-header">Short-Term Follow-Up (Days 1-7)</div>
+                    
+                    <div class="followup-step">
+                        <div class="step-header">
+                            <div class="step-title">Step 2: Personal Phone Call</div>
+                            <div class="step-timing">Day 1-2</div>
+                        </div>
+                        
+                        <div class="script-box">
+                            <div class="script-header">Phone Script Opening:</div>
+                            <div>"Hi [Name], this is [Agent Name] from [Brokerage]. We met yesterday at the open house on [Address]. I wanted to personally follow up and see what you thought of the property. Do you have a few minutes to chat?"</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Key Questions to Ask:</label>
+                            <textarea class="form-textarea" id="phoneQuestions" placeholder="• What did you like most about the property?
+• Are you actively looking in this area?
+• What's your ideal timeline for purchasing?
+• Do you have any specific questions about the home or neighborhood?
+• Would you like to see similar properties in your price range?"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="followup-step">
+                        <div class="step-header">
+                            <div class="step-title">Step 3: Value-Added Email</div>
+                            <div class="step-timing">Day 3-4</div>
+                        </div>
+                        
+                        <div class="script-box">
+                            <div class="script-header">Sample Email Content:</div>
+                            <div>"Subject: Neighborhood insights for [Area Name] - Thought you'd find this interesting
+
+Hi [Name], Since you expressed interest in the [Area] neighborhood, I thought you might enjoy this information about local schools, upcoming developments, and market trends in the area. I've also included links to some similar properties that just came on the market. Feel free to reach out if any of these catch your eye!"</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-section">
+                    <div class="timeline-header">Medium-Term Follow-Up (Weeks 2-4)</div>
+                    
+                    <div class="followup-step">
+                        <div class="step-header">
+                            <div class="step-title">Step 4: Market Update & New Listings</div>
+                            <div class="step-timing">Week 2</div>
+                        </div>
+                        
+                        <div class="script-box">
+                            <div class="script-header">Market Update Email:</div>
+                            <div>"Subject: New listings in [Area] + market update
+
+Hi [Name], I hope you're doing well! I wanted to share some exciting new listings that came on the market this week in [Area]. The market has been quite active, and I thought you'd want to see these before they get too much attention. Would you like to schedule showings for any of these properties?"</div>
+                        </div>
+                    </div>
+                    
+                    <div class="followup-step">
+                        <div class="step-header">
+                            <div class="step-title">Step 5: Educational Content</div>
+                            <div class="step-timing">Week 3</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Educational Topics to Share:</label>
+                            <textarea class="form-textarea" id="educationalContent" placeholder="• Home buying process guide
+• Financing options and pre-approval tips
+• Home inspection checklist
+• Neighborhood guides and school information
+• Market trend reports
+• First-time buyer resources"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-section">
+                    <div class="timeline-header">Long-Term Nurturing (Month 2+)</div>
+                    
+                    <div class="followup-step">
+                        <div class="step-header">
+                            <div class="step-title">Step 6: Monthly Check-ins</div>
+                            <div class="step-timing">Monthly</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Monthly Touch Points:</label>
+                            <textarea class="form-textarea" id="monthlyTouchPoints" placeholder="• Market reports and statistics
+• New listing alerts in their areas of interest
+• Community events and local news
+• Home maintenance tips (seasonal)
+• Interest rate updates
+• Success stories and testimonials"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">Segmented Follow-Up Strategies</div>
+                
+                <div class="timeline-section">
+                    <div class="timeline-header">High-Interest Prospects</div>
+                    <div class="form-group">
+                        <label class="form-label">Aggressive Follow-Up Plan:</label>
+                        <textarea class="form-textarea" id="highInterestPlan" placeholder="• Same-day personal call
+• Next-day private showing offer
+• Weekly check-ins with new listings
+• Direct comparison to the open house property
+• Immediate buyer consultation scheduling
+• Priority access to new listings"></textarea>
+                    </div>
+                </div>
+                
+                <div class="timeline-section">
+                    <div class="timeline-header">Medium-Interest Prospects</div>
+                    <div class="form-group">
+                        <label class="form-label">Steady Nurturing Plan:</label>
+                        <textarea class="form-textarea" id="mediumInterestPlan" placeholder="• 48-hour follow-up call
+• Bi-weekly market updates
+• Educational content sharing
+• Quarterly personal check-ins
+• Event invitations (client events, seminars)
+• Holiday and milestone greetings"></textarea>
+                    </div>
+                </div>
+                
+                <div class="timeline-section">
+                    <div class="timeline-header">Low-Interest/Browsing Prospects</div>
+                    <div class="form-group">
+                        <label class="form-label">Light Touch Plan:</label>
+                        <textarea class="form-textarea" id="lowInterestPlan" placeholder="• Thank you email only initially
+• Monthly newsletter subscription
+• Quarterly market reports
+• Annual check-in calls
+• Social media engagement
+• Community event invitations"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">Conversion Tracking & Analytics</div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Initial Response Rate:</label>
+                        <input type="text" class="form-input" id="responseRate" placeholder="% who responded to first follow-up">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Private Showings Scheduled:</label>
+                        <input type="number" class="form-input" id="privatShowings" placeholder="0" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Buyer Consultations Booked:</label>
+                        <input type="number" class="form-input" id="consultationsBooked" placeholder="0" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Signed Buyer Agreements:</label>
+                        <input type="number" class="form-input" id="buyerAgreements" placeholder="0" min="0">
+                    </div>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Offers on Open House Property:</label>
+                        <input type="number" class="form-input" id="offersOnProperty" placeholder="0" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Purchases of Other Properties:</label>
+                        <input type="number" class="form-input" id="otherPurchases" placeholder="0" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Referrals Generated:</label>
+                        <input type="number" class="form-input" id="referralsGenerated" placeholder="0" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Overall Conversion Rate:</label>
+                        <input type="text" class="form-input" id="conversionRate" placeholder="%" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">Follow-Up Templates & Resources</div>
+                
+                <div class="form-group">
+                    <label class="form-label">Email Templates Needed:</label>
+                    <textarea class="form-textarea" id="emailTemplates" placeholder="• Thank you email
+• Market update email
+• New listings alert
+• Educational content email
+• Holiday/milestone greetings
+• Re-engagement email for dormant leads"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Text Message Templates:</label>
+                    <textarea class="form-textarea" id="textTemplates" placeholder="• Immediate thank you
+• New listing alert
+• Appointment reminders
+• Market update notifications
+• Check-in messages"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Collateral Materials to Prepare:</label>
+                    <textarea class="form-textarea" id="collateralMaterials" placeholder="• Neighborhood guides
+• Market reports
+• Buyer's guide
+• Financing information sheets
+• School district information
+• Local vendor recommendations"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">CRM Setup Requirements:</label>
+                    <textarea class="form-textarea" id="crmSetup" placeholder="• Lead source tagging
+• Automated drip campaigns
+• Task reminders for follow-ups
+• Interest level categorization
+• Timeline tracking
+• Conversion milestone tracking"></textarea>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">Performance Review & Optimization</div>
+                
+                <div class="form-group">
+                    <label class="form-label">What Worked Well:</label>
+                    <textarea class="form-textarea" id="whatWorked" placeholder="Document successful strategies, response rates, and conversion tactics..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Areas for Improvement:</label>
+                    <textarea class="form-textarea" id="improvements" placeholder="Identify gaps in follow-up, timing issues, message optimization opportunities..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Next Open House Adjustments:</label>
+                    <textarea class="form-textarea" id="nextAdjustments" placeholder="Changes to implement for future open houses based on this experience..."></textarea>
+                </div>
+            </div>
+        </form>
+
+        <button class="print-button" onclick="window.print()">Print Follow-Up System</button>
+    </div>
+
+    <script>
+        let visitorCount = 0;
+
+        function addVisitor() {
+            visitorCount++;
+            const container = document.getElementById('visitorsContainer');
+            
+            const visitorDiv = document.createElement('div');
+            visitorDiv.className = 'visitor-card';
+            visitorDiv.innerHTML = `
+                <div class="visitor-header">
+                    <div class="visitor-name">Visitor ${visitorCount}</div>
+                    <div class="interest-level medium-interest">Medium Interest</div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Name:</label>
+                        <input type="text" class="form-input" placeholder="Full name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone:</label>
+                        <input type="tel" class="form-input" placeholder="(000) 000-0000">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email:</label>
+                        <input type="email" class="form-input" placeholder="email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Current Situation:</label>
+                        <select class="form-select">
+                            <option value="first-time-buyer">First-Time Buyer</option>
+                            <option value="moving-up">Moving Up</option>
+                            <option value="downsizing">Downsizing</option>
+                            <option value="investor">Investor</option>
+                            <option value="relocating">Relocating</option>
+                            <option value="just-looking">Just Looking</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Timeline:</label>
+                        <select class="form-select">
+                            <option value="immediate">Immediate (0-30 days)</option>
+                            <option value="short-term">1-3 months</option>
+                            <option value="medium-term">3-6 months</option>
+                            <option value="long-term">6+ months</option>

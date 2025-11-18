@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Market Updates</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .sequence-info {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .email-card {
+            background: white;
+            border-radius: 12px;
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .email-header {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 3px solid #f3f4f6;
+            margin-bottom: 25px;
+        }
+        
+        .month-badge {
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .email-title {
+            font-size: 2em;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .email-subtitle {
+            color: #718096;
+            font-size: 1.1em;
+        }
+        
+        .email-subject {
+            background: #fdf2f8;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #ec4899;
+        }
+        
+        .email-subject strong {
+            color: #4a5568;
+        }
+        
+        .email-body {
+            color: #4a5568;
+            font-size: 1em;
+        }
+        
+        .email-body p {
+            margin-bottom: 15px;
+        }
+        
+        .email-body h3 {
+            color: #2d3748;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-box {
+            background: linear-gradient(135deg, #fdf2f8 0%, #fae8ff 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #f9a8d4;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #be185d;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #831843;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .trend-indicator {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .trend-up {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .trend-down {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .highlight-box {
+            background: #fef3c7;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .highlight-box h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+        }
+        
+        .property-value-box {
+            background: linear-gradient(135deg, #fdf2f8 0%, #f3e8ff 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 2px solid #e9d5ff;
+        }
+        
+        .your-home {
+            font-size: 0.9em;
+            color: #7c3aed;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .address {
+            font-size: 1.1em;
+            color: #2d3748;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .value-display {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .value-label {
+            font-size: 0.9em;
+            color: #718096;
+            margin-bottom: 8px;
+        }
+        
+        .value-amount {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #be185d;
+        }
+        
+        .value-change {
+            font-size: 0.95em;
+            color: #059669;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: opacity 0.3s;
+        }
+        
+        .cta-button:hover {
+            opacity: 0.9;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #f3f4f6;
+            color: #718096;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Monthly Market Updates</h1>
+            <p>Regular market insights and property value updates to keep clients engaged and informed</p>
+        </div>
+        
+        <div class="sequence-info">
+            📧 Recurring Monthly Email
+        </div>
+        
+        <!-- Monthly Email Template -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="month-badge">[MONTH YEAR] EDITION</div>
+                <div class="email-title">Your Market Update</div>
+                <div class="email-subtitle">[City/Area] Real Estate Insights</div>
+            </div>
+            
+            <div class="email-subject">
+                <strong>Subject:</strong> [Month] Market Update: What your home is worth now 📈
+            </div>
+            
+            <div class="email-body">
+                <p>Hey [First Name]!</p>
+                <p>Hope you're having a great [month]! Time for your monthly market update. I've got some interesting data to share with you this month.</p>
+                
+                <h3>📊 Market Snapshot for [Area/City]</h3>
+                
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-number">$[XXX]K</div>
+                        <div class="stat-label">Median Home Price</div>
+                        <span class="trend-indicator trend-up">↑ [X]%</span>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">[XX]</div>
+                        <div class="stat-label">Days on Market</div>
+                        <span class="trend-indicator trend-down">↓ [X] days</span>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">[XXX]</div>
+                        <div class="stat-label">Homes Sold</div>
+                        <span class="trend-indicator trend-up">↑ [X]%</span>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">[X]%</div>
+                        <div class="stat-label">Year-over-Year Growth</div>
+                        <span class="trend-indicator trend-up">↑ Strong</span>
+                    </div>
+                </div>
+                
+                <h3>🏡 Your Home Value Update</h3>
+                
+                <div class="property-value-box">
+                    <div class="your-home">YOUR PROPERTY</div>
+                    <div class="address">[Client's Address]</div>
+                    
+                    <div class="value-display">
+                        <div class="value-label">Estimated Current Value</div>
+                        <div class="value-amount">$[XXX,XXX]</div>
+                        <div class="value-change">↑ $[X,XXX] from last month (+[X]%)</div>
+                    </div>
+                </div>
+                
+                <p>Based on recent comparable sales in your neighborhood, your home's value has [increased/remained stable/adjusted]. Here's why:</p>
+                
+                <p>• <strong>Recent Sales:</strong> [X] homes sold in your area this month, averaging $[XX] per square foot<br>
+                • <strong>Inventory Levels:</strong> [Low/Moderate/High] - currently [X] active listings in your neighborhood<br>
+                • <strong>Market Conditions:</strong> [Description of whether it's a seller's/buyer's/balanced market]</p>
+                
+                <h3>💡 What This Means for You</h3>
+                
+                <div class="highlight-box">
+                    <h4>Key Takeaway:</h4>
+                    <p>[Provide personalized insight based on market conditions - e.g., "With inventory still low and demand high, it's a great time for sellers. If you've been thinking about listing, current conditions are very favorable." OR "The market is showing signs of cooling, which could be good news if you're looking to buy an investment property."]</p>
+                </div>
+                
+                <h3>🏘️ Neighborhood Highlights</h3>
+                
+                <p><strong>Recent Comparable Sales Near You:</strong></p>
+                
+                <p>🏡 <strong>[Nearby Address 1]</strong><br>
+                Sold for: $[XXX,XXX] | [X] bed/[X] bath | [X,XXX] sq ft<br>
+                Days on market: [XX] | Sold [above/at/below] asking</p>
+                
+                <p>🏡 <strong>[Nearby Address 2]</strong><br>
+                Sold for: $[XXX,XXX] | [X] bed/[X] bath | [X,XXX] sq ft<br>
+                Days on market: [XX] | Sold [above/at/below] asking</p>
+                
+                <p>🏡 <strong>[Nearby Address 3]</strong><br>
+                Sold for: $[XXX,XXX] | [X] bed/[X] bath | [X,XXX] sq ft<br>
+                Days on market: [XX] | Sold [above/at/below] asking</p>
+                
+                <h3>📈 Market Trends to Watch</h3>
+                
+                <p><strong>Interest Rates:</strong> Currently averaging [X]% for a 30-year fixed mortgage [up/down X% from last month]</p>
+                
+                <p><strong>Buyer Activity:</strong> [Description of buyer demand - high/moderate/low and any trends]</p>
+                
+                <p><strong>Seasonal Outlook:</strong> [What to expect in the coming month based on typical seasonal patterns]</p>
+                
+                <h3>🤔 Thinking About Selling?</h3>
+                
+                <p>If you've been considering making a move, now might be a great time to explore your options. With your home's current estimated value at $[XXX,XXX], you've gained approximately $[XX,XXX] in equity since you purchased it!</p>
+                
+                <p><strong>Here's what I can do for you:</strong><br>
+                ✓ Provide a detailed, in-person home valuation (free, no obligation)<br>
+                ✓ Show you exactly what you could net from a sale<br>
+                ✓ Create a custom marketing plan for your property<br>
+                ✓ Answer any questions about the selling process</p>
+                
+                <a href="#" class="cta-button">Get Your Free Home Valuation</a>
+                
+                <h3>💬 Questions?</h3>
+                
+                <p>Want to dive deeper into any of these numbers? Curious about what renovations might increase your home's value? Just want to chat about the market? I'm always here!</p>
+                
+                <p>Feel free to reply to this email or give me a call at [Phone Number].</p>
+                
+                <p>Stay informed and take care!</p>
+                
+                <p>[Your Name]<br>
+                [Your Title]<br>
+                [Phone Number] | [Email]</p>
+                
+                <div class="footer">
+                    <p><strong>P.S.</strong> Know anyone thinking about buying or selling? I'd love to help them too! Forward this email or send them my way. 🙏</p>
+                    <p style="margin-top: 15px; font-size: 0.85em;">
+                        You're receiving this because you're a valued client. Want to adjust your email preferences? <a href="#" style="color: #8b5cf6;">Click here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

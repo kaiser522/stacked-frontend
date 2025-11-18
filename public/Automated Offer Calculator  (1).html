@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Offer Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .form-header {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #FF6B35;
+            border-radius: 8px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #00D4AA;
+        }
+        
+        .form-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-label {
+            color: #FFD700;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .form-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+            font-size: 1em;
+        }
+        
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .section-title {
+            color: #00D4AA;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00D4AA;
+            padding-bottom: 5px;
+        }
+        
+        .ai-recommendation {
+            background: linear-gradient(135deg, #00D4AA, #00B894);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.3);
+        }
+        
+        .recommended-offer {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .confidence-meter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .confidence-bar {
+            width: 200px;
+            height: 20px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .slider-group {
+            margin: 15px 0;
+        }
+        
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #FFD700;
+            cursor: pointer;
+        }
+        
+        .calculate-button {
+            background: #FF6B35;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+        
+        .calculate-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+        }
+        
+        .strategy-tips {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #FFD700;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .tips-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .tips-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .tips-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .print-button {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 170, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .recommended-offer {
+                font-size: 2em;
+            }
+            .confidence-bar {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <div class="logo">🤖</div>
+            <h1>AI Offer Calculator</h1>
+            <p style="font-size: 1.1em; margin-top: 10px;">Smart offer recommendations based on market data</p>
+        </div>
+
+        <form id="offerCalculatorForm">
+            <div class="form-section">
+                <div class="section-title">Property Details</div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Property Address:</label>
+                        <input type="text" class="form-input" id="propertyAddress" placeholder="123 Main Street">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">List Price:</label>
+                        <input type="text" class="form-input" id="listPrice" placeholder="$425,000">
+                    </div>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Days on Market:</label>
+                        <input type="number" class="form-input" id="daysOnMarket" placeholder="5">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Square Feet:</label>
+                        <input type="number" class="form-input" id="squareFeet" placeholder="2000">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Year Built:</label>
+                        <input type="number" class="form-input" id="yearBuilt" placeholder="1995">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Bedrooms/Bathrooms:</label>
+                        <input type="text" class="form-input" id="bedsBaths" placeholder="3 bed / 2.5 bath">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">Market Conditions</div>
+                
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span class="form-label">Market Heat Level</span>
+                        <span id="marketHeatValue">Moderate</span>
+                    </div>
+                    <input type="range" class="slider" id="marketHeat" min="1" max="5" value="3">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9em; color: #ccc; margin-top: 5px;">
+                        <span>Cold</span>
+                        <span>Moderate</span>
+                        <span>Hot</span>
+                    </div>
+                </div>
+                
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span class="form-label">Expected Competition</span>
+                        <span id="competitionValue">3-4 offers</span>
+                    </div>
+                    <input type="range" class="slider" id="competition" min="1" max="5" value="3">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9em; color: #ccc; margin-top: 5px;">
+                        <span>1-2 offers</span>
+                        <span>3-4 offers</span>
+                        <span>5+ offers</span>
+                    </div>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Recent Comparable Sales ($/sqft):</label>
+                        <input type="text" class="form-input" id="compSales" placeholder="$210">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Average Days to Sell in Area:</label>
+                        <input type="number" class="form-input" id="avgDaysToSell" placeholder="25">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">Property Condition & Appeal</div>
+                
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span class="form-label">Overall Property Condition</span>
+                        <span id="conditionValue">Good</span>
+                    </div>
+                    <input type="range" class="slider" id="condition" min="1" max="5" value="3">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9em; color: #ccc; margin-top: 5px;">
+                        <span>Poor</span>
+                        <span>Good</span>
+                        <span>Excellent</span>
+                    </div>
+                </div>
+                
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span class="form-label">Unique Features/Desirability</span>
+                        <span id="desirabilityValue">Average</span>
+                    </div>
+                    <input type="range" class="slider" id="desirability" min="1" max="5" value="3">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9em; color: #ccc; margin-top: 5px;">
+                        <span>Below Avg</span>
+                        <span>Average</span>
+                        <span>Highly Desirable</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Notable Features or Issues:</label>
+                    <input type="text" class="form-input" id="notableFeatures" placeholder="Updated kitchen, needs new roof, corner lot, etc.">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">Client Information</div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Client Max Budget:</label>
+                        <input type="text" class="form-input" id="maxBudget" placeholder="$450,000">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Client Motivation Level:</label>
+                        <select class="form-input" id="motivation">
+                            <option value="">Select</option>
+                            <option value="casual">Casual - Just looking</option>
+                            <option value="interested">Interested - Would like this home</option>
+                            <option value="motivated">Motivated - Really want this home</option>
+                            <option value="desperate">Desperate - Must have this home</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="calculate-button" onclick="calculateOffer()">Calculate AI Recommendation</button>
+
+            <div class="ai-recommendation" id="aiRecommendation" style="display: none;">
+                <h2>AI RECOMMENDED OFFER</h2>
+                <div class="recommended-offer" id="recommendedAmount">$442,500</div>
+                <div style="font-size: 1.2em; margin: 10px 0;">
+                    <span id="percentageOver">+4.1% over list price</span>
+                </div>
+                
+                <div class="confidence-meter">
+                    <span>Confidence Level:</span>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" id="confidenceFill" style="width: 85%;"></div>
+                    </div>
+                    <span id="confidencePercent">85%</span>
+                </div>
+                
+                <div class="strategy-tips" id="strategyTips">
+                    <h3 style="color: #FFD700; margin-bottom: 15px;">Strategic Recommendations:</h3>
+                    <ul class="tips-list" id="tipsList">
+                        <li>✓ Strong offer due to high competition expected</li>
+                        <li>✓ Consider escalation clause up to your maximum</li>
+                        <li>✓ Shorten inspection period to 5-7 days</li>
+                        <li>✓ Offer quick closing if possible</li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+
+        <button class="print-button" onclick="window.print()" id="printBtn" style="display: none;">Print Recommendation</button>
+    </div>
+
+    <script>
+        // Update slider values in real-time
+        document.getElementById('marketHeat').oninput = function() {
+            const values = ['Cold', 'Cool', 'Moderate', 'Hot', 'Very Hot'];
+            document.getElementById('marketHeatValue').textContent = values[this.value - 1];
+        }
+        
+        document.getElementById('competition').oninput = function() {
+            const values = ['1-2 offers', '2-3 offers', '3-4 offers', '4-6 offers', '5+ offers'];
+            document.getElementById('competitionValue').textContent = values[this.value - 1];
+        }
+        
+        document.getElementById('condition').oninput = function() {
+            const values = ['Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
+            document.getElementById('conditionValue').textContent = values[this.value - 1];
+        }
+        
+        document.getElementById('desirability').oninput = function() {
+            const values = ['Below Average', 'Fair', 'Average', 'Above Average', 'Highly Desirable'];
+            document.getElementById('desirabilityValue').textContent = values[this.value - 1];
+        }
+
+        function calculateOffer() {
+            // Get all input values
+            const listPrice = parseFloat(document.getElementById('listPrice').value.replace(/[$,]/g, '')) || 0;
+            const daysOnMarket = parseInt(document.getElementById('daysOnMarket').value) || 0;
+            const marketHeat = parseInt(document.getElementById('marketHeat').value);
+            const competition = parseInt(document.getElementById('competition').value);
+            const condition = parseInt(document.getElementById('condition').value);
+            const desirability = parseInt(document.getElementById('desirability').value);
+            const maxBudget = parseFloat(document.getElementById('maxBudget').value.replace(/[$,]/g, '')) || listPrice * 1.1;
+            
+            if (listPrice === 0) {
+                alert('Please enter a list price to calculate recommendation.');
+                return;
+            }
+            
+            // AI Calculation Algorithm
+            let baseMultiplier = 1.0; // Start at list price
+            
+            // Market heat adjustment (0% to +15%)
+            const marketAdjustment = (marketHeat - 1) * 0.0375; // 0%, 3.75%, 7.5%, 11.25%, 15%
+            baseMultiplier += marketAdjustment;
+            
+            // Competition adjustment (0% to +12%)
+            const competitionAdjustment = (competition - 1) * 0.03; // 0%, 3%, 6%, 9%, 12%
+            baseMultiplier += competitionAdjustment;
+            
+            // Days on market adjustment (-5% to +5%)
+            let domAdjustment = 0;
+            if (daysOnMarket <= 3) domAdjustment = 0.05; // Hot property
+            else if (daysOnMarket <= 7) domAdjustment = 0.02;
+            else if (daysOnMarket <= 14) domAdjustment = 0;
+            else if (daysOnMarket <= 30) domAdjustment = -0.02;
+            else domAdjustment = -0.05; // Stale listing
+            baseMultiplier += domAdjustment;
+            
+            // Property condition adjustment (-3% to +5%)
+            const conditionAdjustment = ((condition - 3) * 0.02); // -4%, -2%, 0%, +2%, +4%
+            baseMultiplier += conditionAdjustment;
+            
+            // Desirability adjustment (-2% to +3%)
+            const desirabilityAdjustment = ((desirability - 3) * 0.0125); // -2.5%, -1.25%, 0%, +1.25%, +2.5%
+            baseMultiplier += desirabilityAdjustment;
+            
+            // Calculate recommended offer
+            let recommendedOffer = listPrice * baseMultiplier;
+            
+            // Cap at client's max budget
+            if (recommendedOffer > maxBudget) {
+                recommendedOffer = maxBudget;
+            }
+            
+            // Round to nearest $500
+            recommendedOffer = Math.round(recommendedOffer / 500) * 500;
+            
+            // Calculate confidence (50% to 95%)
+            let confidence = 70; // Base confidence
+            if (marketHeat >= 4 && competition >= 4) confidence += 15;
+            else if (marketHeat >= 3 && competition >= 3) confidence += 10;
+            if (daysOnMarket <= 7) confidence += 10;
+            if (condition >= 4) confidence += 5;
+            confidence = Math.min(95, Math.max(50, confidence));
+            
+            // Update UI
+            document.getElementById('recommendedAmount').textContent = '$' + recommendedOffer.toLocaleString();
+            
+            const percentOver = ((recommendedOffer - listPrice) / listPrice * 100).toFixed(1);
+            document.getElementById('percentageOver').textContent = 
+                (percentOver >= 0 ? '+' : '') + percentOver + '% ' + (percentOver >= 0 ? 'over' : 'under') + ' list price';
+            
+            document.getElementById('confidenceFill').style.width = confidence + '%';
+            document.getElementById('confidencePercent').textContent = confidence + '%';
+            
+            // Generate strategic tips
+            const tips = [];
+            if (competition >= 4) tips.push('✓ High competition - consider escalation clause');
+            if (marketHeat >= 4) tips.push('✓ Hot market - price aggressively');
+            if (daysOnMarket <= 5) tips.push('✓ Fresh listing - act quickly');
+            if (condition <= 2) tips.push('⚠ Factor in repair costs to offer');
+            if (recommendedOffer >= maxBudget * 0.95) tips.push('⚠ Near budget limit - ensure financing approval');
+            if (percentOver >= 10) tips.push('✓ Consider appraisal gap coverage');
+            if (tips.length === 0) tips.push('✓ Standard offer terms should be competitive');
+            
+            document.getElementById('tipsList').innerHTML = tips.map(tip => '<li>' + tip + '</li>').join('');
+            
+            // Show results
+            document.getElementById('aiRecommendation').style.display = 'block';
+            document.getElementById('printBtn').style.display = 'block';
+            
+            // Smooth scroll to results
+            document.getElementById('aiRecommendation').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Print styling
+        const printStyles = `
+            <style>
+                @media print {
+                    body {
+                        background: white !important;
+                        color: black !important;
+                    }
+                    .print-button, .calculate-button { display: none !important; }
+                    .form-section, .ai-recommendation, .strategy-tips {
+                        background: white !important;
+                        border: 1px solid #ccc !important;
+                    }
+                    .ai-recommendation {
+                        background: #f0f0f0 !important;
+                        color: black !important;
+                    }
+                    .form-input {
+                        background: white !important;
+                        color: black !important;
+                        border: 1px solid #000 !important;
+                    }
+                    .recommended-offer {
+                        color: black !important;
+                    }
+                }
+            </style>
+        `;
+        
+        document.head.insertAdjacentHTML('beforeend', printStyles);
+    </script>
+</body>
+</html>

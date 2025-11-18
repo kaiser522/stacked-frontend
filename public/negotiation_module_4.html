@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 4: Objection Handling Mastery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .timer-bar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .timer-content {
+            background: #00D4AA;
+            color: #1a1a1a;
+            border-radius: 25px;
+            padding: 8px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .timer-display {
+            color: #1a1a1a;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .module-header {
+            text-align: center;
+            margin: 80px 0 40px 0;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .module-number {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #00D4AA;
+        }
+        
+        .duration {
+            background: #FFD700;
+            color: #1e3a5f;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .module-description {
+            font-size: 1.2em;
+            color: #B0C4DE;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            color: #00D4AA;
+        }
+        
+        h3 {
+            font-size: 1.6em;
+            margin: 30px 0 15px 0;
+            color: #FFD700;
+        }
+        
+        h4 {
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+            color: #B0C4DE;
+        }
+        
+        p, li {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #E6F3FF;
+        }
+        
+        ul, ol {
+            margin: 20px 0 20px 30px;
+        }
+        
+        .highlight-box {
+            background: rgba(0, 212, 170, 0.2);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .highlight-box h3 {
+            color: #00D4AA;
+            margin-top: 0;
+        }
+        
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid #ef4444;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .warning-box h3 {
+            color: #ef4444;
+            margin-top: 0;
+        }
+        
+        .case-study {
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid #8b5cf6;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .case-study h3 {
+            color: #8b5cf6;
+            margin-top: 0;
+        }
+        
+        .quiz-section {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .quiz-question {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .quiz-question h4 {
+            color: #FFD700;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+        
+        .quiz-options {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #00D4AA;
+        }
+        
+        .quiz-option.selected {
+            background: rgba(0, 212, 170, 0.2);
+            border-color: #00D4AA;
+            color: #00D4AA;
+        }
+        
+        .quiz-option.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: #22c55e;
+            color: #22c55e;
+        }
+        
+        .quiz-option.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+        
+        .option-letter {
+            background: #00D4AA;
+            color: #1e3a5f;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .quiz-feedback {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .quiz-feedback.show {
+            display: block;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(45deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #00B894, #009B7D);
+            transform: translateY(-2px);
+        }
+        
+        .brain-teaser {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .brain-teaser h3 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .teaser-question {
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            color: #f3e8ff;
+        }
+        
+        .teaser-textarea {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            color: white;
+            width: 100%;
+            max-width: 500px;
+            height: 120px;
+            margin-bottom: 20px;
+            resize: vertical;
+        }
+        
+        .teaser-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .teaser-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .teaser-btn:hover {
+            background: white;
+            color: #8b5cf6;
+        }
+        
+        .teaser-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .teaser-result.show {
+            display: block;
+        }
+        
+        .teaser-result.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border: 2px solid #22c55e;
+            color: #22c55e;
+        }
+        
+        .teaser-result.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #ef4444;
+            color: #ef4444;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(45deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-btn:hover {
+            background: linear-gradient(45deg, #00B894, #009B7D);
+            transform: translateY(-2px);
+        }
+        
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .strategy-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .strategy-card:hover {
+            transform: translateY(-5px);
+            border-color: #FFD700;
+        }
+        
+        .strategy-card h4 {
+            color: #00D4AA;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .objection-response {
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #FF6B35;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .objection-response h3 {
+            color: #FF6B35;
+            margin-top: 0;
+        }
+        
+        .objection-text {
+            background: rgba(239, 68, 68, 0.2);
+            border-left: 4px solid #ef4444;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            color: #ef4444;
+        }
+        
+        .response-text {
+            background: rgba(34, 197, 94, 0.2);
+            border-left: 4px solid #22c55e;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+            color: #22c55e;
+        }
+        
+        .technique-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .technique-box h3 {
+            color: #FFD700;
+            margin-top: 0;
+        }
+        
+        .data-table {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        th {
+            background: rgba(0, 212, 170, 0.2);
+            color: #00D4AA;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .strategy-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 25px 20px;
+            }
+            
+            .timer-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Timer Bar -->
+    <div class="timer-bar">
+        <div class="timer-content">
+            <div class="timer-display" id="timer">Time Spent: 0:00</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Module Header -->
+        <div class="module-header">
+            <div class="module-number">Module 4</div>
+            <h1>Objection Handling Mastery</h1>
+            <div class="duration">40 minutes</div>
+            <p class="module-description">Transform objections into opportunities by mastering proven frameworks that turn resistance into agreement and build stronger relationships with counterparts.</p>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="section">
+            <h2>Learning Objectives</h2>
+            <p>By the end of this module, you will be able to:</p>
+            <ul>
+                <li>Identify the root causes behind common objections in real estate</li>
+                <li>Use the HEAR framework to handle objections systematically</li>
+                <li>Reframe objections as opportunities to provide value</li>
+                <li>Apply specific response scripts for the top 10 real estate objections</li>
+                <li>Prevent objections through strategic conversation management</li>
+                <li>Turn hostile resistance into collaborative problem-solving</li>
+                <li>Build stronger relationships by addressing concerns empathetically</li>
+            </ul>
+        </div>
+
+        <!-- Introduction -->
+        <div class="section">
+            <h2>Understanding the Psychology of Objections</h2>
+            <p>Objections are not roadblocks - they're signals. When someone objects, they're communicating fear, uncertainty, or a need for more information. Master negotiators welcome objections because they reveal what's really important to the other party and provide opportunities to address concerns directly.</p>
+            
+            <h3>Why People Object in Real Estate Negotiations</h3>
+            <p>Real estate objections typically stem from four core sources:</p>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <h4>Fear and Risk Aversion</h4>
+                    <ul>
+                        <li>Fear of making the wrong decision</li>
+                        <li>Concern about market timing</li>
+                        <li>Worry about financial consequences</li>
+                        <li>Anxiety about unknown outcomes</li>
+                    </ul>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Lack of Information</h4>
+                    <ul>
+                        <li>Unclear about the process</li>
+                        <li>Missing market knowledge</li>
+                        <li>Uncertainty about your credibility</li>
+                        <li>Confused about terms and options</li>
+                    </ul>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Emotional Attachment</h4>
+                    <ul>
+                        <li>Sentimental value of property</li>
+                        <li>Pride in ownership achievements</li>
+                        <li>Family history and memories</li>
+                        <li>Identity tied to the property</li>
+                    </ul>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>External Pressures</h4>
+                    <ul>
+                        <li>Family member opinions</li>
+                        <li>Agent or attorney advice</li>
+                        <li>Market pressure and timing</li>
+                        <li>Financial constraints</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>The Objection Opportunity</h3>
+                <p>Research shows that prospects who voice objections are 60% more likely to move forward than those who remain silent. Objections indicate engagement and investment in the conversation. Silent prospects often simply walk away without explanation.</p>
+            </div>
+        </div>
+
+        <!-- Quiz 1 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Objection Psychology</h2>
+            
+            <div class="quiz-question" id="question1">
+                <h4>1. According to research, prospects who voice objections are how much more likely to move forward?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(1, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>40%</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(1, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>50%</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(1, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>60%</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(1, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>70%</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback1">
+                    Prospects who voice objections are 60% more likely to move forward than those who remain silent, because objections indicate engagement and investment in the conversation.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(1)">Check Answer</button>
+        </div>
+
+        <!-- The HEAR Framework -->
+        <div class="section">
+            <h2>The HEAR Framework for Objection Handling</h2>
+            <p>HEAR is a systematic approach that transforms objections into opportunities for deeper understanding and stronger relationships. This framework works regardless of the specific objection type.</p>
+            
+            <h3>H - Halt and Listen</h3>
+            <div class="technique-box">
+                <h4>Stop Everything and Give Full Attention</h4>
+                <ul>
+                    <li>Stop talking immediately when they object</li>
+                    <li>Use non-verbal cues showing you're listening (leaning forward, eye contact)</li>
+                    <li>Let them complete their entire thought without interrupting</li>
+                    <li>Resist the urge to defend or respond immediately</li>
+                </ul>
+                <p><strong>Why this works:</strong> Shows respect for their concerns and often leads to additional information that helps you address the real issue.</p>
+            </div>
+            
+            <h3>E - Empathize and Acknowledge</h3>
+            <div class="technique-box">
+                <h4>Validate Their Feelings and Concerns</h4>
+                <ul>
+                    <li>"I understand why that would be concerning"</li>
+                    <li>"That's a fair question that many people ask"</li>
+                    <li>"I can see why you'd want to think carefully about this"</li>
+                    <li>"You're right to consider all your options"</li>
+                </ul>
+                <p><strong>Why this works:</strong> Reduces defensiveness and creates psychological safety for honest dialogue.</p>
+            </div>
+            
+            <h3>A - Ask Questions to Clarify</h3>
+            <div class="technique-box">
+                <h4>Dig Deeper to Understand the Real Concern</h4>
+                <ul>
+                    <li>"Help me understand what specifically concerns you about..."</li>
+                    <li>"When you say [their objection], what do you mean exactly?"</li>
+                    <li>"What would need to happen for you to feel comfortable moving forward?"</li>
+                    <li>"Is this your main concern, or are there other factors?"</li>
+                </ul>
+                <p><strong>Why this works:</strong> Often reveals the underlying issue behind the surface objection.</p>
+            </div>
+            
+            <h3>R - Respond with Value</h3>
+            <div class="technique-box">
+                <h4>Address the Core Issue with Information or Solutions</h4>
+                <ul>
+                    <li>Provide relevant information that addresses their specific concern</li>
+                    <li>Offer solutions or alternatives that resolve the underlying issue</li>
+                    <li>Share stories or examples of how others handled similar situations</li>
+                    <li>Propose next steps that reduce their risk or uncertainty</li>
+                </ul>
+                <p><strong>Why this works:</strong> Transforms the objection into an opportunity to provide genuine value and build trust.</p>
+            </div>
+            
+            <div class="case-study">
+                <h3>HEAR Framework in Action</h3>
+                <p><strong>Objection:</strong> "Your offer is too low. This house is worth more than that."</p>
+                
+                <p><strong>H - Halt:</strong> Stop talking, maintain eye contact, let them finish completely</p>
+                
+                <p><strong>E - Empathize:</strong> "I understand - you've put a lot into this property and you want to get fair value for it. That's completely reasonable."</p>
+                
+                <p><strong>A - Ask:</strong> "Help me understand what makes you feel it's worth more. Are you thinking about the improvements you've made, or recent sales you've seen in the area?"</p>
+                
+                <p><strong>R - Respond:</strong> [After listening to their answer] "I can see why you'd value those improvements. Let me share the market analysis I used to arrive at this number, and then we can discuss how to bridge any gap..."</p>
+                
+                <p><strong>Result:</strong> Transforms price objection into collaborative discussion about value and options.</p>
+            </div>
+        </div>
+
+        <!-- Quiz 2 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: HEAR Framework</h2>
+            
+            <div class="quiz-question" id="question2">
+                <h4>2. What does the "A" in the HEAR framework represent?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(2, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>Argue your position</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(2, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>Ask questions to clarify</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(2, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>Avoid the objection</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(2, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>Accept their position</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback2">
+                    The "A" in HEAR stands for "Ask questions to clarify" - digging deeper to understand the real concern behind the surface objection.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(2)">Check Answer</button>
+        </div>
+
+        <!-- Top 10 Objections -->
+        <div class="section">
+            <h2>The Top 10 Real Estate Objections and Responses</h2>
+            <p>These are the most common objections you'll encounter, with proven response frameworks that address the underlying concerns while moving conversations forward.</p>
+            
+            <div class="objection-response">
+                <h3>Objection #1: "Your offer is too low"</h3>
+                <div class="objection-text">
+                    "I was expecting more money. Your offer is too low."
+                </div>
+                <div class="response-text">
+                    <strong>Response Strategy:</strong> "I understand you want to get the best value - that's important. Help me understand what you're basing your price expectations on. Are you looking at recent sales, or improvements you've made? I'd like to show you the market analysis I used and see if we can find a number that works for both of us."
+                </div>
+                <p><strong>Follow-up options:</strong> Present comparable sales, discuss net proceeds after agent fees/repairs, explore creative structuring.</p>
+            </div>
+            
+            <div class="objection-response">
+                <h3>Objection #2: "I need to think about it"</h3>
+                <div class="objection-text">
+                    "This is a big decision. I need some time to think about it."
+                </div>
+                <div class="response-text">
+                    <strong>Response Strategy:</strong> "Absolutely - this is an important decision and you should think it through. What specifically would you like to think about? Is it the price, the timeline, or something else? Maybe I can provide information that would help with your decision."
+                </div>
+                <p><strong>Follow-up options:</strong> Schedule specific follow-up time, address specific concerns, provide additional information.</p>
+            </div>
+            
+            <div class="objection-response">
+                <h3>Objection #3: "I want to list it with a realtor first"</h3>
+                <div class="objection-text">
+                    "I think I should try listing it with a real estate agent first."
+                </div>
+                <div class="response-text">
+                    <strong>Response Strategy:</strong> "That's certainly an option, and agents can be great for the right situation. Many of my clients considered that path too. The difference is timing, certainty, and net proceeds. Would you be open to comparing both options so you can make the best decision for your situation?"
+                </div>
+                <p><strong>Follow-up options:</strong> Show net proceeds comparison, discuss timing differences, explain market conditions.</p>
+            </div>
+            
+            <div class="objection-response">
+                <h3>Objection #4: "I'm not ready to sell yet"</h3>
+                <div class="objection-text">
+                    "I'm just not ready to sell the property yet."
+                </div>
+                <div class="response-text">
+                    <strong>Response Strategy:</strong> "I respect that - timing is important. Help me understand what would need to change for you to feel ready. Is it a timeline issue, or are there other factors involved? Sometimes knowing your options can help with the decision-making process."
+                </div>
+                <p><strong>Follow-up options:</strong> Explore underlying motivations, discuss future planning, maintain relationship for future timing.</p>
+            </div>
+            
+            <div class="objection-response">
+                <h3>Objection #5: "How do I know you're legitimate?"</h3>
+                <div class="objection-text">
+                    "How do I know you're not a scammer? I've heard about real estate scams."
+                </div>
+                <div class="response-text">
+                    <strong>Response Strategy:</strong> "That's a smart question - there are unfortunately some bad actors out there. I'm glad you're being careful. Let me share my credentials, references from recent clients, and explain exactly how our process works. I want you to feel completely comfortable before we move forward."
+                </div>
+                <p><strong>Follow-up options:</strong> Provide references, show license/credentials, explain transparent process, offer to meet at attorney's office.</p>
+            </div>
+            
+            <div class="data-table">
+                <h3>Quick Reference Guide: Objections 6-10</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Objection</th>
+                            <th>Core Issue</th>
+                            <th>Key Response Strategy</th>
+                            <th>Next Step</th>

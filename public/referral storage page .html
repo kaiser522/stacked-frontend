@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Referral Tool - Stacked Real Estate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #2c3e50;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: #2c3e50;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #34495e;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #5dade2;
+        }
+
+        .subtitle {
+            color: #bdc3c7;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .main-content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .search-section {
+            background-color: #34495e;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: #2c3e50;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+        }
+
+        .search-bar input::placeholder {
+            color: #bdc3c7;
+        }
+
+        .search-icon {
+            color: #5dade2;
+            margin-right: 0.5rem;
+        }
+
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            background-color: #34495e;
+            color: #bdc3c7;
+            border: 2px solid transparent;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background-color: #5dade2;
+            color: #2c3e50;
+            border-color: #5dade2;
+        }
+
+        .add-btn {
+            background-color: #27ae60 !important;
+            color: #ffffff !important;
+            border-color: #27ae60 !important;
+        }
+
+        .add-btn:hover {
+            background-color: #229954 !important;
+        }
+
+        /* Add Contractor Form Styles */
+        .add-contractor-section {
+            background-color: #34495e;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 2px solid #5dade2;
+        }
+
+        .form-container {
+            padding: 2rem;
+        }
+
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #2c3e50;
+            padding-bottom: 1rem;
+        }
+
+        .form-header h3 {
+            color: #5dade2;
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        .close-form-btn {
+            background: none;
+            border: none;
+            color: #bdc3c7;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-form-btn:hover {
+            color: #ffffff;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            color: #5dade2;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background-color: #2c3e50;
+            border: 2px solid #34495e;
+            border-radius: 6px;
+            padding: 0.75rem;
+            color: #ffffff;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #5dade2;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #bdc3c7;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .generate-btn {
+            background-color: #5dade2;
+            color: #2c3e50;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .generate-btn:hover {
+            background-color: #4fa8d8;
+        }
+
+        .generate-btn:disabled {
+            background-color: #7f8c8d;
+            cursor: not-allowed;
+        }
+
+        .save-btn {
+            background-color: #27ae60;
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .save-btn:hover {
+            background-color: #229954;
+        }
+
+        .cancel-btn {
+            background-color: #34495e;
+            color: #bdc3c7;
+            border: 2px solid #5dade2;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cancel-btn:hover {
+            background-color: #5dade2;
+            color: #2c3e50;
+        }
+
+        /* Generated Message Styles */
+        .generated-message-section {
+            background-color: #34495e;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 2px solid #27ae60;
+        }
+
+        .message-container {
+            padding: 2rem;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #2c3e50;
+            padding-bottom: 1rem;
+        }
+
+        .message-header h3 {
+            color: #27ae60;
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        .generated-message-content {
+            background-color: #2c3e50;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #27ae60;
+        }
+
+        .generated-message-content div {
+            color: #ffffff;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .message-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .edit-btn {
+            background-color: #f39c12;
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-btn:hover {
+            background-color: #e67e22;
+        }
+
+        .regenerate-btn {
+            background-color: #8e44ad;
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .regenerate-btn:hover {
+            background-color: #7d3c98;
+        }
+
+        .contractors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .contractor-card {
+            background-color: #34495e;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .contractor-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(93, 173, 226, 0.2);
+            border-color: #5dade2;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .contractor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .contractor-info {
+            flex: 1;
+        }
+
+        .contractor-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 0.3rem;
+        }
+
+        .company-name {
+            color: #5dade2;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .specialty {
+            background-color: #2c3e50;
+            color: #5dade2;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            border: 1px solid #5dade2;
+            display: inline-block;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: #f39c12;
+            font-size: 0.9rem;
+            margin-left: 1rem;
+        }
+
+        .services-list {
+            color: #bdc3c7;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background-color: #2c3e50;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .phone {
+            color: #5dade2;
+            font-weight: 500;
+        }
+
+        .experience {
+            color: #bdc3c7;
+            font-size: 0.8rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .share-btn {
+            flex: 1;
+            background-color: #5dade2;
+            color: #2c3e50;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .share-btn:hover {
+            background-color: #4fa8d8;
+        }
+
+        .copy-btn {
+            background-color: #34495e;
+            color: #5dade2;
+            border: 2px solid #5dade2;
+            padding: 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 50px;
+        }
+
+        .copy-btn:hover {
+            background-color: #5dade2;
+            color: #2c3e50;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            min-width: 50px;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background-color: #34495e;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            color: #5dade2;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #bdc3c7;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            color: #ffffff;
+        }
+
+        .message-preview {
+            background-color: #2c3e50;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #5dade2;
+        }
+
+        .message-text {
+            color: #ffffff;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-message-btn {
+            background-color: #5dade2;
+            color: #2c3e50;
+        }
+
+        .copy-message-btn:hover {
+            background-color: #4fa8d8;
+        }
+
+        .email-btn {
+            background-color: #27ae60;
+            color: #ffffff;
+        }
+
+        .email-btn:hover {
+            background-color: #229954;
+        }
+
+        .text-btn {
+            background-color: #8e44ad;
+            color: #ffffff;
+        }
+
+        .text-btn:hover {
+            background-color: #7d3c98;
+        }
+
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #27ae60;
+            color: #ffffff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            z-index: 1001;
+            display: none;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .contractors-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-nav {
+                gap: 0.3rem;
+            }
+
+            .category-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .modal-content {
+                margin: 10% auto;
+                padding: 1.5rem;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                justify-content: stretch;
+            }
+
+            .message-actions {
+                justify-content: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">Quick Referral Tool</div>
+        <div class="subtitle">Share trusted contractor information with your clients</div>
+    </div>
+
+    <div class="main-content">
+        <div class="search-section">
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Search contractors or services...">
+            </div>
+        </div>
+
+        <div class="category-nav">
+            <a href="#" class="category-btn active">All</a>
+            <a href="#" class="category-btn">General</a>
+            <a href="#" class="category-btn">Electrical</a>
+            <a href="#" class="category-btn">Plumbing</a>
+            <a href="#" class="category-btn">HVAC</a>
+            <a href="#" class="category-btn">Roofing</a>
+            <a href="#" class="category-btn">Landscaping</a>
+            <a href="#" class="category-btn">Flooring</a>
+            <a href="#" class="category-btn">Painting</a>
+            <button class="category-btn add-btn" onclick="showAddForm()">+ Add New</button>
+        </div>
+
+        <!-- Add Contractor Form -->
+        <div id="addContractorForm" class="add-contractor-section" style="display: none;">
+            <div class="form-container">
+                <div class="form-header">
+                    <h3>Add New Contractor</h3>
+                    <button class="close-form-btn" onclick="hideAddForm()">×</button>
+                </div>
+                <form id="contractorForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Contractor Name *</label>
+                            <input type="text" id="contractorName" required placeholder="John Smith">
+                        </div>
+                        <div class="form-group">
+                            <label>Company Name *</label>
+                            <input type="text" id="companyName" required placeholder="ABC Construction">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number *</label>
+                            <input type="tel" id="phoneNumber" required placeholder="(555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label>Specialty/Category *</label>
+                            <select id="specialty" required>
+                                <option value="">Select specialty...</option>
+                                <option value="general">General Contractor</option>
+                                <option value="electrical">Electrical</option>
+                                <option value="plumbing">Plumbing</option>
+                                <option value="hvac">HVAC</option>
+                                <option value="roofing">Roofing</option>
+                                <option value="landscaping">Landscaping</option>
+                                <option value="flooring">Flooring</option>
+                                <option value="painting">Painting</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Years of Experience</label>
+                            <input type="number" id="experience" placeholder="10">
+                        </div>
+                        <div class="form-group">
+                            <label>Rating (1-5)</label>
+                            <select id="rating">
+                                <option value="">Select rating...</option>
+                                <option value="5.0">5.0 - Excellent</option>
+                                <option value="4.9">4.9 - Excellent</option>
+                                <option value="4.8">4.8 - Very Good</option>
+                                <option value="4.7">4.7 - Very Good</option>
+                                <option value="4.6">4.6 - Good</option>
+                                <option value="4.5">4.5 - Good</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Services Offered *</label>
+                        <textarea id="services" required placeholder="Kitchen remodels, bathroom renovations, home additions, flooring installation, drywall repair"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Special Notes (Optional)</label>
+                        <textarea id="specialNotes" placeholder="Licensed and insured, offers free estimates, works weekends, emergency services available, etc."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="generate-btn" onclick="generateMessage()">Generate Referral Message</button>
+                        <button type="button" class="save-btn" onclick="saveContractor()">Save Contractor</button>
+                        <button type="button" class="cancel-btn" onclick="hideAddForm()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Generated Message Preview -->
+        <div id="generatedMessagePreview" class="generated-message-section" style="display: none;">
+            <div class="message-container">
+                <div class="message-header">
+                    <h3>Generated Referral Message</h3>
+                    <button class="close-form-btn" onclick="hideGeneratedMessage()">×</button>
+                </div>
+                <div class="generated-message-content">
+                    <div id="generatedMessageText"></div>
+                </div>
+                <div class="message-actions">
+                    <button class="copy-message-btn" onclick="copyGeneratedMessage()">Copy Message</button>
+                    <button class="edit-btn" onclick="editGeneratedMessage()">Edit Message</button>
+                    <button class="regenerate-btn" onclick="generateMessage()">Regenerate</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="contractors-grid">
+            <!-- Fencing Contractor -->
+            <div class="contractor-card" data-category="general">
+                <div class="card-content">
+                    <div class="contractor-header">
+                        <div class="contractor-info">
+                            <div class="contractor-name">Sarah Martinez</div>
+                            <div class="company-name">Boundary Masters Fencing</div>
+                            <div class="specialty">Fencing Specialist</div>
+                        </div>
+                        <div class="rating">
+                            ⭐ 4.8
+                        </div>
+                    </div>
+                    <div class="services-list">
+                        Privacy fencing, chain link, vinyl fencing, gate installation, fence repair
+                    </div>
+                    <div class="contact-info">
+                        <div class="phone">(555) 234-5678</div>
+                        <div class="experience">12 years experience</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="share-btn" onclick="openModal('fencing')">Share Referral</button>
+                        <button class="copy-btn" onclick="copyContact('fencing')">📋</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- General Contractor -->
+            <div class="contractor-card" data-category="general">
+                <div class="card-content">
+                    <div class="contractor-header">
+                        <div class="contractor-info">
+                            <div class="contractor-name">Mike Johnson</div>
+                            <div class="company-name">Premium Home Solutions</div>
+                            <div class="specialty">General Contractor</div>
+                        </div>
+                        <div class="rating">
+                            ⭐ 4.9
+                        </div>
+                    </div>
+                    <div class="services-list">
+                        Kitchen remodels, bathroom renovations, home additions, flooring, drywall
+                    </div>
+                    <div class="contact-info">
+                        <div class="phone">(555) 123-4567</div>
+                        <div class="experience">15+ years experience</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="share-btn" onclick="openModal('general')">Share Referral</button>
+                        <button class="copy-btn" onclick="copyContact('general')">📋</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Electrician -->
+            <div class="contractor-card" data-category="electrical">
+                <div class="card-content">
+                    <div class="contractor-header">
+                        <div class="contractor-info">
+                            <div class="contractor-name">David Chen</div>
+                            <div class="company-name">Pro Electric Services</div>
+                            <div class="specialty">Licensed Electrician</div>
+                        </div>
+                        <div class="rating">
+                            ⭐ 4.9
+                        </div>
+                    </div>
+                    <div class="services-list">
+                        Panel upgrades, outlet installation, smart home wiring, lighting, electrical repairs
+                    </div>
+                    <div class="contact-info">
+                        <div class="phone">(555) 345-6789</div>
+                        <div class="experience">20+ years experience</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="share-btn" onclick="openModal('electrical')">Share Referral</button>
+                        <button class="copy-btn" onclick="copyContact('electrical')">📋</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plumber -->
+            <div class="contractor-card" data-category="plumbing">
+                <div class="card-content">
+                    <div class="contractor-header">
+                        <div class="contractor-info">
+                            <div class="contractor-name">Robert Wilson</div>
+                            <div class="company-name">Wilson Plumbing Solutions</div>
+                            <div class="specialty">Master Plumber</div>
+                        </div>
+                        <div class="rating">
+                            ⭐ 4.7
+                        </div>
+                    </div>
+                    <div class="services-list">
+                        Water heater installation, drain cleaning, pipe repair, bathroom remodeling
+                    </div>
+                    <div class="contact-info">
+                        <div class="phone">(555) 456-7890</div>
+                        <div class="experience">18 years experience</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="share-btn" onclick="openModal('plumbing')">Share Referral</button>
+                        <button class="copy-btn" onclick="copyContact('plumbing')">📋</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HVAC -->
+            <div class="contractor-card" data-category="hvac">
+                <div class="card-content">
+                    <div class="contractor-header">
+                        <div class="contractor-info">
+                            <div class="contractor-name">Jennifer Adams</div>
+                            <div class="company-name">Climate Control Experts</div>
+                            <div class="specialty">HVAC Specialist</div>
+                        </div>
+                        <div class="rating">
+                            ⭐ 4.8
+                        </div>
+                    </div>
+                    <div class="services-list">
+                        AC installation, furnace repair, duct cleaning, energy efficiency upgrades
+                    </div>
+                    <div class="contact-info">
+                        <div class="phone">(555) 567-8901</div>
+                        <div class="experience">14 years experience</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="share-btn" onclick="openModal('hvac')">Share Referral</button>
+                        <button class="copy-btn" onclick="copyContact('hvac')">📋</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Roofer -->
+            <div class="contractor-card" data-category="roofing">
+                <div class="card-content">
+                    <div class="contractor-header">
+                        <div class="contractor-info">
+                            <div class="contractor-name">Tom Rodriguez</div>
+                            <div class="company-name">TopShield Roofing</div>
+                            <div class="specialty">Roofing Contractor</div>
+                        </div>
+                        <div class="rating">
+                            ⭐ 4.9
+                        </div>
+                    </div>
+                    <div class="services-list">
+                        Roof replacement, gutter systems, leak repair, roof inspections
+                    </div>
+                    <div class="contact-info">
+                        <div class="phone">(555) 678-9012</div>
+                        <div class="experience">22 years experience</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="share-btn" onclick="openModal('roofing')">Share Referral</button>
+                        <button class="copy-btn" onclick="copyContact('roofing')">📋</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Landscaper -->
+            <div class="contractor-card" data-category="landscaping">
+                <div class="card-content">
+                    <div class="contractor-header">
+                        <div class="contractor-info">
+                            <div class="contractor-name">Maria Gonzalez</div>
+                            <div class="company-name">GreenSpace Landscaping</div>
+                            <div class="specialty">Landscape Designer</div>
+                        </div>
+                        <div class="rating">
+                            ⭐ 4.6
+                        </div>
+                    </div>
+                    <div class="services-list">
+                        Garden design, irrigation systems, hardscaping, tree services, lawn care
+                    </div>
+                    <div class="contact-info">
+                        <div class="phone">(555) 789-0123</div>
+                        <div class="experience">16 years experience</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="share-btn" onclick="openModal('landscaping')">Share Referral</button>
+                        <button class="copy-btn" onclick="copyContact('landscaping')">📋</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flooring -->
+            <div class="contractor-card" data-category="flooring">
+                <div class="card-content">
+                    <div class="contractor-header">
+                        <div class="contractor-info">
+                            <div class="contractor-name">Carlos Rivera</div>
+                            <div class="company-name">Premier Flooring Solutions</div>
+                            <div class="specialty">Flooring Specialist</div>
+                        </div>
+                        <div class="rating">
+                            ⭐ 4.7
+                        </div>
+                    </div>
+                    <div class="services-list">
+                        Hardwood installation, tile work, carpet installation, floor refinishing
+                    </div>
+                    <div class="contact-info">
+                        <div class="phone">(555) 890-1234</div>
+                        <div class="experience">13 years experience</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="share-btn" onclick="openModal('flooring')">Share Referral</button>
+                        <button class="copy-btn" onclick="copyContact('flooring')">📋</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Painter -->
+            <div class="contractor-card" data-category="painting">
+                <div class="card-content">
+                    <div class="contractor-header">
+                        <div class="contractor-info">
+                            <div class="contractor-name">Lisa Thompson</div>
+                            <div class="company-name">Perfect Paint Professionals</div>
+                            <div class="specialty">Painting Contractor</div>
+                        </div>
+                        <div class="rating">
+                            ⭐ 4.8
+                        </div>
+                    </div>
+                    <div class="services-list">
+                        Interior painting, exterior painting, color consultation, specialty finishes
+                    </div>
+                    <div class="contact-info">
+                        <div class="phone">(555) 901-2345</div>
+                        <div class="experience">11 years experience</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="share-btn" onclick="openModal('painting')">Share Referral</button>
+                        <button class="copy-btn" onclick="copyContact('painting')">📋</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for sharing referrals -->
+    <div id="referralModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Share Contractor Referral</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="message-preview">
+                <div class="message-text" id="messageText"></div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn copy-message-btn" onclick="copyMessage()">Copy Message</button>
+                <button class="modal-btn email-btn" onclick="shareViaEmail()">Share via Email</button>
+                <button class="modal-btn text-btn" onclick="shareViaText()">Share via Text</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success message -->
+    <div id="successMessage" class="success-message"></div>
+
+    <script>
+        // Contractor data with pre-written messages
+        const contractors = {
+            fencing: {
+                name: "Sarah Martinez",
+                company: "Boundary Masters Fencing",
+                phone: "(555) 234-5678",
+                message: `Hi! I hope you're loving your new home! 
+
+I wanted to share a fantastic fencing contractor that I highly recommend:
+
+Sarah Martinez - Boundary Masters Fencing
+📞 (555) 234-5678
+
+Sarah specializes in privacy fencing, chain link, vinyl fencing, and gate installation. She has 12 years of experience and consistently receives excellent reviews from my clients. She's licensed, insured, and provides free estimates.
+
+Just mention that I referred you - she takes great care of my clients!
+
+Let me know if you need any other contractor recommendations.
+
+Best regards!`
+            },
+            general: {
+                name: "Mike Johnson",
+                company: "Premium Home Solutions",
+                phone: "(555) 123-4567",
+                message: `Hi! I hope you're settling in well to your new home!
+
+I wanted to share an excellent general contractor that I highly recommend:
+
+Mike Johnson - Premium Home Solutions
+📞 (555) 123-4567
+
+Mike specializes in kitchen remodels, bathroom renovations, home additions, and general home improvements. He has over 15 years of experience and consistently delivers high-quality work on time and on budget. He's fully licensed and insured.
+
+Just mention that I referred you - he always takes excellent care of my clients!
+
+Feel free to reach out if you need any other contractor recommendations.
+
+Best regards!`
+            },
+            electrical: {
+                name: "David Chen",
+                company: "Pro Electric Services",
+                phone: "(555) 345-6789",
+                message: `Hi! I hope you're enjoying your new home!
+
+I wanted to share a top-notch electrician that I highly recommend:
+
+David Chen - Pro Electric Services
+📞 (555) 345-6789
+
+David is a licensed master electrician with over 20 years of experience. He specializes in panel upgrades, outlet installation, smart home wiring, and all electrical repairs. He's reliable, fairly priced, and does excellent work.
+
+Just mention that I referred you - he always takes great care of my clients!
+
+Let me know if you need any other contractor recommendations.
+
+Best regards!`
+            },
+            plumbing: {
+                name: "Robert Wilson",
+                company: "Wilson Plumbing Solutions",
+                phone: "(555) 456-7890",
+                message: `Hi! I hope everything is going well in your new home!
+
+I wanted to share an excellent plumber that I highly recommend:
+
+Robert Wilson - Wilson Plumbing Solutions
+📞 (555) 456-7890
+
+Robert is a master plumber with 18 years of experience. He specializes in water heater installation, drain cleaning, pipe repair, and bathroom remodeling. He's reliable, reasonably priced, and does quality work.
+
+Just mention that I referred you - he always takes excellent care of my clients!
+
+Feel free to reach out if you need any other contractor recommendations.
+
+Best regards!`
+            },
+            hvac: {
+                name: "Jennifer Adams",
+                company: "Climate Control Experts",
+                phone: "(555) 567-8901",
+                message: `Hi! I hope you're comfortable in your new home!
+
+I wanted to share an excellent HVAC specialist that I highly recommend:
+
+Jennifer Adams - Climate Control Experts
+📞 (555) 567-8901
+
+Jennifer has 14 years of experience and specializes in AC installation, furnace repair, duct cleaning, and energy efficiency upgrades. She's knowledgeable, reliable, and offers competitive pricing.
+
+Just mention that I referred you - she always takes great care of my clients!
+
+Let me know if you need any other contractor recommendations.
+
+Best regards!`
+            },
+            roofing: {
+                name: "Tom Rodriguez",
+                company: "TopShield Roofing",
+                phone: "(555) 678-9012",
+                message: `Hi! I hope you're enjoying your new home!
+
+I wanted to share an excellent roofing contractor that I highly recommend:
+
+Tom Rodriguez - TopShield Roofing
+📞 (555) 678-9012
+
+Tom has 22 years of experience and specializes in roof replacement, gutter systems, leak repair, and roof inspections. He's reliable, uses quality materials, and provides excellent warranties on his work.
+
+Just mention that I referred you - he always takes great care of my clients!
+
+Feel free to reach out if you need any other contractor recommendations.
+
+Best regards!`
+            },
+            landscaping: {
+                name: "Maria Gonzalez",
+                company: "GreenSpace Landscaping",
+                phone: "(555) 789-0123",
+                message: `Hi! I hope you're loving your new home!
+
+I wanted to share an excellent landscaping professional that I highly recommend:
+
+Maria Gonzalez - GreenSpace Landscaping
+📞 (555) 789-0123
+
+Maria is a landscape designer with 16 years of experience. She specializes in garden design, irrigation systems, hardscaping, and tree services. She creates beautiful outdoor spaces and is very reasonably priced.
+
+Just mention that I referred you - she always takes great care of my clients!
+
+Let me know if you need any other contractor recommendations.
+
+Best regards!`
+            },
+            flooring: {
+                name: "Carlos Rivera",
+                company: "Premier Flooring Solutions",
+                phone: "(555) 890-1234",
+                message: `Hi! I hope you're settling in well to your new home!
+
+I wanted to share an excellent flooring specialist that I highly recommend:
+
+Carlos Rivera - Premier Flooring Solutions
+📞 (555) 890-1234
+
+Carlos has 13 years of experience and specializes in hardwood installation, tile work, carpet installation, and floor refinishing. He does beautiful work, is very detail-oriented, and offers competitive pricing.
+
+Just mention that I referred you - he always takes great care of my clients!
+
+Feel free to reach out if you need any other contractor recommendations.
+
+Best regards!`
+            },
+            painting: {
+                name: "Lisa Thompson",
+                company: "Perfect Paint Professionals",
+                phone: "(555) 901-2345",
+                message: `Hi! I hope you're enjoying your new home!
+
+I wanted to share an excellent painting contractor that I highly recommend:
+
+Lisa Thompson - Perfect Paint Professionals
+📞 (555) 901-2345
+
+Lisa has 11 years of experience and specializes in interior painting, exterior painting, color consultation, and specialty finishes. She's very detail-oriented, clean, and offers color expertise to help you choose the perfect colors.
+
+Just mention that I referred you - she always takes great care of my clients!
+
+Let me know if you need any other contractor recommendations.
+
+Best regards!`
+            }
+        };
+
+        let currentContractor = null;
+        let generatedMessage = '';
+        let customContractors = {};
+
+        // Show/hide add contractor form
+        function showAddForm() {
+            document.getElementById('addContractorForm').style.display = 'block';
+            document.getElementById('addContractorForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function hideAddForm() {
+            document.getElementById('addContractorForm').style.display = 'none';
+            document.getElementById('contractorForm').reset();
+        }
+
+        function hideGeneratedMessage() {
+            document.getElementById('generatedMessagePreview').style.display = 'none';
+        }
+
+        // AI Message Generation Function
+        function generateMessage() {
+            const formData = getFormData();
+            if (!validateForm(formData)) return;
+
+            // Show loading state
+            const generateBtn = document.querySelector('.generate-btn');
+            const originalText = generateBtn.textContent;
+            generateBtn.textContent = 'Generating...';
+            generateBtn.disabled = true;
+
+            // Simulate AI generation (in real implementation, this would call an AI API)
+            setTimeout(() => {
+                const message = createAIMessage(formData);
+                document.getElementById('generatedMessageText').textContent = message;
+                document.getElementById('generatedMessagePreview').style.display = 'block';
+                document.getElementById('generatedMessagePreview').scrollIntoView({ behavior: 'smooth' });
+                
+                generatedMessage = message;
+
+                // Reset button
+                generateBtn.textContent = originalText;
+                generateBtn.disabled = false;
+            }, 1500);
+        }
+
+        function getFormData() {
+            return {
+                name: document.getElementById('contractorName').value.trim(),
+                company: document.getElementById('companyName').value.trim(),
+                phone: document.getElementById('phoneNumber').value.trim(),
+                specialty: document.getElementById('specialty').value,
+                experience: document.getElementById('experience').value,
+                rating: document.getElementById('rating').value,
+                services: document.getElementById('services').value.trim(),
+                notes: document.getElementById('specialNotes').value.trim()
+            };
+        }
+
+        function validateForm(data) {
+            if (!data.name || !data.company || !data.phone || !data.specialty || !data.services) {
+                showSuccess('Please fill in all required fields.');
+                return false;
+            }
+            return true;
+        }
+
+        function createAIMessage(data) {
+            // AI-powered message generation based on input data
+            const specialtyMap = {
+                'general': 'general contractor',
+                'electrical': 'electrician',
+                'plumbing': 'plumber',
+                'hvac': 'HVAC specialist',
+                'roofing': 'roofing contractor',
+                'landscaping': 'landscaping professional',
+                'flooring': 'flooring specialist',
+                'painting': 'painting contractor',
+                'other': 'contractor'
+            };
+
+            const specialtyName = specialtyMap[data.specialty] || 'contractor';
+            const experienceText = data.experience ? ` with ${data.experience} years of experience` : '';
+            const ratingText = data.rating ? ` and consistently receives ${data.rating}-star reviews` : '';
+            
+            let notesSection = '';
+            if (data.notes) {
+                notesSection = ` ${data.notes}`;
+            }
+
+            const message = `Hi! I hope you're enjoying your new home!
+
+I wanted to share an excellent ${specialtyName} that I highly recommend:
+
+${data.name} - ${data.company}
+📞 ${data.phone}
+
+${data.name} specializes in ${data.services.toLowerCase()}${experienceText}${ratingText}.${notesSection}
+
+Just mention that I referred you - ${data.name.split(' ')[0]} always takes great care of my clients!
+
+Feel free to reach out if you need any other contractor recommendations.
+
+Best regards!`;
+
+            return message;
+        }
+
+        function copyGeneratedMessage() {
+            navigator.clipboard.writeText(generatedMessage).then(() => {
+                showSuccess('Generated message copied to clipboard!');
+            });
+        }
+
+        function editGeneratedMessage() {
+            const messageDiv = document.getElementById('generatedMessageText');
+            const currentText = messageDiv.textContent;
+            
+            // Create textarea for editing
+            const textarea = document.createElement('textarea');
+            textarea.value = currentText;
+            textarea.style.width = '100%';
+            textarea.style.height = '300px';
+            textarea.style.backgroundColor = '#34495e';
+            textarea.style.color = '#ffffff';
+            textarea.style.border = '2px solid #5dade2';
+            textarea.style.borderRadius = '6px';
+            textarea.style.padding = '1rem';
+            textarea.style.fontFamily = 'inherit';
+            textarea.style.fontSize = 'inherit';
+            textarea.style.lineHeight = 'inherit';
+            textarea.style.resize = 'vertical';
+            
+            // Replace content with textarea
+            messageDiv.innerHTML = '';
+            messageDiv.appendChild(textarea);
+            
+            // Create save/cancel buttons
+            const buttonContainer = document.createElement('div');
+            buttonContainer.style.marginTop = '1rem';
+            buttonContainer.style.display = 'flex';
+            buttonContainer.style.gap = '0.5rem';
+            
+            const saveBtn = document.createElement('button');
+            saveBtn.textContent = 'Save Changes';
+            saveBtn.className = 'save-btn';
+            saveBtn.onclick = () => {
+                generatedMessage = textarea.value;
+                messageDiv.innerHTML = '';
+                messageDiv.textContent = generatedMessage;
+                showSuccess('Message updated!');
+            };
+            
+            const cancelBtn = document.createElement('button');
+            cancelBtn.textContent = 'Cancel';
+            cancelBtn.className = 'cancel-btn';
+            cancelBtn.onclick = () => {
+                messageDiv.innerHTML = '';
+                messageDiv.textContent = currentText;
+            };
+            
+            buttonContainer.appendChild(saveBtn);
+            buttonContainer.appendChild(cancelBtn);
+            messageDiv.appendChild(buttonContainer);
+            
+            textarea.focus();
+        }
+
+        function saveContractor() {
+            const formData = getFormData();
+            if (!validateForm(formData)) return;
+
+            // Create unique ID for custom contractor
+            const contractorId = 'custom_' + Date.now();
+            
+            // Save to custom contractors
+            customContractors[contractorId] = {
+                name: formData.name,
+                company: formData.company,
+                phone: formData.phone,
+                specialty: formData.specialty,
+                experience: formData.experience,
+                rating: formData.rating || '4.5',
+                services: formData.services,
+                notes: formData.notes,
+                message: generatedMessage || createAIMessage(formData)
+            };
+
+            // Create and add new contractor card
+            addContractorCard(contractorId, customContractors[contractorId]);
+            
+            // Reset form and hide
+            hideAddForm();
+            hideGeneratedMessage();
+            
+            showSuccess('Contractor saved successfully!');
+        }
+
+        function addContractorCard(id, contractor) {
+            const grid = document.querySelector('.contractors-grid');
+            const card = document.createElement('div');
+            card.className = 'contractor-card';
+            card.setAttribute('data-category', contractor.specialty);
+            card.setAttribute('data-id', id);
+            
+            const experienceText = contractor.experience ? `${contractor.experience} years experience` : 'Experienced professional';
+            
+            card.innerHTML = `
+                <div class="card-content">
+                    <div class="contractor-header">
+                        <div class="contractor-info">
+                            <div class="contractor-name">${contractor.name}</div>
+                            <div class="company-name">${contractor.company}</div>
+                            <div class="specialty">${contractor.specialty.charAt(0).toUpperCase() + contractor.specialty.slice(1)} Specialist</div>
+                        </div>
+                        <div class="rating">
+                            ⭐ ${contractor.rating}
+                        </div>
+                    </div>
+                    <div class="services-list">
+                        ${contractor.services}
+                    </div>
+                    <div class="contact-info">
+                        <div class="phone">${contractor.phone}</div>
+                        <div class="experience">${experienceText}</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="share-btn" onclick="openModal('${id}')">Share Referral</button>
+                        <button class="copy-btn" onclick="copyContact('${id}')">📋</button>
+                        <button class="delete-btn" onclick="deleteContractor('${id}')">🗑️</button>
+                    </div>
+                </div>
+            `;
+            
+            grid.appendChild(card);
+        }
+
+        function deleteContractor(id) {
+            if (confirm('Are you sure you want to delete this contractor?')) {
+                delete customContractors[id];
+                const card = document.querySelector(`[data-id="${id}"]`);
+                if (card) {
+                    card.remove();
+                }
+                showSuccess('Contractor deleted successfully!');
+            }
+        }
+
+        // Category filtering
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (this.onclick) return; // Skip if it has onclick (Add New button)
+                
+                document.querySelectorAll('.category-btn').forEach(b => {
+                    if (!b.onclick) b.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                const category = this.textContent.toLowerCase();
+                const cards = document.querySelectorAll('.contractor-card');
+                
+                cards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (category === 'all' || cardCategory === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        document.querySelector('.search-bar input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.contractor-card');
+            
+            cards.forEach(card => {
+                const name = card.querySelector('.contractor-name').textContent.toLowerCase();
+                const company = card.querySelector('.company-name').textContent.toLowerCase();
+                const specialty = card.querySelector('.specialty').textContent.toLowerCase();
+                const services = card.querySelector('.services-list').textContent.toLowerCase();
+                
+                if (name.includes(searchTerm) || company.includes(searchTerm) || 
+                    specialty.includes(searchTerm) || services.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = searchTerm ? 'none' : 'block';
+                }
+            });
+        });
+
+        // Modal functions
+        function openModal(contractorId) {
+            currentContractor = contractorId;
+            let contractor;
+            
+            // Check if it's a custom contractor or pre-made one
+            if (contractorId.startsWith('custom_')) {
+                contractor = customContractors[contractorId];
+            } else {
+                contractor = contractors[contractorId];
+            }
+            
+            if (contractor) {
+                document.getElementById('messageText').textContent = contractor.message;
+                document.getElementById('referralModal').style.display = 'block';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('referralModal').style.display = 'none';
+            currentContractor = null;
+        }
+
+        // Copy functions
+        function copyMessage() {
+            const messageText = document.getElementById('messageText').textContent;
+            navigator.clipboard.writeText(messageText).then(() => {
+                showSuccess('Message copied to clipboard!');
+                closeModal();
+            });
+        }
+
+        function copyContact(contractorId) {
+            let contractor;
+            
+            // Check if it's a custom contractor or pre-made one
+            if (contractorId.startsWith('custom_')) {
+                contractor = customContractors[contractorId];
+            } else {
+                contractor = contractors[contractorId];
+            }
+            
+            if (contractor) {
+                const contactText = `${contractor.name} - ${contractor.company}\nPhone: ${contractor.phone}`;
+                navigator.clipboard.writeText(contactText).then(() => {
+                    showSuccess('Contact info copied to clipboard!');
+                });
+            }
+        }
+
+        // Share functions
+        function shareViaEmail() {
+            let contractor;
+            
+            if (currentContractor.startsWith('custom_')) {
+                contractor = customContractors[currentContractor];
+            } else {
+                contractor = contractors[currentContractor];
+            }
+            
+            if (contractor) {
+                const subject = `Contractor Referral: ${contractor.company}`;
+                const body = encodeURIComponent(contractor.message);
+                window.open(`mailto:?subject=${subject}&body=${body}`);
+                closeModal();
+            }
+        }
+
+        function shareViaText() {
+            let contractor;
+            
+            if (currentContractor.startsWith('custom_')) {
+                contractor = customContractors[currentContractor];
+            } else {
+                contractor = contractors[currentContractor];
+            }
+            
+            if (contractor) {
+                const message = encodeURIComponent(contractor.message);
+                window.open(`sms:?body=${message}`);
+                closeModal();
+            }
+        }
+
+        // Success message
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('referralModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

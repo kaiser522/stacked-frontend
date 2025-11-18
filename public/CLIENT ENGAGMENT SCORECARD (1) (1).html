@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Scorecard - STACKED</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1e2332;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: #161b26;
+            padding: 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 24px 20px;
+            border-bottom: 1px solid #2a3441;
+        }
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            background: #ffffff;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #000;
+            font-size: 12px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: #8892b0;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            background: #1e2332;
+            color: #ffffff;
+        }
+
+        .nav-item.active {
+            background: #1e2332;
+            color: #64ffda;
+            border-right: 2px solid #64ffda;
+        }
+
+        .nav-icon {
+            width: 18px;
+            height: 18px;
+            margin-right: 14px;
+            opacity: 0.8;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            background: #1e2332;
+        }
+
+        .header {
+            background: #1e2332;
+            padding: 24px 40px;
+            border-bottom: 1px solid #2a3441;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #ccd6f6;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .time-filter {
+            background: #2a3441;
+            border: 1px solid #364153;
+            border-radius: 8px;
+            padding: 10px 16px;
+            color: #8892b0;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .export-btn {
+            background: #64ffda;
+            color: #0a192f;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .export-btn:hover {
+            background: #4fd1c7;
+            transform: translateY(-1px);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: #ccd6f6;
+        }
+
+        .user-role {
+            font-size: 12px;
+            color: #8892b0;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: #64ffda;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #0a192f;
+            font-size: 14px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .scorecard-overview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .overview-card {
+            background: #2a3441;
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            border: 1px solid #364153;
+        }
+
+        .overview-card .icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .overview-card.highly-engaged .icon {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .overview-card.moderately-engaged .icon {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .overview-card.low-engaged .icon {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+
+        .overview-card.avg-response .icon {
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+        }
+
+        .overview-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ccd6f6;
+            margin-bottom: 8px;
+        }
+
+        .overview-label {
+            font-size: 14px;
+            color: #8892b0;
+            font-weight: 500;
+        }
+
+        .overview-change {
+            font-size: 12px;
+            margin-top: 4px;
+            color: #10b981;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ccd6f6;
+        }
+
+        .engagement-legend {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 24px;
+            padding: 16px 20px;
+            background: #2a3441;
+            border-radius: 8px;
+            border: 1px solid #364153;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.high { background: #10b981; }
+        .legend-dot.medium { background: #f59e0b; }
+        .legend-dot.low { background: #ef4444; }
+
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 24px;
+        }
+
+        .client-card {
+            background: #2a3441;
+            border: 1px solid #364153;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .client-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--engagement-color);
+        }
+
+        .client-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+            border-color: #64ffda;
+        }
+
+        .client-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .client-info h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ccd6f6;
+            margin-bottom: 4px;
+        }
+
+        .client-type {
+            display: inline-block;
+            padding: 4px 8px;
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .engagement-score {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            position: relative;
+            background: conic-gradient(var(--engagement-color) var(--score-percent), #364153 0);
+        }
+
+        .engagement-score::before {
+            content: '';
+            position: absolute;
+            inset: 6px;
+            border-radius: 50%;
+            background: #2a3441;
+        }
+
+        .engagement-score span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .engagement-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--engagement-color);
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #8892b0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .engagement-details {
+            background: rgba(100, 255, 218, 0.05);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 16px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-label {
+            color: #8892b0;
+        }
+
+        .detail-value {
+            color: #ccd6f6;
+            font-weight: 500;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-left: 8px;
+        }
+
+        .status-active { background: #10b981; }
+        .status-moderate { background: #f59e0b; }
+        .status-cold { background: #ef4444; }
+
+        .last-activity {
+            font-size: 12px;
+            color: #8892b0;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #364153;
+        }
+
+        /* Engagement level classes */
+        .engagement-high {
+            --engagement-color: #10b981;
+            --score-percent: calc(var(--score) * 3.6deg);
+        }
+
+        .engagement-medium {
+            --engagement-color: #f59e0b;
+            --score-percent: calc(var(--score) * 3.6deg);
+        }
+
+        .engagement-low {
+            --engagement-color: #ef4444;
+            --score-percent: calc(var(--score) * 3.6deg);
+        }
+
+        .demo-banner {
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.1), rgba(100, 255, 218, 0.05));
+            border: 1px solid #64ffda;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .demo-banner h3 {
+            color: #64ffda;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .demo-banner p {
+            color: #8892b0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .scorecard-overview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .clients-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .engagement-legend {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">≡</div>
+                <span style="font-weight: bold; font-size: 18px;">STACKED</span>
+            </div>
+            
+            <a href="#" class="nav-item">
+                <span class="nav-icon">📊</span>
+                Dashboard
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">👥</span>
+                Clients
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">🏠</span>
+                Properties
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">📅</span>
+                Calendar
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">📄</span>
+                Documents
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">📚</span>
+                Library
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">📈</span>
+                Analytics
+            </a>
+            <a href="#" class="nav-item active">
+                <span class="nav-icon">🎯</span>
+                Client Scorecard
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">💰</span>
+                Pricing
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙️</span>
+                Settings
+            </a>
+        </nav>
+
+        <main class="main-content">
+            <header class="header">
+                <h1>Client Engagement Scorecard</h1>
+                <div class="header-actions">
+                    <select class="time-filter">
+                        <option>Last 30 Days</option>
+                        <option>Last 7 Days</option>
+                        <option>Last 90 Days</option>
+                    </select>
+                    <button class="export-btn">Export Report</button>
+                    <div class="user-profile">
+                        <div class="user-info">
+                            <div class="user-name">John Smith</div>
+                            <div class="user-role">Real Estate Agent</div>
+                        </div>
+                        <div class="user-avatar">JS</div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="demo-banner">
+                    <h3>📧 Email Integration Ready</h3>
+                    <p>This scorecard automatically tracks email opens, reply rates, and response times from your email platform. Scores update in real-time based on client engagement patterns.</p>
+                </div>
+
+                <div class="scorecard-overview">
+                    <div class="overview-card avg-response">
+                        <div class="icon">⚡</div>
+                        <div class="overview-number" id="avgResponseTime">2.4h</div>
+                        <div class="overview-label">Avg Response Time</div>
+                        <div class="overview-change">+15% faster this month</div>
+                    </div>
+                    <div class="overview-card highly-engaged">
+                        <div class="icon">🔥</div>
+                        <div class="overview-number" id="highEngagement">3</div>
+                        <div class="overview-label">Highly Engaged (80+)</div>
+                        <div class="overview-change">+2 from last week</div>
+                    </div>
+                    <div class="overview-card moderately-engaged">
+                        <div class="icon">📈</div>
+                        <div class="overview-number" id="mediumEngagement">4</div>
+                        <div class="overview-label">Moderate Engagement (50-79)</div>
+                        <div class="overview-change">Stable</div>
+                    </div>
+                    <div class="overview-card low-engaged">
+                        <div class="icon">❄️</div>
+                        <div class="overview-number" id="lowEngagement">2</div>
+                        <div class="overview-label">Low Engagement (<50)</div>
+                        <div class="overview-change">Needs attention</div>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <h2 class="section-title">Client Engagement Rankings</h2>
+                </div>
+
+                <div class="engagement-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot high"></div>
+                        <span>High Engagement: Opens 80%+ emails, replies within 4 hours</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot medium"></div>
+                        <span>Moderate: Opens 50-79% emails, replies within 24 hours</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot low"></div>
+                        <span>Low: Opens <50% emails, slow/no replies</span>
+                    </div>
+                </div>
+
+                <div class="clients-grid" id="clientsGrid"></div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Sample engagement data that would come from email integration
+        const engagementData = [
+            {
+                id: 1,
+                name: "Sarah & Mike Johnson",
+                type: "buyer",
+                engagementScore: 92,
+                emailOpenRate: 95,
+                avgResponseTime: "1.2h",
+                lastEmailOpened: "2 hours ago",
+                totalEmails: 28,
+                repliedEmails: 26,
+                lastActivity: "Opened property listing email",
+                status: "highly-engaged"
+            },
+            {
+                id: 2,
+                name: "Lisa Rodriguez",
+                type: "seller",
+                engagementScore: 88,
+                emailOpenRate: 89,
+                avgResponseTime: "3.1h",
+                lastEmailOpened: "5 hours ago",
+                totalEmails: 35,
+                repliedEmails: 31,
+                lastActivity: "Replied to market update",
+                status: "highly-engaged"
+            },
+            {
+                id: 3,
+                name: "Thompson Family",
+                type: "both",
+                engagementScore: 84,
+                emailOpenRate: 78,
+                avgResponseTime: "4.5h",
+                lastEmailOpened: "1 day ago",
+                totalEmails: 22,
+                repliedEmails: 18,
+                lastActivity: "Viewed financing options email",
+                status: "highly-engaged"
+            },
+            {
+                id: 4,
+                name: "David Chen",
+                type: "buyer",
+                engagementScore: 71,
+                emailOpenRate: 68,
+                avgResponseTime: "8.2h",
+                lastEmailOpened: "12 hours ago",
+                totalEmails: 19,
+                repliedEmails: 13,
+                lastActivity: "Opened neighborhood guide",
+                status: "moderately-engaged"
+            },
+            {
+                id: 5,
+                name: "Maria Gonzalez",
+                type: "seller",
+                engagementScore: 65,
+                emailOpenRate: 72,
+                avgResponseTime: "1.2d",
+                lastEmailOpened: "2 days ago",
+                totalEmails: 15,
+                repliedEmails: 9,
+                lastActivity: "Viewed home staging tips",
+                status: "moderately-engaged"
+            },
+            {
+                id: 6,
+                name: "Robert Williams",
+                type: "buyer",
+                engagementScore: 58,
+                emailOpenRate: 55,
+                avgResponseTime: "2.1d",
+                lastEmailOpened: "3 days ago",
+                totalEmails: 24,
+                repliedEmails: 8,
+                lastActivity: "Opened mortgage rate update",
+                status: "moderately-engaged"
+            },
+            {
+                id: 7,
+                name: "Jennifer Taylor",
+                type: "seller",
+                engagementScore: 42,
+                emailOpenRate: 41,
+                avgResponseTime: "4.8d",
+                lastEmailOpened: "1 week ago",
+                totalEmails: 17,
+                repliedEmails: 3,
+                lastActivity: "Opened market analysis (no reply)",
+                status: "low-engaged"
+            },
+            {
+                id: 8,
+                name: "Anderson Group",
+                type: "both",
+                engagementScore: 34,
+                emailOpenRate: 28,
+                avgResponseTime: "No replies",
+                lastEmailOpened: "2 weeks ago",
+                totalEmails: 12,
+                repliedEmails: 0,
+                lastActivity: "No recent engagement",
+                status: "low-engaged"
+            },
+            {
+                id: 9,
+                name: "Kevin Martinez",
+                type: "buyer",
+                engagementScore: 76,
+                emailOpenRate: 82,
+                avgResponseTime: "6.4h",
+                lastEmailOpened: "8 hours ago",
+                totalEmails: 16,
+                repliedEmails: 12,
+                lastActivity: "Asked about viewing schedule",
+                status: "moderately-engaged"
+            }
+        ];
+
+        function getEngagementClass(score) {
+            if (score >= 80) return 'engagement-high';
+            if (score >= 50) return 'engagement-medium';
+            return 'engagement-low';
+        }
+
+        function getEngagementLabel(score) {
+            if (score >= 80) return 'Highly Engaged';
+            if (score >= 50) return 'Moderately Engaged';
+            return 'Low Engagement';
+        }
+
+        function getStatusClass(status) {
+            const statusMap = {
+                'highly-engaged': 'status-active',
+                'moderately-engaged': 'status-moderate',
+                'low-engaged': 'status-cold'
+            };
+            return statusMap[status] || 'status-cold';
+        }
+
+        function updateOverview() {
+            const high = engagementData.filter(c => c.engagementScore >= 80).length;
+            const medium = engagementData.filter(c => c.engagementScore >= 50 && c.engagementScore < 80).length;
+            const low = engagementData.filter(c => c.engagementScore < 50).length;
+
+            document.getElementById('highEngagement').textContent = high;
+            document.getElementById('mediumEngagement').textContent = medium;
+            document.getElementById('lowEngagement').textContent = low;
+        }
+
+        function renderClients() {
+            const grid = document.getElementById('clientsGrid');
+            
+            // Sort by engagement score (highest first)
+            const sortedClients = [...engagementData].sort((a, b) => b.engagementScore - a.engagementScore);
+
+            grid.innerHTML = sortedClients.map(client => `
+                <div class="client-card ${getEngagementClass(client.engagementScore)}" style="--score: ${client.engagementScore}">
+                    <div class="client-header">
+                        <div class="client-info">
+                            <h3>${client.name}</h3>
+                            <span class="client-type">${client.type}</span>
+                        </div>
+                        <div class="engagement-score">
+                            <span>${client.engagementScore}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="engagement-metrics">
+                        <div class="metric">
+                            <div class="metric-value">${client.emailOpenRate}%</div>
+                            <div class="metric-label">Open Rate</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">${client.avgResponseTime}</div>
+                            <div class="metric-label">Avg Response</div>
+                        </div>
+                    </div>
+                    
+                    <div class="engagement-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Emails Sent</span>
+                            <span class="detail-value">${client.totalEmails}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Replies Received</span>
+                            <span class="detail-value">${client.repliedEmails}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Last Email Opened</span>
+                            <span class="detail-value">${client.lastEmailOpened}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Engagement Level</span>
+                            <span class="detail-value">
+                                ${getEngagementLabel(client.engagementScore)}
+                                <span class="status-indicator ${getStatusClass(client.status)}"></span>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="last-activity">
+                        <strong>Latest Activity:</strong> ${client.lastActivity}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Initialize
+        updateOverview();
+        renderClients();
+    </script>
+</body>
+</html>

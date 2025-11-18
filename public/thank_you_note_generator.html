@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You Note Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            border: 2px solid #2ecc71;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .thank-icon {
+            width: 60px;
+            height: 60px;
+            background: #2ecc71;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 30px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .controls-panel {
+            background: rgba(58, 74, 92, 0.9);
+            border: 2px solid #2ecc71;
+            border-radius: 20px;
+            padding: 25px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .panel-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2ecc71;
+            text-align: center;
+        }
+
+        .control-section {
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2ecc71;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #58d68d;
+            margin-bottom: 15px;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #a0b4c3;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .control-group input, 
+        .control-group textarea, 
+        .control-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #5a6a7c;
+            border-radius: 5px;
+            background: #2c3e50;
+            color: white;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .control-group input:focus, 
+        .control-group textarea:focus, 
+        .control-group select:focus {
+            outline: none;
+            border-color: #2ecc71;
+        }
+
+        .control-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .download-btn {
+            width: 100%;
+            padding: 12px;
+            background: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .download-btn:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+
+        .preview-container {
+            background: white;
+            border-radius: 15px;
+            color: #333;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            min-height: 600px;
+        }
+
+        .note-card {
+            width: 600px;
+            min-height: 450px;
+            background: white;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            font-family: 'Georgia', serif;
+            border: 2px solid #e9ecef;
+        }
+
+        .note-header {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .note-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .note-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .decorative-accent {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            opacity: 0.7;
+        }
+
+        .note-body {
+            padding: 40px 35px;
+            line-height: 1.8;
+            font-size: 16px;
+            color: #2c3e50;
+            background: #fafafa;
+        }
+
+        .greeting {
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .note-content {
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .closing {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .signature-line {
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .note-footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 35px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .agent-contact {
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .template-btn {
+            padding: 10px;
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            border: 2px solid rgba(46, 204, 113, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .template-btn:hover {
+            background: rgba(46, 204, 113, 0.3);
+            border-color: #2ecc71;
+        }
+
+        .template-btn.active {
+            background: #2ecc71;
+            color: white;
+            border-color: #2ecc71;
+        }
+
+        .tag {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            display: inline-block;
+            margin: 2px;
+        }
+
+        .char-count {
+            font-size: 0.8rem;
+            color: #a0b4c3;
+            text-align: right;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .controls-panel {
+                position: static;
+            }
+            
+            .note-card {
+                transform: scale(0.9);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .note-card {
+                transform: scale(0.75);
+                width: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>
+            <div class="thank-icon">💌</div>
+            Thank You Note Generator
+        </h1>
+        <p>Create personalized thank you notes for clients, referrals, and business partners.</p>
+        <div style="margin-top: 20px;">
+            <span class="tag">client appreciation</span>
+            <span class="tag">relationship building</span>
+            <span class="tag">professional notes</span>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="controls-panel">
+            <h3 class="panel-title">Create Thank You Note</h3>
+            
+            <!-- Note Templates -->
+            <div class="control-section">
+                <div class="section-title">Quick Templates</div>
+                
+                <div class="template-grid">
+                    <div class="template-btn active" onclick="selectTemplate('closing')">Post-Closing</div>
+                    <div class="template-btn" onclick="selectTemplate('referral')">Referral</div>
+                    <div class="template-btn" onclick="selectTemplate('showing')">After Showing</div>
+                    <div class="template-btn" onclick="selectTemplate('listing')">New Listing</div>
+                    <div class="template-btn" onclick="selectTemplate('meeting')">After Meeting</div>
+                    <div class="template-btn" onclick="selectTemplate('partner')">Business Partner</div>
+                </div>
+            </div>
+
+            <!-- Recipient Information -->
+            <div class="control-section">
+                <div class="section-title">Recipient Details</div>
+                
+                <div class="control-group">
+                    <label>Recipient Name</label>
+                    <input type="text" id="recipientName" value="John and Sarah Smith" oninput="updateNote()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Relationship/Context</label>
+                    <select id="relationship" onchange="updateNote()">
+                        <option value="clients">Clients</option>
+                        <option value="referral-source">Referral Source</option>
+                        <option value="prospects">Prospects</option>
+                        <option value="partners">Business Partners</option>
+                        <option value="colleagues">Colleagues</option>
+                        <option value="vendors">Vendors/Service Providers</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label>Specific Reason for Thanks</label>
+                    <input type="text" id="thankReason" value="trusting me with the sale of your beautiful home" oninput="updateNote()">
+                </div>
+            </div>
+
+            <!-- Note Content -->
+            <div class="control-section">
+                <div class="section-title">Message Content</div>
+                
+                <div class="control-group">
+                    <label>Opening Greeting</label>
+                    <input type="text" id="greeting" value="Dear John and Sarah," oninput="updateNote()">
+                </div>
+                
+                <div class="control-group">
+                    <label>Main Message</label>
+                    <textarea id="mainMessage" oninput="updateNote(); updateCharCount()">I wanted to take a moment to express my heartfelt gratitude for trusting me with the sale of your beautiful home. Working with you throughout this process has been such a pleasure, and I'm thrilled we achieved such a wonderful outcome together.
+
+Your confidence in my abilities means the world to me, and I hope I exceeded your expectations every step of the way. It's clients like you who make my job so rewarding.</textarea>
+                    <div class="char-count" id="charCount">Character count: 0</div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Closing Statement</label>
+                    <textarea id="closingMessage" oninput="updateNote()">Please don't hesitate to reach out if you need anything in the future. I'm always here to help, and I'd be honored to assist your friends and family with their real estate needs as well.</textarea>
+                </div>
+                
+                <div class="control-group">
+                    <label>Sign-off</label>
+                    <select id="signOff" onchange="updateNote()">
+                        <option value="With sincere gratitude,">With sincere gratitude,</option>
+                        <option value="Warmest regards,">Warmest regards,</option>
+                        <option value="With appreciation,">With appreciation,</option>
+                        <option value="Thank you again,">Thank you again,</option>
+                        <option value="Gratefully yours,">Gratefully yours,</option>
+                        <option value="Best regards,">Best regards,</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Agent Information -->
+            <div class="control-section">
+                <div class="section-title">Your Information</div>
+                
+                <div class="control-group">
+                    <label>Your Name</label>
+                    <input type="text" id="agentName" value="Sarah Johnson" oninput="updateNote()">
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <div class="control-group" style="flex: 1;">
+                        <label>Phone</label>
+                        <input type="text" id="agentPhone" value="(555) 123-4567" oninput="updateNote()">
+                    </div>
+                    <div class="control-group" style="flex: 1;">
+                        <label>Email</label>
+                        <input type="text" id="agentEmail" value="sarah@realty.com" oninput="updateNote()">
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Brokerage</label>
+                    <input type="text" id="brokerage" value="Premium Real Estate" oninput="updateNote()">
+                </div>
+            </div>
+
+            <button class="download-btn" onclick="downloadNote()">Download Thank You Note</button>
+            <button class="download-btn" onclick="printNote()">Print Note</button>
+            <button class="download-btn" onclick="copyToClipboard()">Copy Text</button>
+        </div>
+
+        <div class="preview-container">
+            <div class="note-card" id="noteCard">
+                <div class="note-header">
+                    <div class="decorative-accent" id="headerIcon">💝</div>
+                    <div class="note-title">Thank You</div>
+                    <div class="note-subtitle">A heartfelt message of appreciation</div>
+                </div>
+
+                <div class="note-body">
+                    <div class="greeting" id="displayGreeting">Dear John and Sarah,</div>
+                    
+                    <div class="note-content" id="displayMainMessage">
+                        I wanted to take a moment to express my heartfelt gratitude for trusting me with the sale of your beautiful home. Working with you throughout this process has been such a pleasure, and I'm thrilled we achieved such a wonderful outcome together.<br><br>
+
+                        Your confidence in my abilities means the world to me, and I hope I exceeded your expectations every step of the way. It's clients like you who make my job so rewarding.
+                    </div>
+                    
+                    <div class="note-content" id="displayClosingMessage">
+                        Please don't hesitate to reach out if you need anything in the future. I'm always here to help, and I'd be honored to assist your friends and family with their real estate needs as well.
+                    </div>
+                    
+                    <div class="closing">
+                        <div id="displaySignOff">With sincere gratitude,</div>
+                        <div class="signature-line" id="displayAgentName">Sarah Johnson</div>
+                    </div>
+                </div>
+
+                <div class="note-footer">
+                    <div class="agent-contact">Licensed Real Estate Professional</div>
+                    <div class="agent-contact">📞 <span id="displayAgentPhone">(555) 123-4567</span> | ✉️ <span id="displayAgentEmail">sarah@realty.com</span></div>
+                    <div class="agent-contact" id="displayBrokerage">Premium Real Estate</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const templates = {
+            closing: {
+                icon: '🏠',
+                reason: 'trusting me with the sale of your beautiful home',
+                greeting: 'Dear {name},',
+                message: `I wanted to take a moment to express my heartfelt gratitude for trusting me with the sale of your beautiful home. Working with you throughout this process has been such a pleasure, and I'm thrilled we achieved such a wonderful outcome together.
+
+Your confidence in my abilities means the world to me, and I hope I exceeded your expectations every step of the way. It's clients like you who make my job so rewarding.`,
+                closing: `Please don't hesitate to reach out if you need anything in the future. I'm always here to help, and I'd be honored to assist your friends and family with their real estate needs as well.`
+            },
+            referral: {
+                icon: '🤝',
+                reason: 'referring your friends to my services',
+                greeting: 'Dear {name},',
+                message: `Thank you so much for referring {referral_name} to me! There is no greater compliment than when satisfied clients like you recommend my services to people you care about.
+
+Your trust and confidence in my abilities mean everything to me. I promise to take excellent care of {referral_name} and provide them with the same level of service and dedication that you experienced.`,
+                closing: `Referrals from wonderful clients like you are the foundation of my business. Thank you for thinking of me and for your continued trust.`
+            },
+            showing: {
+                icon: '👁️',
+                reason: 'taking the time to view the property with me',
+                greeting: 'Dear {name},',
+                message: `Thank you for taking the time to view the property with me today. I hope you found the showing informative and that the home met your expectations.
+
+I enjoyed learning more about what you're looking for in your next home, and I'm excited to help you find the perfect property that matches all your needs and desires.`,
+                closing: `If you have any questions about today's property or would like to schedule additional showings, please don't hesitate to reach out. I'm here to make your home buying journey as smooth as possible.`
+            },
+            listing: {
+                icon: '📋',
+                reason: 'choosing me to represent you in selling your home',
+                greeting: 'Dear {name},',
+                message: `Thank you for choosing me to represent you in the sale of your home. I'm honored that you've entrusted me with such an important transaction and milestone in your life.
+
+I'm committed to providing you with exceptional service and marketing your property to achieve the best possible outcome. You can count on my expertise, dedication, and attention to detail throughout this process.`,
+                closing: `I look forward to working with you and achieving your real estate goals. Together, we'll make this a successful and positive experience.`
+            },
+            meeting: {
+                icon: '☕',
+                reason: 'taking the time to meet with me today',
+                greeting: 'Dear {name},',
+                message: `Thank you for taking the time to meet with me today. I truly enjoyed our conversation and learning more about your real estate goals and timeline.
+
+The information you shared will help me better assist you in finding the right property and ensuring a smooth transaction. I'm excited about the opportunity to work together.`,
+                closing: `I'll be following up with the information we discussed and will keep you updated on any properties that match your criteria. Please feel free to reach out with any questions in the meantime.`
+            },
+            partner: {
+                icon: '🤝',
+                reason: 'your partnership and collaboration',
+                greeting: 'Dear {name},',
+                message: `Thank you for your excellent partnership and collaboration on our recent transaction. Working with professionals like you makes my job so much easier and more enjoyable.
+
+Your expertise, communication, and commitment to client service truly made a difference in achieving a successful outcome. I look forward to many more opportunities to work together.`,
+                closing: `Please don't hesitate to reach out if you need anything from me, and I hope we can continue to refer business to each other in the future.`
+            }
+        };
+
+        function selectTemplate(templateKey) {
+            // Update active button
+            document.querySelectorAll('.template-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const template = templates[templateKey];
+            const recipientName = document.getElementById('recipientName').value;
+
+            // Update form fields
+            document.getElementById('thankReason').value = template.reason;
+            document.getElementById('greeting').value = template.greeting.replace('{name}', recipientName);
+            document.getElementById('mainMessage').value = template.message;
+            document.getElementById('closingMessage').value = template.closing;
+            document.getElementById('headerIcon').textContent = template.icon;
+
+            updateNote();
+            updateCharCount();
+        }
+
+        function updateNote() {
+            document.getElementById('displayGreeting').textContent = document.getElementById('greeting').value;
+            document.getElementById('displayMainMessage').innerHTML = document.getElementById('mainMessage').value.replace(/\n/g, '<br>');
+            document.getElementById('displayClosingMessage').innerHTML = document.getElementById('closingMessage').value.replace(/\n/g, '<br>');
+            document.getElementById('displaySignOff').textContent = document.getElementById('signOff').value;
+            document.getElementById('displayAgentName').textContent = document.getElementById('agentName').value;
+            document.getElementById('displayAgentPhone').textContent = document.getElementById('agentPhone').value;
+            document.getElementById('displayAgentEmail').textContent = document.getElementById('agentEmail').value;
+            document.getElementById('displayBrokerage').textContent = document.getElementById('brokerage').value;
+        }
+
+        function updateCharCount() {
+            const message = document.getElementById('mainMessage').value;
+            const count = message.length;
+            document.getElementById('charCount').textContent = `Character count: ${count}`;
+            
+            if (count > 500) {
+                document.getElementById('charCount').style.color = '#e74c3c';
+            } else if (count > 400) {
+                document.getElementById('charCount').style.color = '#f39c12';
+            } else {
+                document.getElementById('charCount').style.color = '#a0b4c3';
+            }
+        }
+
+        function downloadNote() {
+            const noteContent = document.getElementById('noteCard').outerHTML;
+            
+            const printHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You Note</title>
+    <style>
+        @page {
+            size: 8.5in 11in;
+            margin: 0.75in;
+        }
+        
+        body { 
+            font-family: 'Georgia', serif; 
+            margin: 0; 
+            padding: 0; 
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .note-card {
+            width: 6in;
+            min-height: 7in;
+            background: white;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            font-family: 'Georgia', serif;
+            border: 2px solid #e9ecef;
+        }
+
+        .note-header {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .note-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .note-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .decorative-accent {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            opacity: 0.7;
+        }
+
+        .note-body {
+            padding: 40px 35px;
+            line-height: 1.8;
+            font-size: 16px;
+            color: #2c3e50;
+            background: #fafafa;
+        }
+
+        .greeting {
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .note-content {
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .closing {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .signature-line {
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .note-footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 35px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .agent-contact {
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        @media print {
+            body { 
+                background: white; 
+                margin: 0;
+            }
+            .note-card { 
+                box-shadow: none; 
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    ${noteContent}
+</body>
+</html>`;
+
+            const blob = new Blob([printHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'thank-you-note.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function printNote() {
+            const printWindow = window.open('', '_blank');
+            const noteContent = document.getElementById('noteCard').outerHTML;
+            
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Print Thank You Note</title>
+                    <style>
+                        body { font-family: 'Georgia', serif; margin: 20px; }
+                        .note-card {
+                            width: 6in; min-height: 7in; background: white; border-radius: 15px;
+                            box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; border: 2px solid #e9ecef;
+                            margin: 0 auto; font-family: 'Georgia', serif;
+                        }
+                        .note-header { background: linear-gradient(135deg, #2ecc71, #27ae60); color: white; padding: 25px 30px; text-align: center; position: relative; }
+                        .note-title { font-size: 22px; font-weight: 700; margin-bottom: 5px; }
+                        .note-subtitle { font-size: 14px; opacity: 0.9; }
+                        .decorative-accent { position: absolute; top: 15px; right: 20px; font-size: 24px; opacity: 0.7; }
+                        .note-body { padding: 40px 35px; line-height: 1.8; font-size: 16px; color: #2c3e50; background: #fafafa; }
+                        .greeting { margin-bottom: 20px; font-weight: 600; color: #2c3e50; }
+                        .note-content { margin-bottom: 25px; text-align: justify; }
+                        .closing { margin-top: 30px; text-align: left; }
+                        .signature-line { margin-top: 15px; margin-bottom: 5px; font-weight: 600; color: #2c3e50; }
+                        .note-footer { background: #2c3e50; color: white; padding: 20px 35px; text-align: center; font-size: 13px; }
+                        .agent-contact { opacity: 0.9; line-height: 1.4; }
+                    </style>
+                </head>
+                <body>
+                    ${noteContent}
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        function copyToClipboard() {
+            const greeting = document.getElementById('greeting').value;
+            const mainMessage = document.getElementById('mainMessage').value;
+            const closingMessage = document.getElementById('closingMessage').value;
+            const signOff = document.getElementById('signOff').value;
+            const agentName = document.getElementById('agentName').value;
+            const agentPhone = document.getElementById('agentPhone').value;
+            const agentEmail = document.getElementById('agentEmail').value;
+            const brokerage = document.getElementById('brokerage').value;
+
+            const fullText = `${greeting}
+
+${mainMessage}
+
+${closingMessage}
+
+${signOff}
+${agentName}
+
+Licensed Real Estate Professional
+📞 ${agentPhone} | ✉️ ${agentEmail}
+${brokerage}`;
+
+            navigator.clipboard.writeText(fullText).then(function() {
+                alert('Thank you note copied to clipboard!');
+            }, function(err) {
+                console.error('Could not copy text: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = fullText;
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    alert('Thank you note copied to clipboard!');
+                } catch (err) {
+                    console.error('Fallback: Oops, unable to copy', err);
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+
+        // Initialize note on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNote();
+            updateCharCount();
+        });
+    </script>
+</body>
+</html>

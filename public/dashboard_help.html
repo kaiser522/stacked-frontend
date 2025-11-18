@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Help Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #e1e5e9;
+            background-color: #2c3e50;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid #00d4aa;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #00d4aa;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content-section {
+            background: #34495e;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #485e73;
+        }
+        
+        .content-section h2 {
+            color: #00d4aa;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #00d4aa;
+            padding-bottom: 10px;
+        }
+        
+        .content-section h3 {
+            color: #00d4aa;
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+        }
+        
+        .content-section p {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: #e1e5e9;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .metric-card {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #00d4aa;
+            border: 1px solid #485e73;
+        }
+        
+        .metric-card h4 {
+            color: #00d4aa;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .metric-card .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e1e5e9;
+        }
+        
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .action-card {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #485e73;
+            transition: all 0.3s ease;
+        }
+        
+        .action-card:hover {
+            border-color: #00d4aa;
+            transform: translateY(-2px);
+        }
+        
+        .action-card h4 {
+            color: #00d4aa;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .action-card p {
+            color: #b8c5d1;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .step-list {
+            counter-reset: step-counter;
+        }
+        
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #00d4aa;
+            color: #2c3e50;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .tip-box {
+            background: #1e3d59;
+            border-left: 4px solid #00d4aa;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #e1e5e9;
+        }
+        
+        .tip-box strong {
+            color: #00d4aa;
+        }
+        
+        .chart-info {
+            background: #1e3d59;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #e1e5e9;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            color: #e1e5e9;
+        }
+        
+        .navigation-note {
+            background: #3d4f2f;
+            border: 1px solid #5d7c47;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            color: #e1e5e9;
+        }
+        
+        .navigation-note strong {
+            color: #7fb069;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Dashboard</h1>
+            <p>Your real estate business overview and command center</p>
+        </div>
+
+        <div class="content-section">
+            <h2>What is the Dashboard?</h2>
+            <p>The Dashboard is your main control center that provides a comprehensive overview of your real estate business performance. It displays key metrics, trends, recent activities, and quick action buttons to help you stay on top of your business operations.</p>
+            
+            <p>When you log into your CRM, the Dashboard is the first thing you'll see, giving you an immediate snapshot of how your business is performing today.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Key Performance Metrics</h2>
+            <p>At the top of your dashboard, you'll find four essential metrics that track your business performance:</p>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h4>Total Clients</h4>
+                    <div class="value">248</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Active Listings</h4>
+                    <div class="value">32</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Revenue This Month</h4>
+                    <div class="value">$84,200</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Scheduled Showings</h4>
+                    <div class="value">18</div>
+                </div>
+            </div>
+
+            <h3>Understanding Your Metrics</h3>
+            <ul>
+                <li><strong>Total Clients:</strong> The total number of active clients in your database, including both buyers and sellers</li>
+                <li><strong>Active Listings:</strong> Properties currently listed for sale that haven't closed or been withdrawn</li>
+                <li><strong>Revenue This Month:</strong> Total commission and revenue generated in the current month</li>
+                <li><strong>Scheduled Showings:</strong> Number of property showings you have scheduled for upcoming dates</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>💡 Pro Tip:</strong> Each metric shows a percentage change from the previous month (green for increases, red for decreases) to help you quickly identify trends in your business performance.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Monthly Performance Chart</h2>
+            <p>The Monthly Performance chart displays your business activity over the past 6 months, showing two key data points:</p>
+            
+            <div class="chart-info">
+                <ul>
+                    <li><strong>Blue Bars:</strong> Represent the number of new listings added each month</li>
+                    <li><strong>Green Bars:</strong> Represent the number of sales closed each month</li>
+                </ul>
+            </div>
+
+            <h3>How to Read the Chart</h3>
+            <ul>
+                <li>The vertical axis shows the quantity/value scale</li>
+                <li>The horizontal axis shows months from January to June</li>
+                <li>Higher bars indicate better performance for that month</li>
+                <li>Compare month-to-month to identify seasonal trends and growth patterns</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Revenue Trend Analysis</h2>
+            <p>The Revenue Trend line chart shows your monthly revenue progression over time, helping you:</p>
+            
+            <ul>
+                <li>Track revenue growth or decline patterns</li>
+                <li>Identify seasonal fluctuations in your business</li>
+                <li>Set realistic goals based on historical performance</li>
+                <li>Hover over data points to see exact revenue figures for each month</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>📈 Analysis Tip:</strong> A consistently upward trend indicates healthy business growth. Sudden drops may indicate market changes or the need to adjust your sales strategy.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Recent Activity Feed</h2>
+            <p>The Recent Activity section keeps you updated on the latest happenings in your business. Activity items are color-coded for quick identification:</p>
+
+            <h3>Activity Types</h3>
+            <ul>
+                <li><strong>"new" (Blue):</strong> New client inquiries and fresh leads</li>
+                <li><strong>"completed" (Green):</strong> Successfully completed tasks, deals, or milestones</li>
+                <li><strong>"signed" (Purple):</strong> Contracts and agreements that have been signed</li>
+                <li><strong>"scheduled" (Orange):</strong> Upcoming appointments and scheduled activities</li>
+                <li><strong>"active" (Gray):</strong> New listings that are now active on the market</li>
+            </ul>
+
+            <h3>Understanding Activity Timestamps</h3>
+            <p>Each activity shows when it occurred (e.g., "2 hours ago", "1 day ago") so you can prioritize your follow-up actions accordingly.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Quick Action Buttons</h2>
+            <p>At the bottom of your dashboard, you'll find three essential action buttons for common daily tasks:</p>
+
+            <div class="action-buttons">
+                <div class="action-card">
+                    <h4>Schedule Showing</h4>
+                    <p>Book property viewings with clients</p>
+                </div>
+                <div class="action-card">
+                    <h4>Add New Listing</h4>
+                    <p>List a new property for sale</p>
+                </div>
+                <div class="action-card">
+                    <h4>Send Follow-up</h4>
+                    <p>Connect with potential clients</p>
+                </div>
+            </div>
+
+            <h3>Using Quick Actions</h3>
+            <ol class="step-list">
+                <li><strong>Schedule Showing:</strong> Click this button to access the Open House Toolkit where you can book property viewings with your clients</li>
+                <li><strong>Add New Listing:</strong> Click to open the property creation form where you can add a new property to your listings</li>
+                <li><strong>Send Follow-up:</strong> Click to open the email prompt where you can send follow-up communications to prospects and clients</li>
+            </ol>
+
+            <div class="navigation-note">
+                <strong>🔗 Navigation Note:</strong> These buttons are shortcuts to commonly used features. You can also access these same functions through their respective main menu sections (Open House Toolkit, Properties, and Email tools).
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Best Practices for Using Your Dashboard</h2>
+            
+            <h3>Daily Dashboard Review</h3>
+            <ol class="step-list">
+                <li>Check your key metrics first thing each morning</li>
+                <li>Review recent activities to see what needs immediate attention</li>
+                <li>Look for new client inquiries that require follow-up</li>
+                <li>Use quick action buttons for immediate tasks</li>
+            </ol>
+
+            <h3>Weekly Performance Analysis</h3>
+            <ul>
+                <li>Compare your current month's metrics to the previous month</li>
+                <li>Analyze the monthly performance chart for trends</li>
+                <li>Review the revenue trend to assess your financial progress</li>
+                <li>Plan your upcoming week based on scheduled activities</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>⚡ Efficiency Tip:</strong> Bookmark your dashboard page or set it as your browser homepage so you can quickly access your business overview whenever you need it.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Troubleshooting Common Issues</h2>
+            
+            <h3>Metrics Not Updating</h3>
+            <ul>
+                <li>Refresh your browser page (F5 or Ctrl+R)</li>
+                <li>Clear your browser cache and cookies</li>
+                <li>Check if you've recently added new data that should reflect in the metrics</li>
+            </ul>
+
+            <h3>Charts Not Loading</h3>
+            <ul>
+                <li>Ensure you have a stable internet connection</li>
+                <li>Try viewing the dashboard in a different browser</li>
+                <li>Disable browser extensions that might block content</li>
+            </ul>
+
+            <h3>Recent Activity Not Showing</h3>
+            <ul>
+                <li>Verify that activities were properly saved in their respective sections</li>
+                <li>Check if your activity filters are set correctly</li>
+                <li>Contact support if activities are missing after confirming they were saved</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

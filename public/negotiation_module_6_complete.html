@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 6: Advanced Closing Techniques</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .timer-bar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .timer-content {
+            background: #00D4AA;
+            color: #1a1a1a;
+            border-radius: 25px;
+            padding: 8px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .timer-display {
+            color: #1a1a1a;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .module-header {
+            text-align: center;
+            margin: 80px 0 40px 0;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .module-number {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #00D4AA;
+        }
+        
+        .duration {
+            background: #FFD700;
+            color: #1e3a5f;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .module-description {
+            font-size: 1.2em;
+            color: #B0C4DE;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            color: #00D4AA;
+        }
+        
+        h3 {
+            font-size: 1.6em;
+            margin: 30px 0 15px 0;
+            color: #FFD700;
+        }
+        
+        h4 {
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+            color: #B0C4DE;
+        }
+        
+        p, li {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #E6F3FF;
+        }
+        
+        ul, ol {
+            margin: 20px 0 20px 30px;
+        }
+        
+        .highlight-box {
+            background: rgba(0, 212, 170, 0.2);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .highlight-box h3 {
+            color: #00D4AA;
+            margin-top: 0;
+        }
+        
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid #ef4444;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .warning-box h3 {
+            color: #ef4444;
+            margin-top: 0;
+        }
+        
+        .case-study {
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid #8b5cf6;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .case-study h3 {
+            color: #8b5cf6;
+            margin-top: 0;
+        }
+        
+        .quiz-section {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .quiz-question {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .quiz-question h4 {
+            color: #FFD700;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+        
+        .quiz-options {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #00D4AA;
+        }
+        
+        .quiz-option.selected {
+            background: rgba(0, 212, 170, 0.2);
+            border-color: #00D4AA;
+            color: #00D4AA;
+        }
+        
+        .quiz-option.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: #22c55e;
+            color: #22c55e;
+        }
+        
+        .quiz-option.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+        
+        .option-letter {
+            background: #00D4AA;
+            color: #1e3a5f;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .quiz-feedback {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .quiz-feedback.show {
+            display: block;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(45deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #00B894, #009B7D);
+            transform: translateY(-2px);
+        }
+        
+        .brain-teaser {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .brain-teaser h3 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .teaser-question {
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            color: #f3e8ff;
+        }
+        
+        .teaser-textarea {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            color: white;
+            width: 100%;
+            max-width: 500px;
+            height: 120px;
+            margin-bottom: 20px;
+            resize: vertical;
+        }
+        
+        .teaser-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .teaser-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .teaser-btn:hover {
+            background: white;
+            color: #8b5cf6;
+        }
+        
+        .teaser-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .teaser-result.show {
+            display: block;
+        }
+        
+        .teaser-result.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border: 2px solid #22c55e;
+            color: #22c55e;
+        }
+        
+        .teaser-result.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #ef4444;
+            color: #ef4444;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(45deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-btn:hover {
+            background: linear-gradient(45deg, #00B894, #009B7D);
+            transform: translateY(-2px);
+        }
+        
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .strategy-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .strategy-card:hover {
+            transform: translateY(-5px);
+            border-color: #FFD700;
+        }
+        
+        .strategy-card h4 {
+            color: #00D4AA;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .closing-technique {
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #FF6B35;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .closing-technique h3 {
+            color: #FF6B35;
+            margin-top: 0;
+        }
+        
+        .script-example {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #FFD700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+        }
+        
+        .signal-indicator {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .signal-indicator h3 {
+            color: #FFD700;
+            margin-top: 0;
+        }
+        
+        .data-table {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        th {
+            background: rgba(0, 212, 170, 0.2);
+            color: #00D4AA;
+            font-weight: bold;
+        }
+        
+        .completion-section {
+            background: linear-gradient(135deg, #00D4AA, #00B894);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .completion-section h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .completion-badge {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 3em;
+        }
+        
+        @media (max-width: 768px) {
+            .strategy-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 25px 20px;
+            }
+            
+            .timer-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Timer Bar -->
+    <div class="timer-bar">
+        <div class="timer-content">
+            <div class="timer-display" id="timer">Time Spent: 0:00</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Module Header -->
+        <div class="module-header">
+            <div class="module-number">Module 6</div>
+            <h1>Advanced Closing Techniques</h1>
+            <div class="duration">35 minutes</div>
+            <p class="module-description">Master the art of recognizing buying signals, creating ethical urgency, and using proven closing techniques to secure agreements and move negotiations to signed contracts.</p>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="section">
+            <h2>Learning Objectives</h2>
+            <p>By the end of this module, you will be able to:</p>
+            <ul>
+                <li>Recognize verbal and non-verbal buying signals with confidence</li>
+                <li>Apply the trial close technique to test readiness throughout conversations</li>
+                <li>Create ethical urgency without using manipulative tactics</li>
+                <li>Use assumptive closing to guide prospects toward agreement</li>
+                <li>Handle closing resistance with advanced techniques</li>
+                <li>Secure contracts and manage post-agreement dynamics</li>
+                <li>Build long-term relationships through ethical closing practices</li>
+            </ul>
+        </div>
+
+        <!-- Introduction -->
+        <div class="section">
+            <h2>The Psychology of Decision Making</h2>
+            <p>Closing isn't about pressure or manipulation - it's about helping people make decisions that are already forming in their minds. Understanding the psychology behind decision-making allows you to guide prospects naturally toward agreements that benefit everyone involved.</p>
+            
+            <h3>Why People Hesitate to Decide</h3>
+            <p>Even when people want to move forward, psychological barriers often prevent immediate decisions:</p>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <h4>Fear of Making Wrong Choice</h4>
+                    <ul>
+                        <li>Concern about buyer's remorse</li>
+                        <li>Worry about missing better options</li>
+                        <li>Anxiety about financial consequences</li>
+                        <li>Paralysis from overthinking</li>
+                    </ul>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Social and Family Pressure</h4>
+                    <ul>
+                        <li>Need for spouse/family approval</li>
+                        <li>Concern about others' opinions</li>
+                        <li>Cultural or social expectations</li>
+                        <li>Professional advice conflicts</li>
+                    </ul>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Information Overload</h4>
+                    <ul>
+                        <li>Too many options to process</li>
+                        <li>Conflicting data and advice</li>
+                        <li>Analysis paralysis</li>
+                        <li>Perfectionism tendencies</li>
+                    </ul>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Timing and Process Concerns</h4>
+                    <ul>
+                        <li>Feeling rushed or pressured</li>
+                        <li>Uncertainty about next steps</li>
+                        <li>Unclear timeline expectations</li>
+                        <li>Logistical complexity fears</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>The Helper's Advantage</h3>
+                <p>Research shows that people are 73% more likely to move forward when they feel the other party is genuinely helping them make the best decision, rather than trying to sell them something. Your role is guide and consultant, not salesperson.</p>
+            </div>
+        </div>
+
+        <!-- Quiz 1 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Decision Psychology</h2>
+            
+            <div class="quiz-question" id="question1">
+                <h4>1. According to research, people are how much more likely to move forward when they feel genuinely helped rather than sold to?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(1, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>53%</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(1, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>63%</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(1, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>73%</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(1, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>83%</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback1">
+                    People are 73% more likely to move forward when they feel genuinely helped rather than sold to, emphasizing the importance of being a consultant rather than a salesperson.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(1)">Check Answer</button>
+        </div>
+
+        <!-- Recognizing Buying Signals -->
+        <div class="section">
+            <h2>Recognizing Buying Signals</h2>
+            <p>Buying signals are verbal and non-verbal cues that indicate someone is ready to move forward. Master negotiators watch for these signals and respond appropriately, rather than continuing to present information after the decision has been made mentally.</p>
+            
+            <h3>Verbal Buying Signals</h3>
+            
+            <div class="signal-indicator">
+                <h3>Strong Verbal Signals</h3>
+                <ul>
+                    <li><strong>"How quickly could we close?"</strong> - Timeline urgency indicates decision readiness</li>
+                    <li><strong>"What are the next steps?"</strong> - Process questions show mental commitment</li>
+                    <li><strong>"When could you start?"</strong> - Implementation focus means they've decided</li>
+                    <li><strong>"That sounds reasonable"</strong> - Acceptance language is a green light</li>
+                    <li><strong>"My spouse would love this"</strong> - Including others shows ownership thinking</li>
+                </ul>
+            </div>
+            
+            <div class="signal-indicator">
+                <h3>Moderate Verbal Signals</h3>
+                <ul>
+                    <li><strong>"Tell me more about..."</strong> - Deep interest in specific details</li>
+                    <li><strong>"How does the paperwork work?"</strong> - Process curiosity</li>
+                    <li><strong>"What happens if..."</strong> - Scenario planning shows mental ownership</li>
+                    <li><strong>"I like that idea"</strong> - Positive response to proposals</li>
+                    <li><strong>"That makes sense"</strong> - Logical acceptance of your reasoning</li>
+                </ul>
+            </div>
+            
+            <h3>Non-Verbal Buying Signals</h3>
+            
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Signal Type</th>
+                            <th>What to Look For</th>
+                            <th>Meaning</th>
+                            <th>Your Response</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Posture Changes</td>
+                            <td>Leaning forward, sitting up straighter</td>
+                            <td>Increased engagement and interest</td>
+                            <td>Continue current approach, begin trial closing</td>
+                        </tr>
+                        <tr>
+                            <td>Gesture Shifts</td>
+                            <td>Open palms, uncrossed arms, nodding</td>
+                            <td>Openness and agreement</td>
+                            <td>Present next steps or ask closing questions</td>
+                        </tr>
+                        <tr>
+                            <td>Eye Contact</td>
+                            <td>Direct gaze, looking at documents intently</td>
+                            <td>Focus and serious consideration</td>
+                            <td>Provide specific details they're focusing on</td>
+                        </tr>
+                        <tr>
+                            <td>Note Taking</td>
+                            <td>Writing down numbers, dates, details</td>
+                            <td>Mental ownership and planning</td>
+                            <td>Move toward commitment and contracts</td>
+                        </tr>
+                        <tr>
+                            <td>Pace Changes</td>
+                            <td>Speaking faster, sense of urgency</td>
+                            <td>Excitement and decision momentum</td>
+                            <td>Match their energy, move to closing</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="case-study">
+                <h3>Buying Signal Recognition in Action</h3>
+                <p><strong>Situation:</strong> Presenting lease-option proposal to motivated seller</p>
+                
+                <p><strong>Verbal Signals Observed:</strong></p>
+                <ul>
+                    <li>"So I'd get $5,000 upfront and then monthly payments?"</li>
+                    <li>"When would the payments start?"</li>
+                    <li>"What happens if they decide not to buy?"</li>
+                </ul>
+                
+                <p><strong>Non-Verbal Signals:</strong></p>
+                <ul>
+                    <li>Leaning forward when discussing monthly payment amount</li>
+                    <li>Taking notes about timeline and payment schedule</li>
+                    <li>Nodding during explanation of benefits</li>
+                </ul>
+                
+                <p><strong>Recognition:</strong> Multiple strong signals indicate readiness to move forward</p>
+                <p><strong>Response:</strong> "It sounds like this structure makes sense for your situation. Should we walk through the paperwork and get this set up for you?"</p>
+                
+                <p><strong>Result:</strong> Smooth transition to contract because signals were recognized and responded to appropriately</p>
+            </div>
+        </div>
+
+        <!-- Quiz 2 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Buying Signals</h2>
+            
+            <div class="quiz-question" id="question2">
+                <h4>2. Which of these is considered a strong verbal buying signal?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(2, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>"I need to think about it"</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(2, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>"How quickly could we close?"</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(2, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>"I'm not sure about this"</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(2, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>"Let me talk to my spouse"</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback2">
+                    "How quickly could we close?" is a strong buying signal because it indicates timeline urgency and decision readiness - they're thinking about implementation, not whether to decide.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(2)">Check Answer</button>
+        </div>
+
+        <!-- Trial Closing Techniques -->
+        <div class="section">
+            <h2>Trial Closing Techniques</h2>
+            <p>Trial closes are low-pressure questions that test readiness without asking for a final commitment. They help you gauge interest levels and identify areas that need more attention before attempting to close.</p>
+            
+            <h3>Types of Trial Closes</h3>
+            
+            <div class="closing-technique">
+                <h3>Opinion Trial Close</h3>
+                <p>Ask for their opinion to gauge interest and understanding</p>
+                <div class="script-example">
+                    "What do you think about this approach?"<br>
+                    "How does this sound to you so far?"<br>
+                    "Does this make sense for your situation?"<br>
+                    "What's your reaction to this option?"
+                </div>
+                <p><strong>Best for:</strong> Early in the conversation to test receptiveness</p>
+            </div>
+            
+            <div class="closing-technique">
+                <h3>Assumption Trial Close</h3>
+                <p>Assume agreement and test with logistics questions</p>
+                <div class="script-example">
+                    "When we move forward with this, would you prefer..."<br>
+                    "As we set this up, what timeline works best?"<br>
+                    "Once we get started, who should I work with on..."<br>
+                    "In implementing this solution, what's your priority?"
+                </div>
+                <p><strong>Best for:</strong> After strong buying signals appear</p>
+            </div>
+            
+            <div class="closing-technique">
+                <h3>Scale Trial Close</h3>
+                <p>Use a 1-10 scale to quantify their interest level</p>
+                <div class="script-example">
+                    "On a scale of 1-10, how interested are you in this option?"<br>
+                    "Where would you rate this solution for your needs?"<br>
+                    "How confident are you that this addresses your concerns?"
+                </div>
+                <p><strong>Best for:</strong> Getting specific feedback and measuring progress</p>
+            </div>
+            
+            <div class="closing-technique">
+                <h3>Choice Trial Close</h3>
+                <p>Offer choices between acceptable options</p>
+                <div class="script-example">
+                    "Would you prefer Option A or Option B?"<br>
+                    "Should we structure this as X or Y?"<br>
+                    "Would closing at month-end or early next month work better?"<br>
+                    "Do you want to start with the basic or comprehensive package?"
+                </div>
+                <p><strong>Best for:</strong> When they've shown interest but need to feel in control</p>
+            </div>
+            
+            <h3>Responding to Trial Close Answers</h3>
+            
+            <p>How prospects respond to your trial closes tells you exactly where they are in the decision process and what to do next:</p>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <h4>✅ Positive Response</h4>
+                    <p><strong>They say:</strong> "That sounds good" / "I like it" / "Yes, that works"</p>
+                    <p><strong>Meaning:</strong> Ready to move forward</p>
+                    <p><strong>Your move:</strong> Move to final closing or contract discussion</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>🤔 Qualified Interest</h4>
+                    <p><strong>They say:</strong> "It's good, but..." / "I like it if..."</p>
+                    <p><strong>Meaning:</strong> Interested with conditions</p>
+                    <p><strong>Your move:</strong> Address the conditions, then try another trial close</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>😐 Neutral Response</h4>
+                    <p><strong>They say:</strong> "It's okay" / "I'm not sure" / "Maybe"</p>
+                    <p><strong>Meaning:</strong> Need more information or benefits</p>
+                    <p><strong>Your move:</strong> Ask clarifying questions and continue presenting value</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>❌ Negative Response</h4>
+                    <p><strong>They say:</strong> "No" / "I don't think so" / "That won't work"</p>
+                    <p><strong>Meaning:</strong> Not ready or major concerns</p>
+                    <p><strong>Your move:</strong> Explore objections and rebuild value before trying again</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>⏰ Stall Response</h4>
+                    <p><strong>They say:</strong> "I need to think about it" / "Let me get back to you"</p>
+                    <p><strong>Meaning:</strong> Uncertain or avoiding decision</p>
+                    <p><strong>Your move:</strong> Uncover the real concern and create urgency</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>🏠 Authority Response</h4>
+                    <p><strong>They say:</strong> "I need to ask my spouse" / "Let me check with my partner"</p>
+                    <p><strong>Meaning:</strong> Need approval from decision maker</p>
+                    <p><strong>Your move:</strong> Involve the real decision maker in the process</p>
+                </div>
+            </div>
+            
+            <div class="case-study">
+                <h3>Trial Close Master Class</h3>
+                <p><strong>Scenario:</strong> Presenting a real estate investment opportunity</p>
+                
+                <p><strong>Trial Close Progression:</strong></p>
+                <ol>
+                    <li><strong>Opinion Trial Close:</strong> "What do you think about this cash flow projection?"</li>
+                    <li><strong>Response:</strong> "It looks promising, but I'm concerned about maintenance costs"</li>
+                    <li><strong>Address Concern:</strong> Explain property management services and maintenance reserves</li>
+                    <li><strong>Scale Trial Close:</strong> "On a scale of 1-10, how confident are you now about the returns?"</li>
+                    <li><strong>Response:</strong> "I'd say about an 8"</li>
+                    <li><strong>Choice Trial Close:</strong> "Should we structure this as an LLC or individual ownership?"</li>
+                    <li><strong>Response:</strong> "LLC would be better for tax purposes"</li>
+                    <li><strong>Assumption Trial Close:</strong> "Great, when we set up the LLC, what name would you like to use?"</li>
+                </ol>
+                
+                <p><strong>Result:</strong> Smooth progression from interest to ownership thinking through strategic trial closes</p>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>Trial Close Timing Tips</h3>
+                <ul>
+                    <li><strong>Early conversation:</strong> Use opinion trial closes to gauge receptiveness</li>
+                    <li><strong>After presenting benefits:</strong> Use scale trial closes to measure impact</li>
+                    <li><strong>When they show interest:</strong> Use choice trial closes to maintain control</li>
+                    <li><strong>When ready signals appear:</strong> Use assumption trial closes to move forward</li>
+                    <li><strong>Never trial close more than 3 times:</strong> If they're not ready, build more value first</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Creating Ethical Urgency -->
+        <div class="section">
+            <h2>Creating Ethical Urgency</h2>
+            <p>Urgency helps people move past analysis paralysis and make decisions. The key is creating urgency that's real, ethical, and benefits the prospect rather than manipulative pressure tactics.</p>
+            
+            <h3>Types of Ethical Urgency</h3>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <h4>Market-Based Urgency</h4>
+                    <ul>
+                        <li>Interest rates rising</li>
+                        <li>Property values increasing</li>
+                        <li>Market conditions changing</li>
+                        <li>Seasonal factors affecting deals</li>
+                    </ul>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Opportunity-Based Urgency</h4>
+                    <ul>
+                        <li>Limited inventory available</li>
+                        <li>Special pricing expires</li>
+                        <li>Competing buyers present</li>
+                        <li>Unique property characteristics</li>
+                    </ul>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Personal Situation Urgency</h4>
+                    <ul>
+                        <li>Moving deadlines</li>
+                        <li>School enrollment dates</li>
+                        <li>Job start dates</li>
+                        <li>Family timing needs</li>
+                    </ul>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Process-Based Urgency</h4>
+                    <ul>
+                        <li>Financing deadlines</li>
+                        <li>Contract expiration dates</li>
+                        <li>Inspection periods</li>
+                        <li>Legal or regulatory timelines</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                <h3>Urgency Red Flags to Avoid</h3>
+                <p>Never use these manipulative tactics that damage trust:</p>
+                <ul>
+                    <li><strong>False scarcity:</strong> "This is the last one" when it's not true</li>
+                    <li><strong>Fake deadlines:</strong> Artificial time pressure with no real basis</li>
+                    <li><strong>Emotional manipulation:</strong> Using fear or guilt to force decisions</li>
+                    <li><strong>Bait and switch:</strong> Promising deals that don't actually exist</li>
+                    <li><strong>High-pressure tactics:</strong> Aggressive pushiness that makes people uncomfortable</li>
+                </ul>
+            </div>
+            
+            <h3>Urgency Language That Works</h3>
+            
+            <div class="script-example">
+                <strong>Market Reality:</strong><br>
+                "Interest rates have gone up three times this year, and most economists expect another increase next quarter. Locking in today's rate could save you thousands over the life of the loan."<br><br>
+                
+                <strong>Opportunity Cost:</strong><br>
+                "While you're deciding, this property is getting showings every day. The longer we wait, the more likely another buyer will make an offer."<br><br>
+                
+                <strong>Personal Timeline:</strong><br>
+                "You mentioned wanting to be settled before the kids start school in August. To make that happen, we'd need to get the contract signed within the next two weeks."<br><br>
+                
+                <strong>Process Deadline:</strong><br>
+                "The seller has given us until Friday to respond. After that, they're moving to the backup offer that's already in place."
+            </div>
+        </div>
+
+        <!-- Quiz 3 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Ethical Urgency</h2>
+            
+            <div class="quiz-question" id="question3">
+                <h4>3. Which type of urgency is most ethical and effective?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(3, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>Creating false scarcity about inventory</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(3, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>Using fear tactics about missing out</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(3, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>Real market conditions affecting the prospect</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(3, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>Artificial deadlines with no real basis</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback3">
+                    Real market conditions affecting the prospect create ethical urgency because they're factual, relevant, and help the person make a timely decision that benefits them.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(3)">Check Answer</button>
+        </div>
+
+        <!-- Assumptive Closing -->
+        <div class="section">
+            <h2>Assumptive Closing Techniques</h2>
+            <p>Assumptive closing involves acting as if the decision has already been made and moving forward with next steps. This technique works best when you've received multiple buying signals and built strong rapport.</p>
+            
+            <h3>When to Use Assumptive Closing</h3>
+            <ul>
+                <li>After receiving multiple strong buying signals</li>
+                <li>When they're asking detailed implementation questions</li>
+                <li>After successfully handling their main objections</li>
+                <li>When they're taking notes or planning next steps</li>
+                <li>During natural conversation breaks where decision feels imminent</li>
+            </ul>
+            
+            <h3>Assumptive Closing Scripts</h3>
+            
+            <div class="closing-technique">
+                <h3>Process Assumption</h3>
+                <p>Assume they're moving forward and discuss next steps</p>
+                <div class="script-example">
+                    "Let's get the paperwork started. Do you have your ID with you?"<br>
+                    "I'll prepare the contract for tomorrow's signing. What time works best?"<br>
+                    "When we submit this offer, should I use your cell phone as the contact?"<br>
+                    "For the closing, would you prefer morning or afternoon?"
+                </div>
+            </div>
+            
+            <div class="closing-technique">
+                <h3>Implementation Assumption</h3>
+                <p>Talk about how things will work after they move forward</p>
+                <div class="script-example">
+                    "Once we close, I'll introduce you to my preferred inspector"<br>
+                    "When you're living here, you'll love the morning sunlight in the kitchen"<br>
+                    "After we get this set up, the monthly payments will be automatically deducted"<br>
+                    "Your first payment will be due on the 15th of next month"
+                </div>
+            </div>
+            
+            <div class="closing-technique">
+                <h3>Detail Assumption</h3>
+                <p>Handle specific details as if the main decision is made</p>
+                <div class="script-example">
+                    "Should we put the property in both names or just yours?"<br>
+                    "Which address should I use for the closing documents?"<br>
+                    "Do you want the standard 30-day escrow or need it faster?"<br>
+                    "For the down payment, are you using cash or a cashier's check?"
+                </div>
+            </div>
+            
+            <div class="case-study">
+                <h3>Assumptive Closing Success Story</h3>
+                <p><strong>Situation:</strong> First-time homebuyer viewing their ideal property</p>
+                
+                <p><strong>Buying Signals Observed:</strong></p>
+                <ul>
+                    <li>Measuring rooms with their phone</li>
+                    <li>Asking about utility costs and neighborhood schools</li>
+                    <li>Discussing where furniture would go</li>
+                    <li>Taking pictures to show family</li>
+                </ul>
+                
+                <p><strong>Assumptive Close Used:</strong><br>
+                "This feels like the perfect fit for you. Let's head back to my office and write up the offer. Do you want to offer full asking price, or should we start slightly below market value?"</p>
+                
+                <p><strong>Result:</strong> No resistance to moving forward - they were ready to buy and just needed someone to guide them to the next step. Closed 30 days later with very satisfied clients who referred three friends.</p>
+                
+                <p><strong>Key Lesson:</strong> When someone is clearly ready, assumptive closing feels natural and helpful rather than pushy.</p>
+            </div>
+        </div>
+
+        <!-- Handling Closing Resistance -->
+        <div class="section">
+            <h2>Handling Closing Resistance</h2>
+            <p>Even interested prospects sometimes resist moving forward. Understanding the real reasons behind resistance allows you to address concerns effectively and guide them to a decision.</p>
+            
+            <h3>Common Types of Resistance</h3>
+            
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Resistance Type</th>
+                            <th>What They Say</th>
+                            <th>Real Meaning</th>
+                            <th>How to Respond</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Price Resistance</td>
+                            <td>"It's too expensive"</td>
+                            <td>Don't see enough value or can't afford it</td>
+                            <td>Revisit value proposition or explore financing options</td>
+                        </tr>
+                        <tr>
+                            <td>Authority Resistance</td>
+                            <td>"I need to ask my spouse/boss"</td>
+                            <td>Not the decision maker or needs approval</td>
+                            <td>Involve the real decision maker in the process</td>
+                        </tr>
+                        <tr>
+                            <td>Trust Resistance</td>
+                            <td>"I want to think about it"</td>
+                            <td>Uncertain about you, the deal, or process</td>
+                            <td>Address specific concerns and provide reassurance</td>
+                        </tr>
+                        <tr>
+                            <td>Comparison Resistance</td>
+                            <td>"I want to look at other options"</td>
+                            <td>Fear of missing better opportunity</td>
+                            <td>Acknowledge their concern and create comparison framework</td>
+                        </tr>
+                        <tr>
+                            <td>Timing Resistance</td>
+                            <td>"Now isn't a good time"</td>
+                            <td>Personal or financial timing issues</td>
+                            <td>Explore real timeline and create future commitment</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>The Feel-Felt-Found Technique</h3>
+            <p>This classic technique acknowledges their concern, normalizes it, and provides a solution:</p>
+            
+            <div class="script-example">
+                <strong>Structure:</strong> "I understand how you FEEL. Others have FELT the same way. What they FOUND was..."<br><br>
+                
+                <strong>Example 1:</strong><br>
+                "I understand how you feel about wanting to compare other properties. Many of my clients have felt the same way. What they found was that by the time they finished looking, the properties they really wanted were already sold. That's why I always recommend securing the one you love first."<br><br>
+                
+                <strong>Example 2:</strong><br>
+                "I understand how you feel about the monthly payment amount. Other buyers have felt concerned about the same thing. What they found was that when they factored in the tax benefits and equity building, it actually cost less than renting a comparable place."
+            </div>
+            
+            <h3>Advanced Resistance Handling</h3>
+            
+            <div class="closing-technique">
+                <h3>The Takeaway Close</h3>
+                <p>When someone can't decide, suggest the opportunity might not be right for them</p>
+                <div class="script-example">
+                    "You know what, maybe this isn't the right fit for your situation. Let me show you something else that might work better."<br><br>
+                    "I'm sensing some hesitation. Perhaps we should look at other options that feel more comfortable for you."
+                </div>
+                <p><strong>Psychology:</strong> People often want what they think they can't have</p>
+            </div>
+            
+            <div class="closing-technique">
+                <h3>The Puppy Dog Close</h3>
+                <p>Suggest a trial period or low-commitment first step</p>
+                <div class="script-example">
+                    "How about this - let's write the offer with a 7-day inspection period. If anything doesn't feel right during that week, you can walk away with no penalty."<br><br>
+                    "What if we start with a short-term lease option? You can live in the property for six months and then decide if you want to buy."
+                </div>
+                <p><strong>Psychology:</strong> Lower initial commitment reduces decision anxiety</p>
+            </div>
+        </div>
+
+        <!-- Quiz 4 -->
+        <div class="quiz-section">
+            <h2>Knowledge Check: Resistance Handling</h2>
+            
+            <div class="quiz-question" id="question4">
+                <h4>4. What is the most likely real meaning when someone says "I want to think about it"?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(4, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>They need more time to consider all factors</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(4, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>They're uncertain about you, the deal, or process</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(4, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>They're definitely not interested</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(4, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>They want to compare prices elsewhere</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback4">
+                    "I want to think about it" usually indicates trust resistance - they're uncertain about you, the deal, or the process, not that they actually need thinking time.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(4)">Check Answer</button>
+        </div>
+
+        <!-- Securing Contracts -->
+        <div class="section">
+            <h2>Securing Contracts and Post-Agreement Management</h2>
+            <p>Getting to "yes" is just the beginning. Properly securing contracts and managing post-agreement dynamics ensures deals close successfully and relationships remain strong.</p>
+            
+            <h3>Contract Signing Best Practices</h3>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <h4>Create the Right Environment</h4>
+                    <ul>
+                        <li>Private, comfortable setting</li>
+                        <li>Minimal distractions</li>
+                        <li>All necessary documents ready</li>
+                        <li>Professional presentation</li>
+                    </ul>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Review Process</h4>
+                    <ul>
+                        <li>Walk through key terms clearly</li>
+                        <li>Explain any complex clauses</li>
+                        <li>Answer questions patiently</li>
+                        <li>Ensure understanding before signing</li>
+                    </ul>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Documentation</h4>
+                    <ul>
+                        <li>All parties sign and initial</li>
+                        <li>Provide copies immediately</li>
+                        <li>Confirm receipt and understanding</li>
+                        <li>Set clear next steps</li>
+                    </ul>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Communication</h4>
+                    <ul>
+                        <li>Confirm understanding of timelines</li>
+                        <li>Establish ongoing communication plan</li>
+                        <li>Provide contact information</li>
+                        <li>Schedule follow-up meetings</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Managing Buyer's Remorse</h3>
+            <p>Even happy clients sometimes experience second thoughts after signing. Proactive management prevents deals from falling apart.</p>
+            
+            <div class="highlight-box">
+                <h3>The 24-Hour Rule</h3>
+                <p>Contact clients within 24 hours of contract signing to:</p>
+                <ul>
+                    <li>Congratulate them on their decision</li>
+                    <li>Confirm next steps and timeline</li>
+                    <li>Address any questions that arose</li>
+                    <li>Reinforce the benefits of their choice</li>
+                    <li>Provide reassurance about the process</li>
+                </ul>
+            </div>
+            
+            <div class="script-example">
+                <strong>24-Hour Follow-Up Script:</strong><br>
+                "Hi [Name], I wanted to call and congratulate you again on your decision yesterday. I know you're going to love living in that neighborhood. Do you have any questions that came up since we signed the contract? I wanted to confirm that the inspection is scheduled for Thursday at 2 PM, and I'll be there to walk through everything with you. Is there anything else I can help you with today?"
+            </div>
+            
+            <h3>Post-Agreement Communication Strategy</h3>
+            
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Timeline</th>
+                            <th>Communication Type</th>
+                            <th>Purpose</th>
+                            <th>Key Messages</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Within 24 hours</td>
+                            <td>Personal call</td>
+                            <td>Reinforce decision and address concerns</td>
+                            <td>Congratulations, next steps, availability for questions</td>
+                        </tr>
+                        <tr>
+                            <td>Week 1</td>
+                            <td>Progress update</td>
+                            <td>Show momentum and maintain engagement</td>
+                            <td>Tasks completed, upcoming milestones, timeline confirmation</td>
+                        </tr>
+                        <tr>
+                            <td>Mid-process</td>
+                            <td>Check-in call</td>
+                            <td>Address any issues and maintain relationships</td>
+                            <td>Progress report, address concerns, confirm satisfaction</td>
+                        </tr>
+                        <tr>
+                            <td>Pre-closing</td>
+                            <td>Final preparation</td>
+                            <td>Ensure smooth closing and excitement</td>
+                            <td>Final details, what to expect, celebration of achievement</td>
+                        </tr>
+                        <tr>
+                            <td>Post-closing</td>
+                            <td>Follow-up and referral request</td>
+                            <td>Ensure satisfaction and generate referrals</td>
+                            <td>Thank you, satisfaction check, referral request</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Brain Teaser -->
+        <div class="brain-teaser">
+            <h3>🧠 Closing Challenge</h3>
+            <div class="teaser-question">
+                You're presenting a lease-option deal to a seller. They've shown multiple buying signals: asking about monthly payments, timeline, and what happens if the tenant buys. But when you ask "Should we move forward with this?", they say "I need to think about it." 
+                
+                Write your response using the techniques from this module.
+            </div>
+            <textarea class="teaser-textarea" id="brainTeaser" placeholder="Write your response here..."></textarea>
+            <button class="teaser-btn" onclick="checkBrainTeaser()">Check My Answer</button>
+            <div class="teaser-result" id="teaserResult">
+                <strong>Sample Response:</strong> "I understand how you feel about wanting to think it through - this is a big decision. Many sellers have felt the same way when considering a lease-option for the first time. What they found was that the uncertainty of not knowing when their property would sell was much more stressful than having guaranteed monthly income and a motivated tenant-buyer. What specifically would you like to think about? Is it the monthly payment amount, the timeline, or something else? Let's make sure you have all the information you need to feel confident."
+                
+                <p><strong>Why this works:</strong> Uses Feel-Felt-Found technique, acknowledges their concern, asks clarifying questions to uncover the real objection, and positions you as helpful rather than pushy.</p>
+            </div>
+        </div>
+
+        <!-- Final Quiz -->
+        <div class="quiz-section">
+            <h2>Final Knowledge Check</h2>
+            
+            <div class="quiz-question" id="question5">
+                <h4>5. What should you do within 24 hours of a contract signing?</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(5, 'A')">
+                        <div class="option-letter">A</div>
+                        <div>Give them space to process their decision</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(5, 'B')">
+                        <div class="option-letter">B</div>
+                        <div>Call to congratulate and address any concerns</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(5, 'C')">
+                        <div class="option-letter">C</div>
+                        <div>Send them additional property options</div>
+                    </div>
+                    <div class="quiz-option" onclick="selectAnswer(5, 'D')">
+                        <div class="option-letter">D</div>
+                        <div>Wait for them to contact you with questions</div>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="feedback5">
+                    You should call within 24 hours to congratulate them, reinforce their decision, confirm next steps, and address any questions or concerns that may have arisen.
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="showQuestionResult(5)">Check Answer</button>
+        </div>
+
+        <!-- Module Completion -->
+        <div class="completion-section">
+            <div class="completion-badge">✓</div>
+            <h2>Module 6 Complete!</h2>
+            <p>You've mastered advanced closing techniques! You can now recognize buying signals, create ethical urgency, use trial closes effectively, handle resistance professionally, and secure contracts while building lasting relationships.</p>
+            
+            <h3>Key Takeaways</h3>
+            <ul>
+                <li>Buying signals tell you when prospects are ready to move forward</li>
+                <li>Trial closes test readiness without creating pressure</li>
+                <li>Ethical urgency helps people make timely decisions</li>
+                <li>Assumptive closing works when signals indicate readiness</li>
+                <li>Resistance often masks deeper concerns that can be addressed</li>
+                <li>Post-agreement management prevents buyer's remorse</li>
+                <li>Professional follow-up builds relationships and generates referrals</li>
+            </ul>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="module5.html" class="nav-btn">← Previous Module</a>
+            <span style="color: #B0C4DE;">Module 6 of 8</span>
+            <a href="module7.html" class="nav-btn">Next Module →</a>
+        </div>
+    </div>
+
+    <script>
+        // Timer functionality
+        let startTime = Date.now();
+        
+        function updateTimer() {
+            const elapsed = Date.now() - startTime;
+            const minutes = Math.floor(elapsed / 60000);
+            const seconds = Math.floor((elapsed % 60000) / 1000);
+            document.getElementById('timer').textContent = `Time Spent: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        setInterval(updateTimer, 1000);
+        
+        // Quiz functionality
+        const answers = {
+            1: 'C',
+            2: 'B', 
+            3: 'C',
+            4: 'B',
+            5: 'B'
+        };
+        
+        let selectedAnswers = {};
+        
+        function selectAnswer(questionNum, answer) {
+            selectedAnswers[questionNum] = answer;
+            const options = document.querySelectorAll(`#question${questionNum} .quiz-option`);
+            options.forEach(option => option.classList.remove('selected'));
+            event.target.closest('.quiz-option').classList.add('selected');
+        }
+        
+        function showQuestionResult(questionNum) {
+            const correct = answers[questionNum];
+            const selected = selectedAnswers[questionNum];
+            const options = document.querySelectorAll(`#question${questionNum} .quiz-option`);
+            const feedback = document.getElementById(`feedback${questionNum}`);
+            
+            options.forEach((option, index) => {
+                const letter = String.fromCharCode(65 + index);
+                if (letter === correct) {
+                    option.classList.add('correct');
+                } else if (letter === selected && selected !== correct) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            feedback.classList.add('show');
+        }
+        
+        // Brain teaser functionality
+        function checkBrainTeaser() {
+            const answer = document.getElementById('brainTeaser').value;
+            const result = document.getElementById('teaserResult');
+            
+            if (answer.length > 50) {
+                result.classList.add('show', 'correct');
+                result.innerHTML = result.innerHTML.replace('Sample Response:', 'Great job! Here\'s a sample response:');
+            } else {
+                result.classList.add('show', 'incorrect');
+            }
+        }
+    </script>
+</body>
+</html>

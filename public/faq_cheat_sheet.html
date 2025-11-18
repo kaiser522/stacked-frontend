@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacked Technologies - FAQ Cheat Sheet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f7fafc;
+            min-height: 100vh;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 40px rgba(0,0,0,0.08);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0A1B2A 0%, #0A1B2A 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            color: #7D7D7D;
+            margin-bottom: 2rem;
+        }
+
+        .format-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            color: #7D7D7D;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(26, 188, 156, 0.2);
+            color: #1ABC9C;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(26, 188, 156, 0.3);
+            display: inline-block;
+            margin: 4px;
+        }
+
+        .bulk-download {
+            background: #1ABC9C;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .bulk-download:hover {
+            background: #16a085;
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 3rem 2rem;
+        }
+
+        .intro-section {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+            border-left: 4px solid #1ABC9C;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .intro-section h2 {
+            color: #0A1B2A;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .intro-section p {
+            color: #0A1B2A;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-container {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box:focus {
+            border-color: #1ABC9C;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .category-tab {
+            padding: 12px 24px;
+            background: #e2e8f0;
+            color: #2d3748;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .category-tab.active {
+            background: #1ABC9C;
+            color: white;
+        }
+
+        .category-tab:hover {
+            background: #cbd5e0;
+        }
+
+        .category-tab.active:hover {
+            background: #16a085;
+        }
+
+        .faq-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            color: #0A1B2A;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .faq-item {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .faq-item:hover {
+            border-color: #1ABC9C;
+            box-shadow: 0 4px 15px rgba(26, 188, 156, 0.1);
+        }
+
+        .faq-question {
+            background: #f8fafc;
+            padding: 1.5rem;
+            font-weight: 700;
+            color: #0A1B2A;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .faq-toggle {
+            color: #1ABC9C;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.expanded .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.expanded .faq-answer {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .faq-answer p:last-child {
+            margin-bottom: 0;
+        }
+
+        .objection-type {
+            display: inline-block;
+            background: #1ABC9C;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .quick-stats {
+            background: #0A1B2A;
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .quick-stats h3 {
+            color: #1ABC9C;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(26, 188, 156, 0.3);
+        }
+
+        .stat-number {
+            color: #1ABC9C;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #7D7D7D;
+            font-size: 0.95rem;
+        }
+
+        .print-section {
+            text-align: center;
+            padding: 2rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin: 3rem 0;
+        }
+
+        .print-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .print-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .print-btn.primary {
+            background: #1ABC9C;
+            color: white;
+        }
+
+        .print-btn.primary:hover {
+            background: #16a085;
+        }
+
+        .print-btn.secondary {
+            background: #0A1B2A;
+            color: white;
+        }
+
+        .print-btn.secondary:hover {
+            background: #2d3748;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 2rem 1rem;
+            }
+
+            .category-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .category-tab {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .format-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .print-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .print-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>FAQ Cheat Sheet</h1>
+            <p>Quick answers to objections and common questions</p>
+            <div class="format-info">
+                <span>❓ Common Objections</span>
+                <span>💡 Policy Questions</span>
+                <span>⚡ Quick Responses</span>
+                <span>🎯 Conversion Tips</span>
+            </div>
+            <div style="margin-top: 20px;">
+                <span class="tag">objection-handling</span>
+                <span class="tag">ready-answers</span>
+                <span class="tag">conversion-focused</span>
+                <span class="tag">printable</span>
+            </div>
+            <button class="bulk-download" onclick="downloadFAQ()">Download FAQ Sheet</button>
+        </div>
+
+        <div class="content">
+            <div class="intro-section">
+                <h2>Handle Objections Like a Pro</h2>
+                <p>Quick, confident answers to the most common questions and objections you'll encounter. Use these responses to overcome hesitation and close more referrals.</p>
+            </div>
+
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Search for specific questions or topics..." oninput="searchFAQs(this.value)">
+            </div>
+
+            <div class="category-tabs">
+                <button class="category-tab active" onclick="filterCategory('all')">All Questions</button>
+                <button class="category-tab" onclick="filterCategory('competitors')">vs Competitors</button>
+                <button class="category-tab" onclick="filterCategory('pricing')">Pricing & Plans</button>
+                <button class="category-tab" onclick="filterCategory('features')">Features & Support</button>
+                <button class="category-tab" onclick="filterCategory('policies')">Policies & Terms</button>
+            </div>
+
+            <div class="faq-section" id="faqContainer">
+                <!-- Competitor Questions -->
+                <div class="faq-item" data-category="competitors">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Why choose Stacked over Podio?</span>
+                        <span class="faq-toggle">↓</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="objection-type">COMPETITOR OBJECTION</div>
+                        <p><strong>Short Answer:</strong> Podio is a generic CRM that requires expensive add-ons and integrations. Stacked is built specifically for real estate with everything included.</p>
+                        <p><strong>Detailed Response:</strong> "Podio might seem cheaper upfront, but you'll end up paying for multiple add-ons, integrations, and third-party tools. With Stacked, you get the dialer, skip tracing links, compliance features, and training library all in one monthly payment. Plus, our support team actually understands real estate - they're not reading from a generic script."</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="competitors">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How is this different from REI BlackBook?</span>
+                        <span class="faq-toggle">↓</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="objection-type">COMPETITOR OBJECTION</div>
+                        <p><strong>Short Answer:</strong> REI BlackBook focuses mainly on wholesaling. Stacked serves all real estate professionals with niche-specific CRMs and better compliance features.</p>
+                        <p><strong>Detailed Response:</strong> "REI BlackBook is decent for wholesaling, but Stacked offers specialized CRMs for agents, wholesalers, probate, and flippers. We also include compliance guardrails that REI BlackBook lacks - crucial for staying compliant with regulations. Our dialer integration and skip tracing workflow is also more streamlined."</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="competitors">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Why not just use PropStream directly?</span>
+                        <span class="faq-toggle">↓</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="objection-type">COMPETITOR OBJECTION</div>
+                        <p><strong>Short Answer:</strong> PropStream is just for pulling lists. You still need a CRM, dialer, and way to manage your pipeline. Stacked provides the complete workflow.</p>
+                        <p><strong>Detailed Response:</strong> "PropStream is great for finding leads, but then what? You need somewhere to manage those leads, call them, track your pipeline, and stay compliant. Stacked gives you direct access to PropStream plus everything else you need to turn those leads into deals."</p>
+                    </div>
+                </div>
+
+                <!-- Pricing Questions -->
+                <div class="faq-item" data-category="pricing">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What's your refund policy?</span>
+                        <span class="faq-toggle">↓</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="objection-type">POLICY QUESTION</div>
+                        <p><strong>Short Answer:</strong> No refunds, but you keep access for the full month you paid for when you cancel.</p>
+                        <p><strong>Detailed Response:</strong> "We don't offer refunds, but when you cancel, you keep full access until the end of your current billing period. So if you cancel mid-month, you still have access for the remaining days you already paid for."</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="pricing">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Can I cancel anytime?</span>
+                        <span class="faq-toggle">↓</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="objection-type">POLICY QUESTION</div>
+                        <p><strong>Short Answer:</strong> Yes, you can cancel anytime. No long-term contracts.</p>
+                        <p><strong>Detailed Response:</strong> "Absolutely. We don't lock you into long-term contracts. You can cancel your subscription anytime from your account dashboard or by contacting support. Your access continues until the end of your current billing period."</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="pricing">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What's the difference between the plans?</span>
+                        <span class="faq-toggle">↓</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="objection-type">PLAN COMPARISON</div>
+                        <p><strong>Short Answer:</strong> Starter covers the basic necessities. Power adds integrations, drip sequences, and advanced reporting.</p>
+                        <p><strong>Detailed Response:</strong> "The Starter plan covers all the basic necessities to get you up and running. The Power plan adds integrations, automated drip sequences, and advanced reporting features. Pro includes everything plus priority support and additional training modules."</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="pricing">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Are there any hidden fees?</span>
+                        <span class="faq-toggle">↓</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="objection-type">PRICING CONCERN</div>
+                        <p><strong>Short Answer:</strong> No hidden fees. Your monthly plan includes everything except third-party services like skip tracing.</p>
+                        <p><strong>Detailed Response:</strong> "No hidden fees or surprise charges. Your monthly subscription includes the CRM, dialer, training, and support. The only additional costs would be third-party services like SkipMatrix for skip tracing or PropStream for leads - but we provide direct links to get the best rates."</p>
+                    </div>
+                </div>
+
+                <!-- Features & Support -->
+                <div class="faq-item" data-category="features">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How quickly can I get set up?</span>
+                        <span class="faq-toggle">↓</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="objection-type">SETUP QUESTION</div>
+                        <p><strong>Short Answer:</strong> Setup is quick and straightforward with our onboarding process.</p>
+                        <p><strong>Detailed Response:</strong> "Setup is quick and straightforward. Our onboarding process walks you through account setup, and you can start uploading leads immediately. We have a comprehensive help section built right into the platform that explains each page and feature to help you get familiar with the system."</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="features">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What kind of support do you provide?</span>
+                        <span class="faq-toggle">↓</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="objection-type">SUPPORT QUESTION</div>
+                        <p><strong>Short Answer:</strong> US-based support team with real estate experience, plus comprehensive help section.</p>
+                        <p><strong>Detailed Response:</strong> "Our entire support team is based in the US and understands real estate. We provide email support, phone support, and a comprehensive help section built into the platform that explains each page and feature. Pro plan members get priority support with faster response times."</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="features">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Can I import my existing leads?</span>
+                        <span class="faq-toggle">↓</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="objection-type">MIGRATION QUESTION</div>
+                        <p><strong>Short Answer:</strong> Yes, you can easily import leads via CSV upload.</p>
+                        <p><strong>Detailed Response:</strong> "Absolutely. You can import your existing leads through a simple CSV upload. The system will map your fields automatically, and our support team can help if you run into any issues. No need to start from scratch."</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="features">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Is my data safe and secure?</span>
+                        <span class="faq-toggle">↓</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="objection-type">SECURITY QUESTION</div>
+                        <p><strong>Short Answer:</strong> Yes, we use industry-standard encryption and security measures.</p>
+                        <p><strong>Detailed Response:</strong> "Your data is protected with bank-level security. We use SSL encryption, secure data centers, and regular backups. We're also compliant with industry standards and take data protection seriously. Your information is never shared with third parties."</p>
+                    </div>
+                </div>
+
+                <!-- Policies & Terms -->
+                <div class="faq-item" data-category="policies">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Do you help with compliance issues?</span>
+                        <span class="faq-toggle">↓</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="objection-type">COMPLIANCE QUESTION</div>
+                        <p><strong>Short Answer:</strong> We provide compliance training and reminders, but agents are responsible for using tools properly.</p>
+                        <p><strong>Detailed Response:</strong> "We provide comprehensive compliance training and built-in reminders about regulations and best practices. However, it's the agent's responsibility to use these tools properly and follow all applicable laws. Any compliance mishaps are the responsibility of the individual user."</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="policies">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Can I use this for cold calling?</span>
+                        <span class="faq-toggle">↓</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="objection-type">COMPLIANCE QUESTION</div>
+                        <p><strong>Short Answer:</strong> The platform supports calling, but you must follow all applicable laws and regulations.</p>
+                        <p><strong>Detailed Response:</strong> "The dialer can be used for any legal calling activities. We provide DNC scrubbing and compliance features, but it's your responsibility to ensure you're following TCPA, state laws, and industry regulations. Our training modules cover best practices."</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="policies">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What happens to my data if I cancel?</span>
+                        <span class="faq-toggle">↓</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="objection-type">DATA POLICY</div>
+                        <p><strong>Short Answer:</strong> You can export your data before canceling. Access to your account ends when your billing period expires.</p>
+                        <p><strong>Detailed Response:</strong> "You can export all your data (leads, contacts, notes) before canceling your account. After cancellation, you maintain access until the end of your current billing period, then your account access expires."</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="features">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Do you integrate with other tools I'm already using?</span>
+                        <span class="faq-toggle">↓</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="objection-type">INTEGRATION QUESTION</div>
+                        <p><strong>Short Answer:</strong> Stacked is designed to be your all-in-one solution, reducing the need for multiple tools.</p>
+                        <p><strong>Detailed Response:</strong> "Rather than trying to integrate with dozens of tools, we built Stacked to replace them. You get the CRM, dialer, lead management, and training all in one place. This eliminates integration headaches and reduces your monthly tool costs."</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-stats">
+                <h3>Key Numbers to Remember</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Niche-Specific CRMs Available</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Plan Tiers Available</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">US-Based Support Team</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Platform Availability</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="print-section">
+                <h3>Take This Cheat Sheet With You</h3>
+                <p>Download or print these FAQs for quick reference during calls and meetings.</p>
+                <div class="print-buttons">
+                    <button class="print-btn primary" onclick="downloadFAQ()">Download FAQ Sheet</button>
+                    <button class="print-btn secondary" onclick="window.print()">Print This Page</button>
+                    <button class="print-btn secondary" onclick="copyAllFAQs()">Copy All Answers</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const isExpanded = faqItem.classList.contains('expanded');
+            
+            // Close all other FAQs
+            document.querySelectorAll('.faq-item.expanded').forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('expanded');
+                }
+            });
+            
+            // Toggle current FAQ
+            faqItem.classList.toggle('expanded');
+        }
+
+        function filterCategory(category) {
+            const tabs = document.querySelectorAll('.category-tab');
+            const items = document.querySelectorAll('.faq-item');
+            
+            // Update active tab
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Show/hide items
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function searchFAQs(query) {
+            const items = document.querySelectorAll('.faq-item');
+            const searchTerm = query.toLowerCase();
+            
+            items.forEach(item => {
+                const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Reset category filter if searching
+            if (query.length > 0) {
+                document.querySelectorAll('.category-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+            }
+        }
+
+        function downloadFAQ() {
+            const faqs = document.querySelectorAll('.faq-item');
+            let content = `STACKED TECHNOLOGIES - FAQ CHEAT SHEET\n`;
+            content += `Generated: ${new Date().toLocaleDateString()}\n\n`;
+            content += `Quick answers to objections and common questions\n\n`;
+            content += `=`.repeat(80) + `\n\n`;
+            
+            faqs.forEach((faq, index) => {
+                const question = faq.querySelector('.faq-question span').textContent;
+                const objectionType = faq.querySelector('.objection-type')?.textContent || '';
+                const answerContent = faq.querySelector('.faq-answer').textContent;
+                
+                content += `${index + 1}. ${question}\n`;
+                if (objectionType) {
+                    content += `   [${objectionType}]\n`;
+                }
+                content += `\n${answerContent.replace(/\s+/g, ' ').trim()}\n\n`;
+                content += `-`.repeat(60) + `\n\n`;
+            });
+            
+            content += `KEY NUMBERS TO REMEMBER:\n`;
+            content += `• 14-day money-back guarantee\n`;
+            content += `• 4 niche-specific CRMs available\n`;
+            content += `• 30 minutes average setup time\n`;
+            content += `• 24/7 platform availability\n\n`;
+            content += `OBJECTION HANDLING TIPS:\n`;
+            content += `• Listen fully before responding\n`;
+            content += `• Acknowledge their concern first\n`;
+            content += `• Use specific examples and benefits\n`;
+            content += `• Always redirect to the value proposition\n`;
+            content += `• End with a soft close or next step\n`;
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'stacked-faq-cheat-sheet.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function copyAllFAQs() {
+            const faqs = document.querySelectorAll('.faq-item');
+            let content = '';
+            
+            faqs.forEach((faq, index) => {
+                const question = faq.querySelector('.faq-question span').textContent;
+                const answerContent = faq.querySelector('.faq-answer').textContent;
+                content += `${index + 1}. ${question}\n\n${answerContent.replace(/\s+/g, ' ').trim()}\n\n`;
+            });
+            
+            navigator.clipboard.writeText(content).then(function() {
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = '#16a085';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '#0A1B2A';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

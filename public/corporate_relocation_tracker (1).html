@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Relocation Timeline Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #FF6B35;
+            border-radius: 8px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        h1 {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .framework-badge {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #B0C4DE;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .read-time {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #00D4AA;
+        }
+        
+        h3 {
+            font-size: 1.8em;
+            margin: 40px 0 20px 0;
+            color: #FFD700;
+        }
+        
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #E6F3FF;
+        }
+        
+        .timeline-phase {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #FFD700;
+        }
+        
+        .phase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .phase-title {
+            color: #FFD700;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .phase-timeline {
+            background: rgba(255, 215, 0, 0.2);
+            color: #FFD700;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .task-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+        
+        .task-checkbox {
+            margin-right: 15px;
+            transform: scale(1.3);
+            margin-top: 2px;
+        }
+        
+        .task-content {
+            flex: 1;
+        }
+        
+        .task-title {
+            font-weight: bold;
+            color: #E6F3FF;
+            margin-bottom: 5px;
+        }
+        
+        .task-description {
+            color: #B0C4DE;
+            font-size: 0.95em;
+        }
+        
+        .task-date {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            padding: 6px 10px;
+            color: white;
+            font-size: 0.9em;
+            width: 140px;
+            margin-left: 15px;
+        }
+        
+        .contact-section {
+            background: rgba(0, 212, 170, 0.2);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .contact-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .contact-title {
+            color: #00D4AA;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .contact-field {
+            display: flex;
+            flex-direction: column;
+            margin: 10px 0;
+        }
+        
+        .contact-label {
+            color: #B0C4DE;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        
+        .contact-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            padding: 8px;
+            color: white;
+            font-size: 0.9em;
+        }
+        
+        .contact-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .progress-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .progress-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .progress-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #FFD700;
+            margin: 10px 0;
+        }
+        
+        .progress-label {
+            color: #00D4AA;
+            font-weight: bold;
+        }
+        
+        .tip-box {
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #FF6B35;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .tip-box h3 {
+            color: #FF6B35;
+            margin-top: 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+        
+        @media (max-width: 900px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .task-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .task-date {
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo">🏢</div>
+            <h1>Corporate Relocation Tracker</h1>
+            <div class="framework-badge">PROCESS</div>
+            <p class="subtitle">Timeline for company-sponsored relocations including corporate contact coordination, temporary housing, and expense reimbursement documentation.</p>
+            <div class="read-time">90-day process</div>
+        </div>
+
+        <!-- Overview -->
+        <div class="section">
+            <h2>Relocation Process Overview</h2>
+            <p>Corporate relocations involve multiple stakeholders and extended timelines. This tracker ensures nothing falls through the cracks during the 90-day process.</p>
+            
+            <div class="progress-overview">
+                <div class="progress-card">
+                    <div class="progress-number" id="completedTasks">0</div>
+                    <div class="progress-label">Tasks Complete</div>
+                </div>
+                
+                <div class="progress-card">
+                    <div class="progress-number" id="totalTasks">32</div>
+                    <div class="progress-label">Total Tasks</div>
+                </div>
+                
+                <div class="progress-card">
+                    <div class="progress-number" id="daysRemaining">90</div>
+                    <div class="progress-label">Days Remaining</div>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <h3>Corporate Relocation Key Points</h3>
+                <p><strong>Multiple Approvals:</strong> HR, relocation company, and employee all involved<br>
+                <strong>Expense Documentation:</strong> Detailed tracking required for reimbursement<br>
+                <strong>Extended Timeline:</strong> Allow 60-90 days from start to move-in<br>
+                <strong>Temporary Housing:</strong> Often needed during transition period</p>
+            </div>
+        </div>
+
+        <!-- Key Contacts -->
+        <div class="section">
+            <h2>Key Contacts & Coordination</h2>
+            <p>Maintain organized contact information for all parties involved in the corporate relocation.</p>
+
+            <div class="contact-section">
+                <h3 style="color: #00D4AA; margin-top: 0;">Contact Directory</h3>
+                
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-title">Relocating Employee</div>
+                        <div class="contact-field">
+                            <div class="contact-label">Employee Name</div>
+                            <input type="text" class="contact-input" placeholder="Full name">
+                        </div>
+                        <div class="contact-field">
+                            <div class="contact-label">Personal Phone</div>
+                            <input type="text" class="contact-input" placeholder="Personal phone">
+                        </div>
+                        <div class="contact-field">
+                            <div class="contact-label">Personal Email</div>
+                            <input type="email" class="contact-input" placeholder="Personal email">
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-title">HR Contact</div>
+                        <div class="contact-field">
+                            <div class="contact-label">HR Representative</div>
+                            <input type="text" class="contact-input" placeholder="HR contact name">
+                        </div>
+                        <div class="contact-field">
+                            <div class="contact-label">Company</div>
+                            <input type="text" class="contact-input" placeholder="Company name">
+                        </div>
+                        <div class="contact-field">
+                            <div class="contact-label">Phone & Email</div>
+                            <input type="text" class="contact-input" placeholder="Contact information">
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-title">Relocation Company</div>
+                        <div class="contact-field">
+                            <div class="contact-label">Company Name</div>
+                            <input type="text" class="contact-input" placeholder="Atlas, United, etc.">
+                        </div>
+                        <div class="contact-field">
+                            <div class="contact-label">Coordinator</div>
+                            <input type="text" class="contact-input" placeholder="Coordinator name">
+                        </div>
+                        <div class="contact-field">
+                            <div class="contact-label">Phone & Email</div>
+                            <input type="text" class="contact-input" placeholder="Contact information">
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-title">Temporary Housing</div>
+                        <div class="contact-field">
+                            <div class="contact-label">Corporate Housing Company</div>
+                            <input type="text" class="contact-input" placeholder="Temporary housing provider">
+                        </div>
+                        <div class="contact-field">
+                            <div class="contact-label">Property Address</div>
+                            <input type="text" class="contact-input" placeholder="Temporary housing address">
+                        </div>
+                        <div class="contact-field">
+                            <div class="contact-label">Check-in/Check-out</div>
+                            <input type="text" class="contact-input" placeholder="Dates">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 1: Initial Setup -->
+        <div class="section">
+            <h2>Phase 1: Initial Setup & Planning</h2>
+            <p>First 30 days - establish timeline, gather requirements, and coordinate with all parties.</p>
+
+            <div class="timeline-phase">
+                <div class="phase-header">
+                    <div class="phase-title">Days 1-30: Foundation & Planning</div>
+                    <div class="phase-timeline">Weeks 1-4</div>
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Initial client consultation and needs assessment</div>
+                        <div class="task-description">Meet with employee to understand housing needs, timeline, and preferences</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Coordinate with HR and relocation company</div>
+                        <div class="task-description">Establish communication channels and confirm relocation policy details</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Review relocation benefit package</div>
+                        <div class="task-description">Understand home sale assistance, temporary housing, and purchase benefits</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Arrange area tour and neighborhood orientation</div>
+                        <div class="task-description">Schedule house hunting trip with area overview and community information</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Coordinate temporary housing arrangements</div>
+                        <div class="task-description">Set up corporate housing or extended stay accommodations</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Establish home search criteria and parameters</div>
+                        <div class="task-description">Define budget, location preferences, and must-have features</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 2: Home Search -->
+        <div class="section">
+            <h2>Phase 2: Active Home Search</h2>
+            <p>Days 30-60 - intensive property search and selection process.</p>
+
+            <div class="timeline-phase">
+                <div class="phase-header">
+                    <div class="phase-title">Days 30-60: Property Search & Selection</div>
+                    <div class="phase-timeline">Weeks 5-8</div>
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Schedule house hunting trip</div>
+                        <div class="task-description">Coordinate 2-3 day intensive property viewing schedule</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Pre-select properties for viewing</div>
+                        <div class="task-description">Curate list of 15-20 properties matching criteria</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Conduct property tours and gather feedback</div>
+                        <div class="task-description">Show properties and document preferences and concerns</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Provide detailed property analysis</div>
+                        <div class="task-description">CMA and neighborhood analysis for top property choices</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Coordinate offer strategy with relocation company</div>
+                        <div class="task-description">Review offer terms and approval process requirements</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Submit purchase offer with corporate approvals</div>
+                        <div class="task-description">Present offer with all required corporate documentation</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 3: Contract to Closing -->
+        <div class="section">
+            <h2>Phase 3: Contract Processing & Closing</h2>
+            <p>Days 60-90 - contract execution through successful closing.</p>
+
+            <div class="timeline-phase">
+                <div class="phase-header">
+                    <div class="phase-title">Days 60-90: Contract to Keys</div>
+                    <div class="phase-timeline">Weeks 9-12</div>
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Execute accepted purchase contract</div>
+                        <div class="task-description">Finalize contract terms and obtain all required signatures</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Coordinate mortgage application and approval</div>
+                        <div class="task-description">Work with corporate-approved lenders for financing</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Schedule and attend home inspection</div>
+                        <div class="task-description">Coordinate inspection and review results with client</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Process inspection response and negotiations</div>
+                        <div class="task-description">Handle any repair requests or contract amendments</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Coordinate appraisal and final loan approval</div>
+                        <div class="task-description">Ensure property appraises and loan clears to close</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Final walkthrough and closing coordination</div>
+                        <div class="task-description">Schedule final walkthrough and coordinate closing logistics</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Attend closing and deliver keys</div>
+                        <div class="task-description">Complete closing process and transition to new home</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+            </div>
+        </div>
+
+        <!-- Expense Documentation -->
+        <div class="section">
+            <h2>Expense Documentation & Reimbursement</h2>
+            <p>Track all reimbursable expenses throughout the relocation process.</p>
+
+            <div class="timeline-phase">
+                <div class="phase-header">
+                    <div class="phase-title">Ongoing: Expense Tracking</div>
+                    <div class="phase-timeline">Throughout Process</div>
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Document house hunting trip expenses</div>
+                        <div class="task-description">Receipts for airfare, hotel, meals, and ground transportation</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Track temporary housing costs</div>
+                        <div class="task-description">Corporate housing, extended stay, or hotel expenses</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Compile closing cost documentation</div>
+                        <div class="task-description">HUD-1 settlement statement and related closing expenses</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Document moving and shipping expenses</div>
+                        <div class="task-description">Household goods shipment and vehicle transportation costs</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Submit reimbursement requests</div>
+                        <div class="task-description">Complete corporate reimbursement forms with supporting documentation</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Follow up on expense reimbursements</div>
+                        <div class="task-description">Track status and resolve any reimbursement issues</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+            </div>
+        </div>
+
+        <!-- Post-Move Support -->
+        <div class="section">
+            <h2>Post-Move Support & Settlement</h2>
+            <p>Continue support after closing to ensure successful relocation completion.</p>
+
+            <div class="timeline-phase">
+                <div class="phase-header">
+                    <div class="phase-title">Post-Closing: Settlement Support</div>
+                    <div class="phase-timeline">Days 90-120</div>
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Coordinate utility connections and transfers</div>
+                        <div class="task-description">Assist with electric, gas, water, cable, internet setup</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Provide area resource information</div>
+                        <div class="task-description">Local services, healthcare, schools, recreation recommendations</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Follow up on move-in experience</div>
+                        <div class="task-description">Check on transition progress and address any concerns</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+                
+                <div class="task-item">
+                    <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Complete corporate relocation feedback</div>
+                        <div class="task-description">Provide feedback to HR and relocation company on process</div>
+                    </div>
+                    <input type="date" class="task-date">
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p style="color: #B0C4DE;">Stacked • Real Estate CRM • Transaction Mastery Series</p>
+        </div>
+    </div>
+
+    <script>
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.task-checkbox');
+            const totalTasks = checkboxes.length;
+            const completedTasks = document.querySelectorAll('.task-checkbox:checked').length;
+            
+            document.getElementById('completedTasks').textContent = completedTasks;
+            document.getElementById('totalTasks').textContent = totalTasks;
+            
+            // Calculate days remaining (example - would be dynamic in real use)
+            const remainingTasks = totalTasks - completedTasks;
+            const estimatedDays = Math.max(0, Math.ceil(remainingTasks * 2.8)); // Rough estimate
+            document.getElementById('daysRemaining').textContent = estimatedDays;
+        }
+
+        // Initialize progress on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properties - Help Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #e1e5e9;
+            background-color: #2c3e50;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid #00d4aa;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #00d4aa;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content-section {
+            background: #34495e;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #485e73;
+        }
+        
+        .content-section h2 {
+            color: #00d4aa;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #00d4aa;
+            padding-bottom: 10px;
+        }
+        
+        .content-section h3 {
+            color: #00d4aa;
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+        }
+        
+        .content-section p {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: #e1e5e9;
+        }
+        
+        .tabs-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .tab-card {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #485e73;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-card:hover {
+            border-color: #00d4aa;
+            transform: translateY(-2px);
+        }
+        
+        .tab-card h4 {
+            color: #00d4aa;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .tab-card p {
+            color: #b8c5d1;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .action-card {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #485e73;
+            transition: all 0.3s ease;
+        }
+        
+        .action-card:hover {
+            border-color: #00d4aa;
+            transform: translateY(-2px);
+        }
+        
+        .action-card h4 {
+            color: #00d4aa;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .action-card p {
+            color: #b8c5d1;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .form-fields {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .field-item {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #00d4aa;
+            border: 1px solid #485e73;
+        }
+        
+        .field-item h5 {
+            color: #00d4aa;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .field-item p {
+            color: #b8c5d1;
+            font-size: 0.8rem;
+            margin: 0;
+        }
+        
+        .required {
+            color: #ff6b6b;
+        }
+        
+        .step-list {
+            counter-reset: step-counter;
+        }
+        
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #00d4aa;
+            color: #2c3e50;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .tip-box {
+            background: #1e3d59;
+            border-left: 4px solid #00d4aa;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #e1e5e9;
+        }
+        
+        .tip-box strong {
+            color: #00d4aa;
+        }
+        
+        .warning-box {
+            background: #3d2f2f;
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #e1e5e9;
+        }
+        
+        .warning-box strong {
+            color: #ff6b6b;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            color: #e1e5e9;
+        }
+        
+        .sort-options {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #485e73;
+        }
+        
+        .sort-options ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .status-badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        
+        .badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .badge-for-sale {
+            background: #3B82F6;
+            color: white;
+        }
+        
+        .badge-sold {
+            background: #E5E7EB;
+            color: #374151;
+        }
+        
+        .badge-pending {
+            background: #F59E0B;
+            color: white;
+        }
+        
+        .badge-off-market {
+            background: #6B7280;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏠 Properties</h1>
+            <p>Search and manage property listings</p>
+        </div>
+
+        <div class="content-section">
+            <h2>What is the Properties Section?</h2>
+            <p>The Properties section is your comprehensive property management hub where you can view, search, add, edit, and organize all property listings. This section provides three main views to help you manage different aspects of your property portfolio effectively.</p>
+            
+            <p>Whether you're browsing the entire market, managing your own listings, or tracking your favorite properties, this section gives you all the tools you need to stay organized and efficient.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Property View Tabs</h2>
+            <p>The Properties section includes three main tabs, each serving a specific purpose:</p>
+            
+            <div class="tabs-info">
+                <div class="tab-card">
+                    <h4>All Properties</h4>
+                    <p>Browse all available properties on the market</p>
+                </div>
+                <div class="tab-card">
+                    <h4>My Properties</h4>
+                    <p>View and manage your own property listings</p>
+                </div>
+                <div class="tab-card">
+                    <h4>My Favorites</h4>
+                    <p>Access properties you've marked as favorites</p>
+                </div>
+            </div>
+
+            <h3>All Properties Tab</h3>
+            <p>This tab displays all properties available on the market. Use this view to:</p>
+            <ul>
+                <li>Browse the complete inventory of available properties</li>
+                <li>Research market trends and pricing</li>
+                <li>Find properties for your clients</li>
+                <li>Compare similar properties in different areas</li>
+                <li>Add properties to your favorites for later reference</li>
+            </ul>
+
+            <h3>My Properties Tab</h3>
+            <p>This tab shows only the properties you own or manage. Features include:</p>
+            <ul>
+                <li>View all your active listings in one place</li>
+                <li>Edit property details and pricing</li>
+                <li>Monitor property performance metrics</li>
+                <li>Update listing status (For Sale, Sold, Pending, etc.)</li>
+                <li>Delete or archive old listings</li>
+            </ul>
+
+            <h3>My Favorites Tab</h3>
+            <p>This tab contains properties you've saved as favorites. Perfect for:</p>
+            <ul>
+                <li>Keeping track of interesting properties for clients</li>
+                <li>Monitoring properties you're considering for investment</li>
+                <li>Creating curated lists for specific client needs</li>
+                <li>Tracking price changes on properties of interest</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Property Management Actions</h2>
+            <p>The Properties section offers several key actions to help you manage your listings efficiently:</p>
+
+            <div class="action-buttons">
+                <div class="action-card">
+                    <h4>Add Property</h4>
+                    <p>Create new property listings with detailed information</p>
+                </div>
+                <div class="action-card">
+                    <h4>Import CSV</h4>
+                    <p>Bulk upload properties from a CSV file</p>
+                </div>
+                <div class="action-card">
+                    <h4>Export CSV</h4>
+                    <p>Download your properties data for external use</p>
+                </div>
+            </div>
+
+            <h3>Adding Individual Properties</h3>
+            <p>Click the "Add Property" button to open the property creation form. This allows you to input all necessary details for a new listing.</p>
+
+            <h3>Bulk Import Properties</h3>
+            <p>Use the "Import CSV" feature to upload multiple properties at once. This is especially useful when:</p>
+            <ul>
+                <li>Migrating from another system</li>
+                <li>Adding multiple properties from a developer or builder</li>
+                <li>Updating property information in bulk</li>
+            </ul>
+
+            <h3>Export Properties Data</h3>
+            <p>The "Export CSV" function downloads your properties data, which is helpful for:</p>
+            <ul>
+                <li>Creating backup copies of your listings</li>
+                <li>Analyzing property data in spreadsheet applications</li>
+                <li>Sharing property information with team members</li>
+                <li>Generating reports for clients or stakeholders</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Adding New Properties</h2>
+            <p>When you click "Add Property," a comprehensive form opens with the following fields:</p>
+
+            <div class="form-fields">
+                <div class="field-item">
+                    <h5>Property Address <span class="required">*</span></h5>
+                    <p>Complete street address of the property</p>
+                </div>
+                <div class="field-item">
+                    <h5>Price <span class="required">*</span></h5>
+                    <p>Listing price in dollars</p>
+                </div>
+                <div class="field-item">
+                    <h5>Beds <span class="required">*</span></h5>
+                    <p>Number of bedrooms</p>
+                </div>
+                <div class="field-item">
+                    <h5>Baths <span class="required">*</span></h5>
+                    <p>Number of bathrooms</p>
+                </div>
+                <div class="field-item">
+                    <h5>Square Feet <span class="required">*</span></h5>
+                    <p>Total square footage</p>
+                </div>
+                <div class="field-item">
+                    <h5>Property Type</h5>
+                    <p>Select from dropdown (Single Family, Condo, etc.)</p>
+                </div>
+                <div class="field-item">
+                    <h5>Listing Status</h5>
+                    <p>Current status (For Sale, Sold, Pending, etc.)</p>
+                </div>
+                <div class="field-item">
+                    <h5>Year Built</h5>
+                    <p>Construction year of the property</p>
+                </div>
+                <div class="field-item">
+                    <h5>Image URL</h5>
+                    <p>Link to the main property photo</p>
+                </div>
+                <div class="field-item">
+                    <h5>Features</h5>
+                    <p>Comma-separated list of property features</p>
+                </div>
+                <div class="field-item">
+                    <h5>Description</h5>
+                    <p>Detailed property description</p>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Pro Tip:</strong> Fields marked with a red asterisk (*) are required. Make sure to fill out all required fields before saving your property listing.
+            </div>
+
+            <h3>Step-by-Step: Adding a Property</h3>
+            <ol class="step-list">
+                <li>Click the "Add Property" button in the top-right corner</li>
+                <li>Fill in the required fields: address, price, beds, baths, and square feet</li>
+                <li>Select the property type from the dropdown menu</li>
+                <li>Choose the appropriate listing status</li>
+                <li>Add optional information like year built and image URL</li>
+                <li>List property features separated by commas</li>
+                <li>Write a compelling description of the property</li>
+                <li>Click "Save" to create the listing</li>
+            </ol>
+        </div>
+
+        <div class="content-section">
+            <h2>CSV Import and Export</h2>
+            
+            <h3>Importing Properties from CSV</h3>
+            <p>The CSV import feature allows you to upload multiple properties at once. Requirements for successful import:</p>
+            
+            <div class="warning-box">
+                <strong>⚠️ File Requirements:</strong> Your CSV file must be in CSV format and less than 10MB in size.
+            </div>
+
+            <p><strong>Required CSV Columns:</strong></p>
+            <div class="form-fields">
+                <div class="field-item">
+                    <h5>address</h5>
+                    <p>Property street address</p>
+                </div>
+                <div class="field-item">
+                    <h5>price</h5>
+                    <p>Listing price (numbers only)</p>
+                </div>
+                <div class="field-item">
+                    <h5>beds</h5>
+                    <p>Number of bedrooms</p>
+                </div>
+                <div class="field-item">
+                    <h5>baths</h5>
+                    <p>Number of bathrooms</p>
+                </div>
+                <div class="field-item">
+                    <h5>sqft</h5>
+                    <p>Square footage</p>
+                </div>
+                <div class="field-item">
+                    <h5>type</h5>
+                    <p>Property type</p>
+                </div>
+                <div class="field-item">
+                    <h5>yearBuilt</h5>
+                    <p>Year property was built</p>
+                </div>
+                <div class="field-item">
+                    <h5>status (optional)</h5>
+                    <p>Listing status</p>
+                </div>
+            </div>
+
+            <h3>CSV Import Process</h3>
+            <ol class="step-list">
+                <li>Click the "Import CSV" button</li>
+                <li>Click "Choose CSV File" in the upload dialog</li>
+                <li>Select your properly formatted CSV file</li>
+                <li>Review the file requirements to ensure compatibility</li>
+                <li>Wait for the upload and processing to complete</li>
+                <li>Check your properties list to verify successful import</li>
+            </ol>
+
+            <h3>Exporting Properties to CSV</h3>
+            <p>To export your current properties:</p>
+            <ol class="step-list">
+                <li>Click the "Export CSV" button</li>
+                <li>A confirmation dialog will appear showing the number of properties to export</li>
+                <li>Click "Export CSV" to confirm</li>
+                <li>The file will be downloaded to your default download folder</li>
+                <li>Open the file in Excel, Google Sheets, or any CSV-compatible application</li>
+            </ol>
+        </div>
+
+        <div class="content-section">
+            <h2>Search and Filter Properties</h2>
+            
+            <h3>Using the Search Bar</h3>
+            <p>The search functionality allows you to quickly find properties by:</p>
+            <ul>
+                <li>Street address or partial address</li>
+                <li>Neighborhood name</li>
+                <li>City name</li>
+                <li>ZIP code</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>🔍 Search Tips:</strong> You can search using partial information. For example, searching "Cedar" will show all properties on Cedar Lane, Cedar Street, etc.
+            </div>
+
+            <h3>Sorting Options</h3>
+            <p>Use the price dropdown to sort properties by different criteria:</p>
+
+            <div class="sort-options">
+                <ul>
+                    <li><strong>Price: High to Low</strong> - Most expensive properties first</li>
+                    <li><strong>Price: Low to High</strong> - Least expensive properties first</li>
+                    <li><strong>Newest Listed</strong> - Most recently added properties first</li>
+                    <li><strong>Largest First</strong> - Properties sorted by square footage (largest first)</li>
+                    <li><strong>Smallest First</strong> - Properties sorted by square footage (smallest first)</li>
+                    <li><strong>Price per Sq Ft</strong> - Properties sorted by price per square foot</li>
+                </ul>
+            </div>
+
+            <h3>View Toggle Options</h3>
+            <p>Switch between different view modes using the toggle buttons:</p>
+            <ul>
+                <li><strong>Grid View:</strong> Cards layout showing property images and key details</li>
+                <li><strong>List View:</strong> Compact table format for detailed information</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Understanding Property Cards</h2>
+            
+            <h3>Property Card Information</h3>
+            <p>Each property card displays essential information at a glance:</p>
+            <ul>
+                <li><strong>Status Badge:</strong> Shows current listing status</li>
+                <li><strong>Property Image:</strong> Main photo of the property</li>
+                <li><strong>Price:</strong> Listed price and price per square foot</li>
+                <li><strong>Property Details:</strong> Beds, baths, and square footage</li>
+                <li><strong>Address:</strong> Full street address</li>
+                <li><strong>Property Type:</strong> Category (Single Family, Condo, etc.)</li>
+                <li><strong>Year Built:</strong> Construction year</li>
+                <li><strong>View Count:</strong> Number of times property has been viewed</li>
+                <li><strong>Days Listed:</strong> How long the property has been on the market</li>
+            </ul>
+
+            <h3>Property Status Badges</h3>
+            <p>Property cards display different colored status badges:</p>
+
+            <div class="status-badges">
+                <span class="badge badge-for-sale">For Sale</span>
+                <span class="badge badge-sold">Sold</span>
+                <span class="badge badge-pending">Pending</span>
+                <span class="badge badge-off-market">Off Market</span>
+            </div>
+
+            <h3>Property Card Actions</h3>
+            <p>Each property card includes action buttons:</p>
+            <ul>
+                <li><strong>Heart Icon:</strong> Add/remove from favorites (appears as filled red heart when favorited)</li>
+                <li><strong>Document Icon:</strong> View detailed property information</li>
+                <li><strong>Edit Icon:</strong> Edit property details (only visible on "My Properties")</li>
+                <li><strong>Delete Icon:</strong> Remove property listing (only visible on "My Properties")</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Managing Your Property Listings</h2>
+            
+            <h3>Editing Properties</h3>
+            <p>To edit a property in your "My Properties" tab:</p>
+            <ol class="step-list">
+                <li>Navigate to the "My Properties" tab</li>
+                <li>Find the property you want to edit</li>
+                <li>Click the edit icon (pencil) on the property card</li>
+                <li>Update the necessary information in the form</li>
+                <li>Click "Save" to apply your changes</li>
+            </ol>
+
+            <h3>Deleting Properties</h3>
+            <p>To remove a property from your listings:</p>
+            <ol class="step-list">
+                <li>Go to the "My Properties" tab</li>
+                <li>Locate the property to delete</li>
+                <li>Click the delete icon (trash can) on the property card</li>
+                <li>Confirm the deletion when prompted</li>
+            </ol>
+
+            <div class="warning-box">
+                <strong>⚠️ Deletion Warning:</strong> Deleting a property is permanent and cannot be undone. Make sure you really want to remove the property before confirming.
+            </div>
+
+            <h3>Managing Favorites</h3>
+            <p>To add properties to your favorites:</p>
+            <ol class="step-list">
+                <li>Find the property you're interested in</li>
+                <li>Click the heart icon on the property card</li>
+                <li>The heart will turn red and fill in, indicating it's been favorited</li>
+                <li>Access your favorites anytime through the "My Favorites" tab</li>
+            </ol>
+
+            <p>To remove from favorites, simply click the red heart icon again.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Best Practices for Property Management</h2>
+            
+            <h3>Keeping Your Listings Current</h3>
+            <ul>
+                <li>Update property status immediately when circumstances change</li>
+                <li>Refresh property photos periodically to maintain visual appeal</li>
+                <li>Review and update pricing based on market conditions</li>
+                <li>Keep property descriptions accurate and compelling</li>
+            </ul>
+
+            <h3>Organizing Your Property Portfolio</h3>
+            <ul>
+                <li>Use the favorites feature to create curated lists for different client needs</li>
+                <li>Regularly review your "My Properties" tab to ensure all listings are active</li>
+                <li>Export your property data regularly as a backup</li>
+                <li>Use consistent naming conventions and descriptions</li>
+            </ul>
+
+            <h3>Maximizing Search Efficiency</h3>
+            <ul>
+                <li>Use specific search terms to narrow down results quickly</li>
+                <li>Take advantage of sorting options to prioritize properties by your criteria</li>
+                <li>Switch between grid and list views depending on the information you need</li>
+                <li>Save frequently searched properties to favorites for quick access</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Troubleshooting Common Issues</h2>
+            
+            <h3>CSV Import Problems</h3>
+            <ul>
+                <li><strong>File too large:</strong> Ensure your CSV is under 10MB</li>
+                <li><strong>Import fails:</strong> Check that all required columns are present and properly named</li>
+                <li><strong>Data not appearing correctly:</strong> Verify that number fields contain only numbers</li>
+                <li><strong>Special characters issues:</strong> Save your CSV with UTF-8 encoding</li>
+            </ul>
+
+            <h3>Search Not Working</h3>
+            <ul>
+                <li>Clear your browser cache and refresh the page</li>
+                <li>Try using shorter, more general search terms</li>
+                <li>Check for typos in your search query</li>
+                <li>Ensure you're searching in the correct tab (All Properties vs My Properties)</li>
+            </ul>
+
+            <h3>Property Cards Not Loading</h3>
+            <ul>
+                <li>Check your internet connection</li>
+                <li>Refresh the page or try logging out and back in</li>
+                <li>Try switching between grid and list views</li>
+                <li>Clear your browser cache if problems persist</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Difficult Client Management Toolkit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #FF6B35;
+            border-radius: 8px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        h1 {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .framework-badge {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #B0C4DE;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .read-time {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #00D4AA;
+        }
+        
+        h3 {
+            font-size: 1.8em;
+            margin: 40px 0 20px 0;
+            color: #FFD700;
+        }
+        
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #E6F3FF;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #FF6B35, #E55533);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 40px 0;
+        }
+        
+        .scenario-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #FF6B35;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 0 15px 15px 0;
+        }
+        
+        .scenario-header {
+            color: #FF6B35;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .response-script {
+            background: rgba(0, 212, 170, 0.1);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+        }
+        
+        .script-label {
+            color: #00D4AA;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-style: normal;
+        }
+        
+        .documentation-form {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 15px;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .form-label {
+            color: #FFD700;
+            font-weight: bold;
+        }
+        
+        .form-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+            font-size: 1em;
+        }
+        
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .boundary-checklist {
+            background: rgba(0, 212, 170, 0.2);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+        
+        .checklist-item:has(input:checked) {
+            background: rgba(0, 212, 170, 0.3) !important;
+            border-left: 4px solid #00D4AA;
+            transform: translateX(10px);
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            margin-right: 15px;
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+        
+        .checklist-text {
+            flex: 1;
+            color: #E6F3FF;
+        }
+        
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .strategy-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 3px solid #00D4AA;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .strategy-card h3 {
+            color: #00D4AA;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        
+        .tip-box {
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #FF6B35;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .tip-box h3 {
+            color: #FF6B35;
+            margin-top: 0;
+        }
+        
+        .legal-protection {
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+        
+        ul {
+            margin-left: 20px;
+            color: #E6F3FF;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .save-btn {
+            background: #FFD700;
+            color: #1e3a5f;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        @media (max-width: 900px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .strategy-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo">⚖️</div>
+            <h1>Difficult Client Management Toolkit</h1>
+            <div class="framework-badge">Pro Strategy</div>
+            <p class="subtitle">Scripts, strategies, and documentation tools for handling challenging client situations while protecting yourself professionally and legally.</p>
+            <div class="read-time">Professional protection guide</div>
+        </div>
+
+        <!-- Warning -->
+        <div class="section">
+            <div class="warning-box">
+                ⚠️ Documentation Is Your Protection<br>
+                <span style="font-size: 0.9em; font-weight: normal; margin-top: 15px; display: block;">
+                    Always document difficult interactions. What isn't documented didn't happen in legal disputes.
+                </span>
+            </div>
+        </div>
+
+        <!-- Client Type Scenarios -->
+        <div class="section">
+            <h2>Challenging Client Scenarios & Scripts</h2>
+            <p>Word-for-word responses for the most common difficult client situations:</p>
+
+            <div class="scenario-card">
+                <div class="scenario-header">The Unrealistic Seller</div>
+                <p><strong>Situation:</strong> Seller insists on pricing 20% above market value, refuses to listen to CMA data.</p>
+                
+                <div class="response-script">
+                    <div class="script-label">Professional Response Script:</div>
+                    "I understand you have strong feelings about your home's value, and I respect that. Here's my professional obligation to you: I have to present what the market data shows, even when it's not what we want to hear.
+
+                    The comparable sales indicate a range of $X to $Y. We can certainly try your preferred price, but I need you to understand the likely outcome: extended time on market, multiple price reductions, and potentially selling for less than if we price strategically from the start.
+
+                    I'm committed to getting you the highest possible price the market will bear. Can we discuss a pricing strategy that balances your goals with market realities?"
+                </div>
+                
+                <div class="response-script">
+                    <div class="script-label">If They Still Refuse:</div>
+                    "I hear that you want to start higher. I can support that decision, but I need us to agree on a timeline and adjustment strategy. 
+
+                    If we don't have serious showing activity within [X weeks], will you be open to adjusting the price? I want to make sure we're both aligned on expectations so there are no surprises.
+
+                    My job is to sell your home, not just list it. What timeline works for your situation?"
+                </div>
+            </div>
+
+            <div class="scenario-card">
+                <div class="scenario-header">The Impossible-to-Please Buyer</div>
+                <p><strong>Situation:</strong> Buyer has seen 50+ homes, finds fault with everything, wastes time on properties outside their budget.</p>
+                
+                <div class="response-script">
+                    <div class="script-label">Reality Check Script:</div>
+                    "I want to make sure I'm serving you effectively. We've looked at quite a few properties together, and I'm noticing we haven't found anything that feels right yet.
+
+                    Let's step back and recalibrate. Help me understand: what would a home need to have for you to feel excited about writing an offer? And just as importantly, what are you willing to compromise on?
+
+                    Sometimes the perfect home doesn't exist in our price range or area, but the right home does. I want to focus our time on properties that could actually work for you."
+                </div>
+                
+                <div class="response-script">
+                    <div class="script-label">Setting Boundaries:</div>
+                    "Moving forward, I'd like to be more strategic about our showings. Before we schedule anything, let's discuss why each property might work and what concerns you have based on the listing details.
+
+                    This will help us use our time more effectively and focus on homes that truly fit your needs. Does that approach work for you?"
+                </div>
+            </div>
+
+            <div class="scenario-card">
+                <div class="scenario-header">The Demanding Client</div>
+                <p><strong>Situation:</strong> Client expects immediate responses 24/7, calls multiple times daily, treats you like personal staff.</p>
+                
+                <div class="response-script">
+                    <div class="script-label">Boundary Setting Script:</div>
+                    "I appreciate how important this transaction is to you, and I'm committed to excellent service. To serve you best, I need to clarify my communication schedule.
+
+                    I check and respond to messages during business hours: [specific hours]. For true emergencies, you can call my cell, but I want to make sure we're both clear on what constitutes an emergency in real estate.
+
+                    This structure actually helps me be more effective for you because I can focus on your transaction during dedicated work time rather than being constantly interrupted."
+                </div>
+            </div>
+
+            <div class="scenario-card">
+                <div class="scenario-header">The Micromanager</div>
+                <p><strong>Situation:</strong> Client questions every decision, wants to control marketing, showing schedules, and negotiations.</p>
+                
+                <div class="response-script">
+                    <div class="script-label">Professional Autonomy Script:</div>
+                    "I can see you're very invested in this process, which I appreciate. I want to make sure we're working together effectively.
+
+                    You hired me for my expertise and market knowledge. While I always want your input on major decisions, I need some autonomy to execute the marketing and showing strategy we've agreed upon.
+
+                    When you override my professional recommendations, it makes it difficult for me to deliver the results you're expecting. Can we find a way to balance your involvement with letting me do what you hired me to do?"
+                </div>
+            </div>
+        </div>
+
+        <!-- Price Reduction Conversations -->
+        <div class="section">
+            <h2>Price Reduction Conversations</h2>
+            <p>Scripts for the most difficult conversation in real estate:</p>
+
+            <div class="response-script">
+                <div class="script-label">Initial Price Reduction Script:</div>
+                "I need to share some important market feedback with you. We've been on the market for [X weeks] with [Y showings]. Here's what the market is telling us:
+
+                [Specific feedback from showings/agents]
+
+                The market has spoken, and it's saying our current price isn't aligned with buyer expectations. I have three recommendations:
+
+                1. Reduce price to $[amount] to generate renewed interest
+                2. Make strategic improvements to justify current price
+                3. Wait and hope market conditions change
+
+                Based on current market activity, option 1 gives us the best chance of selling in your preferred timeframe. What are your thoughts?"
+            </div>
+
+            <div class="response-script">
+                <div class="script-label">Seller Resistance Response:</div>
+                "I understand this is frustrating. Nobody wants to reduce their price. But here's what I know after [X] years in this business: 
+
+                Homes sell at market value, not at the price we want or need. The longer we wait, the more 'stale' the listing becomes, and we often end up selling for less than if we'd priced correctly earlier.
+
+                I'd rather help you get $[realistic amount] in the next 30 days than chase $[current price] for months and potentially get less. What matters most - the price or actually selling?"
+            </div>
+        </div>
+
+        <!-- Firing Clients -->
+        <div class="section">
+            <h2>Professionally Ending Client Relationships</h2>
+            <p>When it's time to part ways, do it professionally and legally:</p>
+
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <h3>Valid Reasons to Terminate</h3>
+                    <ul style="text-align: left; color: #E6F3FF; margin-left: 20px;">
+                        <li>Consistent disrespect or abusive behavior</li>
+                        <li>Refusal to follow professional advice</li>
+                        <li>Unrealistic expectations after education</li>
+                        <li>Dishonesty about finances or motivation</li>
+                        <li>Asking you to do anything unethical</li>
+                    </ul>
+                </div>
+
+                <div class="strategy-card">
+                    <h3>Termination Process</h3>
+                    <ul style="text-align: left; color: #E6F3FF; margin-left: 20px;">
+                        <li>Review your agreement terms</li>
+                        <li>Document the issues first</li>
+                        <li>Have the conversation in person</li>
+                        <li>Follow up in writing</li>
+                        <li>Refer to other agents if appropriate</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="response-script">
+                <div class="script-label">Professional Termination Script:</div>
+                "After careful consideration, I've decided that I'm not the right agent to best serve your needs in this transaction. 
+
+                This isn't a reflection on you as a person, but rather a recognition that our working styles and expectations aren't aligned in a way that sets either of us up for success.
+
+                I want you to have the best possible experience, and I believe you'll be better served by an agent who's a better fit for your specific needs. I'd be happy to refer you to [2-3 other agents] who might be better suited to help you.
+
+                I'll send you a written confirmation of this decision and transfer any relevant documentation to your new agent once you've selected one."
+            </div>
+        </div>
+
+        <!-- Boundary Setting -->
+        <div class="section">
+            <h2>Professional Boundary Checklist</h2>
+            <p>Establish and maintain professional boundaries from day one:</p>
+
+            <div class="boundary-checklist">
+                <h3 style="color: #00D4AA; margin-top: 0;">Essential Boundaries to Set</h3>
+                
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Communication hours and response times clearly defined</strong>
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Showing availability windows established</strong>
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Commission and fee structure explained in detail</strong>
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Decision-making process and timelines clarified</strong>
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Professional service scope defined (what you will/won't do)</strong>
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Cancellation terms and conditions reviewed</strong>
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Expectations for client participation and cooperation set</strong>
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <div class="checklist-text">
+                        <strong>Respect and professionalism standards established</strong>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- De-escalation Techniques -->
+        <div class="section">
+            <h2>De-escalation Techniques</h2>
+            <p>Calm emotional situations and maintain professional relationships:</p>
+
+            <div class="tip-box">
+                <h3>The LEAP Method</h3>
+                <ul>
+                    <li><strong>Listen:</strong> Let them express their frustration completely</li>
+                    <li><strong>Empathize:</strong> Acknowledge their feelings without admitting fault</li>
+                    <li><strong>Apologize:</strong> For their experience, not necessarily your actions</li>
+                    <li><strong>Partner:</strong> Work together on solutions moving forward</li>
+                </ul>
+            </div>
+
+            <div class="response-script">
+                <div class="script-label">De-escalation Template:</div>
+                "I can hear that you're really frustrated about [specific issue], and I understand why this would be upsetting. 
+
+                I'm sorry you're having this experience - that's not what either of us wanted.
+
+                Let's figure out how to move forward in a way that gets you what you need. What would a good outcome look like from your perspective?"
+            </div>
+
+            <div class="tip-box">
+                <h3>Red Flags: When to Exit the Conversation</h3>
+                <ul>
+                    <li>Personal attacks or name-calling</li>
+                    <li>Threats of any kind</li>
+                    <li>Demands for illegal or unethical actions</li>
+                    <li>Refusal to calm down after multiple attempts</li>
+                    <li>Alcohol or substance impairment apparent</li>
+                </ul>
+                <p><strong>Exit script:</strong> "I can see this is a very emotional situation. Let's take a break and reconnect when we can have a productive conversation."</p>
+            </div>
+        </div>
+
+        <!-- Documentation Form -->
+        <div class="section">
+            <h2>Incident Documentation Form</h2>
+            <p>Document every difficult interaction for legal protection:</p>
+
+            <div class="documentation-form">
+                <h3 style="color: #FFD700; margin-top: 0;">Client Interaction Documentation</h3>
+                
+                <div class="form-row">
+                    <div class="form-label">Date & Time:</div>
+                    <input type="datetime-local" class="form-input" id="incident-date">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-label">Client Name:</div>
+                    <input type="text" class="form-input" placeholder="Client name" id="client-name">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-label">Property Address:</div>
+                    <input type="text" class="form-input" placeholder="Property address if applicable" id="property-address">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-label">Interaction Type:</div>
+                    <select class="form-input" id="interaction-type">
+                        <option value="">Select type</option>
+                        <option value="phone">Phone call</option>
+                        <option value="email">Email exchange</option>
+                        <option value="text">Text message</option>
+                        <option value="in-person">In-person meeting</option>
+                        <option value="showing">Property showing</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-label">Witnesses Present:</div>
+                    <input type="text" class="form-input" placeholder="Names of any witnesses" id="witnesses">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-label">Incident Summary:</div>
+                    <textarea class="form-input form-textarea" placeholder="Objective description of what happened..." id="incident-summary"></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-label">Client Statements:</div>
+                    <textarea class="form-input form-textarea" placeholder="Direct quotes if possible..." id="client-statements"></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-label">Your Response:</div>
+                    <textarea class="form-input form-textarea" placeholder="How you responded..." id="your-response"></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-label">Resolution/Outcome:</div>
+                    <textarea class="form-input form-textarea" placeholder="How the situation was resolved..." id="resolution"></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-label">Follow-up Required:</div>
+                    <textarea class="form-input" placeholder="Next steps or follow-up actions..." id="followup"></textarea>
+                </div>
+                
+                <button class="save-btn" onclick="saveDocumentation()">Save Documentation</button>
+            </div>
+        </div>
+
+        <!-- Legal Protection -->
+        <div class="section">
+            <h2>Legal Protection Strategies</h2>
+            
+            <div class="legal-protection">
+                <h3 style="color: #FFD700; margin-top: 0;">Protecting Yourself Legally</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 20px 0;">
+                    <div>
+                        <h4 style="color: #00D4AA;">Document Everything</h4>
+                        <ul style="color: #E6F3FF; margin-left: 20px;">
+                            <li>Date, time, and location of incidents</li>
+                            <li>Exact quotes when possible</li>
+                            <li>Witnesses present</li>
+                            <li>Your professional response</li>
+                            <li>Follow-up actions taken</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: #00D4AA;">Communication Guidelines</h4>
+                        <ul style="color: #E6F3FF; margin-left: 20px;">
+                            <li>Always remain professional in writing</li>
+                            <li>Copy your broker on sensitive emails</li>
+                            <li>Never admit fault or liability</li>
+                            <li>Stick to facts, avoid emotions</li>
+                            <li>Keep all communications</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255, 107, 53, 0.2); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                    <p style="color: #FF6B35; font-weight: bold; margin-bottom: 10px;">When to Contact Your Broker:</p>
+                    <ul style="color: #E6F3FF; margin-left: 20px;">
+                        <li>Any threats of legal action</li>
+                        <li>Accusations of discrimination</li>
+                        <li>Demands for commission reductions</li>
+                        <li>Requests to do anything unethical</li>
+                        <li>Physical safety concerns</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p style="color: #B0C4DE;">Stacked • Real Estate CRM • Pro Plan Advanced Training</p>
+        </div>
+    </div>
+
+    <script>
+        function saveDocumentation() {
+            // Collect form data
+            const formData = {
+                date: document.getElementById('incident-date').value,
+                clientName: document.getElementById('client-name').value,
+                propertyAddress: document.getElementById('property-address').value,
+                interactionType: document.getElementById('interaction-type').value,
+                witnesses: document.getElementById('witnesses').value,
+                incidentSummary: document.getElementById('incident-summary').value,
+                clientStatements: document.getElementById('client-statements').value,
+                yourResponse: document.getElementById('your-response').value,
+                resolution: document.getElementById('resolution').value,
+                followup: document.getElementById('followup').value
+            };
+            
+            // In a real environment, this would save to a database
+            // For demo purposes, we'll just show a confirmation
+            if (formData.clientName && formData.incidentSummary) {
+                alert('Documentation saved successfully. Always keep copies for your records.');
+                
+                // Optional: Clear form after saving
+                const inputs = document.querySelectorAll('.form-input');
+                inputs.forEach(input => {
+                    if (input.type !== 'datetime-local') {
+                        input.value = '';
+                    }
+                });
+            } else {
+                alert('Please fill in at least the client name and incident summary before saving.');
+            }
+        }
+
+        // Add functionality for checklist items
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+            
+            checkboxes.forEach(function(checkbox) {
+                checkbox.addEventListener('change', function() {
+                    const item = checkbox.closest('.checklist-item');
+                    
+                    if (checkbox.checked) {
+                        item.style.background = 'rgba(0, 212, 170, 0.3)';
+                        item.style.borderLeft = '4px solid #00D4AA';
+                        item.style.transform = 'translateX(10px)';
+                    } else {
+                        item.style.background = 'rgba(255, 255, 255, 0.1)';
+                        item.style.borderLeft = 'none';
+                        item.style.transform = 'translateX(0px)';
+                    }
+                });
+            });
+            
+            // Auto-populate current date/time for documentation
+            const dateInput = document.getElementById('incident-date');
+            if (dateInput) {
+                const now = new Date();
+                const localDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+                dateInput.value = localDateTime;
+            }
+        });
+    </script>
+</body>
+</html>

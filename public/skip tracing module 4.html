@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 5: Legal Compliance & Best Practices</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #FF6B35;
+            border-radius: 8px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        h1 {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .module-badge {
+            background: #00D4AA;
+            color: #1e3a5f;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #B0C4DE;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .progress-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 5px;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #00D4AA, #00B894);
+            height: 25px;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #00D4AA;
+        }
+        
+        h3 {
+            font-size: 1.8em;
+            margin: 40px 0 20px 0;
+            color: #FFD700;
+        }
+        
+        h4 {
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+            color: #FFD700;
+        }
+        
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #E6F3FF;
+        }
+        
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .highlight-box h3 {
+            color: #FFD700;
+            margin-top: 0;
+        }
+        
+        .example-box {
+            background: rgba(0, 212, 170, 0.2);
+            border: 2px solid #00D4AA;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .example-box h4 {
+            color: #00D4AA;
+            margin-top: 0;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #FF6B35, #E55533);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 40px 0;
+        }
+        
+        .critical-warning {
+            background: linear-gradient(135deg, #DC2626, #B91C1C);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin: 40px 0;
+            border: 3px solid #FEE2E2;
+        }
+        
+        .quiz-section {
+            background: linear-gradient(135deg, #4A5568, #2D3748);
+            border: 3px solid #00D4AA;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 50px 0;
+        }
+        
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .quiz-header h3 {
+            color: #00D4AA;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .question {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .question h4 {
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .options li {
+            background: rgba(255, 255, 255, 0.05);
+            margin: 10px 0;
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .options li:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #00D4AA;
+        }
+        
+        .options li.selected {
+            background: rgba(0, 212, 170, 0.3);
+            border-color: #00D4AA;
+        }
+        
+        .options li.correct {
+            background: rgba(0, 212, 170, 0.5);
+            border-color: #00D4AA;
+        }
+        
+        .options li.incorrect {
+            background: rgba(255, 107, 53, 0.5);
+            border-color: #FF6B35;
+        }
+        
+        .quiz-button {
+            background: linear-gradient(135deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .quiz-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .quiz-results {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+        
+        .legal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .legal-table th,
+        .legal-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .legal-table th {
+            background: rgba(0, 212, 170, 0.3);
+            color: #00D4AA;
+            font-weight: bold;
+        }
+        
+        .penalty-high { 
+            color: #DC2626; 
+            font-weight: bold; 
+            background: rgba(220, 38, 38, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        .penalty-medium { 
+            color: #F59E0B; 
+            font-weight: bold;
+            background: rgba(245, 158, 11, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        .penalty-low { 
+            color: #10B981; 
+            font-weight: bold;
+            background: rgba(16, 185, 129, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        ul {
+            margin: 15px 0 15px 20px;
+            color: #E6F3FF;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            color: #00D4AA;
+            font-size: 1.1em;
+            z-index: 1000;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 50px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+        
+        .nav-button {
+            background: linear-gradient(135deg, #00D4AA, #00B894);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .nav-button.back {
+            background: linear-gradient(135deg, #6B7280, #4B5563);
+        }
+        
+        @media (max-width: 900px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .timer {
+                position: static;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="timer" id="timer">Estimated Time: 30 minutes</div>
+    
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo">⚖️</div>
+            <h1>Legal Compliance & Best Practices</h1>
+            <div class="module-badge">Module 5 of 6</div>
+            <p class="subtitle">Master TCPA, DNC regulations, and industry best practices for compliant skip trace outreach that protects your business.</p>
+        </div>
+
+        <!-- Progress Tracker -->
+        <div class="section">
+            <h2>Your Progress</h2>
+            <div class="progress-container">
+                <div class="progress-fill" id="progressBar">0% Complete</div>
+            </div>
+            <p style="text-align: center; margin-top: 10px;">Complete each section and quiz to progress</p>
+        </div>
+
+        <!-- Section 1: TCPA Fundamentals -->
+        <div class="section" data-section="1">
+            <h2>Section 1: Understanding TCPA Compliance</h2>
+            <p><strong>Estimated Reading Time: 8 minutes</strong></p>
+            
+            <p>The Telephone Consumer Protection Act (TCPA) is the most critical piece of legislation governing skip trace outreach. Violations can result in $500-$1,500 per call in damages, making compliance essential for your business survival.</p>
+            
+            <h3>TCPA Key Provisions for Real Estate Investors</h3>
+            
+            <div class="critical-warning">
+                CRITICAL: TCPA violations can cost $500-$1,500 PER CALL. A single mistake with 100 calls could cost you $150,000 in damages.
+            </div>
+            
+            <h4>Cell Phone Protection Rules</h4>
+            <table class="legal-table">
+                <thead>
+                    <tr>
+                        <th>Contact Method</th>
+                        <th>Consent Required</th>
+                        <th>Violation Penalty</th>
+                        <th>Risk Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Manual Dialing to Cell</td>
+                        <td>No prior consent required</td>
+                        <td class="penalty-low">Low Risk</td>
+                        <td>Permitted</td>
+                    </tr>
+                    <tr>
+                        <td>Autodialer to Cell</td>
+                        <td>Express written consent</td>
+                        <td class="penalty-high">$500-$1,500</td>
+                        <td>Prohibited</td>
+                    </tr>
+                    <tr>
+                        <td>Pre-recorded Messages</td>
+                        <td>Express written consent</td>
+                        <td class="penalty-high">$500-$1,500</td>
+                        <td>Prohibited</td>
+                    </tr>
+                    <tr>
+                        <td>Text Messages</td>
+                        <td>Express written consent</td>
+                        <td class="penalty-high">$500-$1,500</td>
+                        <td>Prohibited</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="highlight-box">
+                <h3>Safe Harbor: Manual Dialing Only</h3>
+                <p><strong>The Golden Rule:</strong> For skip traced leads without prior consent, only use manual dialing to cell phones. This means:</p>
+                <ul>
+                    <li>One person, one phone, dialing one number at a time</li>
+                    <li>No auto-dialers, predictive dialers, or bulk calling systems</li>
+                    <li>No pre-recorded voicemails or messages</li>
+                    <li>No text messaging without consent</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Quiz 1 -->
+        <div class="quiz-section" data-quiz="1">
+            <div class="quiz-header">
+                <h3>Section 1 Quiz</h3>
+                <p>Test your understanding of TCPA fundamentals</p>
+            </div>
+            
+            <div class="question" data-question="1">
+                <h4>1. What is the penalty range for TCPA violations per call?</h4>
+                <ul class="options">
+                    <li data-answer="a">$100-$300</li>
+                    <li data-answer="b">$500-$1,500</li>
+                    <li data-answer="c">$1,000-$5,000</li>
+                    <li data-answer="d">$50-$200</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="2">
+                <h4>2. What type of consent is required to use an auto-dialer on cell phones?</h4>
+                <ul class="options">
+                    <li data-answer="a">Verbal consent</li>
+                    <li data-answer="b">Implied consent</li>
+                    <li data-answer="c">Express written consent</li>
+                    <li data-answer="d">No consent needed</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="3">
+                <h4>3. Which method is TCPA-compliant for contacting skip traced cell phone numbers?</h4>
+                <ul class="options">
+                    <li data-answer="a">Auto-dialer systems</li>
+                    <li data-answer="b">Pre-recorded voicemails</li>
+                    <li data-answer="c">Manual dialing only</li>
+                    <li data-answer="d">Text messaging</li>
+                </ul>
+            </div>
+            
+            <button class="quiz-button" onclick="checkQuiz(1)">Check Answers</button>
+            <div class="quiz-results" id="quiz1-results"></div>
+        </div>
+
+        <!-- Section 2: DNC Registry Compliance -->
+        <div class="section" data-section="2">
+            <h2>Section 2: Do Not Call Registry Compliance</h2>
+            <p><strong>Estimated Reading Time: 7 minutes</strong></p>
+            
+            <p>The National Do Not Call Registry protects consumers from unwanted telemarketing calls. Real estate investors must understand when and how these rules apply to skip trace outreach.</p>
+            
+            <h3>DNC Registry Rules</h3>
+            
+            <div class="example-box">
+                <h4>DNC-Compliant Opening Script</h4>
+                <p>"Hi, this is [Your Name] with [Company Name]. I'm a local real estate professional, and I'm calling specifically about your property at [Property Address]. I have some market information that might be valuable to you as the property owner. Do you have a moment to speak, and would this type of information be helpful to you?"</p>
+                
+                <p><strong>Key Elements:</strong></p>
+                <ul>
+                    <li>Immediate identification</li>
+                    <li>Property-specific reason</li>
+                    <li>Value proposition (information, not sales)</li>
+                    <li>Permission to continue</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Quiz 2 -->
+        <div class="quiz-section" data-quiz="2">
+            <div class="quiz-header">
+                <h3>Section 2 Quiz</h3>
+                <p>Test your understanding of DNC compliance</p>
+            </div>
+            
+            <div class="question" data-question="1">
+                <h4>1. When can you legally call a number on the DNC registry?</h4>
+                <ul class="options">
+                    <li data-answer="a">Never - DNC numbers are always off-limits</li>
+                    <li data-answer="b">Only with established business relationship or inquiry exception</li>
+                    <li data-answer="c">Anytime for real estate purposes</li>
+                    <li data-answer="d">Only on weekends</li>
+                </ul>
+            </div>
+            
+            <div class="question" data-question="2">
+                <h4>2. How long does an "established business relationship" exemption last?</h4>
+                <ul class="options">
+                    <li data-answer="a">6 months</li>
+                    <li data-answer="b">12 months</li>
+                    <li data-answer="c">18 months</li>
+                    <li data-answer="d">24 months</li>
+                </ul>
+            </div>
+            
+            <button class="quiz-button" onclick="checkQuiz(2)">Check Answers</button>
+            <div class="quiz-results" id="quiz2-results"></div>
+        </div>
+
+        <!-- Brain Teaser Challenge -->
+        <div class="section" style="background: linear-gradient(135deg, #4A5568, #2D3748); border: 3px solid #FFD700;">
+            <h2 style="color: #FFD700; text-align: center;">Legal Compliance Brain Teaser</h2>
+            <p style="text-align: center; font-size: 1.2em; margin-bottom: 30px;">Test your mastery of complex compliance scenarios with this challenging legal puzzle!</p>
+            
+            <div style="background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 15px; margin: 30px 0;">
+                <h3 style="color: #FFD700; margin-top: 0;">The Multi-State Legal Minefield</h3>
+                <p><strong>Scenario:</strong> You're a real estate investor who operates across multiple states and just received skip trace data for 500 high-value properties. The leads span California, Florida, Texas, and New York. Here's the complex legal situation you're navigating:</p>
+                
+                <div style="background: rgba(255, 215, 0, 0.2); padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #FFD700;">
+                    <h4 style="color: #FFD700; margin-top: 0;">The Complex Lead Portfolio:</h4>
+                    
+                    <p><strong>California Leads (125 properties):</strong></p>
+                    <ul>
+                        <li>85 cell phone numbers (no prior contact)</li>
+                        <li>40 landline numbers</li>
+                        <li>Average property value: $850,000</li>
+                        <li>15 numbers show up on National DNC Registry</li>
+                        <li>Your CRM shows you sent postcards to 30 of these owners 8 months ago</li>
+                    </ul>
+                    
+                    <p><strong>Florida Leads (150 properties):</strong></p>
+                    <ul>
+                        <li>120 cell phone numbers</li>
+                        <li>30 landline numbers</li>
+                        <li>22 numbers on both National and Florida DNC registries</li>
+                        <li>5 owners previously inquired about your services 4 months ago</li>
+                        <li>Average property value: $425,000</li>
+                    </ul>
+                </div>
+                
+                <div style="background: rgba(220, 38, 38, 0.2); padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #DC2626;">
+                    <h4 style="color: #DC2626; margin-top: 0;">Additional Complications:</h4>
+                    <ul>
+                        <li>Your assistant wants to use a power dialer to "be more efficient"</li>
+                        <li>Your marketing software automatically sends text messages to any mobile number</li>
+                        <li>A competitor in Florida was just sued for $2.3M in TCPA violations last month</li>
+                        <li>One California property owner is a federal judge</li>
+                        <li>Your business partner suggests "just calling everyone - what's the worst that could happen?"</li>
+                        <li>You have a $50,000 marketing budget and need to generate 10 deals this quarter</li>
+                    </ul>
+                </div>
+                
+                <div style="background: rgba(0, 212, 170, 0.2); padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #00D4AA;">
+                    <h4 style="color: #00D4AA; margin-top: 0;">The Master-Level Questions:</h4>
+                    <ol>
+                        <li style="margin-bottom: 10px;">How many California numbers can you legally call, and what's your strategy?</li>
+                        <li style="margin-bottom: 10px;">Which Florida leads qualify for DNC exemptions and why?</li>
+                        <li style="margin-bottom: 10px;">Your assistant wants to use a power dialer - what do you tell them and why?</li>
+                        <li style="margin-bottom: 10px;">How do you prioritize these 275 leads while minimizing legal risk?</li>
+                        <li style="margin-bottom: 10px;">What's your documentation strategy for this complex multi-state campaign?</li>
+                    </ol>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="quiz-button" onclick="toggleBrainTeaserAnswer()" id="brain-teaser-btn">Show Expert Legal Strategy</button>
+                    <div id="brain-teaser-answer" style="display: none; margin-top: 20px; text-align: left;">
+                        <div style="background: rgba(0, 0, 0, 0.3); padding: 25px; border-radius: 15px; border-left: 5px solid #00D4AA;">
+                            <h4 style="color: #00D4AA; margin-top: 0;">Expert Legal Compliance Strategy:</h4>
+                            
+                            <p><strong>California (EXTREME CAUTION):</strong></p>
+                            <ul>
+                                <li><strong>Callable Numbers: 0 cell phones, 40 landlines (with extreme care)</strong></li>
+                                <li>Mail-first strategy for all 85 cell numbers</li>
+                                <li>Even landlines require property-specific, informational approach</li>
+                                <li>Total potential TCPA exposure: $127,500-$765,000 if using auto-dialer</li>
+                            </ul>
+                            
+                            <p><strong>Florida Strategy:</strong></p>
+                            <ul>
+                                <li><strong>Safe to call: 5 inquiry exemptions + 98 non-DNC cell numbers</strong></li>
+                                <li>Enhanced documentation for all Florida calls</li>
+                                <li>Mail approach for 22 DNC-registered numbers</li>
+                                <li>Manual dialing only - no exceptions</li>
+                            </ul>
+                            
+                            <p style="color: #DC2626; font-weight: bold;">Auto-Dialer Risk Calculation: 205 cell numbers × $1,500 = $307,500 maximum TCPA exposure. This single decision could bankrupt your business.</p>
+                            
+                            <p style="color: #00D4AA; font-weight: bold;">Recommended Multi-State Protocol:</p>
+                            <ul>
+                                <li>Manual dialing only - hire additional callers if needed</li>
+                                <li>State-specific scripts and compliance procedures</li>
+                                <li>Prioritize non-DNC cell numbers in Florida first</li>
+                                <li>Mail campaign for all California cell numbers</li>
+                                <li>Detailed state-by-state documentation system</li>
+                                <li>Expected outcome: 150 successful contacts with 95% risk reduction</li>
+                            </ul>
+                            
+                            <p style="color: #FFD700; font-weight: bold;">Response to Business Partner: "Your friend is playing Russian roulette with a loaded gun. One lawsuit could cost us $300K+. Let's invest in compliance now rather than bankruptcy later."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Module Completion Section -->
+        <div class="section" id="completion-section" style="display: none;">
+            <div class="highlight-box" style="text-align: center;">
+                <h2>Congratulations!</h2>
+                <h3>You've completed Module 5: Legal Compliance & Best Practices</h3>
+                <p>You now understand TCPA requirements, DNC regulations, documentation needs, and state-specific compliance issues that protect your business from costly legal challenges.</p>
+                
+                <div style="margin: 30px 0;">
+                    <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 15px; display: inline-block;">
+                        <h4 style="color: #00D4AA; margin: 0;">Module 5 Complete!</h4>
+                        <p style="margin: 10px 0 0 0; color: #FFD700; font-size: 1.2em;">⭐⭐⭐⭐⭐</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                Next Steps: You're now ready for Module 6 - "Advanced Skip Tracing Strategies and Scaling Your Business"
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-button back" onclick="goToPreviousModule()">← Module 4</button>
+            <div style="text-align: center;">
+                <p style="margin: 0; color: #B0C4DE;">Module 5 of 6 Complete</p>
+            </div>
+            <button class="nav-button" id="next-module" onclick="goToNextModule()" style="display: none;">Module 6 →</button>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 60px; padding: 40px; background: rgba(255, 255, 255, 0.1); border-radius: 20px;">
+            <p style="color: #B0C4DE;">Stacked • Real Estate CRM • Module 5: Legal Compliance & Best Practices</p>
+        </div>
+    </div>
+
+    <script>
+        // Quiz answers
+        const quizAnswers = {
+            1: { 1: 'b', 2: 'c', 3: 'c' },
+            2: { 1: 'b', 2: 'c' }
+        };
+        
+        let completedSections = 0;
+        let completedQuizzes = 0;
+        const totalSections = 2;
+        const totalQuizzes = 2;
+        
+        function updateProgress() {
+            const totalItems = totalSections + totalQuizzes;
+            const completedItems = completedSections + completedQuizzes;
+            const percentage = Math.round((completedItems / totalItems) * 100);
+            
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '% Complete';
+            
+            if (completedItems === totalItems) {
+                document.getElementById('completion-section').style.display = 'block';
+                document.getElementById('next-module').style.display = 'inline-block';
+            }
+        }
+        
+        function checkQuiz(quizNumber) {
+            const quiz = document.querySelector(`[data-quiz="${quizNumber}"]`);
+            const questions = quiz.querySelectorAll('.question');
+            let correct = 0;
+            let total = questions.length;
+            
+            questions.forEach((question, index) => {
+                const questionNum = index + 1;
+                const selectedOption = question.querySelector('.options li.selected');
+                const correctAnswer = quizAnswers[quizNumber][questionNum];
+                
+                question.querySelectorAll('.options li').forEach(option => {
+                    option.classList.remove('correct', 'incorrect', 'selected');
+                });
+                
+                question.querySelectorAll('.options li').forEach(option => {
+                    if (option.dataset.answer === correctAnswer) {
+                        option.classList.add('correct');
+                    }
+                });
+                
+                if (selectedOption && selectedOption.dataset.answer === correctAnswer) {
+                    correct++;
+                } else if (selectedOption) {
+                    selectedOption.classList.add('incorrect');
+                }
+            });
+            
+            const resultsDiv = document.getElementById(`quiz${quizNumber}-results`);
+            const percentage = Math.round((correct / total) * 100);
+            let resultText = '';
+            
+            if (percentage >= 80) {
+                resultText = `Excellent! You scored ${correct}/${total} (${percentage}%)`;
+                if (!quiz.classList.contains('completed')) {
+                    completedQuizzes++;
+                    quiz.classList.add('completed');
+                }
+            } else if (percentage >= 60) {
+                resultText = `Good effort! You scored ${correct}/${total} (${percentage}%). Review the material and try again.`;
+            } else {
+                resultText = `Keep studying! You scored ${correct}/${total} (${percentage}%). Please review the content and retake the quiz.`;
+            }
+            
+            resultsDiv.innerHTML = `<p>${resultText}</p>`;
+            resultsDiv.style.display = 'block';
+            
+            quiz.querySelector('.quiz-button').disabled = true;
+            quiz.querySelector('.quiz-button').textContent = 'Quiz Completed';
+            
+            updateProgress();
+        }
+        
+        function toggleBrainTeaserAnswer() {
+            const answer = document.getElementById('brain-teaser-answer');
+            const btn = document.getElementById('brain-teaser-btn');
+            
+            if (answer.style.display === 'none') {
+                answer.style.display = 'block';
+                btn.textContent = 'Hide Expert Legal Strategy';
+                btn.style.background = 'linear-gradient(135deg, #FF6B35, #E55533)';
+            } else {
+                answer.style.display = 'none';
+                btn.textContent = 'Show Expert Legal Strategy';
+                btn.style.background = 'linear-gradient(135deg, #00D4AA, #00B894)';
+            }
+        }
+        
+        function goToNextModule() {
+            alert('Congratulations! You would now be taken to Module 6: Advanced Skip Tracing Strategies and Scaling Your Business');
+        }
+        
+        function goToPreviousModule() {
+            alert('Going back to Module 4: Communication Strategies');
+        }
+        
+        // Handle option selection
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('.options li')) {
+                const question = e.target.closest('.question');
+                question.querySelectorAll('.options li').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                e.target.classList.add('selected');
+            }
+        });
+        
+        // Mark sections as read when scrolled into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const section = entry.target;
+                    if (section.dataset.section && !section.classList.contains('completed')) {
+                        section.classList.add('completed');
+                        completedSections++;
+                        updateProgress();
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        document.querySelectorAll('[data-section]').forEach(section => {
+            observer.observe(section);
+        });
+        
+        updateProgress();
+        
+        // Timer functionality
+        let startTime = Date.now();
+        function updateTimer() {
+            const elapsed = Date.now() - startTime;
+            const minutes = Math.floor(elapsed / 60000);
+            const seconds = Math.floor((elapsed % 60000) / 1000);
+            document.getElementById('timer').innerHTML = `Time Spent: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>
+            

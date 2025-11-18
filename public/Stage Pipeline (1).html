@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WholesaleStack CRM - Power Stack</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #1e293b;
+      color: #f1f5f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .sidebar {
+      background-color: #334155;
+      width: 260px;
+      border-radius: 0.5rem;
+    }
+    .main-content {
+      flex: 1;
+    }
+    .header {
+      margin-bottom: 1.5rem;
+    }
+    .card {
+      background-color: #334155;
+      border-radius: 0.5rem;
+    }
+    .btn-primary {
+      background-color: #5eead4;
+      color: #1e293b;
+      border-radius: 0.25rem;
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+    }
+    .btn-secondary {
+      background-color: #334155;
+      border-radius: 0.25rem;
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+    }
+    .btn-secondary.active {
+      color: #5eead4;
+    }
+    .table-header {
+      background-color: #475569;
+    }
+    .table-row {
+      border-bottom: 1px solid #475569;
+    }
+    .plan-card {
+      background-color: #5eead4;
+      color: #1e293b;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+    }
+    .nav-item.active {
+      background-color: #475569;
+    }
+    .nav-item svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-right: 0.5rem;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-right: 0.25rem;
+      margin-bottom: 0.25rem;
+    }
+    .calculator-field {
+      background-color: #1e293b;
+      border: 1px solid #475569;
+      border-radius: 0.25rem;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    input[type="text"], input[type="number"], select, textarea {
+      background-color: #1e293b;
+      border: 1px solid #475569;
+      border-radius: 0.25rem;
+      padding: 0.5rem;
+      color: #f1f5f9;
+      width: 100%;
+    }
+    .motivations {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .mobile-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #1e293b;
+      border-top: 1px solid #334155;
+      display: flex;
+      justify-content: space-around;
+      padding: 0.5rem;
+      z-index: 10;
+    }
+    .mobile-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.75rem;
+    }
+    .mobile-nav-item svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+    .kanban-board {
+      display: flex;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+    }
+    .kanban-column {
+      min-width: 300px;
+      background-color: #475569;
+      border-radius: 0.5rem;
+      margin-right: 1rem;
+      padding: 1rem;
+    }
+    .kanban-card {
+      background-color: #334155;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      border-left: 4px solid #5eead4;
+      cursor: move;
+    }
+    .comp-property {
+      background-color: #334155;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .badge-green {
+      background-color: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+    }
+    .badge-red {
+      background-color: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+    .badge-blue {
+      background-color: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+    }
+    .donut-chart {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 15px solid #ef4444;
+      border-right-color: #10b981;
+      border-bottom-color: #3b82f6;
+      position: relative;
+    }
+    @media (min-width: 768px) {
+      .mobile-nav {
+        display: none;
+      }
+    }
+    .stat-card {
+      background-color: #334155;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      position: relative;
+    }
+    .file-item {
+      display: flex;
+      align-items: center;
+      background-color: #475569;
+      border-radius: 0.25rem;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .file-icon {
+      margin-right: 0.5rem;
+    }
+    .cloud-badge {
+      background-color: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+      font-size: 0.7rem;
+      padding: 0.1rem 0.3rem;
+      border-radius: 0.25rem;
+      margin-left: 0.5rem;
+    }
+    .workflow-step {
+      background-color: #334155;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      border-left: 4px solid #5eead4;
+    }
+    .chart-container {
+      height: 200px;
+      background-color: #334155;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      position: relative;
+    }
+    .chart-bar {
+      position: absolute;
+      bottom: 1rem;
+      width: 12%;
+      background-color: #5eead4;
+      border-radius: 0.25rem 0.25rem 0 0;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-4">
+  <div class="flex">
+    <!-- Sidebar Navigation -->
+    <div class="sidebar p-4 mr-4 hidden md:block">
+      <div class="flex items-center mb-6">
+        <div class="w-10 h-10 rounded-full bg-teal-300 flex items-center justify-center text-slate-800 font-bold">WS</div>
+        <div class="ml-3 font-bold text-lg">WholesaleStack</div>
+      </div>
+      
+      <div class="space-y-1">
+        <div class="nav-item">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+          </svg>
+          Dashboard
+        </div>
+        <div class="nav-item active" style="color: #5eead4;">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+          </svg>
+          Pipeline
+        </div>
+        <div class="nav-item">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+          </svg>
+          Properties
+        </div>
+        <div class="nav-item">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+          </svg>
+          ROI Analyzer
+        </div>
+        <div class="nav-item">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path>
+          </svg>
+          Comps
+        </div>
+        <div class="nav-item">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+          </svg>
+          Email
+        </div>
+        <div class="nav-item">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          Documents
+        </div>
+        <div class="nav-item">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          Analytics
+        </div>
+        <div class="nav-item">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          Settings
+        </div>
+      </div>
+      
+      <div class="mt-6 border-t border-slate-600 pt-4">
+        <div class="plan-card">
+          <div class="font-bold">Current Plan</div>
+          <div>Wholesale Power Stack</div>
+          <div class="text-sm">$65/month</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header flex justify-between items-center">
+        <div>
+          <h1 class="text-2xl font-bold">Deal Pipeline</h1>
+          <p class="text-gray-400">Drag-and-drop Kanban view of your deals</p>
+        </div>
+        <div class="flex space-x-2">
+          <button class="btn-secondary md:hidden">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+          <button class="btn-secondary">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+            </svg>
+          </button>
+          <button class="btn-secondary">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Custom Pipeline Stages - Kanban View -->
+      <div class="kanban-board mb-8">
+        <!-- New Lead Column -->
+        <div class="kanban-column">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-medium">New Leads</h3>
+            <span class="bg-gray-600 text-xs px-2 py-1 rounded-full">4</span>
+          </div>
+          
+          <div class="kanban-card">
+            <div class="flex justify-between items-start mb-2">
+              <div class="font-medium">789 Maple Drive</div>
+              <div class="text-xs text-gray-400">Added 2d ago</div>
+            </div>
+            <div class="text-sm text-gray-400 mb-2">Houston, TX 77003</div>
+            <div class="flex justify-between items-center">
+              <div class="motivations">
+                <span class="tag bg-indigo-900 text-indigo-100">Vacant</span>
+              </div>
+              <div class="text-sm font-medium text-teal-300">$96K</div>
+            </div>
+          </div>
+          
+          <div class="kanban-card">
+            <div class="flex justify-between items-start mb-2">
+              <div class="font-medium">321 Cedar Lane</div>
+              <div class="text-xs text-gray-400">Added 3d ago</div>
+            </div>
+            <div class="text-sm text-gray-400 mb-2">Houston, TX 77004</div>
+            <div class="flex justify-between items-center">
+              <div class="motivations">
+                <span class="tag bg-purple-900 text-purple-100">Divorce</span>
+              </div>
+              <div class="text-sm font-medium text-teal-300">$145K</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Contacted Column -->
+        <div class="kanban-column">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-medium">Contacted</h3>
+            <span class="bg-gray-600 text-xs px-2 py-1 rounded-full">2</span>
+          </div>
+          
+          <div class="kanban-card">
+            <div class="flex justify-between items-start mb-2">
+              <div class="font-medium">456 Pine Avenue</div>
+              <div class="text-xs text-gray-400">Contacted 1d ago</div>
+            </div>
+            <div class="text-sm text-gray-400 mb-2">Houston, TX 77002</div>
+            <div class="flex justify-between items-center">
+              <div class="motivations">
+                <span class="tag bg-green-900 text-green-100">Rental</span>
+              </div>
+              <div class="text-sm font-medium text-teal-300">$182K</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Appointment Column -->
+        <div class="kanban-column">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-medium">Appointment</h3>
+            <span class="bg-gray-600 text-xs px-2 py-1 rounded-full">1</span>
+          </div>
+          
+          <div class="kanban-card">
+            <div class="flex justify-between items-start mb-2">
+              <div class="font-medium">123 Oak Street</div>
+              <div class="text-xs text-gray-400">Meeting Apr 26</div>
+            </div>
+            <div class="text-sm text-gray-400 mb-2">Houston, TX 77001</div>
+            <div class="flex justify-between items-center">
+              <div class="motivations">
+                <span class="tag bg-red-900 text-red-100">Payments</span>
+              </div>
+              <div class="text-sm font-medium text-teal-300">$132K</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Offer Made Column -->
+        <div class="kanban-column">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-medium">Offer Made</h3>
+            <span class="bg-gray-600 text-xs px-2 py-1 rounded-full">1</span>
+          </div>
+          
+          <div class="kanban-card">
+            <div class="flex justify-between items-start mb-2">
+              <div class="font-medium">555 Elm Court</div>
+              <div class="text-xs text-gray-400">Offered Apr 20</div>
+            </div>
+            <div class="text-sm text-gray-400 mb-2">Houston, TX 77005</div>
+            <div class="flex justify-between items-center">
+              <div class="motivations">
+                <span class="tag bg-yellow-900 text-yellow-100">Inherited</span>
+              </div>
+              <div class="text-sm font-medium text-teal-300">$165K</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Contract Column -->
+        <div class="kanban-column">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-medium">Contract</h3>
+            <span class="bg-gray-600 text-xs px-2 py-1 rounded-full">1</span>
+          </div>
+          
+          <div class="kanban-card">
+            <div class="flex justify-between items-start mb-2">
+              <div class="font-medium">222 Birch Street</div>
+              <div class="text-xs text-gray-400">Closing May 5</div>
+            </div>
+            <div class="text-sm text-gray-400 mb-2">Houston, TX 77006</div>
+            <div class="flex justify-between items-center">
+              <div class="motivations">
+                <span class="tag bg-blue-900 text-blue-100">Tired Owner</span>
+              </div>
+              <div class="text-sm font-medium text-teal-300">$128K</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Closed Column -->
+        <div class="kanban-column">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-medium">Closed</h3>
+            <span class="bg-gray-600 text-xs px-2 py-1 rounded-full">2</span>
+          </div>
+          
+          <div class="kanban-card">
+            <div class="flex justify-between items-start mb-2">
+              <div class="font-medium">888 Spruce Way</div>
+              <div class="text-xs text-gray-400">Closed Apr 18</div>
+            </div>
+            <div class="text-sm text-gray-400 mb-2">Houston, TX 77007</div>
+            <div class="flex justify-between items-center">
+              <div class="text-sm">Assignment Fee:</div>
+              <div class="text-sm font-medium text-teal-300">$12,500</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- NEW: Analytics Dashboard -->
+      <div class="mb-8">
+        <h2 class="text-xl font-bold mb-4">Pipeline Analytics</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="stat-card p-4">
+            <h3 class="font-medium mb-2">Deal Stage Distribution</h3>
+            <div class="flex items-center justify-center py-4">
+              <div class="donut-chart"></div>
+            </div>
+            <div class="grid grid-cols-2 gap-2 mt-2 text-sm">
+              <div class="flex items-center">
+                <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                <span>New Leads: 4</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
+                <span>Contracted: 1</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                <span>Closed: 2</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                <span>Other: 4</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="stat-card p-4">
+            <h3 class="font-medium mb-2">Conversion Rate</h3>
+            <div class="mt-4 flex items-center">
+              <div class="text-3xl font-bold text-teal-300 mr-2">27%</div>
+              <div class="bg-green-900 text-green-100 text-xs px-2 py-1 rounded-full flex items-center">
+                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+                </svg>
+                3.2%
+              </div>
+            </div>
+            <div class="text-sm text-gray-400 mt-2">Lead to Close conversion</div>
+            <div class="chart-container mt-4">
+              <div class="chart-bar" style="height: 40%; left: 10%;"></div>
+              <div class="chart-bar" style="height: 65%; left: 25%;"></div>
+              <div class="chart-bar" style="height: 50%; left: 40%;"></div>
+              <div class="chart-bar" style="height: 70%; left: 55%;"></div>
+              <div class="chart-bar" style="height: 85%; left: 70%;"></div>
+              <div class="chart-bar" style="height: 60%; left: 85%;"></div>
+            </div>
+          </div>
+          
+          <div class="stat-card p-4">
+            <h3 class="font-medium mb-2">Pipeline Value</h3>
+            <div class="text-3xl font-bold text-teal-300 mt-4">$848,500</div>
+            <div class="text-sm text-gray-400">Total pipeline value</div>
+            <div class="mt-4">
+              <div class="flex justify-between text-sm mb-1">
+                <span>Offer Stage:</span>
+                <span class

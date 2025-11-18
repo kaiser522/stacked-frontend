@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNC Compliance Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #3B82F6;
+            border-radius: 8px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        h1 {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .framework-badge {
+            background: #3B82F6;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #B0C4DE;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .read-time {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #60A5FA;
+        }
+
+        h3 {
+            font-size: 1.8em;
+            margin: 40px 0 20px 0;
+            color: #FFD700;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #E6F3FF;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #F59E0B, #D97706);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 40px 0;
+            border: 2px solid #FBBF24;
+        }
+
+        .regulation-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .regulation-card {
+            background: rgba(59, 130, 246, 0.1);
+            border: 2px solid #3B82F6;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .regulation-card h3 {
+            color: #60A5FA;
+            margin-top: 0;
+            font-size: 1.4em;
+        }
+
+        .compliance-checklist {
+            background: rgba(255, 255, 255, 0.95);
+            color: #1f2937;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #22C55E;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-right: 15px;
+            margin-top: 5px;
+            transform: scale(1.2);
+        }
+
+        .penalty-alert {
+            background: rgba(251, 191, 36, 0.2);
+            border: 2px solid #F59E0B;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .penalty-amount {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #FBBF24;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .best-practices {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .practice-card {
+            background: rgba(34, 197, 94, 0.1);
+            border: 2px solid #22C55E;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .practice-card h4 {
+            color: #22C55E;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .dialer-requirements {
+            background: rgba(251, 191, 36, 0.15);
+            border: 2px solid #FBBF24;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .requirement-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .requirement-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .requirement-number {
+            background: #FBBF24;
+            color: #1e3a5f;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+
+        .time-restrictions {
+            background: rgba(99, 102, 241, 0.15);
+            border: 2px solid #6366F1;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .time-cell {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+
+        .time-header {
+            background: #6366F1;
+            color: white;
+            font-weight: bold;
+        }
+
+        .allowed-time {
+            background: rgba(34, 197, 94, 0.3);
+            border: 1px solid #22C55E;
+        }
+
+        .prohibited-time {
+            background: rgba(239, 68, 68, 0.3);
+            border: 1px solid #EF4444;
+        }
+
+        .texting-regulations {
+            background: rgba(168, 85, 247, 0.15);
+            border: 2px solid #A855F7;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .action-steps {
+            background: rgba(6, 182, 212, 0.15);
+            border: 2px solid #06B6D4;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .step-timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .step-timeline::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #06B6D4;
+            z-index: 1;
+        }
+
+        .timeline-step {
+            background: rgba(255, 255, 255, 0.1);
+            border: 3px solid #06B6D4;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .step-number {
+            background: #06B6D4;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+
+        /* Enhanced color fixes */
+        .high-risk-violation {
+            color: #FBBF24;
+        }
+
+        .solution-text {
+            color: #22C55E;
+        }
+
+        .violation-penalty {
+            color: #F59E0B;
+            font-weight: bold;
+        }
+
+        .emergency-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .emergency-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 900px) {
+
+            .regulation-grid,
+            .best-practices {
+                grid-template-columns: 1fr;
+            }
+
+            .time-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .step-timeline {
+                flex-direction: column;
+            }
+
+            .step-timeline::before {
+                display: none;
+            }
+
+            .timeline-step {
+                margin: 10px 0;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+
+            .section {
+                padding: 30px 20px;
+            }
+
+            .emergency-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">⚖️</div>
+            <h1>DNC Compliance Guide</h1>
+            <div class="framework-badge">Legal Compliance</div>
+            <p class="subtitle">Complete guide to Do Not Call regulations, dialer requirements, and texting compliance
+                for real estate professionals.</p>
+            <div class="read-time">25 min read</div>
+        </div>
+
+        <div class="section">
+            <div class="warning-box">
+                Violations can cost up to $46,517 per illegal call or text
+            </div>
+
+            <p>The Do Not Call (DNC) registry and related regulations protect consumers from unwanted marketing calls
+                and texts. For real estate professionals using calling and texting platforms, compliance isn't
+                optional—it's critical to avoid massive penalties and protect your business reputation.</p>
+
+            <p>This guide covers federal and state requirements, platform-specific compliance features, and actionable
+                steps to ensure your outreach stays within legal boundaries.</p>
+        </div>
+
+        <div class="section">
+            <h2>Key Regulations Overview</h2>
+            <p>Multiple federal laws govern calling and texting for business purposes:</p>
+
+            <div class="regulation-grid">
+                <div class="regulation-card">
+                    <h3>TCPA (1991)</h3>
+                    <p>Telephone Consumer Protection Act - Regulates autodialed calls, prerecorded messages, and text
+                        messages to cell phones</p>
+                </div>
+
+                <div class="regulation-card">
+                    <h3>TSR (1995)</h3>
+                    <p>Telemarketing Sales Rule - Governs telemarketing practices and maintains the National DNC
+                        Registry</p>
+                </div>
+
+                <div class="regulation-card">
+                    <h3>CAN-SPAM (2003)</h3>
+                    <p>Controls commercial email and extends to SMS marketing with consent and opt-out requirements</p>
+                </div>
+            </div>
+
+            <div class="penalty-alert">
+                <h3 style="color: #F59E0B; margin-top: 0;">Penalty Structure</h3>
+                <div class="penalty-amount">Up to $46,517</div>
+                <p>Per violation for TCPA infractions. Multiply this by hundreds of calls and you could face millions in
+                    penalties.</p>
+
+                <p style="margin-top: 20px;"><strong>Recent Example:</strong> In 2023, a real estate company paid $3.2
+                    million for making unsolicited calls to cell phones without consent.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>National DNC Registry Requirements</h2>
+            <p>The National Do Not Call Registry is maintained by the FTC and must be checked regularly:</p>
+
+            <div class="compliance-checklist">
+                <h3 style="color: #1f2937; margin-top: 0;">DNC Registry Compliance Checklist</h3>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="check1">
+                    <label for="check1"><strong>Access National DNC Registry</strong> - Download lists every 31 days
+                        maximum ($67 per area code annually)</label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="check2">
+                    <label for="check2"><strong>Scrub Contact Lists</strong> - Remove all registered numbers before
+                        calling (automated scrubbing recommended)</label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="check3">
+                    <label for="check3"><strong>Maintain Records</strong> - Keep documentation of registry access and
+                        list cleaning for 5 years</label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="check4">
+                    <label for="check4"><strong>Handle Internal DNC</strong> - Maintain your own suppression list of
+                        people who requested no contact</label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="check5">
+                    <label for="check5"><strong>State Registry Check</strong> - Some states maintain additional DNC
+                        registries (Texas, Florida, etc.)</label>
+                </div>
+            </div>
+
+            <div
+                style="background: rgba(34, 197, 94, 0.1); padding: 25px; border-radius: 15px; margin: 20px 0; color: #E6F3FF;">
+                <h4 style="color: #22C55E; margin-bottom: 15px;">Established Business Relationship (EBR) Exception</h4>
+                <p>You can call people on the DNC registry if you have an established business relationship within the
+                    last 18 months, but you must honor any request to stop calling immediately.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Dialer Compliance Requirements</h2>
+            <p>Automatic dialing systems have strict legal requirements under the TCPA:</p>
+
+            <div class="dialer-requirements">
+                <h3 style="color: #FBBF24; margin-top: 0;">TCPA Dialer Rules</h3>
+
+                <div class="requirement-list">
+                    <div class="requirement-item">
+                        <div class="requirement-number">1</div>
+                        <div>
+                            <strong>Prior Express Written Consent Required</strong>
+                            <p>Must have signed, written consent before using autodialers to call cell phones for
+                                marketing</p>
+                        </div>
+                    </div>
+
+                    <div class="requirement-item">
+                        <div class="requirement-number">2</div>
+                        <div>
+                            <strong>Clear Opt-Out Mechanism</strong>
+                            <p>Every call must include instructions on how to stop future calls (usually "Reply STOP")
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="requirement-item">
+                        <div class="requirement-number">3</div>
+                        <div>
+                            <strong>Caller ID Requirements</strong>
+                            <p>Must display accurate caller identification and callback number</p>
+                        </div>
+                    </div>
+
+                    <div class="requirement-item">
+                        <div class="requirement-number">4</div>
+                        <div>
+                            <strong>Time Restrictions</strong>
+                            <p>Calls only allowed 8 AM to 9 PM recipient's local time</p>
+                        </div>
+                    </div>
+
+                    <div class="requirement-item">
+                        <div class="requirement-number">5</div>
+                        <div>
+                            <strong>Agent Availability</strong>
+                            <p>Live agent must be available within 2 seconds of recipient answering</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Calling Time Restrictions</h2>
+            <p>Federal and state laws restrict when you can make telemarketing calls:</p>
+
+            <div class="time-restrictions">
+                <h3 style="color: #6366F1; margin-top: 0;">Federal Time Restrictions</h3>
+                <p>Calls permitted 8:00 AM - 9:00 PM in recipient's time zone</p>
+
+                <div class="time-grid">
+                    <div class="time-cell time-header">Time</div>
+                    <div class="time-cell time-header">Mon</div>
+                    <div class="time-cell time-header">Tue</div>
+                    <div class="time-cell time-header">Wed</div>
+                    <div class="time-cell time-header">Thu</div>
+                    <div class="time-cell time-header">Fri</div>
+                    <div class="time-cell time-header">Sat</div>
+
+                    <div class="time-cell">6-8 AM</div>
+                    <div class="time-cell prohibited-time">❌</div>
+                    <div class="time-cell prohibited-time">❌</div>
+                    <div class="time-cell prohibited-time">❌</div>
+                    <div class="time-cell prohibited-time">❌</div>
+                    <div class="time-cell prohibited-time">❌</div>
+                    <div class="time-cell prohibited-time">❌</div>
+
+                    <div class="time-cell">8AM-9PM</div>
+                    <div class="time-cell allowed-time">✅</div>
+                    <div class="time-cell allowed-time">✅</div>
+                    <div class="time-cell allowed-time">✅</div>
+                    <div class="time-cell allowed-time">✅</div>
+                    <div class="time-cell allowed-time">✅</div>
+                    <div class="time-cell allowed-time">✅</div>
+
+                    <div class="time-cell">9PM-12AM</div>
+                    <div class="time-cell prohibited-time">❌</div>
+                    <div class="time-cell prohibited-time">❌</div>
+                    <div class="time-cell prohibited-time">❌</div>
+                    <div class="time-cell prohibited-time">❌</div>
+                    <div class="time-cell prohibited-time">❌</div>
+                    <div class="time-cell prohibited-time">❌</div>
+                </div>
+
+                <div
+                    style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px; margin-top: 20px;">
+                    <p style="color: #FFD700; font-weight: bold; margin-bottom: 10px;">State-Specific Restrictions:</p>
+                    <ul style="color: #E6F3FF; margin-left: 20px;">
+                        <li><strong>California:</strong> No calls before 8 AM or after 9 PM</li>
+                        <li><strong>Florida:</strong> No calls before 8 AM or after 9 PM</li>
+                        <li><strong>Texas:</strong> No calls before 9 AM or after 9 PM</li>
+                        <li><strong>New York:</strong> No calls before 8 AM or after 9 PM</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Text Message Compliance</h2>
+            <p>SMS marketing has the strictest consent requirements:</p>
+
+            <div class="texting-regulations">
+                <h3 style="color: #A855F7; margin-top: 0;">TCPA Text Message Requirements</h3>
+
+                <div class="best-practices">
+                    <div class="practice-card">
+                        <h4>Express Written Consent</h4>
+                        <p>Must have clear, unambiguous written consent that:</p>
+                        <ul style="margin-left: 20px; color: #E6F3FF;">
+                            <li>Authorizes specific company to send texts</li>
+                            <li>Includes your phone number</li>
+                            <li>Discloses that consent isn't required for purchase</li>
+                            <li>Explains standard messaging rates apply</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-card">
+                        <h4>Opt-Out Requirements</h4>
+                        <p>Every message must include:</p>
+                        <ul style="margin-left: 20px; color: #E6F3FF;">
+                            <li>"Reply STOP to opt out"</li>
+                            <li>Immediate processing of STOP requests</li>
+                            <li>Confirmation message when opted out</li>
+                            <li>No charges for opt-out messages</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="background: rgba(251, 191, 36, 0.1); padding: 25px; border-radius: 15px; margin: 20px 0;">
+                    <h4 style="color: #FBBF24; margin-bottom: 15px;">High-Risk Text Scenarios</h4>
+                    <ul style="margin-left: 20px; color: #E6F3FF;">
+                        <li><strong>Purchased Lists:</strong> Never send texts to purchased contact lists</li>
+                        <li><strong>Business Cards:</strong> Getting a business card doesn't equal text consent</li>
+                        <li><strong>Lead Forms:</strong> Must explicitly ask for text permission</li>
+                        <li><strong>Existing Clients:</strong> Still need express consent for marketing texts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Safe Harbor Practices</h2>
+            <p>Additional protective measures that go beyond minimum compliance:</p>
+
+            <div class="best-practices">
+                <div class="practice-card">
+                    <h4>Double Opt-In for Texts</h4>
+                    <p>Send confirmation message requiring reply before adding to text campaigns. Creates stronger
+                        consent record.</p>
+                </div>
+
+                <div class="practice-card">
+                    <h4>Manual Dialing for New Leads</h4>
+                    <p>Use manual dialing for first contact with new leads, only using autodialers after establishing
+                        relationship.</p>
+                </div>
+
+                <div class="practice-card">
+                    <h4>Consent Re-confirmation</h4>
+                    <p>Annually re-confirm text and call consent with active contacts to maintain clear permission.</p>
+                </div>
+
+                <div class="practice-card">
+                    <h4>Extended Documentation</h4>
+                    <p>Keep consent records for 7 years instead of required 5 years for added legal protection.</p>
+                </div>
+            </div>
+
+            <div style="background: rgba(34, 197, 94, 0.1); padding: 25px; border-radius: 15px; margin: 20px 0;">
+                <h4 style="color: #22C55E; margin-bottom: 15px;">Industry Best Practice: The 3-Touch Rule</h4>
+                <p>Limit unsolicited outreach to 3 attempts maximum:</p>
+                <ul style="color: #E6F3FF; margin-left: 20px;">
+                    <li><strong>Touch 1:</strong> Initial call/text with clear value proposition</li>
+                    <li><strong>Touch 2:</strong> Follow-up with different angle after 7 days</li>
+                    <li><strong>Touch 3:</strong> Final attempt after 14 days, then permanent removal</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>State-Specific Requirements</h2>
+            <p>Some states have additional restrictions beyond federal law:</p>
+
+            <div class="regulation-grid">
+                <div class="regulation-card">
+                    <h3>California</h3>
+                    <ul style="text-align: left; color: #E6F3FF; margin-left: 20px;">
+                        <li>CCPA privacy rights</li>
+                        <li>Additional consent requirements</li>
+                        <li>Stricter time restrictions</li>
+                        <li>Enhanced opt-out processes</li>
+                    </ul>
+                </div>
+
+                <div class="regulation-card">
+                    <h3>Florida</h3>
+                    <ul style="text-align: left; color: #E6F3FF; margin-left: 20px;">
+                        <li>State DNC registry</li>
+                        <li>Real estate exemptions</li>
+                        <li>Hurricane season restrictions</li>
+                        <li>Homestead protections</li>
+                    </ul>
+                </div>
+
+                <div class="regulation-card">
+                    <h3>Texas</h3>
+                    <ul style="text-align: left; color: #E6F3FF; margin-left: 20px;">
+                        <li>No Call List registry</li>
+                        <li>Later calling hours (9 AM)</li>
+                        <li>Enhanced penalties</li>
+                        <li>Industry-specific rules</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Personal Liability & Responsibilities</h2>
+            <p>Individual agents and brokers can be held personally liable for violations:</p>
+
+            <div class="dialer-requirements">
+                <h3 style="color: #d97706; margin-top: 0;">Individual Liability</h3>
+
+                <div class="requirement-list">
+                    <div class="requirement-item">
+                        <div class="requirement-number">1</div>
+                        <div>
+                            <strong>Personal Responsibility</strong>
+                            <p>Each person making calls or sending texts can be individually sued and fined, regardless
+                                of company policies</p>
+                        </div>
+                    </div>
+
+                    <div class="requirement-item">
+                        <div class="requirement-number">2</div>
+                        <div>
+                            <strong>Knowledge Requirements</strong>
+                            <p>Ignorance of the law is not a defense - you're responsible for knowing and following all
+                                regulations</p>
+                        </div>
+                    </div>
+
+                    <div class="requirement-item">
+                        <div class="requirement-number">3</div>
+                        <div>
+                            <strong>Due Diligence Standard</strong>
+                            <p>Must take reasonable steps to ensure compliance, including verifying consent and checking
+                                DNC status</p>
+                        </div>
+                    </div>
+
+                    <div class="requirement-item">
+                        <div class="requirement-number">4</div>
+                        <div>
+                            <strong>Ongoing Obligations</strong>
+                            <p>Must stay current with changing regulations and maintain compliance systems throughout
+                                your career</p>
+                        </div>
+                    </div>
+
+                    <div class="requirement-item">
+                        <div class="requirement-number">5</div>
+                        <div>
+                            <strong>Vicarious Liability</strong>
+                            <p>Brokers can be liable for their agents' violations, and agents for their assistants'
+                                actions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Compliance Monitoring</h2>
+            <p>Ongoing monitoring and quality assurance procedures:</p>
+
+            <div class="compliance-checklist">
+                <h3 style="color: #1f2937; margin-top: 0;">Monthly Compliance Review</h3>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="monthly1">
+                    <label for="monthly1"><strong>DNC Registry Update</strong> - Download fresh DNC data (required every
+                        31 days)</label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="monthly2">
+                    <label for="monthly2"><strong>Consent Audit</strong> - Review consent collection processes and
+                        documentation</label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="monthly3">
+                    <label for="monthly3"><strong>Opt-Out Analysis</strong> - Analyze opt-out rates and complaint
+                        patterns</label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="monthly4">
+                    <label for="monthly4"><strong>Team Training Review</strong> - Update staff on new regulations and
+                        best practices</label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="monthly5">
+                    <label for="monthly5"><strong>Technology Testing</strong> - Verify compliance tools are functioning
+                        correctly</label>
+                </div>
+            </div>
+
+            <div style="background: rgba(6, 182, 212, 0.1); padding: 25px; border-radius: 15px; margin: 20px 0;">
+                <h4 style="color: #06B6D4; margin-bottom: 15px;">Key Performance Indicators</h4>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                    <div>
+                        <p><strong>Compliance Rate:</strong> % of calls/texts that pass all checks</p>
+                        <p><strong>Opt-Out Rate:</strong> % of contacts requesting removal</p>
+                        <p><strong>Complaint Rate:</strong> Number of formal complaints received</p>
+                    </div>
+                    <div>
+                        <p><strong>Consent Coverage:</strong> % of database with valid consent</p>
+                        <p><strong>DNC Accuracy:</strong> % of contacts properly screened</p>
+                        <p><strong>Response Time:</strong> Speed of opt-out processing</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Common Violations to Avoid</h2>
+            <p>Real-world scenarios that frequently result in penalties:</p>
+
+            <div class="penalty-alert">
+                <h3 style="color: #F59E0B; margin-top: 0;">High-Risk Scenarios</h3>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 20px 0;">
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px;">
+                        <h4 class="high-risk-violation">❌ Violation</h4>
+                        <p style="margin: 10px 0;">Texting leads from purchased lists without explicit text consent</p>
+                        <p class="violation-penalty">Penalty: $1,500+ per text</p>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px;">
+                        <h4 class="solution-text">✅ Solution</h4>
+                        <p style="margin: 10px 0;">Only text contacts who explicitly opted in through your forms or gave
+                            written consent</p>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 20px 0;">
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px;">
+                        <h4 class="high-risk-violation">❌ Violation</h4>
+                        <p style="margin: 10px 0;">Using autodialers without proper consent records</p>
+                        <p class="violation-penalty">Penalty: $500-$1,500 per call</p>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px;">
+                        <h4 class="solution-text">✅ Solution</h4>
+                        <p style="margin: 10px 0;">Maintain detailed consent records and use manual dialing when in
+                            doubt</p>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 20px 0;">
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px;">
+                        <h4 class="high-risk-violation">❌ Violation</h4>
+                        <p style="margin: 10px 0;">Continuing to call after "add to DNC" request</p>
+                        <p class="violation-penalty">Penalty: Up to $46,517 per call</p>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px;">
+                        <h4 class="solution-text">✅ Solution</h4>
+                        <p style="margin: 10px 0;">Immediately add to suppression list and confirm no future contact</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Legal Resources & Support</h2>
+            <p>Where to get help with compliance questions and issues:</p>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin: 40px 0;">
+                <div
+                    style="background: rgba(99, 102, 241, 0.15); border: 2px solid #6366F1; border-radius: 15px; padding: 25px;">
+                    <h4 style="color: #6366F1; margin-bottom: 15px;">Government Resources</h4>
+                    <ul style="color: #E6F3FF; margin-left: 20px;">
+                        <li><strong>FTC:</strong> Official DNC guidance and complaint filing</li>
+                        <li><strong>FCC:</strong> TCPA rules and enforcement actions</li>
+                        <li><strong>State Attorneys General:</strong> Local compliance requirements</li>
+                        <li><strong>Real Estate Commissions:</strong> Industry-specific guidance</li>
+                    </ul>
+                </div>
+
+                <div
+                    style="background: rgba(168, 85, 247, 0.15); border: 2px solid #A855F7; border-radius: 15px; padding: 25px;">
+                    <h4 style="color: #A855F7; margin-bottom: 15px;">Legal Support</h4>
+                    <ul style="color: #E6F3FF; margin-left: 20px;">
+                        <li><strong>TCPA Defense Attorneys:</strong> Specialized legal representation</li>
+                        <li><strong>NAR Legal Hotline:</strong> Member compliance support</li>
+                        <li><strong>Compliance Consultants:</strong> Third-party audit services</li>
+                        <li><strong>Industry Associations:</strong> Best practice sharing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Compliance Implementation Plan</h2>
+            <p>30-day roadmap to ensure your platform and processes are fully compliant:</p>
+
+            <div class="action-steps">
+                <h3 style="color: #06B6D4; margin-top: 0;">Implementation Timeline</h3>
+
+                <div class="step-timeline">
+                    <div class="timeline-step">
+                        <div class="step-number">1</div>
+                        <h4>Week 1: Audit</h4>
+                        <p>Review current practices, contact lists, and consent records</p>
+                    </div>
+
+                    <div class="timeline-step">
+                        <div class="step-number">2</div>
+                        <h4>Week 2: Setup</h4>
+                        <p>Configure DNC scrubbing, consent tracking, and suppression lists</p>
+                    </div>
+
+                    <div class="timeline-step">
+                        <div class="step-number">3</div>
+                        <h4>Week 3: Clean</h4>
+                        <p>Scrub existing contact database and collect missing consents</p>
+                    </div>
+
+                    <div class="timeline-step">
+                        <div class="step-number">4</div>
+                        <h4>Week 4: Train</h4>
+                        <p>Train team on compliance procedures and monitoring tools</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="compliance-checklist">
+                <h3 style="color: #1f2937; margin-top: 0;">Daily Compliance Checklist</h3>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="daily1">
+                    <label for="daily1"><strong>Verify DNC Scrubbing</strong> - Confirm all lists are scrubbed before
+                        campaigns</label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="daily2">
+                    <label for="daily2"><strong>Check Time Zones</strong> - Ensure calls/texts comply with local time
+                        restrictions</label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="daily3">
+                    <label for="daily3"><strong>Process Opt-Outs</strong> - Immediately honor all STOP requests and DNC
+                        additions</label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="daily4">
+                    <label for="daily4"><strong>Update Records</strong> - Log all communications and consent status
+                        changes</label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="daily5">
+                    <label for="daily5"><strong>Monitor Complaints</strong> - Track and investigate any compliance
+                        issues</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Emergency Response Plan</h2>
+            <p>What to do if you receive a violation notice or complaint:</p>
+
+            <div class="penalty-alert">
+                <h3 style="color: #F59E0B; margin-top: 0;">If You Receive a Violation Notice</h3>
+
+                <div class="emergency-grid">
+                    <div class="emergency-item">
+                        <div class="emergency-icon">🛑</div>
+                        <h4>STOP</h4>
+                        <p>Immediately cease all calling/texting to the complainant</p>
+                    </div>
+                    <div class="emergency-item">
+                        <div class="emergency-icon">📋</div>
+                        <h4>DOCUMENT</h4>
+                        <p>Gather all records related to the contact and consent</p>
+                    </div>
+                    <div class="emergency-item">
+                        <div class="emergency-icon">⚖️</div>
+                        <h4>CONSULT</h4>
+                        <p>Contact a TCPA attorney immediately for guidance</p>
+                    </div>
+                </div>
+
+                <div
+                    style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px; margin-top: 20px;">
+                    <h4 style="color: #FBBF24; margin-bottom: 15px;">Documentation to Gather</h4>
+                    <ul style="color: #E6F3FF; margin-left: 20px;">
+                        <li>Original consent records (date, time, method of collection)</li>
+                        <li>DNC scrubbing reports for the time period</li>
+                        <li>Call/text logs showing communication history</li>
+                        <li>Any opt-out requests and how they were processed</li>
+                        <li>Employee training records and compliance procedures</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div style="background:#1E2A38; border-top:1px solid #334155; padding:16px 24px;">
+            <div style="max-width:72rem; margin:0 auto;">
+                <p style="font-size:12px; color:#9CA3AF; text-align:center; line-height:1.6;">
+                    <strong style="color:#D1D5DB;">Disclaimer:</strong> This template is for business use only and does
+                    not
+                    constitute legal advice. Stacked Technologies, LLC is not a law firm. Users are responsible for
+                    confirming compliance with all applicable local, state, and federal laws.
+                </p>
+            </div>
+        </div>

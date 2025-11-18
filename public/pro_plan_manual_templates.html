@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Plan - Manual Email Templates</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+        
+        .form-header {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .logo {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            border-radius: 12px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 28px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .plan-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #0f0c29;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1em;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            color: #00D4AA;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .template-section {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 35px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            position: relative;
+        }
+        
+        .template-title {
+            color: #00D4AA;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #00D4AA;
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .email-template {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #FFD700;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .email-template:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+        }
+        
+        .subject-line {
+            color: #FFD700;
+            font-weight: bold;
+            margin-bottom: 18px;
+            font-size: 1.2em;
+        }
+        
+        .email-body {
+            color: white;
+            line-height: 1.8;
+            font-size: 1em;
+        }
+        
+        .template-notes {
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid #00D4AA;
+            border-radius: 10px;
+            padding: 18px;
+            margin-top: 18px;
+            font-size: 0.95em;
+            color: #00D4AA;
+        }
+        
+        .pro-tag {
+            display: inline-block;
+            background: linear-gradient(45deg, #FF6B35, #F7931E);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 18px;
+            font-size: 0.85em;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .advanced-feature {
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid #FF6B35;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 12px;
+            font-size: 0.9em;
+            color: #FF6B35;
+        }
+        
+        .personalization-tags {
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 6px;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 0.85em;
+            color: #FFD700;
+        }
+        
+        .print-button {
+            background: linear-gradient(45deg, #00D4AA, #00B894);
+            color: #0f0c29;
+            padding: 18px 35px;
+            border: none;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 25px auto;
+            display: block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 212, 170, 0.3);
+        }
+        
+        .print-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 212, 170, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .form-header {
+                padding: 25px;
+            }
+            
+            .template-section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <div class="logo">💎</div>
+            <div class="plan-badge">PRO PLAN</div>
+            <div class="section-badge">SECTION 1: ELITE MANUAL TEMPLATES</div>
+            <h1>Premium One-Off Templates</h1>
+            <p style="color: rgba(255,255,255,0.8);">Advanced, highly-personalized templates for sophisticated real estate professionals</p>
+        </div>
+
+        <div class="template-section">
+            <div class="template-title">🎯 High-Value Prospect Templates</div>
+            
+            <div class="email-template">
+                <div class="pro-tag">PRO EXCLUSIVE</div>
+                <div class="subject-line">[First Name], I think I found your unicorn property</div>
+                <div class="email-body">
+                    Hi [First Name],<br><br>
+                    
+                    I rarely get this excited about a property match, but something just came across my desk that I think could be exactly what you've been looking for.<br><br>
+                    
+                    <strong>Here's why I think it's special:</strong><br><br>
+                    
+                    🎯 <strong>Location:</strong> [Specific location benefit that matches their stated priorities]<br>
+                    💎 <strong>Unique feature:</strong> [Something rare they mentioned wanting]<br>
+                    📈 <strong>Investment angle:</strong> [Appreciation potential or other financial benefit]<br>
+                    ⏰ <strong>Timing:</strong> [Why now is the right moment]<br><br>
+                    
+                    <strong>The catch:</strong> It's not officially on the market yet. The listing agent is a colleague who's giving me a 48-hour preview for qualified buyers.<br><br>
+                    
+                    I can arrange a private showing tomorrow at 10am or 2pm, but I'll need to move fast to secure it.<br><br>
+                    
+                    <strong>My professional opinion:</strong> This checks boxes I rarely see in one property. If the numbers work for you, this could save you months of searching.<br><br>
+                    
+                    Interested in seeing it first?<br><br>
+                    
+                    [Your Name]<br>
+                    [Your Title/Credentials]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> Perfect off-market or pre-market property becomes available<br>
+                    <strong>Purpose:</strong> Create exclusivity and urgency for high-value properties
+                </div>
+                <div class="personalization-tags">
+                    <strong>Auto-personalization:</strong> [Location benefit], [Unique feature], [Investment angle], [Client priorities]
+                </div>
+            </div>
+
+            <div class="email-template">
+                <div class="pro-tag">PRO EXCLUSIVE</div>
+                <div class="subject-line">Confidential market intel for [Area] - thought you should know</div>
+                <div class="email-body">
+                    Hey [First Name],<br><br>
+                    
+                    I just came out of a meeting with [Local Authority/Developer/Major Investor] and learned something about [Area] that's not public knowledge yet.<br><br>
+                    
+                    <strong>Here's what's coming:</strong> [Specific development/change/investment]<br><br>
+                    
+                    <strong>Timeline:</strong> [When this will be announced/completed]<br><br>
+                    
+                    <strong>Impact on property values:</strong> Based on similar developments, I'd expect properties in [specific zone] to appreciate [X%] over the next [timeframe].<br><br>
+                    
+                    <strong>The opportunity:</strong> There are currently [X] properties available in the impact zone, priced before sellers know about this development.<br><br>
+                    
+                    I'm sharing this with only 3 clients who I think could benefit most. Given your interest in [their specific criteria], you're perfectly positioned to capitalize on this.<br><br>
+                    
+                    <strong>Next steps:</strong> If this interests you, I can pull together a detailed analysis of the best opportunities and schedule private showings this week.<br><br>
+                    
+                    Want to discuss this confidentially?<br><br>
+                    
+                    [Your Name]<br>
+                    [Your Direct Line]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> You have exclusive market intelligence or development information<br>
+                    <strong>Purpose:</strong> Position as insider with exclusive access, create investment urgency
+                </div>
+                <div class="advanced-feature">
+                    <strong>Pro Feature:</strong> Includes NDA templates and investor analysis worksheets
+                </div>
+            </div>
+        </div>
+
+        <div class="template-section">
+            <div class="template-title">🏆 Luxury Market Templates</div>
+            
+            <div class="email-template">
+                <div class="pro-tag">PRO EXCLUSIVE</div>
+                <div class="subject-line">Private estate preview - [Property Description]</div>
+                <div class="email-body">
+                    Dear [First Name],<br><br>
+                    
+                    I have the privilege of representing an exceptional estate that won't be marketed publicly.<br><br>
+                    
+                    <strong>The Property:</strong> [Luxury property description with sophisticated language]<br><br>
+                    
+                    <strong>What makes it extraordinary:</strong><br>
+                    • [Unique architectural feature or history]<br>
+                    • [Exceptional amenity or location benefit]<br>
+                    • [Investment or lifestyle advantage]<br>
+                    • [Exclusive aspect - privacy, views, etc.]<br><br>
+                    
+                    <strong>The Details:</strong><br>
+                    📍 Location: [Premium location with discretion]<br>
+                    🏡 Size: [Square footage, lot size, rooms]<br>
+                    💰 Investment: [Price range with context]<br>
+                    🗓️ Availability: [Exclusive preview timeline]<br><br>
+                    
+                    This property represents [specific lifestyle or investment benefit] and would suit someone who appreciates [sophisticated buyer qualities].<br><br>
+                    
+                    I believe this aligns with your vision of [their stated luxury criteria]. Would you like to arrange a private tour this week?<br><br>
+                    
+                    <strong>Please note:</strong> Due to the property's significance, all showings require 48-hour advance notice and signed confidentiality agreement.<br><br>
+                    
+                    I look forward to your thoughts.<br><br>
+                    
+                    Best regards,<br>
+                    [Your Full Name]<br>
+                    [Luxury Designations]<br>
+                    [Direct Contact]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> Marketing luxury properties or targeting high-net-worth clients<br>
+                    <strong>Purpose:</strong> Maintain sophisticated tone, create exclusivity for luxury market
+                </div>
+                <div class="advanced-feature">
+                    <strong>Pro Feature:</strong> Includes luxury property marketing package and NDA templates
+                </div>
+            </div>
+
+            <div class="email-template">
+                <div class="pro-tag">PRO EXCLUSIVE</div>
+                <div class="subject-line">Your portfolio diversification opportunity in [Market]</div>
+                <div class="email-body">
+                    [First Name],<br><br>
+                    
+                    Given your success in [their known business/investment area], I wanted to share an investment opportunity that could complement your existing portfolio.<br><br>
+                    
+                    <strong>The Opportunity:</strong> [Specific real estate investment - could be development, flip, rental, etc.]<br><br>
+                    
+                    <strong>The Numbers:</strong><br>
+                    • Initial investment: $[Amount]<br>
+                    • Projected ROI: [X]% over [timeframe]<br>
+                    • Risk profile: [Low/Medium] (similar to [comparable investment type])<br>
+                    • Tax advantages: [Specific benefits - depreciation, 1031 exchange, etc.]<br><br>
+                    
+                    <strong>Why this works for your situation:</strong><br>
+                    Given your [known situation - high tax bracket, need for passive income, etc.], this investment offers [specific benefits that match their needs].<br><br>
+                    
+                    <strong>Market timing:</strong> [Current market conditions that make this attractive]<br><br>
+                    
+                    I've put together a comprehensive analysis including market comps, financial projections, and exit strategies.<br><br>
+                    
+                    <strong>Next step:</strong> 30-minute call to walk through the numbers and see if this fits your investment thesis?<br><br>
+                    
+                    I can meet your schedule - including evenings or weekends.<br><br>
+                    
+                    [Your Name]<br>
+                    [Investment-focused credentials]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> Targeting investment-minded clients or high-net-worth individuals<br>
+                    <strong>Purpose:</strong> Position real estate as strategic investment, demonstrate financial sophistication
+                </div>
+                <div class="personalization-tags">
+                    <strong>Auto-personalization:</strong> [Known business], [Investment amount], [Tax situation], [Investment timeline]
+                </div>
+            </div>
+        </div>
+
+        <div class="template-section">
+            <div class="template-title">📊 Data-Driven Insight Templates</div>
+            
+            <div class="email-template">
+                <div class="pro-tag">PRO EXCLUSIVE</div>
+                <div class="subject-line">Algorithm spotted opportunity: [Address] analysis</div>
+                <div class="email-body">
+                    Hi [First Name],<br><br>
+                    
+                    My proprietary market analysis algorithm flagged [Address] as a significant opportunity based on your search criteria.<br><br>
+                    
+                    <strong>Why the algorithm noticed it:</strong><br><br>
+                    
+                    📊 <strong>Price Analysis:</strong><br>
+                    • Listed at $[Price] - [X]% below algorithm prediction<br>
+                    • Recent comps suggest value range: $[Range]<br>
+                    • Price per square foot: [X]% below neighborhood average<br><br>
+                    
+                    🏘️ <strong>Neighborhood Metrics:</strong><br>
+                    • Appreciation rate: [X]% annually (above city average)<br>
+                    • Days on market trend: Decreasing (seller motivation indicator)<br>
+                    • Future development score: [X]/10 (infrastructure projects planned)<br><br>
+                    
+                    🎯 <strong>Match Score:</strong> 94/100 based on your preferences<br><br>
+                    
+                    <strong>The data suggests:</strong> This property is priced for a quick sale, possibly due to [reason - relocation, estate sale, etc.]. Market timing and pricing indicate [X]% potential appreciation within [timeframe].<br><br>
+                    
+                    <strong>Potential concerns:</strong> [Honest assessment of any red flags the algorithm identified]<br><br>
+                    
+                    <strong>My recommendation:</strong> View within 48 hours. Properties with this data profile typically receive multiple offers within the first week.<br><br>
+                    
+                    Want to see the full algorithmic analysis and schedule a showing?<br><br>
+                    
+                    [Your Name]<br>
+                    [Technology-focused credentials]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> You have sophisticated market analysis tools or data<br>
+                    <strong>Purpose:</strong> Demonstrate technological advantage, provide data-driven recommendations
+                </div>
+                <div class="advanced-feature">
+                    <strong>Pro Feature:</strong> Includes detailed algorithmic analysis reports and market prediction models
+                </div>
+            </div>
+
+            <div class="email-template">
+                <div class="pro-tag">PRO EXCLUSIVE</div>
+                <div class="subject-line">Predictive market analysis: Your area outlook 2025-2027</div>
+                <div class="email-body">
+                    [First Name],<br><br>
+                    
+                    I just completed my annual predictive analysis for [Area] and wanted to share the findings that directly impact your property interests.<br><br>
+                    
+                    <strong>3-Year Market Forecast (2025-2027):</strong><br><br>
+                    
+                    📈 <strong>Property Value Predictions:</strong><br>
+                    • [Property Type 1]: [X]% total appreciation<br>
+                    • [Property Type 2]: [X]% total appreciation<br>
+                    • [Neighborhood A]: Outperforming market by [X]%<br>
+                    • [Neighborhood B]: Moderate growth, [X]% annually<br><br>
+                    
+                    🏗️ <strong>Development Impact Analysis:</strong><br>
+                    • [Major project 1]: [Impact description and timeline]<br>
+                    • [Major project 2]: [Impact description and timeline]<br>
+                    • Infrastructure investments: $[Amount] allocated for [projects]<br><br>
+                    
+                    💰 <strong>Investment Timing Optimization:</strong><br>
+                    • <strong>Best buying opportunity:</strong> [Specific timeframe and why]<br>
+                    • <strong>Optimal selling window:</strong> [Specific timeframe and why]<br>
+                    • <strong>Hold vs. sell analysis:</strong> [Recommendation based on their situation]<br><br>
+                    
+                    <strong>For your specific situation:</strong> Based on your [timeframe/budget/goals], the data suggests [specific strategic recommendation].<br><br>
+                    
+                    <strong>Action items:</strong><br>
+                    1. [Specific recommendation 1]<br>
+                    2. [Specific recommendation 2]<br>
+                    3. [Specific recommendation 3]<br><br>
+                    
+                    I can walk you through the detailed methodology and answer any questions about how this impacts your real estate strategy.<br><br>
+                    
+                    30-minute strategy session this week?<br><br>
+                    
+                    [Your Name]<br>
+                    [Market Analysis Credentials]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> Providing comprehensive market forecasting and strategic advice<br>
+                    <strong>Purpose:</strong> Position as strategic advisor, demonstrate sophisticated market knowledge
+                </div>
+                <div name="advanced-feature">
+                    <strong>Pro Feature:</strong> Includes 20+ page market analysis report and strategic planning worksheets
+                </div>
+            </div>
+        </div>
+
+        <div class="template-section">
+            <div class="template-title">🤝 Relationship Deepening Templates</div>
+            
+            <div class="email-template">
+                <div class="pro-tag">PRO EXCLUSIVE</div>
+                <div class="subject-line">Introduction to [Industry Contact] - potential synergy</div>
+                <div class="email-body">
+                    Hi [First Name],<br><br>
+                    
+                    I was having lunch with [Contact Name], [Their Title] at [Their Company], and your name came up in our conversation about [relevant topic].<br><br>
+                    
+                    <strong>Why I thought you two should connect:</strong><br>
+                    • [Contact] mentioned [relevant challenge/opportunity] that aligns with your [client's expertise/interest]<br>
+                    • You both share [common interest/goal/background]<br>
+                    • There could be [specific mutual benefit - referrals, partnerships, etc.]<br><br>
+                    
+                    <strong>[Contact Name]'s background:</strong> [Brief, impressive bio that would interest your client]<br><br>
+                    
+                    <strong>What [Contact] is working on:</strong> [Current projects/initiatives that might interest your client]<br><br>
+                    
+                    I think there could be some interesting opportunities for collaboration, or at minimum, you'd enjoy the conversation.<br><br>
+                    
+                    <strong>Would you like me to facilitate an introduction?</strong> I'm happy to set up a coffee meeting or make a brief email introduction.<br><br>
+                    
+                    <strong>No pressure at all</strong> - just thought the connection could be mutually beneficial.<br><br>
+                    
+                    Let me know your thoughts!<br><br>
+                    
+                    Best,<br>
+                    [Your Name]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> You can facilitate valuable business connections for clients<br>
+                    <strong>Purpose:</strong> Add value beyond real estate, deepen relationship through networking
+                </div>
+                <div class="advanced-feature">
+                    <strong>Pro Feature:</strong> Includes contact database integration and introduction tracking system
+                </div>
+            </div>
+
+            <div class="email-template">
+                <div class="pro-tag">PRO EXCLUSIVE</div>
+                <div class="subject-line">Congratulations on [Recent Achievement] - and a small celebration</div>
+                <div class="email-body">
+                    Dear [First Name],<br><br>
+                    
+                    I saw the news about [specific achievement - promotion, business milestone, award, etc.] - congratulations! [Personal comment showing you understand the significance]<br><br>
+                    
+                    <strong>Why this caught my attention:</strong> I remember when you mentioned [previous conversation about their goals/challenges], and it's incredible to see how you've [specific progress they've made].<br><br>
+                    
+                    <strong>A small celebration:</strong> I'd love to take you and [spouse/partner if applicable] to dinner at [upscale restaurant] to celebrate properly. Are you free any evening next week?<br><br>
+                    
+                    <strong>No agenda, just genuine congratulations.</strong> Though I suspect this achievement might change your housing needs - [thoughtful speculation about how their success might impact real estate plans].<br><br>
+                    
+                    <strong>Either way:</strong> You've earned a proper celebration, and I'd be honored to host.<br><br>
+                    
+                    <strong>Restaurant options I had in mind:</strong><br>
+                    • [Restaurant 1] - [what they're known for]<br>
+                    • [Restaurant 2] - [what they're known for]<br>
+                    • Or anywhere else you've been wanting to try<br><br>
+                    
+                    Just pick a day that works for you!<br><br>
+                    
+                    Again, so proud of what you've accomplished.<br><br>
+                    
+                    Best regards,<br>
+                    [Your Name]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> Client achieves significant personal or professional milestone<br>
+                    <strong>Purpose:</strong> Deepen personal relationship, demonstrate genuine care beyond transactions
+                </div>
+                <div class="personalization-tags">
+                    <strong>Auto-personalization:</strong> [Achievement type], [Restaurant preferences], [Relationship context], [Future implications]
+                </div>
+            </div>
+        </div>
+
+        <div class="template-section">
+            <div class="template-title">⚡ Crisis Response Templates</div>
+            
+            <div class="email-template">
+                <div class="pro-tag">PRO EXCLUSIVE</div>
+                <div class="subject-line">Market disruption alert - protective strategy for your interests</div>
+                <div class="email-body">
+                    [First Name],<br><br>
+                    
+                    I'm reaching out immediately because of [market disruption - rate spike, policy change, economic event] that could significantly impact your real estate plans.<br><br>
+                    
+                    <strong>What just happened:</strong> [Clear explanation of the market event]<br><br>
+                    
+                    <strong>Impact on your situation:</strong><br>
+                    • <strong>Short-term (next 30 days):</strong> [Immediate implications]<br>
+                    • <strong>Medium-term (3-6 months):</strong> [Likely outcomes]<br>
+                    • <strong>Long-term (1+ years):</strong> [Strategic considerations]<br><br>
+                    
+                    <strong>Protective actions I recommend:</strong><br>
+                    1. <strong>Immediate:</strong> [Time-sensitive action]<br>
+                    2. <strong>This week:</strong> [Short-term strategy]<br>
+                    3. <strong>This month:</strong> [Medium-term positioning]<br><br>
+                    
+                    <strong>Opportunities this creates:</strong> [How sophisticated clients can benefit from the disruption]<br><br>
+                    
+                    <strong>What I'm doing for you:</strong><br>
+                    • Monitoring [specific metrics/indicators]<br>
+                    • Maintaining relationships with [relevant contacts - lenders, developers, etc.]<br>
+                    • Tracking [specific opportunities] that could benefit your situation<br><br>
+                    
+                    <strong>Next steps:</strong> Emergency strategy call today or tomorrow to adjust your plan based on these developments.<br><br>
+                    
+                    I'm available until 9pm tonight or can meet early tomorrow morning.<br><br>
+                    
+                    This situation requires immediate attention - please call or reply as soon as you see this.<br><br>
+                    
+                    [Your Name]<br>
+                    [Direct Phone]<br>
+                    [Emergency Contact if needed]
+                </div>
+                <div class="template-notes">
+                    <strong>Use when:</strong> Major market disruptions occur that affect client interests<br>
+                    <strong>Purpose:</strong> Demonstrate proactive protection, position as crisis manager
+                </div>
+                <div class="advanced-feature">
+                    <strong>Pro Feature:</strong> Includes market disruption playbooks and crisis communication protocols
+                </div>
+            </div>
+        </div>
+
+        <button class="print-button" onclick="window.print()">Print Pro Manual Templates</button>
+    </div>
+
+    <script>
+        // Print styling
+        const printStyles = `
+            <style>
+                @media print {
+                    body {
+                        background: white !important;
+                        color: black !important;
+                    }
+                    .print-button { display: none !important; }
+                    .template-section, .email-template {
+                        background: white !important;
+                        border: 1px solid #ccc !important;
+                    }
+                    .email-template {
+                        border-left: 4px solid #000 !important;
+                    }
+                    .template-notes, .advanced-feature, .personalization-tags {
+                        background: #f0f0f0 !important;
+                        color: black !important;
+                        border: 1px solid #ccc !important;
+                    }
+                    .pro-tag {
+                        background: #ddd !important;
+                        color: black !important;
+                    }
+                    .form-header::before {
+                        display: none !important;
+                    }
+                }
+            </style>
+        `;
+        
+        document.head.insertAdjacentHTML('beforeend', printStyles);
+    </script>
+</body>
+</html>

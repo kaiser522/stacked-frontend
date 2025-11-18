@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Center - Help Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #e1e5e9;
+            background-color: #2c3e50;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid #00d4aa;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #00d4aa;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content-section {
+            background: #34495e;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #485e73;
+        }
+        
+        .content-section h2 {
+            color: #00d4aa;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #00d4aa;
+            padding-bottom: 10px;
+        }
+        
+        .content-section h3 {
+            color: #00d4aa;
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+        }
+        
+        .content-section p {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: #e1e5e9;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #00d4aa;
+            border: 1px solid #485e73;
+        }
+        
+        .stat-card h4 {
+            color: #00d4aa;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e1e5e9;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card .subtitle {
+            font-size: 0.8rem;
+            color: #b8c5d1;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .category-card {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #485e73;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            border-color: #00d4aa;
+            transform: translateY(-2px);
+        }
+        
+        .category-card h4 {
+            color: #00d4aa;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+        
+        .category-card.active {
+            border-color: #00d4aa;
+            background: #1e3d59;
+        }
+        
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .material-card {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #485e73;
+            transition: all 0.3s ease;
+        }
+        
+        .material-card:hover {
+            border-color: #00d4aa;
+            transform: translateY(-2px);
+        }
+        
+        .material-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .material-icon {
+            width: 48px;
+            height: 48px;
+            background: #3b82f6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .material-info {
+            flex: 1;
+        }
+        
+        .material-title {
+            color: #e1e5e9;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .material-description {
+            color: #b8c5d1;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .material-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            font-size: 0.85rem;
+            color: #a0aec0;
+        }
+        
+        .material-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .tag {
+            background: #4a5568;
+            color: #a0aec0;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+        
+        .open-btn {
+            background: #00d4aa;
+            color: #2d3748;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-weight: 600;
+            cursor: pointer;
+            float: right;
+        }
+        
+        .open-btn:hover {
+            background: #00c399;
+        }
+        
+        .search-section {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #485e73;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: #34495e;
+            border: 1px solid #485e73;
+            border-radius: 6px;
+            color: #e1e5e9;
+            font-size: 1rem;
+        }
+        
+        .search-input::placeholder {
+            color: #7f8c8d;
+        }
+        
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+        }
+        
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #00d4aa;
+            color: #2c3e50;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .tip-box {
+            background: #1e3d59;
+            border-left: 4px solid #00d4aa;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #e1e5e9;
+        }
+        
+        .tip-box strong {
+            color: #00d4aa;
+        }
+        
+        .warning-box {
+            background: #d2691e;
+            border-left: 4px solid #ff6b35;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: white;
+        }
+        
+        .warning-box strong {
+            color: white;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            color: #e1e5e9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📢 Marketing Center</h1>
+            <p>Professional templates and materials to market your listings and grow your real estate business</p>
+        </div>
+
+        <div class="content-section">
+            <h2>What is the Marketing Center?</h2>
+            <p>The Marketing Center is your comprehensive hub for creating professional marketing materials to promote your listings and grow your real estate business. This section provides access to customizable templates, flyers, social media content, email campaigns, and other marketing tools designed specifically for real estate professionals.</p>
+            
+            <p>All materials can be customized with your property details, branding, and contact information, then downloaded for immediate use in your marketing campaigns.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Marketing Center Overview</h2>
+            <p>At the top of the Marketing Center, you'll see four key statistics that track your template usage:</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h4>Total Templates</h4>
+                    <div class="value">9</div>
+                    <div class="subtitle">Available materials</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Downloaded</h4>
+                    <div class="value">0</div>
+                    <div class="subtitle">Templates used</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Times Used</h4>
+                    <div class="value">0</div>
+                    <div class="subtitle">Total usage count</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Favorites</h4>
+                    <div class="value">0</div>
+                    <div class="subtitle">Saved templates</div>
+                </div>
+            </div>
+
+            <h3>Understanding Your Statistics</h3>
+            <ul>
+                <li><strong>Total Templates:</strong> The complete number of marketing materials available to you</li>
+                <li><strong>Downloaded:</strong> How many different templates you've downloaded and used</li>
+                <li><strong>Times Used:</strong> Total number of times you've accessed or downloaded templates</li>
+                <li><strong>Favorites:</strong> Templates you've marked as favorites for quick access</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Search and Filter Functionality</h2>
+            <p>Use the search bar to quickly find specific marketing materials by keyword, content type, or purpose:</p>
+            
+            <div class="search-section">
+                <input type="text" class="search-input" placeholder="🔍 Search marketing materials..." readonly>
+            </div>
+
+            <h3>Search Tips</h3>
+            <ul>
+                <li>Search by material type: "flyer," "social media," "email"</li>
+                <li>Look for specific purposes: "listing," "sold," "open house"</li>
+                <li>Find templates by format: "PDF," "JPG," "HTML"</li>
+                <li>Search results update in real-time as you type</li>
+            </ul>
+
+            <h3>Category Filters</h3>
+            <p>The Marketing Center organizes materials into convenient categories:</p>
+            
+            <div class="categories-grid">
+                <div class="category-card active">
+                    <h4>All Categories</h4>
+                </div>
+                <div class="category-card">
+                    <h4>Template</h4>
+                </div>
+                <div class="category-card">
+                    <h4>Social Media</h4>
+                </div>
+                <div class="category-card">
+                    <h4>Print</h4>
+                </div>
+                <div class="category-card">
+                    <h4>Email</h4>
+                </div>
+                <div class="category-card">
+                    <h4>Presentation</h4>
+                </div>
+                <div class="category-card">
+                    <h4>Forms</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Available Marketing Materials</h2>
+            <p>The Marketing Center includes 9 professional marketing materials designed for various real estate scenarios:</p>
+
+            <div class="materials-grid">
+                <div class="material-card">
+                    <div class="material-header">
+                        <div class="material-icon" style="background: #3b82f6;">📄</div>
+                        <div class="material-info">
+                            <div class="material-title">Professional Listing Flyers</div>
+                        </div>
+                    </div>
+                    <div class="material-description">
+                        Eye-catching property flyers for print and digital marketing campaigns.
+                    </div>
+                    <div class="material-meta">
+                        <span>📄 PDF Template</span>
+                    </div>
+                    <div class="material-tags">
+                        <span class="tag">listing</span>
+                        <span class="tag">print ready</span>
+                    </div>
+                    <button class="open-btn">Open</button>
+                </div>
+
+                <div class="material-card">
+                    <div class="material-header">
+                        <div class="material-icon" style="background: #8b5cf6;">📱</div>
+                        <div class="material-info">
+                            <div class="material-title">Social Media Post Templates</div>
+                        </div>
+                    </div>
+                    <div class="material-description">
+                        Instagram and Facebook ready post templates for social media marketing.
+                    </div>
+                    <div class="material-meta">
+                        <span>🎨 Canva/JPG</span>
+                    </div>
+                    <div class="material-tags">
+                        <span class="tag">social media</span>
+                        <span class="tag">branding</span>
+                    </div>
+                    <button class="open-btn">Open</button>
+                </div>
+
+                <div class="material-card">
+                    <div class="material-header">
+                        <div class="material-icon" style="background: #10b981;">📧</div>
+                        <div class="material-info">
+                            <div class="material-title">Email Marketing Templates</div>
+                        </div>
+                    </div>
+                    <div class="material-description">
+                        Professional email templates for newsletters, market updates, and follow-ups.
+                    </div>
+                    <div class="material-meta">
+                        <span>💻 HTML/Text</span>
+                    </div>
+                    <div class="material-tags">
+                        <span class="tag">email</span>
+                        <span class="tag">automation</span>
+                    </div>
+                    <button class="open-btn">Open</button>
+                </div>
+
+                <div class="material-card">
+                    <div class="material-header">
+                        <div class="material-icon" style="background: #f59e0b;">🏠</div>
+                        <div class="material-info">
+                            <div class="material-title">Coming Soon Door Hangers</div>
+                        </div>
+                    </div>
+                    <div class="material-description">
+                        Door hangers to generate pre-listing interest in neighborhoods.
+                    </div>
+                    <div class="material-meta">
+                        <span>🖨️ Print PDF</span>
+                    </div>
+                    <div class="material-tags">
+                        <span class="tag">neighborhood</span>
+                        <span class="tag">prospecting</span>
+                    </div>
+                    <button class="open-btn">Open</button>
+                </div>
+
+                <div class="material-card">
+                    <div class="material-header">
+                        <div class="material-icon" style="background: #06b6d4;">📊</div>
+                        <div class="material-info">
+                            <div class="material-title">Market Analysis Reports</div>
+                        </div>
+                    </div>
+                    <div class="material-description">
+                        Professional charts and graphs to showcase your market expertise.
+                    </div>
+                    <div class="material-meta">
+                        <span>📄 Word/PDF</span>
+                    </div>
+                    <div class="material-tags">
+                        <span class="tag">market data</span>
+                        <span class="tag">reports</span>
+                    </div>
+                    <button class="open-btn">Open</button>
+                </div>
+
+                <div class="material-card">
+                    <div class="material-header">
+                        <div class="material-icon" style="background: #84cc16;">📝</div>
+                        <div class="material-info">
+                            <div class="material-title">Open House Sign-In Forms</div>
+                        </div>
+                    </div>
+                    <div class="material-description">
+                        Lead capture forms with contact fields for open house events.
+                    </div>
+                    <div class="material-meta">
+                        <span>📝 PDF Form</span>
+                    </div>
+                    <div class="material-tags">
+                        <span class="tag">lead capture</span>
+                        <span class="tag">open house</span>
+                    </div>
+                    <button class="open-btn">Open</button>
+                </div>
+
+                <div class="material-card">
+                    <div class="material-header">
+                        <div class="material-icon" style="background: #ef4444;">📮</div>
+                        <div class="material-info">
+                            <div class="material-title">Just Sold Postcards</div>
+                        </div>
+                    </div>
+                    <div class="material-description">
+                        Announcement postcards for recent closings and neighborhood farming.
+                    </div>
+                    <div class="material-meta">
+                        <span>🖨️ Print Ready</span>
+                    </div>
+                    <div class="material-tags">
+                        <span class="tag">direct mail</span>
+                        <span class="tag">farming</span>
+                    </div>
+                    <button class="open-btn">Open</button>
+                </div>
+
+                <div class="material-card">
+                    <div class="material-header">
+                        <div class="material-icon" style="background: #ec4899;">📋</div>
+                        <div class="material-info">
+                            <div class="material-title">Buyer Consultation Packets</div>
+                        </div>
+                    </div>
+                    <div class="material-description">
+                        Complete buyer meeting materials and consultation forms.
+                    </div>
+                    <div class="material-meta">
+                        <span>📄 Document Set</span>
+                    </div>
+                    <div class="material-tags">
+                        <span class="tag">buyer</span>
+                        <span class="tag">consultation</span>
+                    </div>
+                    <button class="open-btn">Open</button>
+                </div>
+
+                <div class="material-card">
+                    <div class="material-header">
+                        <div class="material-icon" style="background: #6366f1;">💼</div>
+                        <div class="material-info">
+                            <div class="material-title">Seller Listing Presentations</div>
+                        </div>
+                    </div>
+                    <div class="material-description">
+                        Professional presentations for winning listings and seller meetings.
+                    </div>
+                    <div class="material-meta">
+                        <span>📊 PowerPoint</span>
+                    </div>
+                    <div class="material-tags">
+                        <span class="tag">listing</span>
+                        <span class="tag">presentation</span>
+                    </div>
+                    <button class="open-btn">Open</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Using the Professional Flyer Generator</h2>
+            <p>The Professional Listing Flyers tool is an interactive generator that allows you to create customized property flyers. When you click "Open" on the flyer template, you'll access a comprehensive flyer creation hub.</p>
+
+            <h3>Flyer Generator Features</h3>
+            <ul>
+                <li><strong>Multiple Templates:</strong> Property listing flyers and "Just Sold" announcement flyers</li>
+                <li><strong>Live Preview:</strong> See your changes in real-time as you customize</li>
+                <li><strong>Custom Colors:</strong> Choose from multiple color schemes to match your branding</li>
+                <li><strong>Print Ready:</strong> Standard 8.5" x 11" size optimized for printing</li>
+                <li><strong>Lead Generation:</strong> Built-in call-to-action elements</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Step-by-Step: Creating a Marketing Flyer</h2>
+            
+            <ol class="step-list">
+                <li>Click on "Professional Listing Flyers" from the marketing materials grid</li>
+                <li>Choose between "Property Listing Flyer" or "Just Sold Flyer" template</li>
+                <li>Fill in the property details: price, address, bedrooms, bathrooms, and square footage</li>
+                <li>Enter a compelling property description highlighting key features</li>
+                <li>Add your agent information including name and phone number</li>
+                <li>Select a header color that matches your branding preferences</li>
+                <li>Review the live preview to ensure all information appears correctly</li>
+                <li>Click "Download" to save your customized flyer as a PDF</li>
+            </ol>
+
+            <div class="tip-box">
+                <strong>💡 Marketing Tip:</strong> Use consistent colors and formatting across all your marketing materials to build brand recognition. Consider creating flyers for different property types and price ranges to have templates ready when needed.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Other Marketing Materials</h2>
+            
+            <h3>Social Media Templates</h3>
+            <p>Professional templates optimized for Instagram and Facebook posts, including:</p>
+            <ul>
+                <li>Property showcase posts with key details</li>
+                <li>Market update graphics</li>
+                <li>"Just Listed" and "Just Sold" announcement templates</li>
+                <li>Agent branding templates</li>
+            </ul>
+
+            <h3>Email Marketing Templates</h3>
+            <p>Ready-to-use email templates for various scenarios:</p>
+            <ul>
+                <li>Monthly market newsletter templates</li>
+                <li>New listing announcements</li>
+                <li>Price reduction notifications</li>
+                <li>Client follow-up sequences</li>
+                <li>Holiday and seasonal greetings</li>
+            </ul>
+
+            <h3>Print Marketing Materials</h3>
+            <p>Physical marketing materials for direct outreach:</p>
+            <ul>
+                <li>Coming Soon door hangers for neighborhood marketing</li>
+                <li>Open house sign-in sheets with contact capture</li>
+                <li>Market analysis report templates</li>
+                <li>Just Sold postcards for farming</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Distribution and Usage</h2>
+            
+            <h3>Digital Distribution</h3>
+            <ul>
+                <li><strong>Social Media:</strong> Share flyers and graphics on Instagram, Facebook, and LinkedIn</li>
+                <li><strong>Email Campaigns:</strong> Include flyers in your email marketing efforts</li>
+                <li><strong>Website Integration:</strong> Add marketing materials to your real estate website</li>
+                <li><strong>Online Listings:</strong> Use professional flyers in MLS and listing portals</li>
+            </ul>
+
+            <h3>Print Distribution</h3>
+            <ul>
+                <li><strong>Open Houses:</strong> Display flyers prominently at open house events</li>
+                <li><strong>Neighborhood Marketing:</strong> Door-to-door distribution in target neighborhoods</li>
+                <li><strong>Office Display:</strong> Feature materials in your real estate office</li>
+                <li><strong>Community Boards:</strong> Post flyers on community bulletin boards (where permitted)</li>
+                <li><strong>Client Meetings:</strong> Bring printed materials to listing appointments and consultations</li>
+            </ul>
+
+            <h3>Tracking Performance</h3>
+            <ul>
+                <li>Monitor download counts and usage statistics in your Marketing Center</li>
+                <li>Track lead generation from different marketing channels</li>
+                <li>Measure social media engagement on posts using your templates</li>
+                <li>Ask clients how they heard about your listings</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Legal and Compliance Considerations</h2>
+            
+            <div class="warning-box">
+                <strong>IMPORTANT LEGAL DISCLAIMER:</strong> All marketing materials are for professional use only. Users are responsible for ensuring compliance with local, state, and federal advertising regulations, fair housing laws, and MLS rules.
+            </div>
+
+            <h3>Advertising Compliance</h3>
+            <ul>
+                <li><strong>Fair Housing:</strong> Ensure all materials comply with fair housing advertising guidelines</li>
+                <li><strong>Truth in Advertising:</strong> Verify all property information is accurate and current</li>
+                <li><strong>License Requirements:</strong> Include required license information where applicable</li>
+                <li><strong>MLS Rules:</strong> Follow local MLS advertising and marketing guidelines</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Troubleshooting Common Issues</h2>
+            
+            <h3>Template Generation Problems</h3>
+            <ul>
+                <li><strong>Preview Not Loading:</strong> Refresh the page or try a different browser</li>
+                <li><strong>Download Fails:</strong> Ensure all required fields are completed before downloading</li>
+                <li><strong>Image Quality Issues:</strong> Use high-resolution images for best print quality</li>
+                <li><strong>Text Formatting Problems:</strong> Check for special characters that may cause formatting issues</li>
+            </ul>
+
+            <h3>Customization Issues</h3>
+            <ul>
+                <li><strong>Color Changes Not Saving:</strong> Make sure to click save after selecting new colors</li>
+                <li><strong>Text Not Displaying Properly:</strong> Keep text within recommended character limits</li>
+                <li><strong>Agent Information Missing:</strong> Verify all contact fields are filled out</li>
+                <li><strong>Property Details Incorrect:</strong> Double-check all numerical entries for accuracy</li>
+            </ul>
+
+            <h3>Search and Filter Problems</h3>
+            <ul>
+                <li><strong>Search Not Working:</strong> Clear search terms and try again</li>
+                <li><strong>No Results Found:</strong> Try broader search terms or check spelling</li>
+                <li><strong>Category Filters Not Responding:</strong> Refresh the page and try again</li>
+                <li><strong>Templates Not Loading:</strong> Check internet connection and reload the page</li>
+            </ul>
+
+            <h3>Download and File Issues</h3>
+            <ul>
+                <li><strong>PDF Won't Open:</strong> Update your PDF reader or try a different application</li>
+                <li><strong>File Size Too Large:</strong> Use compressed images or reduce image resolution</li>
+                <li><strong>Print Quality Poor:</strong> Ensure you're downloading high-resolution versions</li>
+                <li><strong>Mobile Download Problems:</strong> Try downloading on desktop for better compatibility</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Best Practices for Maximum Impact</h2>
+            
+            <h3>Content Creation Tips</h3>
+            <ul>
+                <li><strong>Headlines:</strong> Create compelling headlines that grab attention immediately</li>
+                <li><strong>Property Features:</strong> Lead with the most desirable features of each property</li>
+                <li><strong>Calls-to-Action:</strong> Use clear, specific language that encourages immediate response</li>
+                <li><strong>Contact Information:</strong> Make it easy for prospects to reach you</li>
+            </ul>
+
+            <h3>Visual Design Guidelines</h3>
+            <ul>
+                <li>Use high-contrast color combinations for better readability</li>
+                <li>Maintain white space to avoid cluttered appearance</li>
+                <li>Ensure text is large enough to read in both print and digital formats</li>
+                <li>Use consistent font styles throughout all materials</li>
+            </ul>
+
+            <h3>Distribution Timing</h3>
+            <ul>
+                <li><strong>New Listings:</strong> Create and distribute materials within 24 hours of listing</li>
+                <li><strong>Price Changes:</strong> Update and redistribute materials immediately after price adjustments</li>
+                <li><strong>Seasonal Updates:</strong> Refresh materials quarterly to maintain current appearance</li>
+                <li><strong>Market Reports:</strong> Distribute monthly market analysis to stay top-of-mind</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>🎯 Success Metric:</strong> Track which marketing materials generate the most leads and focus your efforts on the highest-performing templates and distribution channels.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Integration with Other CRM Sections</h2>
+            
+            <h3>Client Section Integration</h3>
+            <p>Marketing materials complement your client management:</p>
+            <ul>
+                <li><strong>Client Presentations:</strong> Use professional templates in client meetings</li>
+                <li><strong>Follow-up Materials:</strong> Send customized flyers and reports to prospects</li>
+                <li><strong>Listing Marketing:</strong> Create materials immediately after securing a new listing</li>
+                <li><strong>Client Education:</strong> Use market reports to educate buyers and sellers</li>
+            </ul>
+
+            <h3>Properties Section Synergy</h3>
+            <p>Marketing materials work directly with your property listings:</p>
+            <ul>
+                <li>Create flyers using information from your Properties section</li>
+                <li>Generate marketing materials immediately when adding new listings</li>
+                <li>Update marketing materials when property details change</li>
+                <li>Track which properties have associated marketing materials</li>
+            </ul>
+
+            <h3>Calendar and Task Management</h3>
+            <ul>
+                <li>Schedule regular marketing campaigns using calendar reminders</li>
+                <li>Set tasks to create marketing materials for new listings</li>
+                <li>Plan seasonal marketing campaigns in advance</li>
+                <li>Track marketing deadlines and campaign launches</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Performance Tracking and Analytics</h2>
+            
+            <h3>Usage Tracking</h3>
+            <p>The Marketing Center tracks your template usage to help you understand which materials are most effective:</p>
+            <ul>
+                <li><strong>Download Counter:</strong> Shows how many unique templates you've used</li>
+                <li><strong>Usage Frequency:</strong> Tracks total number of times templates are accessed</li>
+                <li><strong>Favorite Templates:</strong> Identifies your most-used marketing materials</li>
+                <li><strong>Performance Insights:</strong> Helps you focus on the most effective materials</li>
+            </ul>
+
+            <h3>Organizing Your Templates</h3>
+            <ul>
+                <li>Use the favorites feature to quickly access your most-used templates</li>
+                <li>Create a systematic approach to template customization</li>
+                <li>Save multiple versions of templates for different property types</li>
+                <li>Keep track of which templates work best for different markets</li>
+            </ul>
+
+            <h3>Return on Investment</h3>
+            <ul>
+                <li>Track leads generated from each marketing material type</li>
+                <li>Monitor conversion rates from different distribution channels</li>
+                <li>Calculate cost per lead for various marketing approaches</li>
+                <li>Focus resources on highest-performing materials and channels</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
