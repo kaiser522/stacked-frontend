@@ -225,7 +225,7 @@ function App() {
                 path="marketing-tools/addons/client-milestone-timeline"
                 element={
                   <AddonGate
-                    addonKey="client-milestone-timeline"
+                    addonKey="client-milestone-automation"
                     category="real-estate"
                     fallbackPath="/realestate/marketing-tools"
                   >
@@ -237,7 +237,7 @@ function App() {
                 path="marketing-tools/addons/commission-calculator"
                 element={
                   <AddonGate
-                    addonKey="commission-calculator"
+                    addonKey="advanced-commission-calculator"
                     category="real-estate"
                     fallbackPath="/realestate/marketing-tools"
                   >
@@ -321,7 +321,7 @@ function App() {
                 path="marketing-tools/addons/probate-market-tracker"
                 element={
                   <AddonGate
-                    addonKey="probate-market-tracker"
+                    addonKey="probate-market-analyzer"
                     category="real-estate"
                     fallbackPath="/realestate/marketing-tools"
                   >
@@ -345,7 +345,7 @@ function App() {
                 path="marketing-tools/addons/deal-analysis-calculator"
                 element={
                   <AddonGate
-                    addonKey="deal-analysis-calculator"
+                    addonKey="deal-analysis-dashboard"
                     category="real-estate"
                     fallbackPath="/realestate/marketing-tools"
                   >
