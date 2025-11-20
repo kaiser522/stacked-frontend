@@ -222,7 +222,7 @@ function App() {
               <Route path="marketing-tools/buyer-consultation" element={<MT_BuyerConsultationPackets />} />
               <Route path="marketing-tools/seller-presentations" element={<MT_SellerListingPresentations />} />
               <Route
-                path="marketing-tools/addons/client-milestone-timeline"
+                path="marketing-tools/addons/client-milestone-automation"
                 element={
                   <AddonGate
                     addonKey="client-milestone-automation"
@@ -234,7 +234,7 @@ function App() {
                 }
               />
               <Route
-                path="marketing-tools/addons/commission-calculator"
+                path="marketing-tools/addons/advanced-commission-calculator"
                 element={
                   <AddonGate
                     addonKey="advanced-commission-calculator"
@@ -318,7 +318,7 @@ function App() {
                 }
               />
               <Route
-                path="marketing-tools/addons/probate-market-tracker"
+                path="marketing-tools/addons/probate-market-analyzer"
                 element={
                   <AddonGate
                     addonKey="probate-market-analyzer"
@@ -342,7 +342,7 @@ function App() {
                 }
               />
               <Route
-                path="marketing-tools/addons/deal-analysis-calculator"
+                path="marketing-tools/addons/deal-analysis-dashboard"
                 element={
                   <AddonGate
                     addonKey="deal-analysis-dashboard"

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   Home,
@@ -26,6 +26,7 @@ import {
   Users2,
   Target,
   BookOpen,
+  Zap,
 } from "lucide-react";
 import logo from "../../assets/logo/logo-1.png";
 import { Button } from "./ui/Button";
@@ -33,6 +34,7 @@ import { useDispatch } from "react-redux";
 import { logoutUser } from "../../store/slices/user.slice";
 import NewFooter from "../NewFooter";
 import IntercomChat from "../IntercomChat";
+import { useAddonAccessChecker } from "../../hooks/useAddonAccess";
 
 function getUserFromStorage() {
   try {
@@ -87,6 +89,29 @@ const navigation = [
   { name: "Help Center", href: "/realestate/help-center", icon: HelpCircle },
 ];
 
+// Define all 12 add-ons
+const allAddons = [
+  // Real Estate Agents
+  { name: "Client Milestone Timeline", href: "/realestate/marketing-tools/addons/client-milestone-automation", icon: Calendar, addonKey: "client-milestone-automation" },
+  { name: "Listing Presentation", href: "/realestate/marketing-tools/addons/listing-presentation-templates", icon: FileText, addonKey: "listing-presentation-templates" },
+  { name: "Commission Calculator", href: "/realestate/marketing-tools/addons/advanced-commission-calculator", icon: BarChart3, addonKey: "advanced-commission-calculator" },
+  
+  // Home Flippers
+  { name: "Contractor Bid Tool", href: "/realestate/marketing-tools/addons/contractor-bid-comparison-tool", icon: Users, addonKey: "contractor-bid-comparison-tool" },
+  { name: "Marketing Campaign", href: "/realestate/marketing-tools/addons/marketing-campaign-manager", icon: Megaphone, addonKey: "marketing-campaign-manager" },
+  { name: "Rehab Cost Estimator", href: "/realestate/marketing-tools/addons/rehab-cost-estimator", icon: Building, addonKey: "rehab-cost-estimator" },
+  
+  // Probate
+  { name: "Case Status Tracker", href: "/realestate/marketing-tools/addons/case-status-tracker", icon: FileText, addonKey: "case-status-tracker" },
+  { name: "Estate Inventory", href: "/realestate/marketing-tools/addons/estate-inventory-tool", icon: Library, addonKey: "estate-inventory-tool" },
+  { name: "Probate Market Tracker", href: "/realestate/marketing-tools/addons/probate-market-analyzer", icon: TrendingUp, addonKey: "probate-market-analyzer" },
+  
+  // Wholesalers
+  { name: "Assignment Fee Calc", href: "/realestate/marketing-tools/addons/assignment-fee-calculator", icon: CreditCard, addonKey: "assignment-fee-calculator" },
+  { name: "Deal Analysis", href: "/realestate/marketing-tools/addons/deal-analysis-dashboard", icon: BarChart3, addonKey: "deal-analysis-dashboard" },
+  { name: "Quick MAO Calculator", href: "/realestate/marketing-tools/addons/quick-mao-calculator", icon: Target, addonKey: "quick-mao-calculator" },
+];
+
 // const messagingNavigation = [
 // { name: "Text Messages", href: "/realestate/messaging", icon: MessageSquare },
 // { name: "Voice Calls", href: "/realestate/voice-calls", icon: Phone },
@@ -98,6 +123,13 @@ export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const navigate = useNavigate();
+  const { canAccess, loading: addonLoading } = useAddonAccessChecker();
+
+  // Filter addons based on user's selectedAddons
+  const accessibleAddons = useMemo(() => {
+    if (addonLoading || !user) return [];
+    return allAddons.filter((addon) => canAccess(addon.addonKey));
+  }, [user, addonLoading, canAccess]);
 
   return (
     <div className="min-h-screen bg-[var(--lighter-dark)]">
@@ -169,6 +201,43 @@ export default function Layout() {
                   </NavLink>
                 </li>
               ))}
+
+              {/* Add-ons Section */}
+              {accessibleAddons.length > 0 && (
+                <>
+                  {!sidebarCollapsed && (
+                    <li className="pt-4 pb-2">
+                      <div className="px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-2">
+                        <Zap className="w-3 h-3" />
+                        My Add-ons
+                      </div>
+                    </li>
+                  )}
+                  {accessibleAddons.map((addon) => (
+                    <li key={addon.addonKey}>
+                      <NavLink
+                        to={addon.href}
+                        className={({ isActive }) =>
+                          `flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 ${isActive
+                            ? "bg-[var(--lighter-dark)] text-white border-r-2 border-[var(--primary-color)]"
+                            : "text-gray-300 hover:bg-[var(--lighter-dark)]"
+                          }`
+                        }
+                      >
+                        <addon.icon className="w-5 h-5" />
+                        {!sidebarCollapsed && (
+                          <div className="flex items-center gap-1">
+                            <span className="text-xs">{addon.name}</span>
+                            <span className="bg-[#F39C12] text-white text-[8px] px-1 py-0 rounded-full font-semibold leading-none">
+                              Addon
+                            </span>
+                          </div>
+                        )}
+                      </NavLink>
+                    </li>
+                  ))}
+                </>
+              )}
 
               {/* Messaging Section */}
               {/* {!sidebarCollapsed && (
