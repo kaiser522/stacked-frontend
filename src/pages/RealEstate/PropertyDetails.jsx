@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { useState, useMemo } from "react";
 import {
   Card,
   CardContent,
@@ -25,12 +26,25 @@ import {
   Eye,
   Loader2,
 } from "lucide-react";
-import { useGetPropertyByIdQuery, useToggleSavedPropertyMutation } from "../../store/apis/properties.api";
+import { useGetPropertyByIdQuery } from "../../store/apis/properties.api";
+import { useToggleFavoriteMutation, useGetFavoritesByUserIdQuery } from "../../store/apis/favorites.api";
 import PropertyMap from "../../components/RealEstate/PropertyMap";
 
 const PropertyDetails = () => {
   const { propertyId } = useParams();
   const navigate = useNavigate();
+
+  // Get user ID from localStorage
+  const userId = useMemo(() => {
+    try {
+      const raw = localStorage.getItem("__user__");
+      if (!raw) return undefined;
+      const parsed = JSON.parse(raw);
+      return parsed?.id ?? parsed?._id ?? undefined;
+    } catch {
+      return undefined;
+    }
+  }, []);
 
   console.log("PropertyDetails: propertyId =", propertyId); // Debug log
 
@@ -46,15 +60,40 @@ const PropertyDetails = () => {
   console.log("PropertyDetails: responseData =", responseData); // Debug log
   console.log("PropertyDetails: property =", property); // Debug log
 
-  const [toggleSavedProperty, { isLoading: isToggling }] = useToggleSavedPropertyMutation();
+  // Get user's favorites
+  const { data: favData } = useGetFavoritesByUserIdQuery(userId, {
+    skip: !userId,
+  });
+
+  // Check if this property is favorited
+  const isFavorited = useMemo(() => {
+    const favoritedIds = favData?.favoritedIds || [];
+    return favoritedIds.map(String).includes(String(propertyId));
+  }, [favData, propertyId]);
+
+  // Optimistic UI state
+  const [optimisticFavorite, setOptimisticFavorite] = useState(null);
+  const displayFavorite = optimisticFavorite !== null ? optimisticFavorite : isFavorited;
+
+  const [toggleFavorite, { isLoading: isToggling }] = useToggleFavoriteMutation();
 
   const handleToggleSaved = async () => {
-    if (property?._id) {
-      try {
-        await toggleSavedProperty(property._id).unwrap();
-      } catch (error) {
-        console.error("Failed to toggle saved status:", error);
-      }
+    if (!userId || !propertyId) {
+      console.warn("User ID or Property ID missing");
+      return;
+    }
+
+    // Optimistic update
+    setOptimisticFavorite(!displayFavorite);
+
+    try {
+      await toggleFavorite({ userId, propertyId }).unwrap();
+      // Clear optimistic state after successful mutation
+      setOptimisticFavorite(null);
+    } catch (error) {
+      // Revert optimistic update on error
+      setOptimisticFavorite(null);
+      console.error("Failed to toggle favorite:", error);
     }
   };
 
@@ -142,11 +181,11 @@ const PropertyDetails = () => {
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
             ) : (
               <Heart
-                className={`w-4 h-4 mr-2 ${property.saved ? "fill-red-500 text-red-500" : ""
+                className={`w-4 h-4 mr-2 ${displayFavorite ? "fill-red-500 text-red-500" : ""
                   }`}
               />
             )}
-            {property.saved ? "Saved" : "Save"}
+            {displayFavorite ? "Favorited" : "Add to Favorites"}
           </Button>
         </div>
       </div>
