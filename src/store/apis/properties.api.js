@@ -248,6 +248,18 @@ export const propertiesApi = createApi({
       }),
       invalidatesTags: ["Property"],
     }),
+
+    // Upload properties from CSV (POST /properties/upload-csv)
+    uploadPropertiesFromCSV: build.mutation({
+      query: (formData) => ({
+        url: "/properties/upload-csv",
+        method: "POST",
+        body: formData,
+        // Don't set Content-Type header - let browser set it with boundary for FormData
+        formData: true,
+      }),
+      invalidatesTags: ["Property", "PropertyStats"],
+    }),
   }),
 });
 
@@ -261,4 +273,5 @@ export const {
   useGetSavedPropertiesQuery,
   useGetPropertiesByAgentIdQuery,
   useCreatePropertyMutation,
+  useUploadPropertiesFromCSVMutation,
 } = propertiesApi;

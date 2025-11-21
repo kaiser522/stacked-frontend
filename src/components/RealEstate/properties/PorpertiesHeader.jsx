@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { Plus, Upload, Download, X, AlertCircle, CheckCircle } from "lucide-react";
 import PropertyForm from "../../Form/PropertyForm";
+import { useUploadPropertiesFromCSVMutation } from "../../../store/apis/properties.api";
 
 const PropertiesHeader = ({ properties = [], filteredProperties = [], onRefresh }) => {
   const [showForm, setShowForm] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const [uploadResult, setUploadResult] = useState(null);
+
+  // Use RTK Query mutation for CSV upload
+  const [uploadCSV, { isLoading: uploading }] = useUploadPropertiesFromCSVMutation();
 
   const handleImportCSV = () => {
     setShowImportModal(true);
@@ -29,7 +32,6 @@ const PropertiesHeader = ({ properties = [], filteredProperties = [], onRefresh 
       return;
     }
 
-    setUploading(true);
     setUploadResult(null);
 
     try {
@@ -38,71 +40,29 @@ const PropertiesHeader = ({ properties = [], filteredProperties = [], onRefresh 
 
       console.log('Uploading file:', file.name, 'Size:', file.size);
 
-      const response = await fetch('http://localhost:5001/api/v1/properties/upload-csv', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          // Don't set Content-Type header - let browser set it with boundary for FormData
-          'Authorization': `Bearer ${localStorage.getItem('token')}` // Add your auth token here
-        }
+      // Use RTK Query mutation
+      const result = await uploadCSV(formData).unwrap();
+
+      console.log('Upload successful:', result);
+      
+      setUploadResult({
+        success: true,
+        data: result.data,
+        message: result.message || 'Properties uploaded successfully'
       });
 
-      console.log('Response status:', response.status);
-      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
-
-      // Check if response has content before trying to parse JSON
-      const contentType = response.headers.get('content-type');
-      let result;
-
-      if (contentType && contentType.includes('application/json')) {
-        try {
-          result = await response.json();
-        } catch (jsonError) {
-          console.error('JSON parsing error:', jsonError);
-          setUploadResult({
-            success: false,
-            message: 'Server returned invalid response format'
-          });
-          return;
-        }
-      } else {
-        // Handle non-JSON responses (like HTML error pages)
-        const textResponse = await response.text();
-        console.error('Non-JSON response:', textResponse);
-        setUploadResult({
-          success: false,
-          message: `Server error: ${response.status} ${response.statusText}`
-        });
-        return;
-      }
-
-      if (response.ok) {
-        setUploadResult({
-          success: true,
-          data: result.data,
-          message: result.message
-        });
-
-        // Refresh properties after successful upload
-        if (onRefresh && typeof onRefresh === 'function') {
-          setTimeout(() => {
-            onRefresh();
-          }, 1000); // Small delay to ensure server has processed the upload
-        }
-      } else {
-        setUploadResult({
-          success: false,
-          message: result.message || `Upload failed: ${response.status} ${response.statusText}`
-        });
+      // Refresh properties after successful upload
+      if (onRefresh && typeof onRefresh === 'function') {
+        setTimeout(() => {
+          onRefresh();
+        }, 1000); // Small delay to ensure server has processed the upload
       }
     } catch (error) {
       console.error('Upload error:', error);
       setUploadResult({
         success: false,
-        message: `Network error: ${error.message}`
+        message: error?.data?.message || error?.message || 'Upload failed. Please try again.'
       });
-    } finally {
-      setUploading(false);
     }
   };
 
